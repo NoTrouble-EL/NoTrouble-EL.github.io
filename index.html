@@ -258,6 +258,223 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/08/%E4%BD%A0%E4%B8%8D%E4%BA%86%E8%A7%A3%E7%9A%84WiFi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wu kun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wukun's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/07/08/%E4%BD%A0%E4%B8%8D%E4%BA%86%E8%A7%A3%E7%9A%84WiFi/" itemprop="url">你不了解的WiFi</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-08T00:25:54+08:00">
+                2020-07-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A1%AC%E6%A0%B8%E6%97%A0%E7%BA%BF%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">硬核无线技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="1-WiFi名字的由来"><a href="#1-WiFi名字的由来" class="headerlink" title="1.WiFi名字的由来"></a>1.WiFi名字的由来</h2><p>WIFI（Wireless Fidelity，无线保真）听起来有点像是HIFI（High-Fidelity，高保真），然后制定无线技术的组织就借用这种深入人心的发音方式取名为WIFI，纯粹就是为了好记。</p>
+<h2 id="2-WiFi的频率，信道，调制方式"><a href="#2-WiFi的频率，信道，调制方式" class="headerlink" title="2.WiFi的频率，信道，调制方式"></a>2.WiFi的频率，信道，调制方式</h2><p>WiFi的频段：例如$ 2.4GHz $，并不指的是一个特定的频率，而是一个范围。</p>
+<ul>
+<li><p>$ 2.4GHz $，指的是:$2.4GHz \sim 2.4835GHz$</p>
+</li>
+<li><p>$ 5GHz $，指的是:$5.15GHz \sim 5.85GHz$</p>
+</li>
+</ul>
+<p>在$2.4GHz\sim2.4835GHz$之间有大约$8000万Hz$（$1GHz=10亿Hz$）的频率差别，这个范围中分成了很多信道（为了多个设备，多个网络尽可能不产生干扰，虽然都在$ 2.4GHz $大的频段，却工作在不同的信道上）。根据WiFi的标准不同，每个信道的频宽从$ 1MHz \sim 160MHz $不等。</p>
+<p>无线主要的调制技术手段有三种：</p>
+<ul>
+<li><p>DSSS（Direct Sequence Spread Spectrum，直序列扩频调制技术）<br>其占用的频宽较大，可靠性和稳定性是其优点。但民用的无线频段是个有限资源，随着数据越来越大，占用大频宽来保证无线通讯的可靠性的DSSS应用越来越垂直，民用慢慢过渡到OFDM。</p>
+</li>
+<li><p>FHSS（Frequency-Hopping Spread Spectrum，跳频技术）<br>所谓跳频，比较确切的意思是：用一定码序列进行选择的多频率频移键控。也就是说，用扩频码序列去进行频移键控调制，使载波频率不断地跳变，所以称为跳频。FHSS比DSSS更不易受到干扰，但在传输速率上不及DSSS。</p>
+</li>
+<li><p>OFDM（Orthogonal Frequency Division Multiplexing，正交频分复用技术）<br>其特点是占用较小的频宽资源，来调制更多的数据，更有效率的利用有限的频宽，能极大的提升调制和传输的数据量。</p>
+</li>
+</ul>
+<p>这些技术手段都是通过合理的方式把数字信号调制成电磁波，通过天线发射出去，接收端收到之后，把调制好的电磁波解码出来，还原成数据信号。</p>
+<h2 id="3-主流的WiFi标准"><a href="#3-主流的WiFi标准" class="headerlink" title="3.主流的WiFi标准"></a>3.主流的WiFi标准</h2><ul>
+<li><p>1999年第一代：802.11b, Frequency: $ 2.4GHz $, Data Rate:  $ 11Mbps $;</p>
+</li>
+<li><p>1999年第二代：802.11a, Frequency: $ 5GHz $, Data Rate: $ 54Mbps$;</p>
+<ul>
+<li>802.11b和802.11a解决的问题是从无到有。</li>
+</ul>
+</li>
+<li><p>2003年第三代：802.11g, Frequency: $ 2.4GHz $, Data Rate: $ 54Mbps $;</p>
+<ul>
+<li>802.11g解决的问题是：1.通信速率的提高（OFDM实现）；2.向下兼容问题，支持802.11b。</li>
+</ul>
+</li>
+<li><p>2009年第四代：802.11n, Frequency: $ 2.4/5GHz $, Data Rate: $ 288/600Mbps $;</p>
+<ul>
+<li>1.利用了双频技术，$ 2.4GHz $和$ 5GHz $双频段通信；2.搭载了MIMO（multiple-in multiple-out，多进多出）技术。</li>
+<li>其中$ 2.4GHz $频段从802.11g演化而来；$ 5GHz $频段从802.11a演化而来。802.11n的一大特点：对以往标准的兼容性；另一特点是:十几倍的传输速率的提升。</li>
+<li>MIMO技术解决的问题是：多个终端多条数据流同时通信的问题。</li>
+</ul>
+</li>
+<li><p>2013年第五代：802.11ac, Frequency: $ 5GHz $, Data Rate: $ 1.6Gbps $;</p>
+<ul>
+<li>802.11ac兼容性是靠802.11n来兼容的，若是以老旧设备连接802.11ac是通过802.11n来兼容的以前的b，a，g。</li>
+<li>同时也引入了一个天线硬件的技术Beam Forming（波束赋形），其通过阵列天线，电磁波可以被天线矩阵通过互相干涉改变电磁波的相位和振幅的这种方式实现转向电磁波传播的方向。通过波束赋形的技术，天线矩阵可以实时追踪设备的位置，始终把最强信号的电磁波送到设备附近。</li>
+</ul>
+</li>
+<li><p>2019年第六代（WIFI6）：802.11ax, Frequency: $ 2.4/5/6GHz $, Data Rate: $ 3.5Gbps $;</p>
+<ul>
+<li>WIFI6的通信速率提升到了接近万兆网络级别</li>
+<li>调制信号的方式从OFDM进一步优化到OFDMA（4GLTE）加强了多用户不同带宽需求同时信号传输能力。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Wifi的一些常识知识"><a href="#Wifi的一些常识知识" class="headerlink" title="Wifi的一些常识知识"></a>Wifi的一些常识知识</h2><ul>
+<li><p>理论速率和协商速率</p>
+<ul>
+<li>理论速率是WiFi最高支持的传输速率。</li>
+<li>协商速率是实际使用过程中你的无线设备连接到路由器的实际速率，协商速率跟WiFi的协议，天线发射功率，干扰，距离，障碍物等外界因素相关。</li>
+</ul>
+</li>
+<li><p>$ 2.4GHz $和$ 5GHz $频段的干扰</p>
+<ul>
+<li>$ 2.4GHz $频段的干扰比较严重，因为蓝牙，无线电话等占用$ 2.4GHz $频段的产品。</li>
+<li>使用$ 5GHz $频段的设备比使用2.4GHz的设备少了一个级别，但同时$ 5GHz $频段信号的绕射能力也弱于$ 2.4GHz $频段。</li>
+</ul>
+</li>
+<li><p>对于信号差的解决办法：1.更换高增益的天线；2.优化无线发射设备的位置；3.消除干扰，选用更好的信道。</p>
+</li>
+</ul>
+<h2 id="WiFi的一些技术演变及应用"><a href="#WiFi的一些技术演变及应用" class="headerlink" title="WiFi的一些技术演变及应用"></a>WiFi的一些技术演变及应用</h2><ul>
+<li>WiFi Direct（WiFi直连）<ul>
+<li>手机热点</li>
+<li>Air Drop</li>
+<li>Air Play</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/06/%E9%80%9A%E4%BF%97%E7%9A%84%E6%97%A0%E7%BA%BF%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -446,7 +663,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -468,7 +685,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
