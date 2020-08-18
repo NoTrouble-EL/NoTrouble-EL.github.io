@@ -248,6 +248,160 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/19/%E6%9B%B2%E7%8E%87%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wu kun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wukun's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/08/19/%E6%9B%B2%E7%8E%87%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC/" itemprop="url">曲率公式推导</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-19T01:10:58+08:00">
+                2020-08-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6%E5%B8%B8%E8%AF%86/" itemprop="url" rel="index">
+                    <span itemprop="name">数学常识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="曲率公式："><a href="#曲率公式：" class="headerlink" title="曲率公式："></a>曲率公式：</h2><p>$k = \frac {|y’’|}{(1+y’^2)^{\frac{3}{2}}}$</p>
+<h2 id="曲率及曲率半径的定义"><a href="#曲率及曲率半径的定义" class="headerlink" title="曲率及曲率半径的定义"></a>曲率及曲率半径的定义</h2><p>对于一条曲线来说我们可以研究其曲率。通常来想，以一条连续光滑的曲线上无限接近的两个点为端点的一弧线总可以视为是某个圆上的一段弧（可以简单的认为曲率半径在连续光滑的曲线上不会发生突变，所以在某点的无穷小领域内曲率半径可以作为一个常量）。而这个圆的半径就被定义为曲线在这一点的曲率半径，而曲率则被定义为曲率半径的倒数。</p>
+<p>那么如何求曲率的半径呢？我们可以回想一下刚接触到弧度制的时候是怎么定义弧度的。弧度是圆弧长与该圆半径的比值，即$\alpha = \frac{S}{R}$；显然当$S=2\pi R$即整个圆周长时弧度为$2\pi$。</p>
+<p>那么显然曲率半径很自然的可以定义为$R=\frac{dS}{d\alpha}$，即无穷小的一段弧长与其相对应的弧度的比值。</p>
+<p>为了能使用最简单的运算步骤，我们要先研究一下几何关系：</p>
+<p><img src="/2020/08/19/%E6%9B%B2%E7%8E%87%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC/1.jpg" alt="几何关系"></p>
+<p>如图，$A,B$即为连续光滑曲线上无线逼近的两个点，根据几何关系可以看出$d\alpha = \alpha _2 - \alpha_1$</p>
+<h2 id="求-d-alpha"><a href="#求-d-alpha" class="headerlink" title="求$d\alpha$:"></a>求$d\alpha$:</h2><p>回想一下什么是曲线斜率，曲线的斜率就是其切线在这一点与水平线夹角的正切值，那么图片上曲线在$A,B$两点的斜率自然就是$\tan \alpha_1$与$\tan \alpha_2$。而我们需要的是这两个倾斜角的差值$d\alpha$。</p>
+<p>则有$\tan \alpha = \frac{dy}{dx}$，我们对其求微分可得：<br>$d\tan \alpha = \frac{d\tan \alpha}{d\alpha} d\alpha = \sec ^2\alpha d\alpha = (1+\tan ^2\alpha)d\alpha = [1+(\frac{dy}{dx})^2]d\alpha$<br>这样可得：$d\alpha = \frac{d\tan \alpha}{1+(\frac{dy}{dx})^2} = \frac{d\frac{dy}{dx}}{1+(\frac{dy}{dx})^2}$</p>
+<h2 id="求-dS"><a href="#求-dS" class="headerlink" title="求$dS$:"></a>求$dS$:</h2><p>这就是对弧长进行微分，也叫弧微分。简单来说就是用线段$AB$来代替弧$AB$，因为当这两点无限趋近的时候，它们基本就没什么区别了，也就是取一阶近似或者说线性近似的意思。</p>
+<p>设$A(x_1,y_1),B(x_2,y_2)$，线段$AB$的长度很好计算，就是勾股定理：<br>$|AB| = dS = \sqrt {(x_2 - x_1)^2+(y_2-y_1)^2} = (x_2 - x_1) \sqrt {1+(\frac{y_2-y_1}{x_2-x_1})^2} = \sqrt {1+(\frac{dy}{dx})^2}dx$</p>
+<h2 id="将-d-alpha-与-dS-代入公式："><a href="#将-d-alpha-与-dS-代入公式：" class="headerlink" title="将$d\alpha$与$dS$代入公式："></a>将$d\alpha$与$dS$代入公式：</h2><p>加一个绝对值，曲率半径就是被定义为一个正数，暂且没必要牵扯的负数，就这么解释一哈吧！<br>$R = |\frac{dS}{d\alpha}| = \frac{[1+(\frac{dy}{dx})^2]^{\frac{3}{2}}}{|d \frac{dy}{dx}\cdot \frac{1}{dx}|} = \frac{[1+(\frac{dy}{dx})^2]^{\frac{3}{2}}}{|\frac{d}{dx}\frac{dy}{dx}|} = \frac{[1+(\frac{dy}{dx})^2]^{\frac{3}{2}}}{|\frac{d^2y}{dx^2}|}$</p>
+<p>而曲率就是曲率半径的一个倒数，即$\frac{|y’’|}{(1+y’^2)^\frac{3}{2}}$</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/08/%E4%BD%A0%E4%B8%8D%E4%BA%86%E8%A7%A3%E7%9A%84WiFi/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -653,7 +807,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -664,7 +818,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -675,7 +829,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
