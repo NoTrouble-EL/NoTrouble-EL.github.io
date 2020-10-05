@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JAVA," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第三章 Java的基本程序设计结构3.1 一个简单的Java应用程序3.2 注释3.3 数据类型3.3.1 整型3.3.2 浮点类型三个特殊的浮点类型：  正无穷大 (Double.POSITIVE_INFINITY)以及相应的Float类型 负无穷大(Double.NEGATIVE_INFINITY)以及相应的Float类型 NaN (Double.NaN)以及相应的Float类型  检测一个特">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第三章 Java的基本程序设计结构">
+<meta property="og:url" content="http://yoursite.com/2020/10/05/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:site_name" content="NoTrouble&#39;s Blog">
+<meta property="og:description" content="第三章 Java的基本程序设计结构3.1 一个简单的Java应用程序3.2 注释3.3 数据类型3.3.1 整型3.3.2 浮点类型三个特殊的浮点类型：  正无穷大 (Double.POSITIVE_INFINITY)以及相应的Float类型 负无穷大(Double.NEGATIVE_INFINITY)以及相应的Float类型 NaN (Double.NaN)以及相应的Float类型  检测一个特">
+<meta property="article:published_time" content="2020-10-05T12:10:57.000Z">
+<meta property="article:modified_time" content="2020-10-05T12:59:08.600Z">
+<meta property="article:author" content="NoTrouble">
+<meta property="article:tag" content="JAVA">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/10/05/第三章-Java的基本程序设计结构/"/>
+
+
+
+
+
+  <title>第三章 Java的基本程序设计结构 | NoTrouble's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NoTrouble's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录分享生活中的点点滴滴</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-playlist">
+          <a href="/playlist/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-music"></i> <br />
+            
+            歌单
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/05/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="NoTrouble">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoTrouble's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第三章 Java的基本程序设计结构</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-05T20:10:57+08:00">
+                2020-10-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第三章-Java的基本程序设计结构"><a href="#第三章-Java的基本程序设计结构" class="headerlink" title="第三章 Java的基本程序设计结构"></a>第三章 Java的基本程序设计结构</h1><h2 id="3-1-一个简单的Java应用程序"><a href="#3-1-一个简单的Java应用程序" class="headerlink" title="3.1 一个简单的Java应用程序"></a>3.1 一个简单的Java应用程序</h2><h2 id="3-2-注释"><a href="#3-2-注释" class="headerlink" title="3.2 注释"></a>3.2 注释</h2><h2 id="3-3-数据类型"><a href="#3-3-数据类型" class="headerlink" title="3.3 数据类型"></a>3.3 数据类型</h2><h3 id="3-3-1-整型"><a href="#3-3-1-整型" class="headerlink" title="3.3.1 整型"></a>3.3.1 整型</h3><h3 id="3-3-2-浮点类型"><a href="#3-3-2-浮点类型" class="headerlink" title="3.3.2 浮点类型"></a>3.3.2 浮点类型</h3><p>三个特殊的浮点类型：</p>
+<ul>
+<li>正无穷大 (Double.POSITIVE_INFINITY)以及相应的Float类型</li>
+<li>负无穷大(Double.NEGATIVE_INFINITY)以及相应的Float类型</li>
+<li>NaN (Double.NaN)以及相应的Float类型</li>
+</ul>
+<p>检测一个特定值是否等于Double.NaN:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (x == Double.NaN)<span class="comment">// is never true</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(Double.isNaN(X))</span><br></pre></td></tr></table></figure>
+
+<p>浮点数不适用于无法接受舍入误差的金融计算，可以使用BigDecimal类。</p>
+ <a id="more"></a> 
+
+<h3 id="3-3-3-char类型"><a href="#3-3-3-char类型" class="headerlink" title="3.3.3 char类型"></a>3.3.3 char类型</h3><h3 id="3-3-4-Unicode和char类型"><a href="#3-3-4-Unicode和char类型" class="headerlink" title="3.3.4 Unicode和char类型"></a>3.3.4 Unicode和char类型</h3><h3 id="3-3-5-boolean类型"><a href="#3-3-5-boolean类型" class="headerlink" title="3.3.5 boolean类型"></a>3.3.5 boolean类型</h3><h2 id="3-4-变量与常量"><a href="#3-4-变量与常量" class="headerlink" title="3.4 变量与常量"></a>3.4 变量与常量</h2><h3 id="3-4-1-声明变量"><a href="#3-4-1-声明变量" class="headerlink" title="3.4.1 声明变量"></a>3.4.1 声明变量</h3><h3 id="3-4-2-变量初始化"><a href="#3-4-2-变量初始化" class="headerlink" title="3.4.2 变量初始化"></a>3.4.2 变量初始化</h3><h3 id="3-4-3-常量"><a href="#3-4-3-常量" class="headerlink" title="3.4.3 常量"></a>3.4.3 常量</h3><p>可以利用关键字final 指示常量。关键字final表示这个变量只能被赋值一次，一旦被赋值之后就不能够再更改了；常量使用全大写。</p>
+<p>当希望某个常量可以在一个类的多个方法中使用，通常将这些常量称为类常量（class constant）；可以使用static final设置一个常量；类常量的定义位于main方法的外部，在同一个类的其他方法也可以使用这个常量。若一个常量被声明为public，那么其他类的方法也可以使用这个常量。</p>
+<h3 id="3-4-4-枚举类型"><a href="#3-4-4-枚举类型" class="headerlink" title="3.4.4 枚举类型"></a>3.4.4 枚举类型</h3><p>变量的取值只有在一个有限的集合内。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Size &#123;SMALL,MEDIUM,LARGE,EXTRA_LARGE&#125;;</span><br><span class="line">Size s = Size.MEDIUM;</span><br></pre></td></tr></table></figure>
+
+<p>Size类型的变量只能存储这个类型声明中给定的某个枚举值，或是特殊值null。</p>
+<h2 id="3-5-运算符"><a href="#3-5-运算符" class="headerlink" title="3.5 运算符"></a>3.5 运算符</h2><h3 id="3-5-1-算术运算符"><a href="#3-5-1-算术运算符" class="headerlink" title="3.5.1 算术运算符"></a>3.5.1 算术运算符</h3><h3 id="3-5-2-数学函数与常量"><a href="#3-5-2-数学函数与常量" class="headerlink" title="3.5.2 数学函数与常量"></a>3.5.2 数学函数与常量</h3><h3 id="3-5-3-数值类型之间的转换"><a href="#3-5-3-数值类型之间的转换" class="headerlink" title="3.5.3 数值类型之间的转换"></a>3.5.3 数值类型之间的转换</h3><p>当一个二元运算符连接两个值时，先要将两个操作数值转换为同一类型，然后再进行计算。</p>
+<ul>
+<li>如果两个操作数中有一个是double类型，另一个操作数就会转换为double；</li>
+<li>否则，如果其中一个操作数是float类型，另一个操作数将会转为float；</li>
+<li>否则，如果其中一个操作数是long类型，另一个操作数将会转换为long类型；</li>
+<li>否则，两个操作数都被转换为int类型。</li>
+</ul>
+<h3 id="3-5-4-强制类型转换"><a href="#3-5-4-强制类型转换" class="headerlink" title="3.5.4 强制类型转换"></a>3.5.4 强制类型转换</h3><p>若想对浮点数进行舍入运算</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> x =<span class="number">9.997</span>;</span><br><span class="line"><span class="keyword">int</span> nx = (<span class="keyword">int</span>) Math.round(x) <span class="comment">//round 方法返回结果为long类型 +0.5向下取整</span></span><br></pre></td></tr></table></figure>
+
+<p>对于byte/short/char三种类型来说，如果右侧赋值的数值没有超过范围，那么javac编译器会自动隐含地为我们补上一个强制类型转换；编译器的常量优化；</p>
+<h3 id="3-5-5-结合赋值和运算符"><a href="#3-5-5-结合赋值和运算符" class="headerlink" title="3.5.5 结合赋值和运算符"></a>3.5.5 结合赋值和运算符</h3><h3 id="3-5-6-自增与自减运算符"><a href="#3-5-6-自增与自减运算符" class="headerlink" title="3.5.6 自增与自减运算符"></a>3.5.6 自增与自减运算符</h3><h3 id="3-5-7-关系和boolean运算符"><a href="#3-5-7-关系和boolean运算符" class="headerlink" title="3.5.7 关系和boolean运算符"></a>3.5.7 关系和boolean运算符</h3><p>三元操作符：condition? expression1 : expression2；如果条件为true，就为第一个表达式的值，否则计算为第二个表达式的值。</p>
+<h3 id="3-5-8-位运算符"><a href="#3-5-8-位运算符" class="headerlink" title="3.5.8 位运算符"></a>3.5.8 位运算符</h3><h3 id="3-5-9-括号与运算符级别"><a href="#3-5-9-括号与运算符级别" class="headerlink" title="3.5.9 括号与运算符级别"></a>3.5.9 括号与运算符级别</h3><h2 id="3-6-字符串"><a href="#3-6-字符串" class="headerlink" title="3.6 字符串"></a>3.6 字符串</h2><h3 id="3-6-1-子串"><a href="#3-6-1-子串" class="headerlink" title="3.6.1 子串"></a>3.6.1 子串</h3><p>String类的substring 方法可以从一个较大的字符串提取一个子串</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String greeting = <span class="string">"Hello"</span>;</span><br><span class="line">String s = greeting.substring(<span class="number">0</span>,<span class="number">3</span>);<span class="comment">//从0开始计数，直到3为止，但不包含3。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-6-2-拼接"><a href="#3-6-2-拼接" class="headerlink" title="3.6.2 拼接"></a>3.6.2 拼接</h3><p>如果需要把多个字符串放在一起，用一个界定符号分隔，可以使用静态join方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String all = String.join(<span class="string">"/"</span>,<span class="string">"S"</span>,<span class="string">"M"</span>,<span class="string">"L"</span>,<span class="string">"XL"</span>); <span class="comment">// all is the string "S / M / L / XL"</span></span><br><span class="line"></span><br><span class="line">String repeated = <span class="string">"java"</span>.repeat(<span class="number">3</span>);<span class="comment">//java 11 中的repeat方法</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-6-3-不可变字符串"><a href="#3-6-3-不可变字符串" class="headerlink" title="3.6.3 不可变字符串"></a>3.6.3 不可变字符串</h3><h3 id="3-6-4-检测字符串是否相等"><a href="#3-6-4-检测字符串是否相等" class="headerlink" title="3.6.4 检测字符串是否相等"></a>3.6.4 检测字符串是否相等</h3><p>可以使用equals方法检测两个字符串是否相等；s.equals(t)，可以是字符串变量，也可以是字符串字面量；“Hello”.equals(greeting)。</p>
+<p>若想检测两个字符串是否相等，而不区分大小写，可以使用equilsIgnoreCase方法；“Hello”.equalsIgnoreCase(“Hello”)。</p>
+<p>一定不要使用 == 运算符检测两个字符串是否相等！这个运算符只能确定两个字符串是否存放在同一个位置上。若字符串在同一个位置上，它们必然相等；但完全有可能将内同相同的多个字符串副本放在不同的位置上。</p>
+<h3 id="3-6-5-空串与Null串"><a href="#3-6-5-空串与Null串" class="headerlink" title="3.6.5 空串与Null串"></a>3.6.5 空串与Null串</h3><p>空串“”是长度为0的字符串，可以调用以下代码来检查字符串是否为空：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(str.length() == <span class="number">0</span>)<span class="comment">//1</span></span><br><span class="line"><span class="keyword">if</span>(str.equals(<span class="string">""</span>))<span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+
+<p>空串是一个java对象，有自己的长度0和内容空；不过String变量还可以存放一个特殊的值，名为null，表示目前没有任何对象与该变量关联。要检查一个字符串是否为null，要使用以下条件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(str == <span class="keyword">null</span>)<span class="comment">//1</span></span><br><span class="line"><span class="keyword">if</span>(str != <span class="keyword">null</span> &amp;&amp; str.length() != <span class="number">0</span>)<span class="comment">//检查一个字符串既不是null，也不是空串</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-6-6-码点与代码单元"><a href="#3-6-6-码点与代码单元" class="headerlink" title="3.6.6 码点与代码单元"></a>3.6.6 码点与代码单元</h3><p>调用s.charAt(n)将返回位置n的代码单元</p>
+<h3 id="3-6-7-String-API"><a href="#3-6-7-String-API" class="headerlink" title="3.6.7 String API"></a>3.6.7 String API</h3><h3 id="3-6-8-阅读联机API文档"><a href="#3-6-8-阅读联机API文档" class="headerlink" title="3.6.8 阅读联机API文档"></a>3.6.8 阅读联机API文档</h3><h3 id="3-6-9-构建字符串"><a href="#3-6-9-构建字符串" class="headerlink" title="3.6.9 构建字符串"></a>3.6.9 构建字符串</h3><p>若需要用许多小段的字符串来构建一个字符串，可以</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">StringBuilder builder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">builder.append(ch);</span><br><span class="line">builder.append(str);</span><br><span class="line"><span class="comment">//字符串构建完成时就调用toSting方法</span></span><br><span class="line">String completedString = builder.toSring();</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-7-输入与输出"><a href="#3-7-输入与输出" class="headerlink" title="3.7 输入与输出"></a>3.7 输入与输出</h2><h3 id="3-7-1-读取输入"><a href="#3-7-1-读取输入" class="headerlink" title="3.7.1 读取输入"></a>3.7.1 读取输入</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InputTest</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"What is your name ?"</span>);</span><br><span class="line">        String name = sc.nextLine();</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"How old are you ?"</span>);</span><br><span class="line">        <span class="keyword">int</span> age = sc.nextInt();</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"Hello!"</span>+name+<span class="string">".Next year,you'll be "</span>+(age + <span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-7-2-格式化输出"><a href="#3-7-2-格式化输出" class="headerlink" title="3.7.2 格式化输出"></a>3.7.2 格式化输出</h3><p>%[argument_index$][flags][width][.precision]conversion</p>
+<h3 id="3-7-3-文件输入与输出"><a href="#3-7-3-文件输入与输出" class="headerlink" title="3.7.3 文件输入与输出"></a>3.7.3 文件输入与输出</h3><p>想要读取一个文件，需要构造一个Scanner对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Scanner in = <span class="keyword">new</span> Scanner(Path.of(<span class="string">"myfile.txt"</span>),StandardCharsets.UTF_8);</span><br></pre></td></tr></table></figure>
+
+<p>若文件名中包含反斜杠符号，就要记住在每个反斜杠之前加一个额外的反斜杠转义：“c:\mydirectory\myfile.text”。</p>
+<p>想要写入文件，就需要构造一个PrintWriter对象。在构造器中，需要提供文件名和字符编码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PrintWriter out = <span class="keyword">new</span> PrintWriter(<span class="string">"myfile.txt"</span>,StandardCharsets.UTF_8);</span><br></pre></td></tr></table></figure>
+
+<p>若文件不存在，则创建该文件。</p>
+<h2 id="3-8-控制流程"><a href="#3-8-控制流程" class="headerlink" title="3.8 控制流程"></a>3.8 控制流程</h2><h3 id="3-8-1-块作用域"><a href="#3-8-1-块作用域" class="headerlink" title="3.8.1 块作用域"></a>3.8.1 块作用域</h3><p>不能在嵌套的两个块中声明同名变量</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    ...</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> k;</span><br><span class="line">        <span class="keyword">int</span> n;<span class="comment">//ERROR</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-8-2-条件语句"><a href="#3-8-2-条件语句" class="headerlink" title="3.8.2 条件语句"></a>3.8.2 条件语句</h3><h3 id="3-8-3-循环"><a href="#3-8-3-循环" class="headerlink" title="3.8.3 循环"></a>3.8.3 循环</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Retirement</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"How much money do you need to retire?"</span>);</span><br><span class="line">        <span class="keyword">double</span> goal = sc.nextDouble();</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"How much money will you contribute every year?"</span>);</span><br><span class="line">        <span class="keyword">double</span> payment = sc.nextDouble();</span><br><span class="line"></span><br><span class="line">        System.out.print(<span class="string">"Interest rate is in %:"</span>);</span><br><span class="line">        <span class="keyword">double</span> interestRate = sc.nextDouble();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">double</span> balance = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> year = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (balance &lt; goal)</span><br><span class="line">        &#123;</span><br><span class="line">            balance += payment;</span><br><span class="line">            <span class="keyword">double</span> interest = balance * interestRate / <span class="number">100</span>;</span><br><span class="line">            balance += interest;</span><br><span class="line">            year++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"you can retire in "</span>+year+<span class="string">" years"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-8-4-确定循环"><a href="#3-8-4-确定循环" class="headerlink" title="3.8.4 确定循环"></a>3.8.4 确定循环</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LotteryOdds</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scaner(System.in);</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"How many numbers do you need to draw?"</span>);</span><br><span class="line">        <span class="keyword">int</span> k = sc.nextInt();</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"What is the highest number you can draw?"</span>);</span><br><span class="line">        <span class="keyword">int</span> n = sc.nextInt();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> lotteryOdds = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= k; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            lotteryOdds = lotteryOdds * (n - i + <span class="number">1</span>) / i;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"Your odds are 1 in "</span>+lotteryOdds);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Retirement2</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"How much money will you contribute every year ?"</span>);</span><br><span class="line">        <span class="keyword">double</span> payment = sc.nextDouble();</span><br><span class="line"></span><br><span class="line">        System.out.print(<span class="string">"Interest rate in %:"</span>);</span><br><span class="line">        <span class="keyword">double</span> interestRate = sc.nextDouble();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">double</span> balance = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> years = <span class="number">0</span>;</span><br><span class="line">        String input;</span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">        &#123;</span><br><span class="line">            balance += payment;</span><br><span class="line">            <span class="keyword">double</span> interest = balance * interestRate / <span class="number">100</span>;</span><br><span class="line">            balance += interest;</span><br><span class="line">            years++;</span><br><span class="line"></span><br><span class="line">            System.out.printf(<span class="string">"After year %d, you balance is %,.2f"</span>,years,balance);</span><br><span class="line"></span><br><span class="line">            System.out.print(<span class="string">"Ready to retire ? (Y/N)"</span>);</span><br><span class="line">            input = sc.next();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (input.equals(<span class="string">"N"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-8-5-多重选择：switch语句"><a href="#3-8-5-多重选择：switch语句" class="headerlink" title="3.8.5 多重选择：switch语句"></a>3.8.5 多重选择：switch语句</h3><p>多个case后面的数值不可以重复；switch后面小括号当中只能是下列数据类型：基本数据类型：byte/short/char/int，引用数据类型：String字符串、enum枚举； switch语句可以很灵活，前后顺序可以颠倒，break语句可以省略，匹配哪一个case就从哪一个位置向下执行，直到遇到break或整体结束为止。</p>
+<h3 id="3-8-6-中断控制流程的语句"><a href="#3-8-6-中断控制流程的语句" class="headerlink" title="3.8.6 中断控制流程的语句"></a>3.8.6 中断控制流程的语句</h3><h2 id="3-9-大数"><a href="#3-9-大数" class="headerlink" title="3.9 大数"></a>3.9 大数</h2><p>若基本的整数和浮点数精度不能够满足需求，可以使用java.math包中两个很有用的类：BigInteger和BigDecimal。可以使用静态的valueOf方法将普通的数值转换为大数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BigInteger a = BigInteger.valueOf(<span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+
+<p>对于更大的数，可以使用一个带字符串参数的构造器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BigInteger reallyBig = <span class="keyword">new</span> BigInteger(<span class="string">"223432532432993288872843924002048423"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>注意：不能使用熟悉的算术运算符（+，*）处理大数，而需要使用大数类中的add和multiply方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">BigInteger c = a.add(b);<span class="comment">//c = a + b</span></span><br><span class="line">BigInteger d = c.multiply(b.add(BigInteger.valueOf(<span class="number">2</span>)));<span class="comment">// d = c * (b + 2)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.math.BigInteger;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BigIntegerTest</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"How many numbers do you need to draw?"</span>);</span><br><span class="line">        <span class="keyword">int</span> k = sc.nextInt();</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"What is the highest number you can draw?"</span>);</span><br><span class="line">        <span class="keyword">int</span> n = sc.nextInt();</span><br><span class="line"></span><br><span class="line">        BigInteger lotteryOdds = BigInteger.valueOf(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= k; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            lotteryOdds = lotteryOdds.multiply(BigInteger.valueOf(n - i +<span class="number">1</span>)).divide(BigInteger.valueOf(i));</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"Your odds are 1 in "</span>+lotteryOdds);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>BigInteger add(BigInteger other)</li>
+<li>BigInteger subtract(BigInteger other)</li>
+<li>BigInteger multiply(BigInteger other)</li>
+<li>BigInteger divide(BigInteger other)</li>
+<li>BigInteger mod(BigInteger other)</li>
+</ul>
+<p>返回这个大整数和另一个大整数other的和、差、积、商、余数。</p>
+<ul>
+<li>BigInteger sqrt()</li>
+</ul>
+<p>得到这个大数的平方根。</p>
+<ul>
+<li>int compareTo(BigInteger other)</li>
+</ul>
+<p>若这个大数与另一个大数other相等，返回0；若这个大整数小于另一个大整数other，返回负数；否则返回正数。</p>
+<ul>
+<li>static BigInteger valueOf(long x)</li>
+</ul>
+<p>返回值等于x的大整数。</p>
+<ul>
+<li>BigDecimal add(BigDecimal other)</li>
+<li>BigDecimal subtract(BigDecimal other)</li>
+<li>BigDecimal multiplyBigDecimal other)</li>
+<li>BigDecimal divide(BigDecimal other)</li>
+<li>BigDecimal divide(BigDecimal other，RoundingMode mode)</li>
+</ul>
+<p>返回一个大实数与other的和、差、积、商。若商是一个无限循环小数，第一个divide方法会抛出异常。要得到一个舍入的结果，就要使用第二个方法。RoundingMode.HALF_UP是四舍五入方式。</p>
+<ul>
+<li>int compareTo(BigDecimal other)</li>
+</ul>
+<p>若这个大实数与other相等，返回0；若这个大实数小于另一个大实数other，返回负数；否则返回正数。</p>
+<ul>
+<li>static BigDecimal valueOf(long x)</li>
+<li>static BigDecimal valueOf(long x，int scale)</li>
+</ul>
+<p>返回值等于x或$x/10^{scale}$的一个大实数。</p>
+<h2 id="3-10-数组"><a href="#3-10-数组" class="headerlink" title="3.10 数组"></a>3.10 数组</h2><h3 id="3-10-1-声明数组"><a href="#3-10-1-声明数组" class="headerlink" title="3.10.1 声明数组"></a>3.10.1 声明数组</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a;</span><br><span class="line"><span class="keyword">int</span>[] a = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">100</span>];</span><br><span class="line"><span class="keyword">int</span>[] smallPrimes = &#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">11</span>,<span class="number">13</span>&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-10-2-访问数组元素"><a href="#3-10-2-访问数组元素" class="headerlink" title="3.10.2 访问数组元素"></a>3.10.2 访问数组元素</h3><h3 id="3-10-3-for-each循环"><a href="#3-10-3-for-each循环" class="headerlink" title="3.10.3 for each循环"></a>3.10.3 for each循环</h3><p>for(variable：collection) statement</p>
+<h3 id="3-10-4-数组拷贝"><a href="#3-10-4-数组拷贝" class="headerlink" title="3.10.4 数组拷贝"></a>3.10.4 数组拷贝</h3><p>在java中，允许将一个数组变量拷贝到另一个数组变量。这时，两个变量将引用同一个数组。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] luckyNumbers = smallPrimes;</span><br><span class="line">luckyNumbers[<span class="number">5</span>] = <span class="number">12</span>;<span class="comment">//now smallPrimes[5] is also 12</span></span><br></pre></td></tr></table></figure>
+
+<p>若希望将一个数组的所有值拷贝到一个新的数组中去，就要使用Arrays类的copyOf方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">luckyNumbers = Arrays.copyOf(luckyNumbers, <span class="number">2</span> * luckNumbers.length)</span><br></pre></td></tr></table></figure>
+
+<p>第二个参数是新数组的长度。这个方法通常用来增加数组的大小。如果数组元素是数值型，那么额外的元素将被赋值为0；如果数组是布尔型，则将赋值为false。相反，若长度小于原始数组的长度，则只拷贝前面的值。</p>
+<h3 id="3-10-5-命令行参数"><a href="#3-10-5-命令行参数" class="headerlink" title="3.10.5 命令行参数"></a>3.10.5 命令行参数</h3><h3 id="3-10-6-数组排序"><a href="#3-10-6-数组排序" class="headerlink" title="3.10.6 数组排序"></a>3.10.6 数组排序</h3><p>想要对数值型数组进行排序，可以使用Arrays类中的sort方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">1000</span>];</span><br><span class="line">...</span><br><span class="line">Array.sort(a);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LotteryDrawing</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"How many numbers do you need to draw ?"</span>);</span><br><span class="line">        <span class="keyword">int</span> k = sc.nextInt();</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"What is the highest number you can draw ?"</span>);</span><br><span class="line">        <span class="keyword">int</span> n = sc.nextInt();</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"========================================="</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span>[] numbers = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numbers.length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            numbers[i] = i + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span>[] results = <span class="keyword">new</span> <span class="keyword">int</span>[k];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; results.length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> result = (<span class="keyword">int</span>)(Math.random() * n);</span><br><span class="line">            results[i] = numbers[result];</span><br><span class="line">            numbers[result] = numbers[n - <span class="number">1</span>];</span><br><span class="line">            n--;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        Arrays.sort(results);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> r : results)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(r);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-10-7-多维数组"><a href="#3-10-7-多维数组" class="headerlink" title="3.10.7 多维数组"></a>3.10.7 多维数组</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CompoundInterset</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">double</span> STARTRATE = <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> COL = <span class="number">6</span>;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> ROW = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">double</span>[] interestRate = <span class="keyword">new</span> <span class="keyword">double</span>[COL];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; interestRate.length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            interestRate[i] = (STARTRATE + i) / <span class="number">100.0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">double</span>[][] balances = <span class="keyword">new</span> <span class="keyword">double</span>[ROW][COL];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; balances[<span class="number">0</span>].length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            balances[<span class="number">0</span>][i] = <span class="number">10000</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; balances.length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; balances[i].length; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">double</span> oldBalance = balances[i - <span class="number">1</span>][j];</span><br><span class="line">                <span class="keyword">double</span> interset = oldBalance * interestRate[j];</span><br><span class="line">                balances[i][j] = oldBalance + interset;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; interestRate.length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.printf(<span class="string">"%9.0f%%"</span>,<span class="number">100</span> * interestRate[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">double</span>[] row : balances)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">double</span> r : row)</span><br><span class="line">            &#123;</span><br><span class="line">                System.out.printf(<span class="string">"%10.2f"</span>,r);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-10-8-不规则数组"><a href="#3-10-8-不规则数组" class="headerlink" title="3.10.8 不规则数组"></a>3.10.8 不规则数组</h3><p>java实际上没有多维数组，只有一维数组；多维数组被解释为数组的数组。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LotteryArray</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> ROW = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[][] odds = <span class="keyword">new</span> <span class="keyword">int</span>[ROW + <span class="number">1</span>][];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; odds.length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            odds[i] = <span class="keyword">new</span> <span class="keyword">int</span>[i + <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> n = <span class="number">0</span>; n &lt; odds.length; n++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; odds[n].length; k++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> lotteryOdds = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= k; i++)</span><br><span class="line">                &#123;</span><br><span class="line">                    lotteryOdds = lotteryOdds * (n - i + <span class="number">1</span>) / i;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                odds[n][k] = lotteryOdds;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] row : odds)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> r : row)</span><br><span class="line">            &#123;</span><br><span class="line">                System.out.printf(<span class="string">"%5d"</span>,r);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="NoTrouble 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JAVA/" rel="tag"># JAVA</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/10/01/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" rel="next" title="稀疏数组">
+                <i class="fa fa-chevron-left"></i> 稀疏数组
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MDk0MC8yNzQyMg=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/wk.jpg"
+                alt="NoTrouble" />
+            
+              <p class="site-author-name" itemprop="name">NoTrouble</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="wukun0221@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第三章-Java的基本程序设计结构"><span class="nav-number">1.</span> <span class="nav-text">第三章 Java的基本程序设计结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-一个简单的Java应用程序"><span class="nav-number">1.1.</span> <span class="nav-text">3.1 一个简单的Java应用程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-注释"><span class="nav-number">1.2.</span> <span class="nav-text">3.2 注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-数据类型"><span class="nav-number">1.3.</span> <span class="nav-text">3.3 数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-1-整型"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.3.1 整型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-2-浮点类型"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.3.2 浮点类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-3-char类型"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3.3 char类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-4-Unicode和char类型"><span class="nav-number">1.3.4.</span> <span class="nav-text">3.3.4 Unicode和char类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-5-boolean类型"><span class="nav-number">1.3.5.</span> <span class="nav-text">3.3.5 boolean类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-变量与常量"><span class="nav-number">1.4.</span> <span class="nav-text">3.4 变量与常量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-1-声明变量"><span class="nav-number">1.4.1.</span> <span class="nav-text">3.4.1 声明变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-2-变量初始化"><span class="nav-number">1.4.2.</span> <span class="nav-text">3.4.2 变量初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-3-常量"><span class="nav-number">1.4.3.</span> <span class="nav-text">3.4.3 常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-4-枚举类型"><span class="nav-number">1.4.4.</span> <span class="nav-text">3.4.4 枚举类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-运算符"><span class="nav-number">1.5.</span> <span class="nav-text">3.5 运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-1-算术运算符"><span class="nav-number">1.5.1.</span> <span class="nav-text">3.5.1 算术运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-2-数学函数与常量"><span class="nav-number">1.5.2.</span> <span class="nav-text">3.5.2 数学函数与常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-3-数值类型之间的转换"><span class="nav-number">1.5.3.</span> <span class="nav-text">3.5.3 数值类型之间的转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-4-强制类型转换"><span class="nav-number">1.5.4.</span> <span class="nav-text">3.5.4 强制类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-5-结合赋值和运算符"><span class="nav-number">1.5.5.</span> <span class="nav-text">3.5.5 结合赋值和运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-6-自增与自减运算符"><span class="nav-number">1.5.6.</span> <span class="nav-text">3.5.6 自增与自减运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-7-关系和boolean运算符"><span class="nav-number">1.5.7.</span> <span class="nav-text">3.5.7 关系和boolean运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-8-位运算符"><span class="nav-number">1.5.8.</span> <span class="nav-text">3.5.8 位运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-9-括号与运算符级别"><span class="nav-number">1.5.9.</span> <span class="nav-text">3.5.9 括号与运算符级别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6-字符串"><span class="nav-number">1.6.</span> <span class="nav-text">3.6 字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-1-子串"><span class="nav-number">1.6.1.</span> <span class="nav-text">3.6.1 子串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-2-拼接"><span class="nav-number">1.6.2.</span> <span class="nav-text">3.6.2 拼接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-3-不可变字符串"><span class="nav-number">1.6.3.</span> <span class="nav-text">3.6.3 不可变字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-4-检测字符串是否相等"><span class="nav-number">1.6.4.</span> <span class="nav-text">3.6.4 检测字符串是否相等</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-5-空串与Null串"><span class="nav-number">1.6.5.</span> <span class="nav-text">3.6.5 空串与Null串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-6-码点与代码单元"><span class="nav-number">1.6.6.</span> <span class="nav-text">3.6.6 码点与代码单元</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-7-String-API"><span class="nav-number">1.6.7.</span> <span class="nav-text">3.6.7 String API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-8-阅读联机API文档"><span class="nav-number">1.6.8.</span> <span class="nav-text">3.6.8 阅读联机API文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-9-构建字符串"><span class="nav-number">1.6.9.</span> <span class="nav-text">3.6.9 构建字符串</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-7-输入与输出"><span class="nav-number">1.7.</span> <span class="nav-text">3.7 输入与输出</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-1-读取输入"><span class="nav-number">1.7.1.</span> <span class="nav-text">3.7.1 读取输入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-2-格式化输出"><span class="nav-number">1.7.2.</span> <span class="nav-text">3.7.2 格式化输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-3-文件输入与输出"><span class="nav-number">1.7.3.</span> <span class="nav-text">3.7.3 文件输入与输出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-8-控制流程"><span class="nav-number">1.8.</span> <span class="nav-text">3.8 控制流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-1-块作用域"><span class="nav-number">1.8.1.</span> <span class="nav-text">3.8.1 块作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-2-条件语句"><span class="nav-number">1.8.2.</span> <span class="nav-text">3.8.2 条件语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-3-循环"><span class="nav-number">1.8.3.</span> <span class="nav-text">3.8.3 循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-4-确定循环"><span class="nav-number">1.8.4.</span> <span class="nav-text">3.8.4 确定循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-5-多重选择：switch语句"><span class="nav-number">1.8.5.</span> <span class="nav-text">3.8.5 多重选择：switch语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-6-中断控制流程的语句"><span class="nav-number">1.8.6.</span> <span class="nav-text">3.8.6 中断控制流程的语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-9-大数"><span class="nav-number">1.9.</span> <span class="nav-text">3.9 大数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-10-数组"><span class="nav-number">1.10.</span> <span class="nav-text">3.10 数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-10-1-声明数组"><span class="nav-number">1.10.1.</span> <span class="nav-text">3.10.1 声明数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-10-2-访问数组元素"><span class="nav-number">1.10.2.</span> <span class="nav-text">3.10.2 访问数组元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-10-3-for-each循环"><span class="nav-number">1.10.3.</span> <span class="nav-text">3.10.3 for each循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-10-4-数组拷贝"><span class="nav-number">1.10.4.</span> <span class="nav-text">3.10.4 数组拷贝</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-10-5-命令行参数"><span class="nav-number">1.10.5.</span> <span class="nav-text">3.10.5 命令行参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-10-6-数组排序"><span class="nav-number">1.10.6.</span> <span class="nav-text">3.10.6 数组排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-10-7-多维数组"><span class="nav-number">1.10.7.</span> <span class="nav-text">3.10.7 多维数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-10-8-不规则数组"><span class="nav-number">1.10.8.</span> <span class="nav-text">3.10.8 不规则数组</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">NoTrouble</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
