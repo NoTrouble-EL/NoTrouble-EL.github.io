@@ -89,7 +89,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/F:%5Cblog%5Csource_posts%5C%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF%5Cimage-20201013094645001.png">
 <meta property="og:image" content="http://yoursite.com/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/F:%5Cblog%5Csource_posts%5C%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF%5Cimage-20201018131720276.png">
 <meta property="article:published_time" content="2020-10-19T06:53:00.000Z">
-<meta property="article:modified_time" content="2020-10-19T06:59:45.250Z">
+<meta property="article:modified_time" content="2020-10-22T10:36:15.452Z">
 <meta property="article:author" content="NoTrouble">
 <meta property="article:tag" content="JAVA">
 <meta name="twitter:card" content="summary">
@@ -456,6 +456,15 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Manager boss = <span class="keyword">new</span> Manager(...);</span><br><span class="line">Employee[] staff = <span class="keyword">new</span> Employee[<span class="number">3</span>];</span><br><span class="line">staff[<span class="number">0</span>] = boss;</span><br><span class="line">boss.setBonus(<span class="number">5000</span>);<span class="comment">//OK</span></span><br><span class="line">staff[<span class="number">0</span>].setBonus(<span class="number">5000</span>);<span class="comment">//ERROR</span></span><br></pre></td></tr></table></figure>
 
 <p>因为staff[0]声明的类型是Employee，而setBonus不是Employee类的方法。</p>
+<p>extends继承或implements实现，是多态性的前提。</p>
+<p>代码中体现多态性，其实就是一句话：父类引用指向子类对象。</p>
+<p>【格式：父类名称 对象名 = new 子类名称();】或者【接口名称 对象名 = new 实现类名称()；】</p>
+<p>访问成与变量的两种方式：</p>
+<p>1.直接通过对象名称访问成员变量：等号左边是谁，优先用谁，没有则向上找。</p>
+<p>2.间接通过成员方法访问成员变量：该方法属于谁，优先用谁，没有则向上找。被重写优先看子类</p>
+<p>多态中的成员方法：</p>
+<p>1.看new谁，就优先用谁，没有则向上找；</p>
+<p>2.编译看左边，运行看右边。</p>
 <h3 id="5-1-6-理解方法调用"><a href="#5-1-6-理解方法调用" class="headerlink" title="5.1.6 理解方法调用"></a>5.1.6 理解方法调用</h3><p>准确理解如何在对象上应用方法调用非常重要。下面假设要调用x.f(args)，隐式参数x声明为类C的一个对象。下面调用过程的详细描述：</p>
 <ul>
 <li>编译器查看对象的声明类型和方法名。需要注意的是：有可能存在多个名字为f但参数类型不一样的方法。编译器将会一一例举C类中所有名为f的方法和其超类中所有名为f而且可访问的方法(超类的私有方法不可访问)。至此，编译器已经知道所有可能被调用的候选方法。</li>
@@ -490,6 +499,14 @@
 <li>在将超类强制转成子类之前，应该使用instanceof进行检查。</li>
 </ul>
 <p>实际上，通过强制类型转换来转换对象类型通常并不是一种好的做法。在我们的示例中，大多数情况并不需要将Employee对象强制转换成Manager对象，两个类的对象都能够正确地调用getSalary，这是因为实现多态性的动态绑定机制能够自动地找到正确的方法。</p>
+<p>对象的向上转型：其实就是多态的写法：父类名称 对象名 = new 子类名称()；含义：右侧创建一个子类，把它当作父类看待使用。向上转型一定是安全的。弊端：对象一旦向上转型为父类，那么就无法调用子类原本特有的方法。解决：用对象的向下转型。</p>
+<p>对象的向下转型：对象的向下转型，其实是一个还原的动作【格式：子类名称 对象名 = (子类名称)父类对象】含义：将父类对象，还原成子类对象。注意事项：必须保证对象本来创建的就是子类，才能向下转型成该子类。如果对象创建不是该子类非要转型为该子类，就会报错。ClassCastException。</p>
+<p>如何才能知道一个父类引用的对象，本来是什么子类？</p>
+<p>对象 instanceof 类型，这将得到一个boolean值结果，也就是判断前面的对象能不能当做后面类型的实例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Animal animal =  <span class="keyword">new</span> Cat();</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(animal <span class="keyword">instanceof</span> Dog)</span><br><span class="line">&#123;</span><br><span class="line">    Dog dog = (Dog)annimal;</span><br><span class="line">    ...;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(annimal <span class="keyword">instanceof</span> Cat)</span><br><span class="line">&#123;</span><br><span class="line">    Cat cat = (Cat)animal</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <h3 id="5-1-9-抽象类"><a href="#5-1-9-抽象类" class="headerlink" title="5.1.9 抽象类"></a>5.1.9 抽象类</h3><p>如果自下而上在类的继承层次结构中上移，位于上层的类更具有一般性，可能更加抽象。当前，可以让Person.getDescription()返回一个空字符串。不过还有一个更好的方法，就是使用abstract关键字，这样就完全不需要实现这个方法了。</p>
 <p>抽象方法：就是加上abstract关键字，然后去掉大括号，直接分号结束。</p>
 <p>抽象类：抽象方法所在的类，必须是抽象类。在class之前写上abstract即可。</p>
@@ -1137,7 +1154,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1148,7 +1165,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1159,7 +1176,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
