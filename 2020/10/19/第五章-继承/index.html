@@ -85,15 +85,15 @@
 <meta property="og:url" content="http://yoursite.com/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/index.html">
 <meta property="og:site_name" content="NoTrouble&#39;s Blog">
 <meta property="og:description" content="第五章 继承本章将学习面向对象程序设计的另外一个基本概念：继承(inheritance)。继承的基本思想是，可以基于已有的类创建新的类。继承已存在的类就是复用(继承)这些类的方法，而且可以增加一些新的方法和字段，使新类能够适应新的情况。这是Java程序设计中的一项核心技术。 另外，本章还阐述了反射(reflection)的概念。反射是指在程序运行期间更多地了解类及其属性的能力。反射是一个功能强大的">
-<meta property="og:image" content="http://yoursite.com/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/F:%5Cblog%5Csource_posts%5C%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF%5Cimage-20201013093430566.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/F:%5Cblog%5Csource_posts%5C%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF%5Cimage-20201013094645001.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/F:%5Cblog%5Csource_posts%5C%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF%5Cimage-20201018131720276.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/image-20201013093430566.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/image-20201013094645001.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/image-20201018131720276.png">
 <meta property="article:published_time" content="2020-10-19T06:53:00.000Z">
-<meta property="article:modified_time" content="2020-10-22T10:36:15.452Z">
+<meta property="article:modified_time" content="2020-10-26T23:56:58.873Z">
 <meta property="article:author" content="NoTrouble">
 <meta property="article:tag" content="JAVA">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/F:%5Cblog%5Csource_posts%5C%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF%5Cimage-20201013093430566.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/image-20201013093430566.png">
 
 
 
@@ -438,7 +438,7 @@
 <li>在本类的成员方法中，访问本类的另一个成员方法。</li>
 <li>在本类的构造方法中，访问本类的另一个构造方法。</li>
 </ul>
-<p><img src="/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/F:%5Cblog%5Csource_posts%5C%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF%5Cimage-20201013093430566.png" alt="image-20201013093430566"></p>
+<p><img src="/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/image-20201013093430566.png" alt="image-20201013093430566"></p>
 <h3 id="5-1-4-继承层次"><a href="#5-1-4-继承层次" class="headerlink" title="5.1.4 继承层次"></a>5.1.4 继承层次</h3><p>继承不限于一个层次。例如，可以由Manager类派生Executive类。由一个公共超类派生出来的所有类的集合称为继承层次(inheritance hierarchy)。在继承层次中，从某个特定的类到其祖先的路径称为该类的继承链(inheritance chain)。通常一个祖先类可以有多个子孙链。</p>
 <p>Java继承的三个特点：</p>
 <ul>
@@ -446,7 +446,7 @@
 <li>java语言可以多级继承。</li>
 <li>一个子类的直接父类是唯一的，但一个父类可以拥有很多个子类。</li>
 </ul>
-<p><img src="/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/F:%5Cblog%5Csource_posts%5C%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF%5Cimage-20201013094645001.png" alt="image-20201013094645001"></p>
+<p><img src="/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/image-20201013094645001.png" alt="image-20201013094645001"></p>
 <h3 id="5-1-5-多态"><a href="#5-1-5-多态" class="headerlink" title="5.1.5 多态"></a>5.1.5 多态</h3><p>有一个简单规则可以用来判断是否应该将数据设计为继承关系，这就是“is-a”规则，它指出子类的每个对象也是超类的对象。例如，每个经理都是员工，因此，将manager类设计为Employee类的子类是有道理的；反之则不然，并不是每一个员工都是经理。</p>
 <p>“is-a”规则的另一种表述是替换原则(substitution principle)。它指出程序中出现超类对象的任何地方都可以使用子类对象替换。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Employee e;</span><br><span class="line">e = <span class="keyword">new</span> Employee(...);</span><br><span class="line">e = <span class="keyword">new</span> Manager(...);</span><br></pre></td></tr></table></figure>
@@ -788,7 +788,7 @@
 
 <h2 id="5-7-反射"><a href="#5-7-反射" class="headerlink" title="5.7 反射"></a>5.7 反射</h2><p>反射库(fefiection library)提供le’yi’ge 丰富且精巧的工具集，可以用来编写能够动态操纵Java代码的程序。使用反射，Java可以支持用户界面生成器、对象关系映射器以及很多其他需要动态查询类能力的开发工具。</p>
 <p>反射的机制：将类的各个组成部分封装为其他对象</p>
-<p><img src="/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/F:%5Cblog%5Csource_posts%5C%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF%5Cimage-20201018131720276.png" alt="image-20201018131720276"></p>
+<p><img src="/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/image-20201018131720276.png" alt="image-20201018131720276"></p>
 <p>能够分析类能力的程序称为反射(reflective)。反射机制的功能极其强大，在下面几小节可以看到，反射机制可以用来：</p>
 <ul>
 <li>在运行时分析类的能力；</li>
@@ -1154,7 +1154,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1176,7 +1176,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
