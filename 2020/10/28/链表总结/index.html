@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="链表链表的定义链表是物理存储单元上非连续、非顺序的存储结构，它由一个个结点，通过指针来联系起来，其中每个结点都包括数据和指针。  链表的非连续，非顺序，对应数组的连续、顺序，来看一个例子：整型数组1，2，3，4在内存中是如何表示的  可以看到数组的每个元素都是连续紧邻分配的，这叫连续性，同时由于数组的元素占用的大小是一样的，在Java中int型大小固定为4个字节，所以如果数组的起始位置是100，由">
+<meta property="og:type" content="article">
+<meta property="og:title" content="链表总结">
+<meta property="og:url" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="NoTrouble&#39;s Blog">
+<meta property="og:description" content="链表链表的定义链表是物理存储单元上非连续、非顺序的存储结构，它由一个个结点，通过指针来联系起来，其中每个结点都包括数据和指针。  链表的非连续，非顺序，对应数组的连续、顺序，来看一个例子：整型数组1，2，3，4在内存中是如何表示的  可以看到数组的每个元素都是连续紧邻分配的，这叫连续性，同时由于数组的元素占用的大小是一样的，在Java中int型大小固定为4个字节，所以如果数组的起始位置是100，由">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/image-20201027082655248.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/image-20201027082807682.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/image-20201027083257491.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/image-20201027084355365.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/893bed259241d4237deb1b90403940c2bc5edcea636b0e7e95a79750a5840f7e-file_1582118989941">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/ca536142f21ce2769080876ed588b5eba67dcd955426c4ec20546886aba2808c-file_1582118989943">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/image-20201027090630791.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/image-20201027090735273.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/28baedb65387563b93344a576406a2e0b9b0feeb7ff3d21187a11c4871a70c96-file_1582118989961">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/d478f6fbaf4d73f60d1a2a1c712bb1c12fc08c6c97aede760b0ca0a439d4d99c-file_1582118989972">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/abe5e10a6baaf6e675b966ca7d728c1cf7325ed5b8638657333c48717872b267-file_1582118989982">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/aede9ee8a068b7e45a37366b596e4fd71863e8e444623d2daffe22e832de8763-file_1582118989985">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/abb4f6e92de6c77e0c444c7949540ef8f1bb66502c899a5fdbaafea1cf0d5016-file_1582118989988">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/20f22b18ea01d10571a64d14f982877c9aaecb8e00a504e7ee32492a7a9da630-file_1582118989997">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/7188a1ae4266570b2734f8159143cf1e8d7a15ffbcae1e61e3c04d4a61031690-file_1582118990002">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/ccfcd27db1a7f34208012daf0838c23645c1bc6f40ae9e98411050ffc2b91898-file_1582118990003">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/6019f62c100fa85730111b29e977143a33ce89c2216831f3489ea8b7fd46c328-file_1582118990010">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/c6a8e523df1172f9c06f1f64cee979bcf1b7c55e1ca683396b74c0e2c416bc35-file_1582118990012">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/83187dd02fd6822343bb333b11c7aa2d6fbaff12bcb850562fd0d8b8838ee01b-file_1582118990020">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/ae2d535fdff55d54da5b6c65c5ac2a1631239c990c4d5baae55bb97d03fd7b36-file_1582118990022">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/dd7ace16a2d7552b1f1a8540d040a3daf2f67df975d126a74cea6ea410a776b8-file_1582118990023">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/aa05d66b070d9ca844593d466cac291a723c7e18c0d03922b557bcf3def5d909-file_1582118990024">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/d1457985986ddc24a6856dcb8e61348067b4a5ff9afec8476434d5151998d9b0-file_1582118990027">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/59a68b3183bd12d0740afbe10ee0d58366f5fb23135d9ac315886cae8f1e8f67-file_1582118990029">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/2876ebccbe18f6186d73f72d9d0f2262e5b353d7c7def294d581352db16d3a84-file_1582118990030">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/798cfe354436d3000f2b8c3055d6d90c608891ae650ef3de7eb28627bb09527c-file_1582118990033">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/f56c56b7d4e36604afd4bd9cd561265310c7bc32f99480613ba8e6787755ba42-file_1582118990036">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/c8d93855ed4256c99420ee9d7014e405231978d205fe27492139187ff4e094a8-file_1582118990038">
+<meta property="article:published_time" content="2020-10-28T03:00:49.000Z">
+<meta property="article:modified_time" content="2020-10-28T03:19:13.506Z">
+<meta property="article:author" content="NoTrouble">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/image-20201027082655248.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/10/28/链表总结/"/>
+
+
+
+
+
+  <title>链表总结 | NoTrouble's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NoTrouble's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录分享生活中的点点滴滴</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-playlist">
+          <a href="/playlist/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-music"></i> <br />
+            
+            歌单
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="NoTrouble">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoTrouble's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">链表总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-28T11:00:49+08:00">
+                2020-10-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DataStructure/" itemprop="url" rel="index">
+                    <span itemprop="name">DataStructure</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><h2 id="链表的定义"><a href="#链表的定义" class="headerlink" title="链表的定义"></a>链表的定义</h2><p>链表是物理存储单元上非连续、非顺序的存储结构，它由一个个结点，通过指针来联系起来，其中每个结点都包括数据和指针。</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/image-20201027082655248.png" alt="image-20201027082655248"></p>
+<p>链表的非连续，非顺序，对应数组的连续、顺序，来看一个例子：整型数组1，2，3，4在内存中是如何表示的</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/image-20201027082807682.png" alt="image-20201027082807682"></p>
+<p>可以看到数组的每个元素都是连续紧邻分配的，这叫连续性，同时由于数组的元素占用的大小是一样的，在Java中int型大小固定为4个字节，所以如果数组的起始位置是100，由于这些元素在内存中都是连续紧邻分配的，大小也一样，可以很容易地找出数组中任意一个元素的位置，比如数组中的第三个元素起始地址为100+2*4=108，这就叫顺序性。查找的时间复杂度是O(1)，效率很高！</p>
+ <a id="more"></a> 
+
+<p>那么链表在内存中是怎么表示的呢？</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/image-20201027083257491.png" alt="image-20201027083257491"></p>
+<p>可以看到每个结点都分配在非连续的位置，结点与结点之间通过指针连在了一起，所以如果我们要找比如为3的节点，只能通过结点1从头到尾遍历寻找，如果元素少还好，如果元素太多(比如超过一万个)，每个元素的查找都要从头开始查找，时间复杂度是O(n)，比起数组的O(1)，差距不小。</p>
+<p>除了查找性能链表不如数组之外，还有另一个优势让数组的性能高于链表，这里引入程序局部性原理。</p>
+<p>CPU运行速度是非常快的，如果CPU每次运算都要到内存里去取数据无疑是很耗时的，所以在CPU与内存之间往往集成了挺多层级的缓存，这些缓存越接近CPU，速度越快，所以如果能提前把内存中的数据加载到如下图中的L1、L2、L3缓存中，那么下一次CPU取数的话直接从这些缓存里取即可，能让CPU执行速度加快，那么什么情况下内存中的数据会被提前加载到L1、L2、L3缓存中呢，答案是当某个元素被用到的时候，那么这个元素地址附近的元素会被提前加载到缓存中</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/image-20201027084355365.png" alt="image-20201027084355365"></p>
+<p>以整数型1，2，3，4为例，当程序用到了数组的第一个元素时，由于CPU认为既然1被用到了，那么紧邻它的元素2，3，4被用到的概率会很大，所以会提前把2，3，4加到L1,L2,L3缓存中去，这样CPU再次执行的时候如果用到2，3，4，直接从L1、L2、L3缓存里取就行了，能提升不少性能。【若将CPU的一个时钟看成一秒，则从L1读取数据需要3秒，从L2读取需要11秒，L3读取需要25秒，而从内存读取，需要1分40秒，所以程序局部性原理对CPU执行性能有很大的提升】</p>
+<p>然而链表呢，由于链表的每个结点在内存中里都是随机分布的，只是通过指针联系在一起，所以这些结点地址并不相邻，自然无法利用程序局部性原理来提前加载到L1，L2，L3缓存中来提升程序性能。</p>
+<p>综上所述，相比数组，链表的非连续，非顺序确实让它在性能上处于劣势，那么什么情况下该使用链表呢？考虑以下的情况：</p>
+<ul>
+<li>大内存空间分配</li>
+</ul>
+<p>由于数组空间的连续性，如果要为数组分配500M的空间，这500M的空间必须是连续的，未使用的，所以在内存空间的分配上数组的要求会比较严格，如果内存碎片太多，分配连续的大空间很可能导致失败。而链表由于是非连续的，所以这种情况下选择链表更合适。</p>
+<ul>
+<li>元素的频繁删除和插入</li>
+</ul>
+<p>如果涉及元素的频繁删除和插入，用链表就会高效很多，对于数组来说，如果要在元素间插入一个元素，需要把其余元素一个个往后移，为新元素腾空间(若是要删除则需要把被删除元素之后的一个个往前移)，效率上无疑是比较低的。</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/893bed259241d4237deb1b90403940c2bc5edcea636b0e7e95a79750a5840f7e-file_1582118989941" alt="img"></p>
+<p>而链表的插入删除相对来说就比较简单了，修改指针位置即可，其他元素无需做任何移动操作。</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/ca536142f21ce2769080876ed588b5eba67dcd955426c4ec20546886aba2808c-file_1582118989943" alt="img"></p>
+<p>综上所述：如果数据以查为主，很少涉及增和删，选择数组，如果数据涉及到频繁的插入和删除，或元素所需分配空间过大，倾向于选择链表。</p>
+<h2 id="链表的表示"><a href="#链表的表示" class="headerlink" title="链表的表示"></a>链表的表示</h2><p>由于链表的特点，所以我们只要在链表中定义头节点即可，另外如果要频繁的用到链表的长度，还可以额外定义一个变量来表示。</p>
+<p>需要注意的是这个头节点的定义是有讲究的，一般来说头结点有两种形式，一种是直接以某个元素结点为头节点，如下：</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/image-20201027090630791.png" alt="image-20201027090630791"></p>
+<p>一种是以一个虚拟结点作为头结点，即我们常说的哨兵，如下：</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/image-20201027090735273.png" alt="image-20201027090735273"></p>
+<p>定义这个哨兵有什么好处呢，假设我们不定义这个哨兵，来看看链表的基本操作怎么定义的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> data;</span><br><span class="line">    Node next;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(<span class="keyword">int</span> data)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.data = data;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedList</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> length = <span class="number">0</span>;</span><br><span class="line">    Node head = <span class="keyword">null</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addNode</span><span class="params">(<span class="keyword">int</span> val)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head == <span class="keyword">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            head = <span class="keyword">new</span> Node(val);</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            Node temp = head;</span><br><span class="line">            <span class="keyword">while</span>(temp.next != <span class="keyword">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                temp = temp.next;</span><br><span class="line">            &#125;</span><br><span class="line">            temp.next = <span class="keyword">new</span> Node(val);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>问题所在：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addNode</span><span class="params">(<span class="keyword">int</span> val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(head == <span class="keyword">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        head = <span class="keyword">new</span> Node(val);</span><br><span class="line">    &#125;</span><br><span class="line">    ...;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有两个问题：</p>
+<ul>
+<li>每插入一个元素都要对头结点进行判空比较，如果一个链表有很多元素需要被插入，就需要进行很多次的判空处理，不是那么高效。</li>
+<li>头结点与其他结点插入逻辑不统一(一个需要判空后再插入，一个不需要判空直接插入)，从程序逻辑性来说不是那么合理(因为结点与结点是平级，添加逻辑理应相同)</li>
+</ul>
+<p>如果定义了哨兵结点，以上两个问题都可以解决。来看使用哨兵结点的链表定义：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedList</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> length = <span class="number">0</span>;</span><br><span class="line">    Node head = <span class="keyword">new</span> Node(<span class="number">0</span>);</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addNode</span><span class="params">(<span class="keyword">int</span> val)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Node temp = head;</span><br><span class="line">        <span class="keyword">while</span>(temp.next != <span class="keyword">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            temp = temp.next;</span><br><span class="line">        &#125;</span><br><span class="line">        temp.next = <span class="keyword">new</span> Node(val);</span><br><span class="line">        length++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，定义了哨兵结点的逻辑上清楚了很多，不用每次插入元素都对头结点进行判空，也统一了每个结点的添加逻辑。</p>
+<p>所以之后的习题讲解中我们使用的链表都是使用定义了哨兵节点的形式。</p>
+<h2 id="链表常见解题套路–翻转"><a href="#链表常见解题套路–翻转" class="headerlink" title="链表常见解题套路–翻转"></a>链表常见解题套路–翻转</h2><p>题目：给定数组1，2，3，4构造成如下链表：head–&gt;4–&gt;3–&gt;2–&gt;1</p>
+<p>看清楚了，是逆序构造链表！顺序构造我们都知道怎么构造，对每个元素持续调用上文代码定义的addNode方法即可(尾插法)，与尾插法对应的，是头插法，即把每一个元素插到头结点后面即可，这样就能做到逆序构造链表。</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/28baedb65387563b93344a576406a2e0b9b0feeb7ff3d21187a11c4871a70c96-file_1582118989961" alt="img"></p>
+<p>头插法比较简单：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedList</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> leangth = <span class="number">0</span>;</span><br><span class="line">    Node head = <span class="keyword">new</span> Node(<span class="number">0</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">headInsert</span><span class="params">(<span class="keyword">int</span> val)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Node newNode = <span class="keyword">new</span> Node(val);</span><br><span class="line">        newNode.next = head.next;</span><br><span class="line">        head.next = newNode;</span><br><span class="line">        length++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        LinkedList likedlist = <span class="keyword">new</span> LinkedList();</span><br><span class="line">        <span class="keyword">int</span>[] arr = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            likedlist.heandInsert(arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        linkedlist.printList();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="小试牛刀"><a href="#小试牛刀" class="headerlink" title="小试牛刀"></a>小试牛刀</h2><p>现在我们加大一些难度，来看下曾经的Google面试题：</p>
+<p>给定单向链表的头指针和一个节点指针，定义一个函数在O(1)内删除这个结点。</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/d478f6fbaf4d73f60d1a2a1c712bb1c12fc08c6c97aede760b0ca0a439d4d99c-file_1582118989972" alt="img"></p>
+<p>即给定值为2的结点，如何把2给删了。</p>
+<p>我们知道，如果给定了一个结点要删除它的后继结点是很简单的，只要把这个结点的指针指向后继结点的后继结点即可。</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/abe5e10a6baaf6e675b966ca7d728c1cf7325ed5b8638657333c48717872b267-file_1582118989982" alt="img"></p>
+<p>给定结点2，删除它的后继结点3，把结点2的next指针指向3的后继结点4即可。</p>
+<p>但给定结点2，该怎么删除结点2本身呢，注意题目没有规定说不能改变结点中的值，所以有一种很巧妙的方法，狸猫换太子！先通过结点2找到结点3，再把结点3的值赋给结点2，此时结点2的值变成了3，这时候问题就转化成了上图这种比较简单的需求，即根据结点2把结点3移除即可。</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/aede9ee8a068b7e45a37366b596e4fd71863e8e444623d2daffe22e832de8763-file_1582118989985" alt="img"></p>
+<p>不过需要注意的是这种解题技巧只适用于被删除的指定结点是中间结点的情况，如果指定节点是尾节点，还是要老老实实地找到尾结点的前继结点，再把尾结点删除</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeSelecteNode</span><span class="params">(Node deleteNode)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(deleteNode.next == <span class="keyword">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Node temp = head;</span><br><span class="line">        <span class="keyword">while</span>(temp.next !=deleteNode)</span><br><span class="line">        &#123;</span><br><span class="line">            temp = temp.next;</span><br><span class="line">        &#125;</span><br><span class="line">        temp.next = <span class="keyword">null</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        deleteNode.data = deleteNode.next.data;</span><br><span class="line">        deleNode.next = deleNode.next.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="入门到进阶：链表翻转"><a href="#入门到进阶：链表翻转" class="headerlink" title="入门到进阶：链表翻转"></a>入门到进阶：链表翻转</h2><p>接下来我们会重点看一下链表的翻转，链表的翻转可以衍生出很多的变形，是面试考试中非常热门的考点，基本上考链表必考翻转！所以掌握链表的翻转是必修课！</p>
+<p>什么是链表的翻转：给定链表head –&gt;4–&gt;3–&gt;2–&gt;1，将其翻转成head–&gt;1–&gt;2–&gt;3–&gt;4。</p>
+<ul>
+<li>递归翻转</li>
+</ul>
+<p>首先我们要查看翻转链表是否符合递归规律：问题可以分解成具有相同解决思路的子问题，子子问题…，直到最终的子问题再也无法分解。</p>
+<p>要翻转 head –&gt;4–&gt;3–&gt;2–&gt;1链表，不考虑head结点，分析4–&gt;3–&gt;2–&gt;1。仔细观察我们发现只要先把3–&gt;2–&gt;1翻转成3&lt;—-2&lt;—-1，之后再把3指向4即可。</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/abb4f6e92de6c77e0c444c7949540ef8f1bb66502c899a5fdbaafea1cf0d5016-file_1582118989988" alt="img"></p>
+<p>只要按以上步骤定义好这个翻转函数功能即可，这样由于子问题与最初的问题具有相同的解决思路，拆分后的子问题持续调用这个翻转函数即可达到目的。</p>
+<p>既然符合递归条件，那我们就可以套用递归四步骤来解题：</p>
+<p>1.定义递归函数，明确函数功能：根据前面分析，这个递归函数的功能显然是翻转某个节点开始的链表，然后返回新的头结点</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Node <span class="title">invertLinkedList</span><span class="params">(Node node)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.寻找递推公式：</p>
+<ul>
+<li>针对结点node4，先翻转node之后的结点invert(node.next)，反转之后4—&gt;3—&gt;2—&gt;1变成4—&gt;3&lt;—2&lt;—1</li>
+<li>再把node结点的下一个结点3指向node，node的后继结点设置为空，此时变成了4&lt;—3&lt;—2&lt;—1</li>
+<li>返回新的头结点，因为此时新的头结点从原来的4变成了1，需要重新设置一下head</li>
+</ul>
+<p>3.将递推公式带入第一步定义好的函数中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Node <span class="title">invrtLinkedList</span><span class="params">(Node node)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(node == <span class="keyword">null</span> || node.next == <span class="keyword">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">    Node newHead = inverLinkedList(node.next);</span><br><span class="line">    node.next.next = node;</span><br><span class="line">    node.next = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">return</span> newhead;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.计算时间/空间复杂度</p>
+<p>由于递归了n次invertLinkedList函数，所以时间复杂度是O(n)，空间复杂度呢，没有用到额外的空间，但是由于递归调用了n次invertLinkedList函数，压了n次栈，所以空间复杂度也是O(n)。</p>
+<p>递归一定要从函数的功能去理解，从函数的功能看，定义的递归函数清晰易懂，定义好了之后，由于问题与被拆分的子问题具有相同的解决思路，所以子问题只要持续调用定义好的函数功能即可，切勿层层展开子问题，此乃递归常见的陷阱！</p>
+<ul>
+<li>非递归翻转链表(迭代解法)</li>
+</ul>
+<p>我们知道递归比较容易造成栈溢出，所以有其他时间/空间复杂度相近或更好的算法，应该优先选择非递归的解法，那我们看看如何用迭代法来翻转链表：</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/20f22b18ea01d10571a64d14f982877c9aaecb8e00a504e7ee32492a7a9da630-file_1582118989997" alt="img"></p>
+<p>1.定义两个节点：pre，cur，其中cur是pre的后继结点，如果是首次定义，需要把pre指向cur的指针去掉，否则由于之后链表翻转，cur会指向pre，就进行了一个环，这点需要注意</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/7188a1ae4266570b2734f8159143cf1e8d7a15ffbcae1e61e3c04d4a61031690-file_1582118990002" alt="img"></p>
+<p>2.知道了cur和pre，翻转就很容易了，把cur指向pre即可，之后把pre设置为cur，cur设置为cur的后继结点，一直重复此步骤即可：</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/ccfcd27db1a7f34208012daf0838c23645c1bc6f40ae9e98411050ffc2b91898-file_1582118990003" alt="img"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">iterationInverLinkedList</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Node pre = head.next;</span><br><span class="line">    Node cur = Pre.next;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(cur != <span class="keyword">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Node temp = cur.next;</span><br><span class="line">        cru.next = pre;</span><br><span class="line">        pre = cur;</span><br><span class="line">        cur = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    head.next = pre;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>用了迭代的思路来做由于循环n次，显然时间复杂度为O(n)，另外由于没有额外的空间使用，也不像递归那样调用递归函数不断压栈，所以空间复杂度为O(1)，对比递归，显然应该使用迭代的方式来处理！</p>
+<h2 id="变形题1：给定一个链表的头结点head，以及两个整数from和to，在链表上把第from个节点和第to个结点这一部分进行翻转。"><a href="#变形题1：给定一个链表的头结点head，以及两个整数from和to，在链表上把第from个节点和第to个结点这一部分进行翻转。" class="headerlink" title="变形题1：给定一个链表的头结点head，以及两个整数from和to，在链表上把第from个节点和第to个结点这一部分进行翻转。"></a>变形题1：给定一个链表的头结点head，以及两个整数from和to，在链表上把第from个节点和第to个结点这一部分进行翻转。</h2><p>例如：给定如下链表，from = 2, to = 4 head–&gt;5–&gt;4–&gt;3–&gt;2–&gt;1；将其翻转后，链表变成head–&gt;5—&gt;2–&gt;3–&gt;4–&gt;1</p>
+<p>1.根据from和to找到from-1，from，to，to+1四个结点(注意临界条件，如果from从头结点开始，则from-1为空，反转后需要把to设置为头结点的后继结点，from和to结点也可能超过尾结点，这两种情况不符合条件翻转)。</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/6019f62c100fa85730111b29e977143a33ce89c2216831f3489ea8b7fd46c328-file_1582118990010" alt="img"></p>
+<p>2.对from和to的结点进行翻转</p>
+<p>3.from-1结点指向to结点，将from结点指向to+1</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">iterationInvertLinkedList</span><span class="params">(<span class="keyword">int</span> fromIndex, <span class="keyword">int</span> toIndex)</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Node fromPre = <span class="keyword">null</span>;</span><br><span class="line">    Node from = <span class="keyword">null</span>;</span><br><span class="line">    Node to = <span class="keyword">null</span>;</span><br><span class="line">    Node toNext = <span class="keyword">null</span>;</span><br><span class="line">    </span><br><span class="line">    Node temp = head.next;</span><br><span class="line">    <span class="keyword">int</span> curIndex = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(temp != <span class="keyword">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(curIndex == fromIndex - <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            fromPre = temp;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(curIndex == fromindex)</span><br><span class="line">        &#123;</span><br><span class="line">            from = temp</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(curIndex == toIndex)</span><br><span class="line">        &#123;</span><br><span class="line">            to = temp;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(curIndext == toIndex + <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            toNext = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        temp = temp.next;</span><br><span class="line">        curIndex++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (from == <span class="keyword">null</span> || to == <span class="keyword">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"不符合条件"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    Node pre = from;</span><br><span class="line">    Node cur = pre.next;</span><br><span class="line">    <span class="keyword">while</span>(cur != toNext)</span><br><span class="line">    &#123;</span><br><span class="line">        Node next = cur.next;</span><br><span class="line">        cur.next = pre;</span><br><span class="line">        pre = cur;</span><br><span class="line">        cur = next;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(fromPre !=<span class="keyword">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        from.next = to;</span><br><span class="line">    &#125;<span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        head.next = to;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    from.next = toNext;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="变形题2：给出一个链表，每K个节点一组进行翻转，并返回反转后的链表。k是一个整数，它的值小于等于链表的长度。如果节点总数不是k的倍数，那么将最后剩余结点保持原有顺序。"><a href="#变形题2：给出一个链表，每K个节点一组进行翻转，并返回反转后的链表。k是一个整数，它的值小于等于链表的长度。如果节点总数不是k的倍数，那么将最后剩余结点保持原有顺序。" class="headerlink" title="变形题2：给出一个链表，每K个节点一组进行翻转，并返回反转后的链表。k是一个整数，它的值小于等于链表的长度。如果节点总数不是k的倍数，那么将最后剩余结点保持原有顺序。"></a>变形题2：给出一个链表，每K个节点一组进行翻转，并返回反转后的链表。k是一个整数，它的值小于等于链表的长度。如果节点总数不是k的倍数，那么将最后剩余结点保持原有顺序。</h2><p>给定这个链表：head–&gt;1-&gt;2-&gt;3-&gt;4-&gt;5；当 k = 2 时，应当返回: head–&gt;2-&gt;1-&gt;4-&gt;3-&gt;5；当 k = 3 时，应当返回: head–&gt;3-&gt;2-&gt;1-&gt;4-&gt;5</p>
+<p>接下来，我们以以下链表为例</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/c6a8e523df1172f9c06f1f64cee979bcf1b7c55e1ca683396b74c0e2c416bc35-file_1582118990012" alt="img"></p>
+<p>1.首先要记录3个一组链表的前继结点，定义为startKpre，然后定义再一个step，从这一段的头结点(1)开始遍历2次，找出这段链表的起始和终止结点，如同</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/83187dd02fd6822343bb333b11c7aa2d6fbaff12bcb850562fd0d8b8838ee01b-file_1582118990020" alt="img"></p>
+<p>2.找到startK和endK之后，根据之前的迭代反转发对startK和endK的这段链表进行翻转</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/ae2d535fdff55d54da5b6c65c5ac2a1631239c990c4d5baae55bb97d03fd7b36-file_1582118990022" alt="img">3.然后将startKpre指向endK，将startK指向endKNent，即完成了对k个一组结点的翻转。</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/dd7ace16a2d7552b1f1a8540d040a3daf2f67df975d126a74cea6ea410a776b8-file_1582118990023" alt="img"></p>
+<p>知道了一组k个怎么翻转，之后只要重复对k个结点一组的链表进行翻转即可。</p>
+<h2 id="变形题-变形2针对的是顺序的k个一组翻转，那如何逆序K个一组进行翻转呢"><a href="#变形题-变形2针对的是顺序的k个一组翻转，那如何逆序K个一组进行翻转呢" class="headerlink" title="变形题 变形2针对的是顺序的k个一组翻转，那如何逆序K个一组进行翻转呢"></a>变形题 变形2针对的是顺序的k个一组翻转，那如何逆序K个一组进行翻转呢</h2><p>例如：给定如下链表，head–&gt;1–&gt;2–&gt;3–&gt;4–&gt;5；逆序 k 个一组翻转后，链表变成（k = 2 时）head–&gt;1—&gt;3–&gt;2–&gt;5–&gt;4</p>
+<p>这道题是字节跳动的面试题，顺序K个一组翻转已经属于hard级别了，逆序k个一组翻转更是superhard ，不过有了之前知识的铺垫，应该不难，只是稍微变形了一个，只要对链表做如下变形即可。</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/aa05d66b070d9ca844593d466cac291a723c7e18c0d03922b557bcf3def5d909-file_1582118990024" alt="img"></p>
+<h2 id="链表解题利器——快慢指针"><a href="#链表解题利器——快慢指针" class="headerlink" title="链表解题利器——快慢指针"></a>链表解题利器——快慢指针</h2><p>下文详细讲述如何用快慢指针解题技巧。下文详细讲述如何用快慢指针解决以下两大类问题：</p>
+<ul>
+<li>寻找/删除第K个结点</li>
+<li>有关链表环问题的相关解法</li>
+</ul>
+<h2 id="寻找-删除第K个结点"><a href="#寻找-删除第K个结点" class="headerlink" title="寻找/删除第K个结点"></a>寻找/删除第K个结点</h2><p>LeetCode 876：给定一个带有头结点 head 的非空单链表，返回链表的中间结点。如果有两个中间结点，则返回第二个中间结点。</p>
+<h3 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h3><p>要知道链表的中间结点，首先我们需要知道链表的长度，说到链表长度，还记得我们上文说到过哨兵结点可以保存链表长度，这样直接从head的后继结点开始遍历 链表长度/2次即可找到中间结点。为什么中简洁点是 链表长度/2，我们来仔细分析一下</p>
+<p>1.假如链表长度是奇数：head–&gt;1–&gt;2–&gt;3–&gt;4–&gt;5，从1开始遍历 5/2 = 2，到达3，3确实是中间结点。</p>
+<p>2.假如链表长度是偶数：head–&gt;1–&gt;2–&gt;3–&gt;4–&gt;5–&gt;6，从1开始遍历 6/2=3，到达4，4确实是中间结点的第二个结点。</p>
+<h3 id="解法二："><a href="#解法二：" class="headerlink" title="解法二："></a>解法二：</h3><p>由于要遍历两次链表，显得不是那么高效，那能否只遍历一次链表就能拿到中间结点呢。</p>
+<p>这里就引入了我们的快慢指针，主要有三步：</p>
+<ul>
+<li>快慢指针同时指向head的后继结点；</li>
+<li>慢指针走一步，快指针走两步；</li>
+<li>不断地重复步骤2，什么时候停下来呢，这取决于链表的长度是奇数还是偶数</li>
+</ul>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/d1457985986ddc24a6856dcb8e61348067b4a5ff9afec8476434d5151998d9b0-file_1582118990027" alt="img"></p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/59a68b3183bd12d0740afbe10ee0d58366f5fb23135d9ac315886cae8f1e8f67-file_1582118990029" alt="img"></p>
+<p>综上所述，当fast == null 或 fast.next == null 时，此时的slow结点即为我们要求的中间结点。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">pulic Node <span class="title">fideMiddleNodeWithSlowFastPointer</span><span class="params">(Node head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Node fast = head;</span><br><span class="line">    Node slow = head;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(fast != <span class="keyword">null</span> &amp;&amp;  fast.next !=<span class="keyword">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        fast = fast.next.next;</span><br><span class="line">        slow = slow.next;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> slow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有了上面的基础，我们现在再大一下难度，看下下面这道题。</p>
+<p>输入一个链表，输出该链表中的倒数第 k 个结点。比如链表为 head–&gt;1–&gt;2–&gt;3–&gt;4–&gt;5。求倒数第三个结点（即值为 3 的节点）</p>
+<p>分析：我们知道如果要求顺序的第K个结点还是比较简单的，从head开始遍历k次即可，如果要求逆序的第k个结点，常规的做法是先顺序遍历一边链表，拿到链表长度，然后再遍历链表长度 - k次即可，这样要遍历两次链表，不是那么高效，如何只遍历一次呢，还是用我们的说的快慢指针解法</p>
+<ul>
+<li>首先让快慢指针同时指向head的后继结点</li>
+<li>快指针往前走k-1步，先走到第k个结点</li>
+<li>快慢指针同时往后走一步，不断重复此步骤，直到快指针走到尾结点，此时slow结点即为我们要找的倒叙第k个结点</li>
+</ul>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/2876ebccbe18f6186d73f72d9d0f2262e5b353d7c7def294d581352db16d3a84-file_1582118990030" alt="img"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">getKthFromEnd</span><span class="params">(ListNode head, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        ListNode fast = head;</span><br><span class="line">        ListNode slow = head;</span><br><span class="line">        <span class="keyword">while</span>(fast != <span class="keyword">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            fast = fast.next;</span><br><span class="line">            k--;</span><br><span class="line">            <span class="keyword">if</span>(k &lt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                slow = slow.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>知道了如何求倒叙k个结点，再来看看下面这道题</p>
+<p>给定一个单链表，设计一个算法实现链表向右旋转 K 个位置。举例：给定 head-&gt;1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, K=3,右旋后即为 head-&gt;3-&gt;4-&gt;5–&gt;1-&gt;2-&gt;NULL</p>
+<p>分析：这道题其实是对求倒叙第K个位置的一个变型，主要思路如下：</p>
+<ul>
+<li>先找到倒数第K+1个结点，此结点的后继结点即为倒数第K个结点</li>
+<li>将倒数K+1结点的后继结点设置为null</li>
+<li>将head的后继结点设置为以上所得的倒数第K个结点，将原尾结点的后继结点设置为原head的后继结点</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">rotateRight</span><span class="params">(ListNode head, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span> || k == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        ListNode temp = head;</span><br><span class="line">        <span class="keyword">while</span>(temp != <span class="keyword">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            count++;</span><br><span class="line">            temp = temp.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(k % count == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> t = k % count;</span><br><span class="line">            ListNode pre = find(head,t+<span class="number">1</span>);</span><br><span class="line">            ListNode preNext = pre.next;</span><br><span class="line">            ListNode end = preNext;</span><br><span class="line">            <span class="keyword">while</span>(end.next != <span class="keyword">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                end = end.next;</span><br><span class="line">            &#125;</span><br><span class="line">            end.next = head;</span><br><span class="line">            head = preNext;</span><br><span class="line">            pre.next = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">find</span><span class="params">(ListNode head, <span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">                ListNode fast = head;</span><br><span class="line">        ListNode slow = head;</span><br><span class="line">        <span class="keyword">while</span>(fast != <span class="keyword">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            fast = fast.next;</span><br><span class="line">            k--;</span><br><span class="line">            <span class="keyword">if</span>(k &lt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                slow = slow.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="小试牛刀之二"><a href="#小试牛刀之二" class="headerlink" title="小试牛刀之二"></a>小试牛刀之二</h3><p>判断两个单链表是否相交及找到第一个交点,要求空间复杂度 O(1)。如图示：如果两个链表相交，5为这两个链表相交的第一个交点。</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/798cfe354436d3000f2b8c3055d6d90c608891ae650ef3de7eb28627bb09527c-file_1582118990033" alt="img"></p>
+<p>分析：首先我们要明白，由于链表本身的性质，如果有一个相交结点，那么相交结点之后的所有结点都是这两个链表公用的，也就是说两个链表的长度主要相差在相交结点之前的结点长度，于是我们有以下思路：</p>
+<p>1.如果链表没有定义长度，则我们先遍历这两个链表长度，假设分别为L1，L2(L1&gt;=L2)，定义p1，p2指针分别指向各自链表head结点，然后p1先往前走L1-L2步。这一步保证了p1，p2指向的指针与相交结点一样近。</p>
+<p>2.然后p1，p2不断往后遍历，每次走一步，一边遍历一遍判断相应结点是否相等，如果相等即为这两个链表的相交结点。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Node <span class="title">commonNode</span><span class="params">(ListNode l1, ListNode l2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ListNode lista = l1;</span><br><span class="line">    ListNode listb = l2;</span><br><span class="line">    <span class="keyword">while</span>(lista != listb)</span><br><span class="line">    &#123;</span><br><span class="line">        lista = lista == <span class="keyword">null</span>?l2:lista.next;</span><br><span class="line">        listb = listb == <span class="keyword">null</span>?l1:listb.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> lista;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h2><p>接下来我们来看如何用快慢指针来判断链表是否有环，这是快慢指针最常见的用法。</p>
+<p>判断链表是否有环，如果有，找到环的入口位置（下图中的 2），要求空间复杂度为O(1)</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/f56c56b7d4e36604afd4bd9cd561265310c7bc32f99480613ba8e6787755ba42-file_1582118990036" alt="img"></p>
+<p>首先我们要看如果链表有环有什么规律，如果从head结点开始遍历，则这个遍历指针一定会在以上的环中绕圈子，所以我们可以分别定义快慢指针，慢指针走一步，快指针走两步，由于最后快慢指针在遍历过程中一直会在圈中里绕，且快慢指针每次遍历的步长不一样，所以它们在里面不断绕圈子的过程一定会相遇。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Node <span class="title">detectCrossNode</span><span class="params">(Node head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Node fast = head;</span><br><span class="line">    Node slow = head;</span><br><span class="line">    <span class="keyword">while</span>(fast != <span class="keyword">null</span> &amp;&amp; fast.next != <span class="keyword">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        fast = fast.next.next;</span><br><span class="line">        slow = slow.next;</span><br><span class="line">        <span class="keyword">if</span> (fast == <span class="keyword">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(slow.data == fast.data)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> slow;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>判断是否有环为什么要返回相遇结点而不是返回true或flase呢？因为题目还需要判断环的入口位置</p>
+<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/c8d93855ed4256c99420ee9d7014e405231978d205fe27492139187ff4e094a8-file_1582118990038" alt="img"></p>
+<p>不难看出，慢指针走了L+S步，快指针比慢指针走的更快，除了走了L+S外，还在环里绕了L+S+nR步，且快指针是慢指针的两倍。即(L+S+nR)/(L+S) = 2；</p>
+<p>要想找到入口节点，需要定义两个指针，一个指向head，一个指针指向相遇点，然后这两个指针不断遍历，当他们指向同一个结点时即时环的入口结点。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="NoTrouble 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/10/27/%E7%AC%AC%E5%85%AD%E7%AB%A0-%E6%8E%A5%E5%8F%A3%E3%80%81lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E5%86%85%E9%83%A8%E7%B1%BB/" rel="next" title="第六章 接口、lambda表达式与内部类">
+                <i class="fa fa-chevron-left"></i> 第六章 接口、lambda表达式与内部类
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MDk0MC8yNzQyMg=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/wk.jpg"
+                alt="NoTrouble" />
+            
+              <p class="site-author-name" itemprop="name">NoTrouble</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wukun0221@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#链表"><span class="nav-number">1.</span> <span class="nav-text">链表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#链表的定义"><span class="nav-number">1.1.</span> <span class="nav-text">链表的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表的表示"><span class="nav-number">1.2.</span> <span class="nav-text">链表的表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表常见解题套路–翻转"><span class="nav-number">1.3.</span> <span class="nav-text">链表常见解题套路–翻转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小试牛刀"><span class="nav-number">1.4.</span> <span class="nav-text">小试牛刀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#入门到进阶：链表翻转"><span class="nav-number">1.5.</span> <span class="nav-text">入门到进阶：链表翻转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变形题1：给定一个链表的头结点head，以及两个整数from和to，在链表上把第from个节点和第to个结点这一部分进行翻转。"><span class="nav-number">1.6.</span> <span class="nav-text">变形题1：给定一个链表的头结点head，以及两个整数from和to，在链表上把第from个节点和第to个结点这一部分进行翻转。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变形题2：给出一个链表，每K个节点一组进行翻转，并返回反转后的链表。k是一个整数，它的值小于等于链表的长度。如果节点总数不是k的倍数，那么将最后剩余结点保持原有顺序。"><span class="nav-number">1.7.</span> <span class="nav-text">变形题2：给出一个链表，每K个节点一组进行翻转，并返回反转后的链表。k是一个整数，它的值小于等于链表的长度。如果节点总数不是k的倍数，那么将最后剩余结点保持原有顺序。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变形题-变形2针对的是顺序的k个一组翻转，那如何逆序K个一组进行翻转呢"><span class="nav-number">1.8.</span> <span class="nav-text">变形题 变形2针对的是顺序的k个一组翻转，那如何逆序K个一组进行翻转呢</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表解题利器——快慢指针"><span class="nav-number">1.9.</span> <span class="nav-text">链表解题利器——快慢指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寻找-删除第K个结点"><span class="nav-number">1.10.</span> <span class="nav-text">寻找&#x2F;删除第K个结点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">1.10.1.</span> <span class="nav-text">解法一：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法二："><span class="nav-number">1.10.2.</span> <span class="nav-text">解法二：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小试牛刀之二"><span class="nav-number">1.10.3.</span> <span class="nav-text">小试牛刀之二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进阶"><span class="nav-number">1.11.</span> <span class="nav-text">进阶</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">NoTrouble</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
