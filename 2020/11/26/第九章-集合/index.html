@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JAVA," />
 
 
 
@@ -79,11 +79,16 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="NoTrouble&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="第九章 集合9.1 Java集合框架9.1.1 集合接口与实现分离与现代的数据结构类库的常见做法一样，Java集合类库也将接口(interface)与实现(implementation)分离。下面利用我们熟悉的数据结构——队列(Queue)来说明是如何分离的。 队列接口指出可以在队列的尾部添加元素，在队列的头部删除元素，并且可以查找队列中元素的个数。当需要收集对象，并按照“先进先出”方式检索对象时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第九章 集合">
+<meta property="og:url" content="http://yoursite.com/2020/11/26/%E7%AC%AC%E4%B9%9D%E7%AB%A0-%E9%9B%86%E5%90%88/index.html">
 <meta property="og:site_name" content="NoTrouble&#39;s Blog">
+<meta property="og:description" content="第九章 集合9.1 Java集合框架9.1.1 集合接口与实现分离与现代的数据结构类库的常见做法一样，Java集合类库也将接口(interface)与实现(implementation)分离。下面利用我们熟悉的数据结构——队列(Queue)来说明是如何分离的。 队列接口指出可以在队列的尾部添加元素，在队列的头部删除元素，并且可以查找队列中元素的个数。当需要收集对象，并按照“先进先出”方式检索对象时">
+<meta property="article:published_time" content="2020-11-26T04:43:54.000Z">
+<meta property="article:modified_time" content="2020-11-26T04:47:51.708Z">
 <meta property="article:author" content="NoTrouble">
+<meta property="article:tag" content="JAVA">
 <meta name="twitter:card" content="summary">
 
 
@@ -114,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/11/26/第九章-集合/"/>
 
 
 
 
 
-  <title>NoTrouble's Blog</title>
+  <title>第九章 集合 | NoTrouble's Blog</title>
   
 
 
@@ -139,8 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -233,9 +237,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -265,9 +269,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/11/26/%E7%AC%AC%E4%B9%9D%E7%AB%A0-%E9%9B%86%E5%90%88/" itemprop="url">第九章 集合</a></h1>
+          <h1 class="post-title" itemprop="name headline">第九章 集合</h1>
         
 
         <div class="post-meta">
@@ -321,6 +323,11 @@
           
 
           
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
 
           
 
@@ -339,9 +346,7 @@
       
 
       
-        
-          
-            <h1 id="第九章-集合"><a href="#第九章-集合" class="headerlink" title="第九章 集合"></a>第九章 集合</h1><h2 id="9-1-Java集合框架"><a href="#9-1-Java集合框架" class="headerlink" title="9.1 Java集合框架"></a>9.1 Java集合框架</h2><h3 id="9-1-1-集合接口与实现分离"><a href="#9-1-1-集合接口与实现分离" class="headerlink" title="9.1.1 集合接口与实现分离"></a>9.1.1 集合接口与实现分离</h3><p>与现代的数据结构类库的常见做法一样，Java集合类库也将接口(interface)与实现(implementation)分离。下面利用我们熟悉的数据结构——队列(Queue)来说明是如何分离的。</p>
+        <h1 id="第九章-集合"><a href="#第九章-集合" class="headerlink" title="第九章 集合"></a>第九章 集合</h1><h2 id="9-1-Java集合框架"><a href="#9-1-Java集合框架" class="headerlink" title="9.1 Java集合框架"></a>9.1 Java集合框架</h2><h3 id="9-1-1-集合接口与实现分离"><a href="#9-1-1-集合接口与实现分离" class="headerlink" title="9.1.1 集合接口与实现分离"></a>9.1.1 集合接口与实现分离</h3><p>与现代的数据结构类库的常见做法一样，Java集合类库也将接口(interface)与实现(implementation)分离。下面利用我们熟悉的数据结构——队列(Queue)来说明是如何分离的。</p>
 <p>队列接口指出可以在队列的尾部添加元素，在队列的头部删除元素，并且可以查找队列中元素的个数。当需要收集对象，并按照“先进先出”方式检索对象时就应该使用队列。</p>
 <p>队列接口的最简形式可能类似下面这样：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Queue</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(E element)</span></span>;</span><br><span class="line">    <span class="function">E <span class="title">remove</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -864,8 +869,6 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sieve;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.BitSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Sieve</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">2000000</span>;</span><br><span class="line">        <span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line">        BitSet bitSet = <span class="keyword">new</span> BitSet(n+<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">2</span>;i &lt;= n;i++)</span><br><span class="line">            bitSet.set(i);</span><br><span class="line">        i = <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">while</span> ( i * i &lt;= n)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (bitSet.get(i))</span><br><span class="line">            &#123;</span><br><span class="line">                count++;</span><br><span class="line">                <span class="keyword">int</span> k = <span class="number">2</span>* i;</span><br><span class="line">                <span class="keyword">while</span> (k &lt;= n)</span><br><span class="line">                &#123;</span><br><span class="line">                    bitSet.clear(k);</span><br><span class="line">                    k += i;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (i &lt;= n)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (bitSet.get(i)) count++;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> end = System.currentTimeMillis();</span><br><span class="line">        System.out.println(count+<span class="string">"primes"</span>);</span><br><span class="line">        System.out.println((end - start) + <span class="string">" milliseconds"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-          
-        
       
     </div>
     
@@ -875,482 +878,65 @@
     
 
     
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="NoTrouble 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
 
     
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/25/HTML%E5%92%8CCSS%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="NoTrouble">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/wk.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NoTrouble's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/11/25/HTML%E5%92%8CCSS%E5%9F%BA%E7%A1%80/" itemprop="url">HTML和CSS基础</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-25T12:52:32+08:00">
-                2020-11-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVAWeb/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVAWeb</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/JAVA/" rel="tag"># JAVA</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <h1 id="HTML和CSS"><a href="#HTML和CSS" class="headerlink" title="HTML和CSS"></a>HTML和CSS</h1><h2 id="1-B-S软件的结构"><a href="#1-B-S软件的结构" class="headerlink" title="1.B/S软件的结构"></a>1.B/S软件的结构</h2><p>JAVASE    C/S    Client/Server</p>
-<p>B/S    Browser/Server</p>
-<p><img src="/2020/11/25/HTML%E5%92%8CCSS%E5%9F%BA%E7%A1%80/image-20201123150000522.png" alt="image-20201123150000522"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/11/25/HTML%E5%92%8CCSS%E5%9F%BA%E7%A1%80/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/11/25/HTML%E5%92%8CCSS%E5%9F%BA%E7%A1%80/" rel="next" title="HTML和CSS基础">
+                <i class="fa fa-chevron-left"></i> HTML和CSS基础
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/23/Collection%E6%A1%86%E6%9E%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="NoTrouble">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/wk.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NoTrouble's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/11/23/Collection%E6%A1%86%E6%9E%B6/" itemprop="url">Collection框架</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-23T14:22:40+08:00">
-                2020-11-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVA%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVA基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Collection框架"><a href="#Collection框架" class="headerlink" title="Collection框架"></a>Collection框架</h1><p><img src="/2020/11/23/Collection%E6%A1%86%E6%9E%B6/Collection.png" alt="Collection"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/11/23/Collection%E6%A1%86%E6%9E%B6/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/09/%E7%AC%AC%E5%85%AB%E7%AB%A0-%E6%B3%9B%E5%9E%8B%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="NoTrouble">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/wk.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NoTrouble's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/11/09/%E7%AC%AC%E5%85%AB%E7%AB%A0-%E6%B3%9B%E5%9E%8B%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" itemprop="url">第八章 泛型程序设计</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-09T23:01:22+08:00">
-                2020-11-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVA%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVA基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h1 id="第八章-泛型程序设计"><a href="#第八章-泛型程序设计" class="headerlink" title="第八章 泛型程序设计"></a>第八章 泛型程序设计</h1><h2 id="8-1-为什么要使用泛型程序设计"><a href="#8-1-为什么要使用泛型程序设计" class="headerlink" title="8.1 为什么要使用泛型程序设计"></a>8.1 为什么要使用泛型程序设计</h2><p>泛型程序设计(generic programming)意味着编写的代码可以对多种不同类型的对象重用。例如，你并不希望为收集String和File对象分别编写不同的类。实际上，也不需要这样做，因为一个ArrayList类就可以收集任何类的对象。这就是泛型程序设计的一个例子。</p>
-<p>实际上 ，在Java有泛型类之前已经有一个ArrayList类。下面来研究泛型程序设计的机制是如何演变的，另外还会介绍这对用户和实现者来说意味着什么。</p>
-<h3 id="8-1-1-类型参数的好处"><a href="#8-1-1-类型参数的好处" class="headerlink" title="8.1.1 类型参数的好处"></a>8.1.1 类型参数的好处</h3><p>在Java中增加泛型类之前，泛型程序设计是用继承实现的。ArrayList类只维护一个Object引用的数组：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayList</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object[] elementData;</span><br><span class="line">    ...;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">get</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;...&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Object o)</span></span>&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这两种方法存在两个问题。当获取一个值时必须进行强制类型转换。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ArrayList files = <span class="keyword">new</span> ArrayList();</span><br><span class="line">String filename = (String)files.get(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-
-<p>此外，这里没有错误检查。可以向数组列表中添加任何类的值。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">files.add(<span class="keyword">new</span> File(<span class="string">"..."</span>));</span><br></pre></td></tr></table></figure>
-
-<p>对于这个调用，编译器和运行都不会错。不过在其他地方，如果将get的结果强制类型转换转换为String类型，就会产生一个错误。</p>
-<p>泛型提供了一个更好的解决方案：参数类型(type parameter)。ArrayList类有一个类型参数用来指示元素的类型：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;String&gt; files = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br></pre></td></tr></table></figure>
-
-<p>这使得代码具有更好的可读性。人们一看就知道这个数组列表中包含的是String对象。</p>
-<p>编译器也可以充分利用这个类型信息。调用get的时候，不需要进行强制类型转换。编译器知道返回值类型为String，而不是Object：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String filename = files.get(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-
-<p>编译器还知道ArrayList&lt;String&gt;的add方法有一个类型为String的参数，这比有一个Object类型的参数要安全得多。现在，编译器可以检查，防止你插入错误类型得对象。例如，以下语句</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">files.add(<span class="keyword">new</span>(File(<span class="string">"..."</span>)));<span class="comment">//can only add String objects to an Arraylist&lt;String&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>是无法通过编译得。不过，出现编译错误要比运行时出现类得强制类型转换异常好得多。</p>
-<p>这正是类型参数得魅力所在：他们会让你的程序更易读，也更安全。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/11/09/%E7%AC%AC%E5%85%AB%E7%AB%A0-%E6%B3%9B%E5%9E%8B%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -1360,926 +946,11 @@
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/03/%E7%AC%AC%E4%B8%83%E7%AB%A0-%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="NoTrouble">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/wk.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NoTrouble's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/11/03/%E7%AC%AC%E4%B8%83%E7%AB%A0-%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/" itemprop="url">第七章 异常、断言和日志</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-03T12:35:45+08:00">
-                2020-11-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVA%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVA基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="第七章-异常、断言和日志"><a href="#第七章-异常、断言和日志" class="headerlink" title="第七章 异常、断言和日志"></a>第七章 异常、断言和日志</h1><h2 id="7-1-处理错误"><a href="#7-1-处理错误" class="headerlink" title="7.1 处理错误"></a>7.1 处理错误</h2><p>假设在一个Java程序运行期间出现了一个错误。这个错误可能由于文件包含错误信息，或者网络连接出现问题造成的，也有可能是因为使用了无效的数组下标，或者试图使用一个没有被赋值的对象引用而造成的。用户期望在出现错误时，程序能够采取合理的行为。如果由于出现错误而使得某些操作没有完成，程序应该：</p>
-<ul>
-<li>返回到一种安全状态，并能够让用户执行其他的命令；或者</li>
-<li>允许用户保存所有工作的结果，并以妥善的方式终止程序。</li>
-</ul>
-<p>为了能够处理程序中的异常情况，必须考虑到程序中可能会出现的错误和问题。那么需要考虑哪些问题呢？</p>
-<ul>
-<li>用户输入错误</li>
-<li>设备错误</li>
-<li>物理限制</li>
-<li>代码错误</li>
-</ul>
-<p>正如第五章中所提到的那样，在Java中，如果某个方法不能采用正常的途经完成它的任务，可以通过另外一个路径退出方法。在这种情况下，方法并不返回任何值，而是抛出(throw)一个封装了错误信息的对象。需要注意的是，这个方法将会立刻退出，并不返回正常值。此外，也不会从调用这个方法的代码继续执行，取而代之的是，异常处理机制开始搜索能够处理这种异常状况的异常处理器(exception handler)。</p>
-<p>异常有自己的语法和特定的继承层次结构。下面首先介绍语法，然后给出有效地使用这种语言特性的技巧。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/11/03/%E7%AC%AC%E4%B8%83%E7%AB%A0-%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="NoTrouble">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/wk.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NoTrouble's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/" itemprop="url">链表总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-28T11:00:49+08:00">
-                2020-10-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/DataStructure/" itemprop="url" rel="index">
-                    <span itemprop="name">DataStructure</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><h2 id="链表的定义"><a href="#链表的定义" class="headerlink" title="链表的定义"></a>链表的定义</h2><p>链表是物理存储单元上非连续、非顺序的存储结构，它由一个个结点，通过指针来联系起来，其中每个结点都包括数据和指针。</p>
-<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/image-20201027082655248.png" alt="image-20201027082655248"></p>
-<p>链表的非连续，非顺序，对应数组的连续、顺序，来看一个例子：整型数组1，2，3，4在内存中是如何表示的</p>
-<p><img src="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/image-20201027082807682.png" alt="image-20201027082807682"></p>
-<p>可以看到数组的每个元素都是连续紧邻分配的，这叫连续性，同时由于数组的元素占用的大小是一样的，在Java中int型大小固定为4个字节，所以如果数组的起始位置是100，由于这些元素在内存中都是连续紧邻分配的，大小也一样，可以很容易地找出数组中任意一个元素的位置，比如数组中的第三个元素起始地址为100+2*4=108，这就叫顺序性。查找的时间复杂度是O(1)，效率很高！</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/10/28/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/27/%E7%AC%AC%E5%85%AD%E7%AB%A0-%E6%8E%A5%E5%8F%A3%E3%80%81lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E5%86%85%E9%83%A8%E7%B1%BB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="NoTrouble">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/wk.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NoTrouble's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/10/27/%E7%AC%AC%E5%85%AD%E7%AB%A0-%E6%8E%A5%E5%8F%A3%E3%80%81lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E5%86%85%E9%83%A8%E7%B1%BB/" itemprop="url">第六章 接口、lambda表达式与内部类</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-27T07:38:25+08:00">
-                2020-10-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVA%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVA基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="第六章-接口、lambda表达式与内部类"><a href="#第六章-接口、lambda表达式与内部类" class="headerlink" title="第六章 接口、lambda表达式与内部类"></a>第六章 接口、lambda表达式与内部类</h1><p>到目前为止，你已经学习了Java中面向对象编程的核心思想：类和继承。本章将介绍几种常用的高级技术。尽管这些内容可能不太容易理解，但一定要掌握，以完善你的Java工具箱。首先介绍第一种技术，即接口(interface)，接口用来描述类应该做什么，而不指定他们具体应该如何做。一个类可是实现(implement)一个接口或多个接口。有些情况可能要求符合这些接口，只要有这种要求，就可以实现了这个接口的类(及实现类)的对象。了解接口以后，再继续介绍lambda表达式，这是一种很简洁的方法，用来创建可以在将来某个时间点执行的代码块。通过使用lambda表达式，可以用一种精巧而简洁的方式表示使用回调或可变行为的代码。</p>
-<p>接下来，我们将讨论内部类(inner class)机制。理论上讲，内部类有些复杂，内部类定义在另外一个类的内部，它们的方法可以访问包含它们的外部类的字段。内部类技术在设计具有相互协作关系的类集合时很有用。</p>
-<p>在本章的最后还将介绍代理(proxy)，这是一种实现任意接口的对象。代理是一种非常专业的构造工具，可以用来构建系统级的工具。第一次阅读本书时可以先跳过那一节。</p>
-<h2 id="6-1-接口"><a href="#6-1-接口" class="headerlink" title="6.1 接口"></a>6.1 接口</h2><h3 id="6-1-1-接口的概念"><a href="#6-1-1-接口的概念" class="headerlink" title="6.1.1 接口的概念"></a>6.1.1 接口的概念</h3><p>在Java程序设计语言中，接口不是类，而是对希望符合这个接口的类的一组需求。</p>
-<p>我们经常听到服务提供商这样说：“如果你的类符合某个特定接口，我们就会履行这项服务。”下面给出一个具体示例。Array类中的sort方法承诺可以对对象数组进行排序，但要求满足下面这个条件：对象所属的类实现Comparable接口。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Comparable</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Object other)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这说明，任何实现Comparable接口的类都需要包含compapreTo方法，这个方法有一个Object参数，并且返回一个整数。</p>
-<p>接口中的所有方法都是自动public方法。因此，在接口中声明方法时，不必提供关键字public。</p>
-<p>当然，这个接口还有一个没有明确说明的附加要求：在调用x.compareTo(y)的时候，这个compareTo方法必须确实能够比较两个对象，并返回比较结果，即x和y哪一个更大 。当x小于y时返回一个负数；当x等于y时，返回0；否则返回一个正数。</p>
-<p>上面这个接口只有一个方法，而有些接口可能包含多个方法。稍后可以看到，接口还可以定义常量。不过，更重要的是要知道接口不能提供什么。接口绝不会有实例字段，在Java8之前，接口绝对不会实现方法。</p>
-<p>提供实例字段和方法实现的任务应该由实现接口的那个类来完成。因此，可以将接口看成是没有实例字段的抽象类。但是这两个概念还是有一定区别的，稍后将会给出i详细的解释。</p>
-<p>现在，假设希望使用Arrays类的sort方法对Employee对象数组进行排序，Employee类就必须实现Comparable接口。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/10/27/%E7%AC%AC%E5%85%AD%E7%AB%A0-%E6%8E%A5%E5%8F%A3%E3%80%81lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E5%86%85%E9%83%A8%E7%B1%BB/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/26/%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9-237/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="NoTrouble">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/wk.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NoTrouble's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/10/26/%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9-237/" itemprop="url">删除链表中的节点_237</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-26T08:58:55+08:00">
-                2020-10-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/DataStructure/" itemprop="url" rel="index">
-                    <span itemprop="name">DataStructure</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="删除链表中的节点-237"><a href="#删除链表中的节点-237" class="headerlink" title="删除链表中的节点_237"></a>删除链表中的节点_237</h1><h2 id="请编写一个函数，使其可以删除某个链表中给定的（非末尾）节点。传入函数的唯一参数为要被删除的节点。"><a href="#请编写一个函数，使其可以删除某个链表中给定的（非末尾）节点。传入函数的唯一参数为要被删除的节点。" class="headerlink" title="请编写一个函数，使其可以删除某个链表中给定的（非末尾）节点。传入函数的唯一参数为要被删除的节点。"></a>请编写一个函数，使其可以删除某个链表中给定的（非末尾）节点。传入函数的唯一参数为要被删除的节点。</h2><p><img src="/2020/10/26/%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9-237/image-20201025185014252.png" alt="image-20201025185014252"></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [<span class="number">4</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">9</span>], node = <span class="number">5</span></span><br><span class="line">输出：[<span class="number">4</span>,<span class="number">1</span>,<span class="number">9</span>]</span><br><span class="line">解释：给定你链表中值为 <span class="number">5</span> 的第二个节点，那么在调用了你的函数之后，该链表应变为 <span class="number">4</span> -&gt; <span class="number">1</span> -&gt; <span class="number">9</span>.</span><br><span class="line">    </span><br><span class="line">输入：head = [<span class="number">4</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">9</span>], node = <span class="number">1</span></span><br><span class="line">输出：[<span class="number">4</span>,<span class="number">5</span>,<span class="number">9</span>]</span><br><span class="line">解释：给定你链表中值为 <span class="number">1</span> 的第三个节点，那么在调用了你的函数之后，该链表应变为 <span class="number">4</span> -&gt; <span class="number">5</span> -&gt; <span class="number">9</span>.</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteNode</span><span class="params">(ListNode node)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        node.val = node.next.val;</span><br><span class="line">        node.next = node.next.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>思路分析：将要被删除节点的下一个节点的数据赋值给当前节点，将当前节点的next指向下一节点的next(跳过下一节点)。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/25/%E5%89%91%E6%8C%87Offer-18-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E8%8A%82%E7%82%B9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="NoTrouble">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/wk.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NoTrouble's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/10/25/%E5%89%91%E6%8C%87Offer-18-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E8%8A%82%E7%82%B9/" itemprop="url">剑指Offer 18. 删除链表的节点</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-25T09:09:16+08:00">
-                2020-10-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/DataStructure/" itemprop="url" rel="index">
-                    <span itemprop="name">DataStructure</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="剑指Offer-18-删除链表的节点"><a href="#剑指Offer-18-删除链表的节点" class="headerlink" title="剑指Offer 18. 删除链表的节点"></a>剑指Offer 18. 删除链表的节点</h1><h2 id="给定单链表的头指针和一个要删除的节点值，定义一个函数删除该节点。返回删除后的链表的头节点。"><a href="#给定单链表的头指针和一个要删除的节点值，定义一个函数删除该节点。返回删除后的链表的头节点。" class="headerlink" title="给定单链表的头指针和一个要删除的节点值，定义一个函数删除该节点。返回删除后的链表的头节点。"></a>给定单链表的头指针和一个要删除的节点值，定义一个函数删除该节点。返回删除后的链表的头节点。</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: head = [<span class="number">4</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">9</span>], val = <span class="number">5</span></span><br><span class="line">输出: [<span class="number">4</span>,<span class="number">1</span>,<span class="number">9</span>]</span><br><span class="line">解释: 给定你链表中值为 <span class="number">5</span> 的第二个节点，那么在调用了你的函数之后，该链表应变为 <span class="number">4</span> -&gt; <span class="number">1</span> -&gt; <span class="number">9</span>.</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: head = [<span class="number">4</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">9</span>], val = <span class="number">1</span></span><br><span class="line">输出: [<span class="number">4</span>,<span class="number">5</span>,<span class="number">9</span>]</span><br><span class="line">解释: 给定你链表中值为 <span class="number">1</span> 的第三个节点，那么在调用了你的函数之后，该链表应变为 <span class="number">4</span> -&gt; <span class="number">5</span> -&gt; <span class="number">9</span>.</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">deleteNode</span><span class="params">(ListNode head, <span class="keyword">int</span> val)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head == <span class="keyword">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(head.val = val)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> head.next;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode pre = <span class="keyword">null</span>;</span><br><span class="line">        ListNode cur = head;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(cur.val != val)</span><br><span class="line">        &#123;</span><br><span class="line">            pre = cru;</span><br><span class="line">            cru = cru.next;</span><br><span class="line">        &#125;</span><br><span class="line">        pre.next = cru.next;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/24/LeetCode-206/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="NoTrouble">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/wk.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NoTrouble's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/10/24/LeetCode-206/" itemprop="url">LeetCode_206</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-24T20:45:10+08:00">
-                2020-10-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/DataStructure/" itemprop="url" rel="index">
-                    <span itemprop="name">DataStructure</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Leetcode-206"><a href="#Leetcode-206" class="headerlink" title="Leetcode 206"></a>Leetcode 206</h1><h2 id="反转一个单链表。"><a href="#反转一个单链表。" class="headerlink" title="反转一个单链表。"></a>反转一个单链表。</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListNode</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    ListNode next;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ListNode</span><span class="params">(<span class="keyword">int</span> val)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.val = val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: <span class="number">1</span>-&gt;<span class="number">2</span>-&gt;<span class="number">3</span>-&gt;<span class="number">4</span>-&gt;<span class="number">5</span>-&gt;NULL</span><br><span class="line">输出: <span class="number">5</span>-&gt;<span class="number">4</span>-&gt;<span class="number">3</span>-&gt;<span class="number">2</span>-&gt;<span class="number">1</span>-&gt;NULL</span><br></pre></td></tr></table></figure>
-
-<h3 id="遍历法"><a href="#遍历法" class="headerlink" title="遍历法"></a>遍历法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode pre = <span class="keyword">null</span>;</span><br><span class="line">        ListNode cur = head;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            ListNode temp = cur.next;</span><br><span class="line">            </span><br><span class="line">            cur.next = pre;</span><br><span class="line">            pre = cur;</span><br><span class="line">            cur = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="递归法"><a href="#递归法" class="headerlink" title="递归法"></a>递归法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solutin</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        ListNode newNode = reverseList(head.next);</span><br><span class="line">        head.next.next = head;</span><br><span class="line">        head.next = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">return</span> newNode;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">&gt;</a>
-  </nav>
-
 
 
           </div>
@@ -2287,6 +958,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MDk0MC8yNzQyMg=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -2307,8 +987,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -2382,6 +1071,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第九章-集合"><span class="nav-number">1.</span> <span class="nav-text">第九章 集合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#9-1-Java集合框架"><span class="nav-number">1.1.</span> <span class="nav-text">9.1 Java集合框架</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-1-集合接口与实现分离"><span class="nav-number">1.1.1.</span> <span class="nav-text">9.1.1 集合接口与实现分离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-2-Collection-接口"><span class="nav-number">1.1.2.</span> <span class="nav-text">9.1.2 Collection 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-3-迭代器"><span class="nav-number">1.1.3.</span> <span class="nav-text">9.1.3 迭代器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-4-泛型实用方法"><span class="nav-number">1.1.4.</span> <span class="nav-text">9.1.4 泛型实用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-2-集合框架中的接口"><span class="nav-number">1.2.</span> <span class="nav-text">9.2 集合框架中的接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-3-具体集合"><span class="nav-number">1.3.</span> <span class="nav-text">9.3 具体集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-3-1-链表"><span class="nav-number">1.3.1.</span> <span class="nav-text">9.3.1 链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-3-2-数组列表"><span class="nav-number">1.3.2.</span> <span class="nav-text">9.3.2 数组列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-3-3-散列集"><span class="nav-number">1.3.3.</span> <span class="nav-text">9.3.3 散列集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-3-4-树集"><span class="nav-number">1.3.4.</span> <span class="nav-text">9.3.4 树集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-3-5-队列与双端队列"><span class="nav-number">1.3.5.</span> <span class="nav-text">9.3.5 队列与双端队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-3-6-优先队列"><span class="nav-number">1.3.6.</span> <span class="nav-text">9.3.6 优先队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-4-映射"><span class="nav-number">1.4.</span> <span class="nav-text">9.4 映射</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-4-1-基本映射操作"><span class="nav-number">1.4.1.</span> <span class="nav-text">9.4.1 基本映射操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-4-2-跟新映射条目"><span class="nav-number">1.4.2.</span> <span class="nav-text">9.4.2 跟新映射条目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-4-3-映射视图"><span class="nav-number">1.4.3.</span> <span class="nav-text">9.4.3 映射视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-4-4-弱散列映射"><span class="nav-number">1.4.4.</span> <span class="nav-text">9.4.4 弱散列映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-4-5-链接散列集与映射"><span class="nav-number">1.4.5.</span> <span class="nav-text">9.4.5 链接散列集与映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-4-6-枚举集与映射"><span class="nav-number">1.4.6.</span> <span class="nav-text">9.4.6 枚举集与映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-4-7-标识散列映射"><span class="nav-number">1.4.7.</span> <span class="nav-text">9.4.7 标识散列映射</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-5-视图与包装器"><span class="nav-number">1.5.</span> <span class="nav-text">9.5 视图与包装器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-5-1-小集合"><span class="nav-number">1.5.1.</span> <span class="nav-text">9.5.1 小集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-5-2-子范围"><span class="nav-number">1.5.2.</span> <span class="nav-text">9.5.2 子范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-5-3-不可修改的视图"><span class="nav-number">1.5.3.</span> <span class="nav-text">9.5.3 不可修改的视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-5-4-同步视图"><span class="nav-number">1.5.4.</span> <span class="nav-text">9.5.4 同步视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-5-5-检查型视图"><span class="nav-number">1.5.5.</span> <span class="nav-text">9.5.5 检查型视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-5-6-关于可选操作的说明"><span class="nav-number">1.5.6.</span> <span class="nav-text">9.5.6 关于可选操作的说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-6-算法"><span class="nav-number">1.6.</span> <span class="nav-text">9.6 算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-6-1-为什么使用泛型算法"><span class="nav-number">1.6.1.</span> <span class="nav-text">9.6.1 为什么使用泛型算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-6-2-排序与混排"><span class="nav-number">1.6.2.</span> <span class="nav-text">9.6.2 排序与混排</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-6-3-二分查找"><span class="nav-number">1.6.3.</span> <span class="nav-text">9.6.3 二分查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-6-4-简单算法"><span class="nav-number">1.6.4.</span> <span class="nav-text">9.6.4 简单算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-6-5-批操作"><span class="nav-number">1.6.5.</span> <span class="nav-text">9.6.5 批操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-6-6-集合与数组的转换"><span class="nav-number">1.6.6.</span> <span class="nav-text">9.6.6 集合与数组的转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-6-7-编写自己的算法"><span class="nav-number">1.6.7.</span> <span class="nav-text">9.6.7 编写自己的算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-7-遗留的集合"><span class="nav-number">1.7.</span> <span class="nav-text">9.7 遗留的集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-7-1-Hashtable类"><span class="nav-number">1.7.1.</span> <span class="nav-text">9.7.1 Hashtable类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-7-2-枚举"><span class="nav-number">1.7.2.</span> <span class="nav-text">9.7.2 枚举</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-7-3-属性映射"><span class="nav-number">1.7.3.</span> <span class="nav-text">9.7.3 属性映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-7-4-栈"><span class="nav-number">1.7.4.</span> <span class="nav-text">9.7.4 栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-7-5-位集"><span class="nav-number">1.7.5.</span> <span class="nav-text">9.7.5 位集</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -2547,6 +1252,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -2575,6 +1284,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
