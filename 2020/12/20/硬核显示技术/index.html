@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="显示技术," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="硬核显示技术 显示器的原理目前最普及的商用显示器技术从技术原理上分成两大类：  液晶显示器LCD(Liquid Crystal Display) 有机发光半导体OLED(Organic Light-emitting Diode) CRT显像管显示器(太过久远，略)  目前这两类显示器的显示原理都是基于通过三基色组合成像素点的光学原理。像素点非常微小并且非常密集人眼视距在正常的范围是看不到像素点的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="硬核显示技术">
+<meta property="og:url" content="http://yoursite.com/2020/12/20/%E7%A1%AC%E6%A0%B8%E6%98%BE%E7%A4%BA%E6%8A%80%E6%9C%AF/index.html">
+<meta property="og:site_name" content="NoTrouble&#39;s Blog">
+<meta property="og:description" content="硬核显示技术 显示器的原理目前最普及的商用显示器技术从技术原理上分成两大类：  液晶显示器LCD(Liquid Crystal Display) 有机发光半导体OLED(Organic Light-emitting Diode) CRT显像管显示器(太过久远，略)  目前这两类显示器的显示原理都是基于通过三基色组合成像素点的光学原理。像素点非常微小并且非常密集人眼视距在正常的范围是看不到像素点的。">
+<meta property="article:published_time" content="2020-12-20T01:03:41.000Z">
+<meta property="article:modified_time" content="2020-12-20T01:06:59.079Z">
+<meta property="article:author" content="NoTrouble">
+<meta property="article:tag" content="显示技术">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/12/20/硬核显示技术/"/>
+
+
+
+
+
+  <title>硬核显示技术 | NoTrouble's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NoTrouble's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录分享生活中的点点滴滴</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-playlist">
+          <a href="/playlist/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-music"></i> <br />
+            
+            歌单
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/20/%E7%A1%AC%E6%A0%B8%E6%98%BE%E7%A4%BA%E6%8A%80%E6%9C%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="NoTrouble">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoTrouble's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">硬核显示技术</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-20T09:03:41+08:00">
+                2020-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A1%AC%E6%A0%B8%E6%97%A0%E7%BA%BF%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">硬核无线技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="硬核显示技术"><a href="#硬核显示技术" class="headerlink" title="硬核显示技术"></a>硬核显示技术</h1><hr>
+<h2 id="显示器的原理"><a href="#显示器的原理" class="headerlink" title="显示器的原理"></a>显示器的原理</h2><p>目前最普及的商用显示器技术从技术原理上分成两大类：</p>
+<ul>
+<li>液晶显示器LCD(Liquid Crystal Display)</li>
+<li>有机发光半导体OLED(Organic Light-emitting Diode)</li>
+<li>CRT显像管显示器(太过久远，略)</li>
+</ul>
+<p>目前这两类显示器的显示原理都是基于通过三基色组合成像素点的光学原理。像素点非常微小并且非常密集人眼视距在正常的范围是看不到像素点的。LCD和OLED组成最小发光单元的原理却有着本质上的不同。</p>
+ <a id="more"></a> 
+
+<h3 id="LCD显示技术原理"><a href="#LCD显示技术原理" class="headerlink" title="LCD显示技术原理"></a>LCD显示技术原理</h3><p>LCD液晶显示器面板有很多层的结构，LCD面板的发光原理是通过在显示面板最下方的一层背光面板，发射白光。光线透过显示面板的多层结构照亮整个显示面板来实现发光。</p>
+<p>每个物理像素点Pixel由RGB三个颜色的子像素(Sub Pixel)组成，每一个子像素都是一个可以被单独控制的透光单元。子像素本身是不带颜色的，而是透过背光板发出来的白光通过最外层RGB三种颜色的涂层被白光照亮而显示出来的颜色。在这个过程中通过三个基色的子像素分别控制进光量实现三基色不同亮度的组合，加上距离足够远的话人眼是无法分辨出三个不同颜色的子像素，就能组合出特定颜色的像素点。例如：一个像素中的三个子像素全部允许最大背光通过红色、绿色和蓝色同时达到最高亮度，那么由这三个子像素组成的一个像素点，在一定的距离外就会被人眼识别成白色；红色和绿色的子像素如果不透光，而蓝色透光，从远处看这个像素就是蓝色；红色和绿色都透光，蓝色不透光，那么这个像素点显示的就是黄色。那么黑色是怎么显示出来的呢？</p>
+<p>当三个子像素全部屏蔽掉背光看起来就是黑色了！那么子像素是如何屏蔽掉白色背光的呢？这就是利用到了两层偏振膜。偏振膜的作用就是过滤掉多角度射入的杂光，只保留某一个角度射入的光线。具体来说就是，光从背光板发出只有某个特定偏振角度的光通了过去，在到达第二层偏振膜的时候，因为偏振角度跟第一层垂直光就无法穿透了，黑色就是通过这种方式显示的。</p>
+<p>每一个子像素都是通过这种利用光的偏振原理实现单独控制进光量大小来调节亮度来最终显示彩色和黑白。</p>
+<p>一块LCD屏幕上像素点有几百几千万甚至上亿颗，每一个像素点又由三基色的三个子像素组成，如何才能旋转这么大数量的偏振膜来单独控制每一个子像素的进光量呢？在两层偏振膜之间有一层特殊的材料就是传说中的液晶层，通过电压能够控制液晶的螺旋结构改变通过液晶层的光波的光学特性使光的偏振角度发生变化最终实现光线是否能够过第二层偏振膜。每一个子像素都有单独控制电压的逻辑电路，这就解决了几百上千万级别的子像素透光控制的问题。</p>
+<p>上述就是LCD液晶显示器的一个子像素的工作原理，三个子像素组成一个像素点，成千上万个像素点平铺在一起就是一块LCD屏幕了。</p>
+<p>LCD的优点：</p>
+<ul>
+<li>技术和产业非常成熟</li>
+<li>能够以相对低廉的价格大量生产</li>
+</ul>
+<p>LCD的缺点：</p>
+<ul>
+<li>无法显示出纯黑色(虽然经过两层偏振膜，绝大多数的光线已经被过滤掉了，但还是会有少量的光线穿过了偏振膜。)</li>
+<li>画面的对比度不够大(画面对比度可以理解为最亮的白色与最暗的黑色的比值，由于无法显示纯黑色，所以这个比值相对较低)</li>
+<li>背光发出来的光线有至少80%的光线都被过滤掉了，光线透过这些层会造成相当大的亮度损耗，所以功耗也相对较大，即便显示黑色整块背光板的功率也是恒定的。(如果LCD面板需要显示更亮的画面就需要背光板提供更大的亮度的背光，亮度更大会导致黑色的像素的黑度更加不够。)</li>
+</ul>
+<p>目前LCD技术需要优化的主要：</p>
+<ul>
+<li>对比度</li>
+<li>功耗</li>
+<li>亮度</li>
+</ul>
+<h3 id="OLED显示技术原理"><a href="#OLED显示技术原理" class="headerlink" title="OLED显示技术原理"></a>OLED显示技术原理</h3><p>OLED依然是通过三基色组成像素的原理。不同于LCD的主要在于：</p>
+<ul>
+<li>OLED没有背光板，OLED通过每个像素点自发光。</li>
+<li>OLED不需要两层偏振膜，OLED的面板的偏振膜是在最上层用来过滤自然光照射到显示面板之后再反射回人眼的杂光。(按道理来说OLED根本不需要偏振膜，至少偏振膜在OLED的显示器上的作用跟LCD不一样)</li>
+<li>OLED显示黑色的时候子像素是完全关闭的，OLED的黑是纯黑色，因为根本没有光被发射出来。</li>
+</ul>
+<p>OLED的优点：</p>
+<ul>
+<li>OLED面板可以做的很薄，因为不需要背光板和底层的偏振膜，少了很多层的结构。</li>
+<li>节电，因为OLED每个像素自发光而不依靠最下面一整层的背光板，电能转换为光的效率非常高，没有太多的热损耗。甚至是显示纯黑的部分是不耗费电能的。</li>
+<li>显示的对比度高于LCD技术，因为黑色是纯粹的黑，且高亮的区域又是由于OLED自发光。</li>
+<li>OLED可做成柔性屏，在可穿戴设备上OLED基本上是目前最好的解决方案。</li>
+</ul>
+<p>OLED的缺点：</p>
+<ul>
+<li>成本高<ul>
+<li>OLED显示面板在生产的时候对氧气和空气湿度非常敏感，需要在真空或氮气环境中生产。</li>
+<li>有机材料对封装和隔绝也要求特别高，导致生产大面积的OLED面板的难度和工艺呈指数级上升。</li>
+</ul>
+</li>
+<li>烧屏现象(Screen Burning)<ul>
+<li>持续通电的时间</li>
+<li>温度</li>
+<li>解决方法：<ul>
+<li>LG、苹果通过位移那些长期固定显示某个元素的像素点的方式来避免像素过度的使用。例如苹果手机下发的拉杆会自己周期性的位移来避免烧屏</li>
+<li>注意周期性的更换壁纸、控制屏幕的最高亮度。</li>
+</ul>
+</li>
+<li>LCD屏幕也有烧屏现象，但产生的原理跟OLED不一样并且不是永久性的，LCD屏上出现的烧屏现象一般关机冷却几个小时都会自动复原。</li>
+</ul>
+</li>
+</ul>
+<h3 id="AMOLED和MicroLED"><a href="#AMOLED和MicroLED" class="headerlink" title="AMOLED和MicroLED"></a>AMOLED和MicroLED</h3><p>AMOLED本质上就是OLED；MicroLED从发光原理上也跟OLED差不多，因为没有使用有机材料基本上解决了烧屏问题，并且从色彩亮度和功耗还有像素密度上都是OLED的大幅度升级版本。MiicroLED是真正意义上的以后屏幕技术的发展方向。</p>
+<h3 id="目前主流屏幕"><a href="#目前主流屏幕" class="headerlink" title="目前主流屏幕"></a>目前主流屏幕</h3><p>目前最主流的仍然是LCD液晶显示屏，虽然说整体的显示效果不如OLED，但是整个产业链非常成熟，成本优势非常大，再加上各种新型技术不断的在给LCD一次又一次的续命和优化LCD和OLED的显示效果的差距主要体现在对比度上，整体显示质量上没有一个天一个地那么大。虽然OLED显示面板的需求和供应连年上涨，但是LCD依然是高性价比和中低端市场占据主流。</p>
+<h2 id="显示器和屏幕常用参数详解"><a href="#显示器和屏幕常用参数详解" class="headerlink" title="显示器和屏幕常用参数详解"></a>显示器和屏幕常用参数详解</h2><h3 id="分辨率和PPI"><a href="#分辨率和PPI" class="headerlink" title="分辨率和PPI"></a>分辨率和PPI</h3><p>分辨率指的是屏幕上水平方向和垂直方向的像素的数量的乘积。这个指标衡量的是显示器显示的精细程度。下面是不同分辨率之间的关系：</p>
+<ul>
+<li>HD：1280x720</li>
+<li>Full HD：1920x1080</li>
+<li>Quad HD：2560x1440</li>
+<li>4K UHD：3840x2160</li>
+<li>5K UHD+：5120x2880</li>
+<li>8K UHD：7680x4320</li>
+</ul>
+<p>但是抛开屏幕的尺寸和视距不谈，只通过分辨率来讨论显示画面够不够精细是很不完善的，例如：一台100寸的电视在正常的视距下如果分辨率只有1920x1080那么按照目前的标准来看是一个非常糟糕的分辨率，因为你几乎可以清楚的看到像素点和画面中的锯齿；但是如果同样的分辨率放在一块手机屏幕上甚至是在智能手表的屏幕上，你就会觉得非常精细；同样的分辨率在VR显示设备里面，因为视距可能只有几厘米到十几厘米显示效果会比100寸的电视还要差，你可以很明显地分辨出每一个像素点。</p>
+<p>所以衡量屏幕的精细程度要用更符合实际的PPI指标来考量。PPI(Pixel Per Inch)意思为在一英寸的对角线长度内像素的数量。这个指标衡量的是像素的密集程度，在一定的视距内PPI当然越高越好，但超过一个值你就看不太出来了，因为已经达到了人眼观察的极限。例如2010年 iPhone 4 视网膜屏幕的概念刚出来的时候，苹果用来界定人眼无法分辨出像素点的PPI是326，所以所谓的视网膜屏幕的概念也只是由苹果自己定义的。可以说手机上300的PPI再往上提升对于实际的肉眼的观感来说区别不大；电脑屏幕超过200PPI也很高了。在2019年IPhone 11 Pro Max的PPI就达到了458；</p>
+<p>目前对于分辨率和PPI的要求越来越高的其实不是电脑显示器也不是手机屏幕，因为这两类屏幕在目前看来已接近于饱和了。现在对于屏幕的分辨率和PPI进一步提升的需求更大的设备是VR和AR的类型的显示器，因为VR和AR屏幕几乎是贴近人眼的，凑得更近看的也更清楚越容易看出像素点。</p>
+<p>所以衡量一块屏幕的精细程度第一要看分辨率；第二要看屏幕的尺寸结合分辨率算出的PPI；第三要看视距。</p>
+<h3 id="亮度"><a href="#亮度" class="headerlink" title="亮度"></a>亮度</h3><p>亮度的概念是个比较难统一的概念，在摄影领域、投影领域、电灯泡等照明设备的领域衡量亮度的指标分别有：流明、照度、坎德拉、Lux、nits等。</p>
+<p>在显示设备里面，采用尼特nits这个指标来衡量一块屏幕的亮度。一尼特指的是：在一个平方米的范围内一个烛光也就是candela的亮度。现在主流的LCD显示屏亮度一般在两三百到四五百这个区间，也就是相当于一平方米内大概有几百个烛光candela的亮度。</p>
+<p>nits衡量的是一块屏幕最高的亮度峰值而不是恒定的，一块屏幕在显示一幅画面的时候根据显示内容的不同亮度会有比较大的跨越，所以当你看到某个型号的显示器宣称自己能达到500nits，就意味着这块显示屏显示某个高亮的物体比如说太阳最高能够达到500nits，这个画面中如果同时有太阳和背光的悬崖，那么显示太阳的部分虽然到达500nits，但是背光下的悬崖可能只有几十个nits。</p>
+<h3 id="HDR"><a href="#HDR" class="headerlink" title="HDR"></a>HDR</h3><p>HDR(High Dynamic Range)高动态范围，摄影领域的HDR和显示领域的HDR概念不太一样。HDR可以理解为画面中最亮的元素用最高亮度来显示，低亮度的元素依然能够维持比较低的亮度。</p>
+<p>在目前主流的LCD显示面板是非常难以实现的。主流支持HDR显示面板的一般是自发光的OLED显示面板和量子点QLED面板(QLED其实就是背光技术不同的LCD面板)。OLED的有机发光半导体显示技术有两个特点非常适合HDR：一个就是自发光的高亮度，很多OLED的屏幕亮度能够达到上千nits；另一个就是纯黑色的显示。</p>
+<p>HDR的标准有很多，做显示器和电视的厂商可能欺负小白不清楚这么多复杂的概念纷纷宣称自己支持HDR标准。例如：HDR10这个标准中，其中一个指标认为屏幕最高亮度达到1000nits就算支持了HDR10里面的一个标准，一个厂商的屏幕能达到1000nits的亮度，但另一个厂商能做到2000nits，都支持HDR10，但其显示效果能一样么？</p>
+<p>对于用户来说，哪一类人更看重HDR这个指标：第一类为普通的观影爱好者、第二类是影视编辑相关工作的人、第三类人是一部分的游戏玩家。</p>
+<h3 id="色域"><a href="#色域" class="headerlink" title="色域"></a>色域</h3><p>色域指的是一块屏幕能够显示的色彩范围，目前主流的色域标准有sRGB、AdobeRGB、DCI-P3。举个例子来说，如果用一块颜色显示不标准的显示器来调色一段视屏或者一张照片，那么成品在不同的显示器显示出来的实际效果可能是不一样的。</p>
+<p>平面设计、打印行业比较统一的标准是sRGB和AdobeRGB；影视编辑这个行业比较标准的色域是NTSC和P3。</p>
+<p>色域没有好坏并不是说某个色域的标准就一定比另一种色域好，不同的色域标准应用的场景不同。</p>
+<p>sRGB相比之下色域比较窄。如果你发现某个显示器的厂商标注自己的显示器支持百分百的sRGB色域，你心里应该清楚这基本上就是一句废话，大概率是因为显示器厂商够不到AdobeRGB和P3色域的门槛。</p>
+<h3 id="可视角度"><a href="#可视角度" class="headerlink" title="可视角度"></a>可视角度</h3><p>目前IPS面板碾压其他各类面板，其中TN面板的可视角度是最差的。这两种面板类型都是基于LCD显示面板。OLED的类型的面板天然有可视角度这个优势。 IPS屏把电机层和液晶层做在了一个平面，使得光线的方向性没有了，所以可视角度接近一百八十度，但是漏光现象就比较明显。目前TN面板虽然说可视角度差，但优点在于相对便宜，同时液晶分子的扭曲速度非常快，响应速度可以达到惊人的一毫秒，特别适合打游戏。所以TN面板适合游戏玩家选择，IPS面板泛用性比较强，但相对有点贵。OLED屏幕色彩更加鲜艳亮度和对比度非常高特别适合观影同时也是最贵的。</p>
+<h3 id="FPS与屏幕刷新率"><a href="#FPS与屏幕刷新率" class="headerlink" title="FPS与屏幕刷新率"></a>FPS与屏幕刷新率</h3><p>FPS(frame per second)指的是一秒钟计算机显卡产生出的画面的数量，FPS并不是一个常量，而是根据画面生成的难度和显卡的性能随时动态改变的，静态下的计算机画面的FPS非常低，一旦画面变得相对复杂之后FPS变高对应的显卡负载变大。</p>
+<p>屏幕刷新率是一个硬件指标，例如一块显示器的工作频率也就是屏幕刷新率是60Hz，那么只要通电后这块屏幕就以每秒60次的固定频率来显示画面，跟这块屏幕接收到的画面的FPS没有直接的关系。</p>
+<p>如果FPS大于屏幕刷新率的情况呢？同理就算FPS好几百甚至上千，实际你人眼观察到的显示器频率受限于显示器最大刷新率。如果说显示器最大的刷新率是60Hz，如果FPS小于60，例如说是15，也就是一秒钟生成15帧，那么显示器每一帧会显示4次；如果FPS为10，那么显示器每一帧会显示6次。如果FPS高于屏幕刷新率，多出来的画面会被有规律的抛弃掉，因为显示器来不及显示出多出来的画面。</p>
+<h4 id="你到底需要什么样的屏幕刷新率"><a href="#你到底需要什么样的屏幕刷新率" class="headerlink" title="你到底需要什么样的屏幕刷新率"></a>你到底需要什么样的屏幕刷新率</h4><h5 id="对于电脑显示器来说："><a href="#对于电脑显示器来说：" class="headerlink" title="对于电脑显示器来说："></a>对于电脑显示器来说：</h5><p>目前市面上主流的显示器都是60Hz的，这个刷新率应对日常办公基本够用了。而且目前主流的视频流媒体：电影和各种短视频在拍摄的时候都在60FPS以内，所以60Hz的屏幕足够用了。关于游戏与刷新率会在之后详解。</p>
+<h5 id="手机的显示器来说："><a href="#手机的显示器来说：" class="headerlink" title="手机的显示器来说："></a>手机的显示器来说：</h5><p>为什么现在出现了90Hz甚至更高刷新率的屏幕的手机了。简单来说是观看距离变近了，导致人眼对刷新率的要求变高了。展开来说，因为人眼对屏幕的刷新率的感知是非常复杂的，涉及到亮度，观看距离，颜色，画面动态的幅度，屏幕的大小等。</p>
+<p>90Hz甚至120Hz的屏幕的手机对于多数人来说，只是锦上添花的功能，实际意义并不大。在真实的使用场景下高刷新率的屏幕只有在显示UI动画和APP在支持高FPS渲染的情况下才具体能体现出来。</p>
+<p>手机刷新率的提升是必要的，但是应该在成熟的时机下，根据屏幕的成本、性能、功耗和支持的APP生态这几个维度同步的良性提升。</p>
+<h3 id="游戏和显示器刷新率"><a href="#游戏和显示器刷新率" class="headerlink" title="游戏和显示器刷新率"></a>游戏和显示器刷新率</h3><p>随着硬件性能的提升和游戏在计算机平台爆炸式的发展，现在很多的电脑游戏，很多画面非常激烈。尤其是FPS游戏，一旦拉动鼠标快速转身，画面运动太大导致往往50，60的FPS输出在60Hz的显示器上会有明显的撕裂感。甚至很多竞技类游戏，确实会因为毫秒级的画面显式滞后，造成严重的后果，所以高刷新率和高响应的显示面板在计算机游戏领域异军突起，144Hz甚至240Hz的游戏显示器也应运而生。</p>
+<p>帧率对游戏的影响是非常重要的，很多人上了高刷新率显示器，一玩游戏就只觉得好爽好流畅，但是根本不知道是为什么这么流畅。你通过高刷新率的显示器感受到的爽来自两个角度：1. 你直接能够感受到的就是流畅的画面，单位时间内你的眼睛获取到的画面的数量更多，自然看起来就更流畅了。但仅仅是更流畅并不能带来游戏上的优势。2. 画面延迟的降低，一个游戏以60FPS的画面输出给60Hz的显示器，每一帧的显示时间为1s/60=16.67ms。你的每一次操作不考虑输入延迟的情况下，每16毫秒会更新一次出现在显示器上。然而同一个游戏以144FPS的画面输出给144Hz的显示器，同样的一秒内比60Hz的显示器多展示了将近60%的画面数量，每一帧的显式时间为1s/144=6.9ms。你的操作每过7ms就会被画面更新一次，比60Hz的显示器速度快了一倍多的时间，就是因为这个原因，你才会觉得操作更跟手反应更快，同时因为每一帧显示的速度更快，你也会比60Hz显示器的显示画面快那么几毫秒，提前看到下一帧。在对抗性的竞技游戏里面，这一点才是真正高刷新率显示器的优势。</p>
+<p>其他情况的说明：如果你用一块高刷新率的显示器玩游戏，但是你的显卡很差，游戏输出的FPS只有几十，那么你高刷新率的屏幕基本上就是浪费了；比如你玩的游戏并不是竞技性的游戏，那么用不用高刷新率的屏幕玩其实只有画面流畅度有些许的区别而已，整体的体验不会差太多。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="NoTrouble 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%98%BE%E7%A4%BA%E6%8A%80%E6%9C%AF/" rel="tag"># 显示技术</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/11/26/%E7%AC%AC%E4%B9%9D%E7%AB%A0-%E9%9B%86%E5%90%88/" rel="next" title="第九章 集合">
+                <i class="fa fa-chevron-left"></i> 第九章 集合
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MDk0MC8yNzQyMg=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/wk.jpg"
+                alt="NoTrouble" />
+            
+              <p class="site-author-name" itemprop="name">NoTrouble</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wukun0221@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#硬核显示技术"><span class="nav-number">1.</span> <span class="nav-text">硬核显示技术</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#显示器的原理"><span class="nav-number">1.1.</span> <span class="nav-text">显示器的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LCD显示技术原理"><span class="nav-number">1.1.1.</span> <span class="nav-text">LCD显示技术原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OLED显示技术原理"><span class="nav-number">1.1.2.</span> <span class="nav-text">OLED显示技术原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AMOLED和MicroLED"><span class="nav-number">1.1.3.</span> <span class="nav-text">AMOLED和MicroLED</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目前主流屏幕"><span class="nav-number">1.1.4.</span> <span class="nav-text">目前主流屏幕</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示器和屏幕常用参数详解"><span class="nav-number">1.2.</span> <span class="nav-text">显示器和屏幕常用参数详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分辨率和PPI"><span class="nav-number">1.2.1.</span> <span class="nav-text">分辨率和PPI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#亮度"><span class="nav-number">1.2.2.</span> <span class="nav-text">亮度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDR"><span class="nav-number">1.2.3.</span> <span class="nav-text">HDR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#色域"><span class="nav-number">1.2.4.</span> <span class="nav-text">色域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视角度"><span class="nav-number">1.2.5.</span> <span class="nav-text">可视角度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FPS与屏幕刷新率"><span class="nav-number">1.2.6.</span> <span class="nav-text">FPS与屏幕刷新率</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#你到底需要什么样的屏幕刷新率"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">你到底需要什么样的屏幕刷新率</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#对于电脑显示器来说："><span class="nav-number">1.2.6.1.1.</span> <span class="nav-text">对于电脑显示器来说：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#手机的显示器来说："><span class="nav-number">1.2.6.1.2.</span> <span class="nav-text">手机的显示器来说：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#游戏和显示器刷新率"><span class="nav-number">1.2.7.</span> <span class="nav-text">游戏和显示器刷新率</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">NoTrouble</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
