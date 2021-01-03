@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构与算法," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="线性表 线性表是最基本、最简单、也是最常用的一种数据结构。一个线性表是$n$个具有相同特性的数据元素的有限序列。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性表">
+<meta property="og:url" content="http://yoursite.com/2021/01/03/%E7%BA%BF%E6%80%A7%E8%A1%A8/index.html">
+<meta property="og:site_name" content="NoTrouble&#39;s Blog">
+<meta property="og:description" content="线性表 线性表是最基本、最简单、也是最常用的一种数据结构。一个线性表是$n$个具有相同特性的数据元素的有限序列。">
+<meta property="article:published_time" content="2021-01-03T12:28:02.000Z">
+<meta property="article:modified_time" content="2021-01-03T12:32:13.466Z">
+<meta property="article:author" content="NoTrouble">
+<meta property="article:tag" content="数据结构与算法">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/01/03/线性表/"/>
+
+
+
+
+
+  <title>线性表 | NoTrouble's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NoTrouble's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录分享生活中的点点滴滴</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-playlist">
+          <a href="/playlist/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-music"></i> <br />
+            
+            歌单
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/03/%E7%BA%BF%E6%80%A7%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="NoTrouble">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoTrouble's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">线性表</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-03T20:28:02+08:00">
+                2021-01-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h1><hr>
+<p>线性表是最基本、最简单、也是最常用的一种数据结构。一个线性表是$n$个具有相同特性的数据元素的有限序列。</p>
+ <a id="more"></a> 
+
+<p><strong>前驱元素：</strong>若A元素在B元素的前面，则称A为B的前驱元素。</p>
+<p><strong>后继元素：</strong>若B元素在A元素的后面，则称B为A的后继元素。</p>
+<p><strong>线性表的特征：</strong>数据元素之间具有一种“一对一”的逻辑关系。</p>
+<ul>
+<li>第一个数据元素没有前驱，这个元素被称为头结点；</li>
+<li>最后一个数据元素没有后继，这个元素被称为尾结点；</li>
+<li>除了第一个和最后一个数据元素外，其他数据元素有且仅有一个前驱和一个后继。</li>
+</ul>
+<p>如果把线性表用数学语言来定义，则可以表示为$(a_1,a_2…a_i,a_{i+1}…a_n)$，称$a_{i-1}$是$a_i$的前驱元素，$a_{i+1}$是$a_i$的后继元素。</p>
+<p><strong>线性表的分类：</strong></p>
+<p>线性表中数据存储的方式可以是顺序存储，也可以是链式存储，按照数据的存储方式不同，可以把线性表分为顺序表和链表。</p>
+<hr>
+<h2 id="顺序表"><a href="#顺序表" class="headerlink" title="顺序表"></a>顺序表</h2><p>顺序表是在计算机内存中以数组的形式保存的线性表，线性表的顺序存储是指一组地址连续的存储单元，依次存储线性表中的各个元素、使得线性表中在逻辑结构上相应的数据元素存储在相邻的物理存储单元中，即通过数据元素物理存储的相邻关系来反映数据元素之间逻辑上的相邻关系。</p>
+<p><strong>顺序表的API设计：</strong></p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>SequenceList&lt;T&gt;</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>构造方法</td>
+<td>SequenceList(int capacity)</td>
+</tr>
+<tr>
+<td>成员方法</td>
+<td>public void clear()</td>
+</tr>
+<tr>
+<td></td>
+<td>public boolean isEmpty()</td>
+</tr>
+<tr>
+<td></td>
+<td>public int length()</td>
+</tr>
+<tr>
+<td></td>
+<td>public T get(int i)</td>
+</tr>
+<tr>
+<td></td>
+<td>public void insert(int i, T t)</td>
+</tr>
+<tr>
+<td></td>
+<td>public void insert(T t)</td>
+</tr>
+<tr>
+<td></td>
+<td>public T remove(int i)</td>
+</tr>
+<tr>
+<td></td>
+<td>public int indexOf(T t)</td>
+</tr>
+<tr>
+<td>成员变量</td>
+<td>private T[] eles</td>
+</tr>
+<tr>
+<td></td>
+<td>private int N</td>
+</tr>
+</tbody></table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SequenceList</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//存储元素的数组</span></span><br><span class="line">    <span class="keyword">private</span> T[] eles;</span><br><span class="line">    <span class="comment">//记录当前顺序表中的元素个数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> N;</span><br><span class="line">    <span class="comment">//构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SequenceList</span><span class="params">(<span class="keyword">int</span> capacity)</span></span>&#123;</span><br><span class="line">        <span class="comment">//初始化数组</span></span><br><span class="line">        <span class="keyword">this</span>.eles = (T[])<span class="keyword">new</span> Object[capacity];</span><br><span class="line">        <span class="comment">//初始化长度</span></span><br><span class="line">        <span class="keyword">this</span>.N = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//将一个线性表置空</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.N = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//判断当前线性表是否为空</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.N == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获取当前线性表的长度</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">length</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.N;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获取指定位置的元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> eles[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//向线性表中添加元素t</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(T t)</span></span>&#123;</span><br><span class="line">        eles[N++] = t;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//在i元素处插入元素t</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> i, T t)</span></span>&#123;</span><br><span class="line">        <span class="comment">//先把i索引处及其后面的元素依次向后移动</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> index = N; index &gt; i; index--)&#123;</span><br><span class="line">            eles[index] = eles[index - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//把t元素放到i索引处</span></span><br><span class="line">        eles[i] = t;</span><br><span class="line">        N++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//删除指定位置i处的元素，并返回该元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">remove</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">        <span class="comment">//记录索引i处的指</span></span><br><span class="line">        T current = eles[i];</span><br><span class="line">        <span class="comment">//索引i后面的元素依次向前移动一位</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> index = i; index &lt; N -<span class="number">1</span>; index++)&#123;</span><br><span class="line">            eles[index] = eles[index + <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        N--;</span><br><span class="line">        <span class="keyword">return</span> current;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//查找t元素第一次出现的位置</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(T t)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(eles[i].equals(t))&#123;</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SequenceListTest</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">//创建顺序表对象</span></span><br><span class="line">        SequenceList&lt;String&gt; sl = <span class="keyword">new</span> SequenceList&lt;&gt;(<span class="number">10</span>);</span><br><span class="line">        <span class="comment">//测试插入</span></span><br><span class="line">        sl.insert(<span class="string">"qwe"</span>);</span><br><span class="line">        sl.insert(<span class="string">"asd"</span>);</span><br><span class="line">        sl.insert(<span class="number">1</span>,<span class="string">"zxc"</span>);</span><br><span class="line">        <span class="comment">//获取测试</span></span><br><span class="line">        String result = sl.get(<span class="number">1</span>);</span><br><span class="line">        System.out.println(result);</span><br><span class="line">        <span class="comment">//测试删除</span></span><br><span class="line">        String removeResult = sl.remove(<span class="number">0</span>);</span><br><span class="line">        System.out.println(removeResult);</span><br><span class="line">        <span class="comment">//测试清空</span></span><br><span class="line">        sl.clear();</span><br><span class="line">        System.out.println(sl.length());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>顺序表的遍历：</strong></p>
+<p>一般作为容器存储数据，都需要向外部提供遍历的方式，因此我们需要给顺序表提供遍历方式。在Java中，遍历集合的方式一般都是$foreach$循环，如果想让我们的$SequenceList$也能支持$foreach$循环，则需要做如下操作：</p>
+<ul>
+<li>让$SequenceList$实现$Iterable$接口，重写iterator方法；</li>
+<li>让$SequenceList$内部提供一个内部类$SIterator$，实现$Iterator$接口，重写$hasNext$方法和$next$方法；</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SequenceList</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Iterable</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//存储元素的数组</span></span><br><span class="line">    <span class="keyword">private</span> T[] eles;</span><br><span class="line">    <span class="comment">//记录当前顺序表中的元素个数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> N;</span><br><span class="line">    <span class="comment">//构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SequenceList</span><span class="params">(<span class="keyword">int</span> capacity)</span></span>&#123;</span><br><span class="line">        <span class="comment">//初始化数组</span></span><br><span class="line">        <span class="keyword">this</span>.eles = (T[])<span class="keyword">new</span> Object[capacity];</span><br><span class="line">        <span class="comment">//初始化长度</span></span><br><span class="line">        <span class="keyword">this</span>.N = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//将一个线性表置空</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.N = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//判断当前线性表是否为空</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.N == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获取当前线性表的长度</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">length</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.N;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获取指定位置的元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> eles[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//向线性表中添加元素t</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(T t)</span></span>&#123;</span><br><span class="line">        eles[N++] = t;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//在i元素处插入元素t</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> i, T t)</span></span>&#123;</span><br><span class="line">        <span class="comment">//先把i索引处及其后面的元素依次向后移动</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> index = N; index &gt; i; index--)&#123;</span><br><span class="line">            eles[index] = eles[index - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//把t元素放到i索引处</span></span><br><span class="line">        eles[i] = t;</span><br><span class="line">        N++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//删除指定位置i处的元素，并返回该元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">remove</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">        <span class="comment">//记录索引i处的指</span></span><br><span class="line">        T current = eles[i];</span><br><span class="line">        <span class="comment">//索引i后面的元素依次向前移动一位</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> index = i; index &lt; N -<span class="number">1</span>; index++)&#123;</span><br><span class="line">            eles[index] = eles[index + <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        N--;</span><br><span class="line">        <span class="keyword">return</span> current;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//查找t元素第一次出现的位置</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(T t)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(eles[i].equals(t))&#123;</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Iterator&lt;T&gt; <span class="title">iterator</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SIterator();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">SIterator</span> <span class="keyword">implements</span> <span class="title">Iterator</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> cusor;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">SIterator</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.cusor = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.cusor &lt; N;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Object <span class="title">next</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> eles[cusor++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>顺序表的容量可变：</strong></p>
+<p>在之前的实现中，当我们使用$SequenceList$时，先$new SequenceLsit(5)$创建一个对象，创建对象时就需要指定容器大小，初始化指定大小的数组来存储元素，当我们插入元素时，如果已经插入了5个元素，还要继续插入数据，就会报错，就不能插入了。这种设计不符合容器的设计理念，因此我们在设计顺序表时，应该它的容量的伸缩性。</p>
+<ul>
+<li>添加元素时：添加元素时，应该检查当前数组的大小是否能够容纳新的元素，如果不能容纳，则需要创建新的容量更大的数组，我们这里创建一个是原数组两倍容量的新数组存储元素。</li>
+<li>移除元素时，应该检查当前数组的大小是否太大，比如正在用100个容量的数组存储10个元素，这样就会造成内存空间的浪费，应该创建一个容器更小的数组存储元素。如果我们发现数据元素的数量不足数组容量的1/4，则创建一个是原数组容量的1/2的新数组存储元素。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SequenceList</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Iterable</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//存储元素的数组</span></span><br><span class="line">    <span class="keyword">private</span> T[] eles;</span><br><span class="line">    <span class="comment">//记录当前顺序表中的元素个数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> N;</span><br><span class="line">    <span class="comment">//构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SequenceList</span><span class="params">(<span class="keyword">int</span> capacity)</span></span>&#123;</span><br><span class="line">        <span class="comment">//初始化数组</span></span><br><span class="line">        <span class="keyword">this</span>.eles = (T[])<span class="keyword">new</span> Object[capacity];</span><br><span class="line">        <span class="comment">//初始化长度</span></span><br><span class="line">        <span class="keyword">this</span>.N = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//将一个线性表置空</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.N = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//判断当前线性表是否为空</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.N == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获取当前线性表的长度</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">length</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.N;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获取指定位置的元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> eles[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//向线性表中添加元素t</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(T t)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.N == eles.length)&#123;</span><br><span class="line">            resize(<span class="number">2</span> * eles.length);</span><br><span class="line">        &#125;</span><br><span class="line">        eles[N++] = t;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//在i元素处插入元素t</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> i, T t)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(N==eles.length)&#123;</span><br><span class="line">            resize(<span class="number">2</span> * eles.length);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//先把i索引处及其后面的元素依次向后移动</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> index = N; index &gt; i; index--)&#123;</span><br><span class="line">            eles[index] = eles[index - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//把t元素放到i索引处</span></span><br><span class="line">        eles[i] = t;</span><br><span class="line">        N++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//删除指定位置i处的元素，并返回该元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">remove</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">        <span class="comment">//记录索引i处的指</span></span><br><span class="line">        T current = eles[i];</span><br><span class="line">        <span class="comment">//索引i后面的元素依次向前移动一位</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> index = i; index &lt; N -<span class="number">1</span>; index++)&#123;</span><br><span class="line">            eles[index] = eles[index + <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        N--;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(N &lt; (eles.length / <span class="number">4</span>))&#123;</span><br><span class="line">            resize(eles.length / <span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> current;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//查找t元素第一次出现的位置</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(T t)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(eles[i].equals(t))&#123;</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//根据参数newSize，重置eles的大小</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">resize</span><span class="params">(<span class="keyword">int</span> newSize)</span></span>&#123;</span><br><span class="line">        <span class="comment">//定义一个临时数组，指向原数组</span></span><br><span class="line">        T[] temp = <span class="keyword">this</span>.eles;</span><br><span class="line">        <span class="comment">//创建新数组</span></span><br><span class="line">        eles = (T[])<span class="keyword">new</span> Object[newSize];</span><br><span class="line">        <span class="comment">//把原数组的数据拷贝到新数组即可</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)&#123;</span><br><span class="line">            eles[i] = temp[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Iterator&lt;T&gt; <span class="title">iterator</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SIterator();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">SIterator</span> <span class="keyword">implements</span> <span class="title">Iterator</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> cusor;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">SIterator</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.cusor = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.cusor &lt; N;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Object <span class="title">next</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> eles[cusor++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>顺序表的时间复杂度：</strong></p>
+<ul>
+<li>$get(i)$：不难看出，不论数据元素量N有多大，只需要$eles[i]$就可以获取到对应的元素，所以时间复杂度为$O(1)$；</li>
+<li>$insert(int i, T t)$：每一次插入，都需要把$i$位置后面的元素移动一次，随着元素数量$N$的增大，移动的元素也越多，时间复杂度为$O(n)$；</li>
+<li>$remove(int i)$：每一次删除，都需要把$i$位置后面的元素移动一次，随着元素数量$N$的增大，移动的元素也越多，时间复杂度为$O(n)$；</li>
+</ul>
+<p>由于顺序表的底层由数组实现，数组的长度是固定的，所以在操作的过程中涉及到了容器扩容操作。这样会导致顺序表在使用过程中的时间复杂度不是线性的，在某些需要扩容处的节点处，耗时会突增，尤其是元素越多，这个问题越明显。</p>
+<p><strong>Java中$ArrayList$实现：</strong></p>
+<p>Java中$ArrayList$集合的底层也是一种顺序表，使用数组实现，同样提供了增删改查以及扩容等功能。</p>
+<hr>
+<h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><p>前面已经使用顺序存储结构实现了线性表，我们可以发现虽然顺序表的查询很快，时间复杂度为$O(1)$，但是增删的效率是比较低的，因为每一次增删操作都伴随着大量的数据元素移动。</p>
+<p>链表是一种物理存储单元非连续、非顺序的存储结构，其物理结构不能只管的表示数据元素的逻辑顺序，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。链表由一系列的结点(链表中的每一个元素称为结点)组成，结点可以在运行时动态生成。</p>
+<p><strong>结点API设计：</strong></p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>Node&lt;T&gt;</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>构造方法</td>
+<td>Node(T t, Node next)</td>
+</tr>
+<tr>
+<td>成员变量</td>
+<td>T item</td>
+</tr>
+<tr>
+<td></td>
+<td>Node next</td>
+</tr>
+</tbody></table>
+<p><strong>结点类的实现：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> T item;</span><br><span class="line">    <span class="keyword">public</span> Node next;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(T item, Node next)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.item = item;</span><br><span class="line">        <span class="keyword">this</span>.next = next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>生成链表：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    <span class="comment">//构建结点</span></span><br><span class="line">    Node&lt;Integer&gt; first = <span class="keyword">new</span> Node&lt;Integer&gt;(<span class="number">11</span>,<span class="keyword">null</span>);</span><br><span class="line">    Node&lt;Integer&gt; second = <span class="keyword">new</span> Node&lt;Integer&gt;(<span class="number">13</span>,<span class="keyword">null</span>);</span><br><span class="line">    Node&lt;Integer&gt; third = <span class="keyword">new</span> Node&lt;Integer&gt;(<span class="number">12</span>,<span class="keyword">null</span>);</span><br><span class="line">    Node&lt;Integer&gt; fourth = <span class="keyword">new</span> Node&lt;Integer&gt;(<span class="number">8</span>,<span class="keyword">null</span>);</span><br><span class="line">    Node&lt;Integer&gt; fifth = <span class="keyword">new</span> Node&lt;Integer&gt;(<span class="number">9</span>,<span class="keyword">null</span>);</span><br><span class="line">    <span class="comment">//生成链表</span></span><br><span class="line">    first.next = second;</span><br><span class="line">    second.next = third;</span><br><span class="line">    third.next = fourth;</span><br><span class="line">    fourth.next = fifth;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="单向链表"><a href="#单向链表" class="headerlink" title="单向链表"></a>单向链表</h3><p>单向链表是链表的一种，它由多个结点组成，每个结点都由一个数据域和一个指针域组成，数据域用来存储数据，指针域用来指向其后继结点。链表的头结点的数据域不存储数据，指针域指向第一个真正存储数据的结点。</p>
+<p><strong>单向链表的API设计：</strong></p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>LinkList&lt;T&gt;</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>构造方法</td>
+<td>LinkList()</td>
+</tr>
+<tr>
+<td>成员方法</td>
+<td>public void clear()</td>
+</tr>
+<tr>
+<td></td>
+<td>public boolean isEmpty()</td>
+</tr>
+<tr>
+<td></td>
+<td>public int length()</td>
+</tr>
+<tr>
+<td></td>
+<td>public T get(int i)</td>
+</tr>
+<tr>
+<td></td>
+<td>public void insert(T t)</td>
+</tr>
+<tr>
+<td></td>
+<td>public void insert(int i, T t)</td>
+</tr>
+<tr>
+<td></td>
+<td>public T remove(int i)</td>
+</tr>
+<tr>
+<td></td>
+<td>public int indexOf(T t)</td>
+</tr>
+<tr>
+<td>成员内部类</td>
+<td>private class Node&lt;T&gt;</td>
+</tr>
+<tr>
+<td>成员变量</td>
+<td>private Node head</td>
+</tr>
+<tr>
+<td></td>
+<td>private int N</td>
+</tr>
+</tbody></table>
+<p><strong>单向链表的代码实现：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkList</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Iterable</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//记录头结点</span></span><br><span class="line">    <span class="keyword">private</span> Node head;</span><br><span class="line">    <span class="comment">//记录链表长度</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> N;</span><br><span class="line">    <span class="comment">//结点类</span></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">        <span class="comment">//存储数据</span></span><br><span class="line">        T item;</span><br><span class="line">        <span class="comment">//下一结点</span></span><br><span class="line">        Node next;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(T item, Node next)</span></span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.item = item;</span><br><span class="line">            <span class="keyword">this</span>.next = next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LinkList</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//初始化头结点</span></span><br><span class="line">        <span class="keyword">this</span>.head = <span class="keyword">new</span> Node(<span class="keyword">null</span>,<span class="keyword">null</span>);</span><br><span class="line">        <span class="comment">//初始化元素个数</span></span><br><span class="line">        <span class="keyword">this</span>.N = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//清空链表</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.head.next = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">this</span>.N = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//获取链表长度</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">length</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.N;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//判断链表是否为空</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.N == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//获取指定位置i处的元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">        <span class="comment">//通过循环，从头结点往后找，依次找i次</span></span><br><span class="line">        Node n = head.next;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; i; index++)&#123;</span><br><span class="line">            n = n.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> n.item;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//向链表中插入元素t</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(T t)</span></span>&#123;</span><br><span class="line">        <span class="comment">//找到当前最后一个结点</span></span><br><span class="line">        Node n = head;</span><br><span class="line">        <span class="keyword">while</span>(n.next != <span class="keyword">null</span>)&#123;</span><br><span class="line">            n = n.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//创建新结点，保存元素t</span></span><br><span class="line">        n.next = <span class="keyword">new</span> Node(t,<span class="keyword">null</span>);</span><br><span class="line">        <span class="comment">//让当前最后一个节点指向新节点</span></span><br><span class="line">        N++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//在指定的位置i处，添加元素t</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> i, T t)</span></span>&#123;</span><br><span class="line">        <span class="comment">//找到i位置前一个结点</span></span><br><span class="line">        Node pre = head;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; i; i++)&#123;</span><br><span class="line">            pre = pre.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//找到i位置的结点</span></span><br><span class="line">        <span class="comment">//创建新结点，并且新结点需要指向原来i位置的结点</span></span><br><span class="line">        pre.next = <span class="keyword">new</span> Node(t,pre.next);</span><br><span class="line">        N++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//删除指定位置i处的元素，并返回被删除的元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">remove</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">        <span class="comment">//找到i位置的前一个结点</span></span><br><span class="line">        Node pre = head;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; i; index++)&#123;</span><br><span class="line">            pre = pre.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//找到i位置的结点</span></span><br><span class="line">        Node curr = pre.next;</span><br><span class="line">        <span class="comment">//找到i位置的下一个结点</span></span><br><span class="line">        Node nextNode = curr.next;</span><br><span class="line">        <span class="comment">//前一结点指向下一结点</span></span><br><span class="line">        pre.next = nextNode;</span><br><span class="line">        <span class="comment">//元素个数-1</span></span><br><span class="line">        N--;</span><br><span class="line">        <span class="keyword">return</span> curr.item;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//查找元素t在链表中第一次出现的位置</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(T t)</span></span>&#123;</span><br><span class="line">        Node temp = head;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; temp != <span class="keyword">null</span>;i++)&#123;</span><br><span class="line">            temp = temp.next;</span><br><span class="line">            <span class="keyword">if</span>(temp.item.equals(t))&#123;</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Iterator&lt;T&gt; <span class="title">iterator</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> LIterator()</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">LIterator</span> <span class="keyword">implements</span> <span class="title">Iterator</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> Node temp;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">LIterator</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.temp = head;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> temp.next != <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Object <span class="title">next</span><span class="params">()</span></span>&#123;</span><br><span class="line">            temp = temp.next;</span><br><span class="line">            <span class="keyword">return</span> temp.item;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h3><p>双向链表也叫双向表，是链表的一种，它由多个结点组成，每个结点都由一个数据域合和两个指针域组成，数据域用来存储数据，其中一个指针域用来指向后继结点，另一个指针用来指向前驱结点。链表的头结点的数据域不存储数据，指向前驱结点的指针值为null，指向后继结点的指针域指向第一个真正存储数据的结点。</p>
+<p><strong>结点API的设计：</strong></p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>Node&lt;T&gt;</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>构造方法</td>
+<td>Node(T t, Node pre, Node next)</td>
+</tr>
+<tr>
+<td>成员变量</td>
+<td>T item</td>
+</tr>
+<tr>
+<td></td>
+<td>Node next</td>
+</tr>
+<tr>
+<td></td>
+<td>Node pre</td>
+</tr>
+</tbody></table>
+<p><strong>双向链表API的设计：</strong></p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>TowWayLinkList&lt;T&gt;</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>构造方法</td>
+<td>TowWayLinkList()</td>
+</tr>
+<tr>
+<td>成员方法</td>
+<td>public void clear()</td>
+</tr>
+<tr>
+<td></td>
+<td>public boolean isEmpty()</td>
+</tr>
+<tr>
+<td></td>
+<td>public int length()</td>
+</tr>
+<tr>
+<td></td>
+<td>public void insert(T t)</td>
+</tr>
+<tr>
+<td></td>
+<td>public void insert(int i, T t)</td>
+</tr>
+<tr>
+<td></td>
+<td>public T remove(int i)</td>
+</tr>
+<tr>
+<td></td>
+<td>public int indexOf(T t)</td>
+</tr>
+<tr>
+<td></td>
+<td>public T getFirst()</td>
+</tr>
+<tr>
+<td></td>
+<td>public T getLast()</td>
+</tr>
+<tr>
+<td>成员内部类</td>
+<td>private class Node&lt;T&gt;</td>
+</tr>
+<tr>
+<td>成员变量</td>
+<td>private Node first</td>
+</tr>
+<tr>
+<td></td>
+<td>private Node last</td>
+</tr>
+<tr>
+<td></td>
+<td>private int N</td>
+</tr>
+</tbody></table>
+<p><strong>双向链表代码实现：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TowWayLinkList</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Iterable</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//首结点</span></span><br><span class="line">    <span class="keyword">private</span> Node head;</span><br><span class="line">    <span class="comment">//尾结点</span></span><br><span class="line">    <span class="keyword">private</span> Node last;</span><br><span class="line">    <span class="comment">//链表长度</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> N;</span><br><span class="line">    <span class="comment">//结点类</span></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> T item;</span><br><span class="line">        <span class="keyword">public</span> Node pre;</span><br><span class="line">        <span class="keyword">public</span> Node next;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(T item, Node pre, Node next)</span></span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.item = item;</span><br><span class="line">            <span class="keyword">this</span>.pre = pre;</span><br><span class="line">            <span class="keyword">this</span>.next = next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TowWayLinkList</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//初始化头结点和尾结点</span></span><br><span class="line">        <span class="keyword">this</span>.head = <span class="keyword">new</span> Node(<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>);</span><br><span class="line">        <span class="keyword">this</span>.last = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">//初始化元素个数</span></span><br><span class="line">        <span class="keyword">this</span>.N = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//清空链表</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.head.next = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">this</span>.head.pre = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">this</span>.head.item = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">this</span>.last = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">this</span>.N = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//获取链表的长度</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">length</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.N;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//判断链表是否为空</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.N == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//获取第一个元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getFirst</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(isEmpty())&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> head.next.item;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//获取最后一个元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getLast</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(isEmpty())&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> last.item;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//插入元素t</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(T t)</span></span>&#123;</span><br><span class="line">        <span class="comment">//如果链表为空</span></span><br><span class="line">        <span class="keyword">if</span>(isEmpty)&#123;</span><br><span class="line">            last = <span class="keyword">new</span> Node(t,head,<span class="keyword">null</span>);</span><br><span class="line">            head.next = last;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            last.next = <span class="keyword">new</span> Node(t,last,<span class="keyword">null</span>);</span><br><span class="line">            last = last.next;</span><br><span class="line">        &#125;</span><br><span class="line">        N++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//在指定位置i处插入元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> i, T t)</span></span>&#123;</span><br><span class="line">        <span class="comment">//找到i位置前一个结点</span></span><br><span class="line">        Node pre = head;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; i; index++)&#123;</span><br><span class="line">            pre = pre.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//找到当前结点</span></span><br><span class="line">        Node curr = pre.next;</span><br><span class="line">        <span class="comment">//创建新结点</span></span><br><span class="line">        Node newNode = <span class="keyword">new</span> Node(t,pre,curr);</span><br><span class="line">        pre.next = newNode;</span><br><span class="line">        curr.pre = newNode;</span><br><span class="line">        N++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//获取指定位置i处的元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">        Node temp = head.next;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; i; index++)&#123;</span><br><span class="line">            temp = temp.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> temp.item;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//找到元素t在链表中第一次出现的位置</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(T t)</span></span>&#123;</span><br><span class="line">        Node temp = head;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; temp.next != <span class="keyword">null</span>; i++)&#123;</span><br><span class="line">            temp = temp.next;</span><br><span class="line">            <span class="keyword">if</span>(temp.item.equals(t))&#123;</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//删除位置i处的元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">remove</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">        <span class="comment">//找到i位置的前一个结点</span></span><br><span class="line">        Node pre = head;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; i; i++)&#123;</span><br><span class="line">            pre = pre.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//找到i位置的结点</span></span><br><span class="line">        Node curr = pre.next;</span><br><span class="line">        <span class="comment">//找到i位置的下一个结点</span></span><br><span class="line">        Node nextNode = curr.next;</span><br><span class="line">        <span class="comment">//让i位置的前一个结点的下一个结点变为i位置的下一个结点</span></span><br><span class="line">        pre.next = nextNode;</span><br><span class="line">        nextNode.pre = pre;</span><br><span class="line">        N--;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> curr.item;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Iterator&lt;T&gt; <span class="title">iterator</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Titerator();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">TIterator</span> <span class="keyword">implements</span> <span class="title">Iterator</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> Node n;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">TIterator</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.n = head;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> n.next != <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Object <span class="title">next</span><span class="params">()</span></span>&#123;</span><br><span class="line">            n = n.next;</span><br><span class="line">            <span class="keyword">return</span> n.item;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Java中LinkedList实现：</strong></p>
+<p>java中LinkedList集合也是使用双向链表实现，并提供了增删改查等相关方法。</p>
+<p><strong>链表的复杂度分析：</strong></p>
+<ul>
+<li>$get(int i)$：每一次查询，都需要从链表的头部开始，依次向后查找，随着数据元素N的增多，比较元素越多，时间复杂度为$O(n)$。</li>
+<li>$insert(int i, T t)$：每一插入，需要找到i位置的前一个元素，然后完成插入操作，随着元素数量N的增多，查找的元素越多，时间复杂度为$O(n)$。</li>
+<li>$remove(int i)$：每一次移除，需要先找到i位置的前一个元素，然后完成插入操作，随着数据元素N的增多，查找的元素越多，时间复杂度为$O(n)$。</li>
+</ul>
+<p>相比较顺序表，链表插入和删除的时间复杂度虽然一样，然仍然有很大的优势，因为链表的物理地址是不连续的，它不需要预定指定存储空间大小，或者在存储过程中涉及到扩容等操作，同时它并没有涉及到元素的交换。</p>
+<p>相比较顺序表，链表的查询操作性能会比较低。因此，如果我们的程序中查询操作比较多，建议使用顺序表，增删操作比较多，建议使用链表。</p>
+<h3 id="链表反转："><a href="#链表反转：" class="headerlink" title="链表反转："></a>链表反转：</h3><p><strong>需求：</strong></p>
+<ul>
+<li>原链表中数据为：1-&gt;2-&gt;3-&gt;4</li>
+<li>反转后链表中数据为：4-&gt;3-&gt;2-&gt;1</li>
+</ul>
+<p><strong>反转API：</strong></p>
+<ul>
+<li>public void reverse()：对整个链表反转</li>
+<li>public Node reverse(Node curr)：反转链表中某个节点curr，并把反转后的curr结点返回</li>
+</ul>
+<p>使用递归可以完成反转，递归反转其实就是从原链表的第一个存放数据的结点开始，依次递归调用反转每一个节点，直到把最后一个结点反转完毕，整个链表就反转完毕。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reverse</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(isEmpty())&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    reverse(head.next);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> Node <span class="title">reverse</span><span class="params">(Node curr)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(curr.next == <span class="keyword">null</span>)&#123;</span><br><span class="line">        head.next = curr;</span><br><span class="line">        <span class="keyword">return</span> curr;</span><br><span class="line">    &#125;</span><br><span class="line">    Node pre = reverse(curr.next);</span><br><span class="line">    pre.next = curr;</span><br><span class="line">    curr.next = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">return</span> curr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="快慢指针："><a href="#快慢指针：" class="headerlink" title="快慢指针："></a>快慢指针：</h3><p>快慢指针的定义是，这两个指针的移动速度一快一慢，以此来制造出自己想要的差值，这个差值可以让我们找到链表上相应的结点。一般情况下，快指针的移动步长为慢指针的两倍。</p>
+<p><strong>中间值问题：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getMid</span><span class="params">(Node&lt;String&gt; first)</span></span>&#123;</span><br><span class="line">    Node&lt;String&gt; fast = first;</span><br><span class="line">    Node&lt;String&gt; slow = first;</span><br><span class="line">    <span class="keyword">while</span>(fast != <span class="keyword">null</span> &amp;&amp; fast.next != <span class="keyword">null</span>)&#123;</span><br><span class="line">        slow = slow.next;</span><br><span class="line">        fast = fast.next.next;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> slow.item;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>单向链表是否有环问题：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isCircle</span><span class="params">(Node first)</span></span>&#123;</span><br><span class="line">    Node fast = first;</span><br><span class="line">    Node slow = first;</span><br><span class="line">    <span class="keyword">while</span>(fast != <span class="keyword">null</span> &amp;&amp; fast.next != <span class="keyword">null</span>)&#123;</span><br><span class="line">        fast = fast.next.next;</span><br><span class="line">        slow = slow.next;</span><br><span class="line">        <span class="keyword">if</span>(fast = slow)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>有环链表入口问题：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Node <span class="title">getEntrance</span><span class="params">(Node first)</span></span>&#123;</span><br><span class="line">    Node fast = first;</span><br><span class="line">    Node slow = first;</span><br><span class="line">    Node temp = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">while</span>(fast != <span class="keyword">null</span> &amp;&amp; fast.next != <span class="keyword">null</span>)&#123;</span><br><span class="line">        slow = slow.next;</span><br><span class="line">        fast = fast.next.next;</span><br><span class="line">        <span class="keyword">if</span>(slow == fast)&#123;</span><br><span class="line">            temp = first;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(temp != <span class="keyword">null</span>)&#123;</span><br><span class="line">            temp = temp.next;</span><br><span class="line">            <span class="keyword">if</span>(temp == slow)&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> temp;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="循环链表："><a href="#循环链表：" class="headerlink" title="循环链表："></a>循环链表：</h3><p>链表整体要形成一个圆环状。在单向链表中，最后一个结点的指针为null，不指向任何结点，因为没有下一个元素了。要实现循环链表，我们只需要让单向链表的最后一个结点的指针指向头结点即可。</p>
+<h3 id="约瑟夫问题："><a href="#约瑟夫问题：" class="headerlink" title="约瑟夫问题："></a>约瑟夫问题：</h3><p>41个人坐一圈，第一个人编号为1，第二个编号为2，第n个人编号为n。编号为1的人开始报数，依次向后，报数为3的那个人退出圈；自退出那个人开始的下一个人再次从1开始报数，以此类推；求出最后退出的那个人的编号。</p>
+<p><strong>解题思路：</strong></p>
+<p>构建含有41个结点的单向循环链表，分别存储1~41的值，代表这41个人；使用计数器count，记录当前报数的值；遍历链表，每循环一次，count++；判断count的值，如果是3，则从链表中删除这个结点并打印结点的值，把count重置为0。</p>
+<p><strong>代码实现：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JosephTest</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Node&lt;Integer&gt; first = <span class="keyword">null</span>;</span><br><span class="line">        Node&lt;Integer&gt; pre = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">41</span>; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i == <span class="number">1</span>)&#123;</span><br><span class="line">                first = <span class="keyword">new</span> Node&lt;&gt;(i,<span class="keyword">null</span>);</span><br><span class="line">                pre = first;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            Node&lt;Integer&gt; newNode = <span class="keyword">new</span> Node&lt;&gt;(i,<span class="keyword">null</span>);</span><br><span class="line">            pre.next = newNode;</span><br><span class="line">            pre = newNode;</span><br><span class="line">            <span class="keyword">if</span>(i == <span class="number">41</span>)&#123;</span><br><span class="line">                pre.next = first;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        Node&lt;Integer&gt; temp = first;</span><br><span class="line">        Node&lt;Integer&gt; before = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">while</span>(temp != temp.next)&#123;</span><br><span class="line">            count++;</span><br><span class="line">            <span class="keyword">if</span>(count == <span class="number">3</span>)&#123;</span><br><span class="line">                before.next = temp.next;</span><br><span class="line">                System.out.println(temp.item);</span><br><span class="line">                count = <span class="number">0</span>;</span><br><span class="line">                temp = temp.next;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                before = temp;</span><br><span class="line">                temp = temp.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">        T item;</span><br><span class="line">        Node next;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(T item, Node next)</span></span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.item = item;</span><br><span class="line">            <span class="keyword">this</span>.next = next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>栈是一种基于先进后出(FILO)的数据结构，是一种只能进行插入和删除操作的特殊线性表。它按照先进后出的原则存储数据，先进入的数据被压入栈底，最后的数据在栈顶，需要读数据的时候从栈顶开始弹出数据(最后一个数据被第一个读出来)。</p>
+<p>我们称数据进入到栈的动作为压栈，数据从栈中出去的动作为弹栈。</p>
+<p><strong>栈的API设计：</strong></p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>Stack&lt;T&gt;</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>构造方法</td>
+<td>Stack()</td>
+</tr>
+<tr>
+<td>成员方法</td>
+<td>public boolean isEmpty()</td>
+</tr>
+<tr>
+<td></td>
+<td>public int size()</td>
+</tr>
+<tr>
+<td></td>
+<td>public T pop()</td>
+</tr>
+<tr>
+<td></td>
+<td>public void push(T t)</td>
+</tr>
+<tr>
+<td>成员变量</td>
+<td>private Node head</td>
+</tr>
+<tr>
+<td></td>
+<td>private int N</td>
+</tr>
+<tr>
+<td>成员内部类</td>
+<td>private class Node</td>
+</tr>
+</tbody></table>
+<p><strong>栈的代码实现：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Stack</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Iterable</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Node head;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> N;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> T item;</span><br><span class="line">        <span class="keyword">public</span> Node next;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(T item, Node next)</span></span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.item = item;</span><br><span class="line">            <span class="keyword">this</span>.next = next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Stack</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.head = <span class="keyword">new</span> Node(<span class="keyword">null</span>,<span class="keyword">null</span>);</span><br><span class="line">        <span class="keyword">this</span>.N = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.N == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.N;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(T t)</span></span>&#123;</span><br><span class="line">        <span class="comment">//找到首结点指向第一个结点</span></span><br><span class="line">        Node oldFirst = head.next;</span><br><span class="line">        <span class="comment">//创建新结点</span></span><br><span class="line">        Node newNode = <span class="keyword">new</span> Node(t,<span class="keyword">null</span>);</span><br><span class="line">        <span class="comment">//让新结点指向原来的第一个结点</span></span><br><span class="line">        head.next = newNode;</span><br><span class="line">        newNode.next = oldForst;</span><br><span class="line">        N++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">pop</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//找到首结点指向的第一个结点</span></span><br><span class="line">        Node oldFirst = head.next;</span><br><span class="line">        <span class="keyword">if</span>(oldFirst == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//让首结点指向原来的第一个结点的下一个结点</span></span><br><span class="line">        head.next = oldFirst.next;</span><br><span class="line">        <span class="comment">//元素个数-1</span></span><br><span class="line">        N--;</span><br><span class="line">        <span class="keyword">return</span> oldFirst.item;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Iterator&lt;T&gt; <span class="title">iterator</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SIterator()</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">SIterator</span> <span class="keyword">implements</span> <span class="title">Iterator</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> Node temp;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">SIterator</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.temp = head;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> temp.next != <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Object <span class="title">next</span><span class="params">()</span></span>&#123;</span><br><span class="line">            temp = temp.next;</span><br><span class="line">            <span class="keyword">return</span> temp.item;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="括号匹配问题："><a href="#括号匹配问题：" class="headerlink" title="括号匹配问题："></a>括号匹配问题：</h3><p><strong>问题描述：</strong></p>
+<p>给定一个字符串，里面可能包含“()”小括号和其他字符，通过程序检查该字符串中的小括号是否成对出现。</p>
+<p>例如：</p>
+<ul>
+<li>“(上海)(长安)”正确匹配</li>
+<li>“(上海((长安))”正确匹配</li>
+<li>“上海(长安(北京)(深圳)南京)”正确匹配</li>
+<li>“上海(长安))”匹配错误</li>
+<li>“((上海)长安”匹配错误</li>
+</ul>
+<p><strong>示例代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BracketsMatchTest</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        String str = <span class="string">"(上海(长安)())"</span>;</span><br><span class="line">        <span class="keyword">boolean</span> match = isMatch(str);</span><br><span class="line">        System.out.println(match);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isMatch</span><span class="params">(String str)</span></span>&#123;</span><br><span class="line">        <span class="comment">//创建栈对象，用来存储左括号</span></span><br><span class="line">        Stack&lt;String&gt; chars = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        <span class="comment">//从左往右遍历字符</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str.length(); i++)&#123;</span><br><span class="line">            String currChar = str.charAt(i) +<span class="string">""</span>;</span><br><span class="line">            <span class="keyword">if</span>(currChar.equals(<span class="string">"("</span>))&#123;</span><br><span class="line">                chars.push(currChar);</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(currChar.equals(<span class="string">")"</span>))&#123;</span><br><span class="line">                String pop = chars.pop();</span><br><span class="line">                <span class="keyword">if</span>(pop == <span class="keyword">null</span>)&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//判断当前字符是否为左括号，如果是，则把字符放入栈中</span></span><br><span class="line">        <span class="comment">//继续判断当前字符是否有括号，如果是，则从栈中弹出一个左括号，并判断弹出的结果为null，如果为null证明没有匹配的左括号，如果不为null，则证明有匹配的左括号</span></span><br><span class="line">        <span class="comment">//判断栈中还有没有剩余的左括号</span></span><br><span class="line">        <span class="keyword">if</span>(chars.size() == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="逆波兰表达式求值问题"><a href="#逆波兰表达式求值问题" class="headerlink" title="逆波兰表达式求值问题"></a>逆波兰表达式求值问题</h3><p><strong>中缀表达式：</strong></p>
+<p>中缀表达式就是生活中使用的表达式，例如：$1+3*2,2-(1+3)$等等，中缀表达式的特点是：二元运算符总是置于两个操作数中间。中缀表达式是人们最喜欢的表达方式，因为简单。但对于计算机来说就不是这样了，因为中缀表达式的运算顺序不具有规律性。不同的运算符具有不同的优先级，如果计算机执行中缀表达式，需要解析表达式语义，做大量的优先级相关操作。</p>
+<p><strong>逆波兰表达式(后缀表达式)：</strong></p>
+<p>逆波兰表达式是波兰逻辑学家J·卢卡西维兹于1929年提出的一种表达式的表示方法，后缀表达式的特点：运算符总是放在跟它相关的操作数之后。</p>
+<table>
+<thead>
+<tr>
+<th>中缀表达式</th>
+<th>逆波兰表达式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>a+b</td>
+<td>ab+</td>
+</tr>
+<tr>
+<td>a+(b-c)</td>
+<td>abc-+</td>
+</tr>
+<tr>
+<td>a+(b-c)*d</td>
+<td>abc-d*+</td>
+</tr>
+<tr>
+<td>a*(b-c)+d</td>
+<td>abc-*d+</td>
+</tr>
+</tbody></table>
+<p><strong>需求：</strong></p>
+<p>给定一个只包含加减乘除四种运算的逆波兰表达式的数组表示方法，求出该逆波兰表达式的结果。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReversePolishNotationTest</span></span>&#123;</span><br><span class="line">    <span class="comment">//(3*(17-15)+18/6)</span></span><br><span class="line">    String[] notation=&#123;<span class="string">"3"</span>,<span class="string">"17"</span>,<span class="string">"15"</span>,<span class="string">"-"</span>,<span class="string">"*"</span>,<span class="string">"18"</span>,<span class="string">"6"</span>,<span class="string">"/"</span>,<span class="string">"+"</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> result = caculate(notation);</span><br><span class="line">    System.out.println(result);</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">caculate</span><span class="params">(String[] notation)</span></span>&#123;</span><br><span class="line">        Stack&lt;Integer&gt; oprands = <span class="keyword">new</span> Stack&lt;Integer&gt;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; notation.length; i++)&#123;</span><br><span class="line">            String curr = notation[i];</span><br><span class="line">            Integer o1,o2,result;</span><br><span class="line">            <span class="keyword">switch</span>(curr)&#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"+"</span>:</span><br><span class="line">                    o2 = oprands.pop();<span class="comment">//注意弹栈的顺序</span></span><br><span class="line">                    o1 = oprands.pop();</span><br><span class="line">                    result = o1+o2;</span><br><span class="line">                    oprands.push(result);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"-"</span>:</span><br><span class="line">                    o2 = oprands.pop();</span><br><span class="line">                    o1 = oprands.pop();</span><br><span class="line">                    result = o1-o2;</span><br><span class="line">                    oprands.push(result);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"*"</span>:</span><br><span class="line">                    o2 = oprands.pop();</span><br><span class="line">                    o1 = oprands.pop();</span><br><span class="line">                    result = o1*o2;</span><br><span class="line">                    oprands.push(result);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"/"</span>:</span><br><span class="line">                    o2 = oprands.pop();</span><br><span class="line">                    o1 = oprands.pop();</span><br><span class="line">                    result = o1/o2;</span><br><span class="line">                    oprands.push(result);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    oprands.push(Integer.parseInt(curr));</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> result = oprands.pop();</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>分析：</strong></p>
+<ul>
+<li>创建一个栈对象oprands存储操作数</li>
+<li>从左向右依次遍历逆波兰表达式，拿到每一个字符</li>
+<li>判断字符串是否为运算符？如果不是，把该操作数压入栈中</li>
+<li>如果是运算符，则从栈中弹出两个操作数</li>
+<li>使用该运算符计算得到结果</li>
+<li>把该结果压入栈中</li>
+<li>遍历结束后，拿出栈中的结果返回</li>
+</ul>
+<hr>
+<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><p>队列是一种基于先进先出(FIFO)的数据结构，是一种只能在一端进行插入，在另一端进行删除操作的特殊线性表，它按照先进先出的原则存储数据，先进入的数据，在读取数据时先被读出来。</p>
+<p><strong>队列的API设计：</strong></p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>Queue</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>构造方法</td>
+<td>Queue()</td>
+</tr>
+<tr>
+<td>成员方法</td>
+<td>public boolean isEmpty()</td>
+</tr>
+<tr>
+<td></td>
+<td>public int size()</td>
+</tr>
+<tr>
+<td></td>
+<td>public T dequeue()</td>
+</tr>
+<tr>
+<td></td>
+<td>public void enqueue(T t)</td>
+</tr>
+<tr>
+<td>成员变量</td>
+<td>private Node head</td>
+</tr>
+<tr>
+<td></td>
+<td>private int N</td>
+</tr>
+<tr>
+<td></td>
+<td>private Node last</td>
+</tr>
+<tr>
+<td>成员内部类</td>
+<td>private class Node</td>
+</tr>
+</tbody></table>
+<p><strong>队列的代码实现：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Queue</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Iterable</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Node head;</span><br><span class="line">    <span class="keyword">private</span> Node last;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> N;</span><br><span class="line">    priavte <span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> T item;</span><br><span class="line">        <span class="keyword">public</span> Node next;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(T item, Node next)</span></span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.item = item;</span><br><span class="line">            <span class="keyword">this</span>.next = next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Queue</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.head = <span class="keyword">new</span> Node(<span class="keyword">null</span>,<span class="keyword">null</span>);</span><br><span class="line">        <span class="keyword">this</span>.last = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">this</span>.N = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.N == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.N;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enqueue</span><span class="params">(T t)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(last == <span class="keyword">null</span>)&#123;</span><br><span class="line">            last = <span class="keyword">new</span> Node(t,<span class="keyword">null</span>);</span><br><span class="line">            head.next = last;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            Node oldlast = last;</span><br><span class="line">            last = <span class="keyword">new</span> Node(t,<span class="keyword">null</span>);</span><br><span class="line">            oldlast.next = last;</span><br><span class="line">        &#125;</span><br><span class="line">        N++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">dequeue</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(isEmpty())&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Node oldFirst = head.next;</span><br><span class="line">        head.next = oldFirst.next;</span><br><span class="line">        N--;</span><br><span class="line">        <span class="keyword">if</span>(isEmpty())&#123;</span><br><span class="line">            last = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> oldFirst.item;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Iterator&lt;T&gt; <span class="title">iterator</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> QIterator();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    priavte <span class="class"><span class="keyword">class</span> <span class="title">QIterator</span> <span class="keyword">implements</span> <span class="title">iterator</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> Node temp;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">QIterator</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.temp = head;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> temp.next != <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">public</span> Object <span class="title">next</span><span class="params">()</span></span>&#123;</span><br><span class="line">            temp = temp.next;</span><br><span class="line">            <span class="keyword">return</span> temp.item;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="NoTrouble 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag"># 数据结构与算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/12/29/%E9%AB%98%E7%BA%A7%E6%8E%92%E5%BA%8F/" rel="next" title="高级排序">
+                <i class="fa fa-chevron-left"></i> 高级排序
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MDk0MC8yNzQyMg=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/wk.jpg"
+                alt="NoTrouble" />
+            
+              <p class="site-author-name" itemprop="name">NoTrouble</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wukun0221@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#线性表"><span class="nav-number">1.</span> <span class="nav-text">线性表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#顺序表"><span class="nav-number">1.1.</span> <span class="nav-text">顺序表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表"><span class="nav-number">1.2.</span> <span class="nav-text">链表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单向链表"><span class="nav-number">1.2.1.</span> <span class="nav-text">单向链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双向链表"><span class="nav-number">1.2.2.</span> <span class="nav-text">双向链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链表反转："><span class="nav-number">1.2.3.</span> <span class="nav-text">链表反转：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快慢指针："><span class="nav-number">1.2.4.</span> <span class="nav-text">快慢指针：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环链表："><span class="nav-number">1.2.5.</span> <span class="nav-text">循环链表：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#约瑟夫问题："><span class="nav-number">1.2.6.</span> <span class="nav-text">约瑟夫问题：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈"><span class="nav-number">1.3.</span> <span class="nav-text">栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#括号匹配问题："><span class="nav-number">1.3.1.</span> <span class="nav-text">括号匹配问题：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逆波兰表达式求值问题"><span class="nav-number">1.3.2.</span> <span class="nav-text">逆波兰表达式求值问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#队列"><span class="nav-number">1.4.</span> <span class="nav-text">队列</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">NoTrouble</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
