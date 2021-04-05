@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="NoTrouble&#39;s Blog">
 <meta property="og:description" content="2021033112345678910下面的类哪些可以处理Unicode字符？-------------------------------A InputStreamReaderB BufferedReaderC WriterD PipedInputStream--------------------------------正确答案：ABC解析：D选项是处理字节流的">
 <meta property="article:published_time" content="2021-03-31T13:56:34.000Z">
-<meta property="article:modified_time" content="2021-04-04T11:33:51.195Z">
+<meta property="article:modified_time" content="2021-04-05T01:47:19.971Z">
 <meta property="article:author" content="NoTrouble">
 <meta property="article:tag" content="JAVA">
 <meta name="twitter:card" content="summary">
@@ -366,6 +366,10 @@
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">下面哪些赋值语句是正确的？</span><br><span class="line">---------------------------</span><br><span class="line">A long test&#x3D;012</span><br><span class="line">B float f&#x3D;-412</span><br><span class="line">C int other&#x3D;(int)true</span><br><span class="line">D double d&#x3D;0x12345678</span><br><span class="line">E byte b&#x3D;128</span><br><span class="line">---------------------------</span><br><span class="line">正确答案：ABD</span><br><span class="line">解析：</span><br><span class="line">* 012默认为int类型，赋给long型没错</span><br><span class="line">* -412默认为int类型，赋给float没错</span><br><span class="line">* C中布尔类型无法强制转换为int或其他数值类型</span><br><span class="line">* 0x12345678默认应该是int型，赋值给double没错</span><br><span class="line">* E中128&gt;127默认为int类型，然而byte默认范围为-128~127(-2^7~2^7-1)</span><br></pre></td></tr></table></figure>
 
+<h2 id="20210405"><a href="#20210405" class="headerlink" title="20210405"></a>20210405</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">JSP表达式的写法：</span><br><span class="line">---------------</span><br><span class="line">A &lt;% expression %&gt;</span><br><span class="line">B &lt;&#x3D;% expression %&gt;</span><br><span class="line">C &lt;%&#x3D; expression %&gt;</span><br><span class="line">D &lt;expression&#x2F;&gt;</span><br><span class="line">----------------</span><br><span class="line">正确答案：C</span><br><span class="line">解析：</span><br><span class="line">* jsp表达式：&lt;%&#x3D;变量或表达式%&gt;</span><br><span class="line">* jsp脚本：&lt;% java代码 %&gt;</span><br><span class="line">* jsp声明：&lt;%!变量或方法 %&gt;</span><br><span class="line">* jsp注释：&lt;%!--jsp注释--%&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">下面关于变量及其范围的陈述不正确的是？</span><br><span class="line">----------------------------------</span><br><span class="line">A 实例变量是类的成员变量</span><br><span class="line">B 实例变量用关键字static声明</span><br><span class="line">C 在方法中定义的局部变量在该方法被执行时创建</span><br><span class="line">D 局部变量在使用前必须被初始化</span><br><span class="line">-----------------------------------</span><br><span class="line">正确答案：BC</span><br><span class="line">解析：</span><br><span class="line">* 类的成员变量包括实例变量和类变量(静态变量)，成员方法包括实例方法和类方法(静态方法)</span><br><span class="line">* 类变量(静态变量)用关键字static声明</span><br><span class="line">* 方法中的局部变量在方法被调用加载时开始入栈时创建，方法入栈创建栈帧包括局部变量表操作数栈，局部变量表存放局部变量，并非在执行该方法时被创建</span><br><span class="line">* 局部变量被使用前必须初始化</span><br></pre></td></tr></table></figure>
+
 
 
 
@@ -524,7 +528,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -589,7 +593,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#20210331"><span class="nav-number">1.</span> <span class="nav-text">20210331</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20210402"><span class="nav-number">2.</span> <span class="nav-text">20210402</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20210404"><span class="nav-number">3.</span> <span class="nav-text">20210404</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#20210331"><span class="nav-number">1.</span> <span class="nav-text">20210331</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20210402"><span class="nav-number">2.</span> <span class="nav-text">20210402</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20210404"><span class="nav-number">3.</span> <span class="nav-text">20210404</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20210405"><span class="nav-number">4.</span> <span class="nav-text">20210405</span></a></li></ol></div>
             
 
           </div>

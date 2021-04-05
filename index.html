@@ -248,6 +248,137 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/05/LeetCodea%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="NoTrouble">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoTrouble's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/05/LeetCodea%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" itemprop="url">LeetCodea每日一题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-05T21:06:35+08:00">
+                2021-04-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="20210404"><a href="#20210404" class="headerlink" title="20210404"></a>20210404</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">题目：781森林中的兔子</span><br><span class="line">------------------------</span><br><span class="line">描述：森林中，每个兔子都有颜色。其中一些兔子(可能是全部)告诉你还有其他的兔子和自己有相同的颜色，我们将这些回答放在answers数组中。返回森林中兔子的最少数量。</span><br><span class="line">------------------------</span><br><span class="line">输入：answers&#x3D;[1,1,2]</span><br><span class="line">输出：5</span><br><span class="line">解释：两只回答了“1”的兔子可能有相同的颜色，设为红色。之后回答了“2”的兔子不会是红色，否则它们的回答会相互矛盾。设回答了“2”的兔子为蓝色。此外，森林中还应有另外2只蓝色兔子的回答没有包含在数组中。因此森林中兔子的最少数量是5：3只回答的和2只没有回答。</span><br><span class="line">--------------------------</span><br><span class="line">输入：answers &#x3D; [10,10,10]</span><br><span class="line">输出：11</span><br><span class="line">--------------------------</span><br><span class="line">输入：answers &#x3D; []</span><br><span class="line">输出：0</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numRabbits</span><span class="params">(<span class="keyword">int</span>[] answers)</span></span>&#123;</span><br><span class="line">        Map&lt;Integer, Integer&gt; count = <span class="keyword">new</span> HashMap&lt;Integer, Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> a : answers)&#123;</span><br><span class="line">            count.put(a, count.getOrDefault(a, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(Map.Entry&lt;Integer, Integer&gt; entry : count.entrySet())&#123;</span><br><span class="line">            <span class="keyword">int</span> x = entry.getKey(), y = entry.getValue();</span><br><span class="line">            res += (x+y)/(x+<span class="number">1</span>)*(x+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">解题思路：两只相同颜色的兔子看到的其他同色兔子数必然是相同的。反之，若两只兔子看到的其他同色兔子数不同，那么这两只颜色也不同。因此，将answers中值相同的元素分为一组，对于每一组，计算出兔子的最少数量，然后后将所有的计算结果类加，就是最终答案。</span><br><span class="line">一般地，如果回答的x的兔子有y只，则至少有(x+y)&#x2F;(x+1)种不同的颜色，且每种颜色都有(x+1)只兔子。</span><br></pre></td></tr></table></figure>
+
+<h2 id="20210405"><a href="#20210405" class="headerlink" title="20210405"></a>20210405</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">题目：88合并两个有序数组</span><br><span class="line">----------------------</span><br><span class="line">描述：给你两个有序整数数组nums1和nums2，请你将nums2合并到nums1中，使nums1成为一个有序数组。初始化nums1和nums2的元素数量分别为m和n。你可以假设nums1的空间大小等于m+n，这样它就有足够的空间保存来自nums2的元素。</span><br><span class="line">----------------------</span><br><span class="line">输入：nums1&#x3D;[1,2,3,0,0,0],m&#x3D;3,nums2&#x3D;[2,5,6],n&#x3D;3</span><br><span class="line">输出：[1,2,2,3,5,6]</span><br><span class="line">----------------------</span><br><span class="line">输入：nums1&#x3D;[1],m&#x3D;1,nums2&#x3D;[],n&#x3D;0</span><br><span class="line">输出：[1]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span> m, <span class="keyword">int</span>[] nums2, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> i = m - <span class="number">1</span>, j = n - <span class="number">1</span>, k = m + n - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(j &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i &gt;= <span class="number">0</span> &amp;&amp; nums1[i] &gt; nums2[j])&#123;</span><br><span class="line">                nums1[k--] = nums1[i--];</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                nums1[k--] = nums2[j--];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">解题思路：逆向双指针法！在nums1的后半部分是空的，可以直接覆盖不受影响。可将指针k设置为从后向前遍历，每次取值为i，j指针中较大的值；i指针和j指针分别从nums1的最大数值和nums2的最大数值开始；若当i指针&lt;0时说明nums剩下的数都可以直接赋给k指针指向剩下的数组；若当j指针&lt;0时，nums1中数组已经有序，合并结束。</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/02/%E9%98%85%E8%AF%BB%E3%80%8AJava%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E7%A5%9E%E4%B9%8B%E8%B7%AF%E3%80%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1583,169 +1714,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/27/%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="NoTrouble">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/wk.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NoTrouble's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/12/27/%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/" itemprop="url">算法分析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-27T19:14:01+08:00">
-                2020-12-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h1><hr>
-<h2 id="算法的时间复杂度分析"><a href="#算法的时间复杂度分析" class="headerlink" title="算法的时间复杂度分析"></a>算法的时间复杂度分析</h2><ul>
-<li><p>事后分析估算方法：这种统计方法主要是通过设计好的测试程序和测试数据，利用计算机计时器对不同算法编制的程序的运行时间进行比较，从而确定算法效率的高低，但这种方法有很大的缺陷：必须依据算法实现编制好的测试程序，通常需要花费大量的时间和精力，测试完了如果发现测试的是非常糟糕的算法，那么之前所做的事情就全部白费了，并且不同的测试环境(硬件设备)的差别导致测试的结果差异也很大。</p>
-</li>
-<li><p>事前分析估算方法：在计算机程序编写前，根据统计方法对算法进行估算，经过总结，一个高级语言编写的程序在计算机上运行所消耗的时间取决于下列因素：</p>
-<ul>
-<li>算法采用的策略与方案；</li>
-<li>编译产生的代码质量；</li>
-<li>问题的输入规模(输入量的多少)</li>
-<li>机器执行指令的速度</li>
-</ul>
-<p>由此可见，抛开与计算机硬件、软件有关因素，一个程序运行的时间依赖于算法的好坏与问题的输入规模。如果算法固定，那么算法的执行时间就只和问题的输入规模有关系了。</p>
-<p>我们研究算法复杂度，侧重的是当输入规模不断增大时，算法的增长量的一个抽象，而不是精确地定位需要执行多少次，因为如果是这样的话，我们又得考虑回编译器优化等问题，容易主次颠倒。我们分析一个算法的运行时间，最重要的就是把核心操作的次数和输入规模关联起来。</p></li></ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/12/27/%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">&gt;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">&gt;</a>
   </nav>
 
 
@@ -1795,7 +1768,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
