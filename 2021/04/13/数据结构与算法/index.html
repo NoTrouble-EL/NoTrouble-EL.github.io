@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构与算法," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="算法与算法分析 算法效率以下两个方面来考虑：  时间效率：指的是算法所耗费的时间 空间效率：指的是算法执行过程中所消耗的存储空间   时间效率和空间效率有时候是矛盾的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构与算法">
+<meta property="og:url" content="http://yoursite.com/2021/04/13/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="NoTrouble&#39;s Blog">
+<meta property="og:description" content="算法与算法分析 算法效率以下两个方面来考虑：  时间效率：指的是算法所耗费的时间 空间效率：指的是算法执行过程中所消耗的存储空间   时间效率和空间效率有时候是矛盾的">
+<meta property="article:published_time" content="2021-04-13T14:26:36.000Z">
+<meta property="article:modified_time" content="2021-04-13T14:29:08.760Z">
+<meta property="article:author" content="NoTrouble">
+<meta property="article:tag" content="数据结构与算法">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/04/13/数据结构与算法/"/>
+
+
+
+
+
+  <title>数据结构与算法 | NoTrouble's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NoTrouble's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录分享生活中的点点滴滴</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-playlist">
+          <a href="/playlist/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-music"></i> <br />
+            
+            歌单
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/13/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="NoTrouble">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoTrouble's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构与算法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-13T22:26:36+08:00">
+                2021-04-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="算法与算法分析"><a href="#算法与算法分析" class="headerlink" title="算法与算法分析"></a>算法与算法分析</h2><ul>
+<li><p>算法效率以下两个方面来考虑：</p>
+<ul>
+<li><strong>时间效率</strong>：指的是算法所耗费的时间</li>
+<li><strong>空间效率</strong>：指的是算法执行过程中所消耗的存储空间</li>
+</ul>
+</li>
+<li><p><strong>时间效率和空间效率有时候是矛盾的</strong></p>
+<a id="more"></a> 
+
+</li>
+</ul>
+<h3 id="算法时间效率度量"><a href="#算法时间效率度量" class="headerlink" title="算法时间效率度量"></a>算法时间效率度量</h3><ul>
+<li>算法时间效率可以依据该算法编制的程序在计算机上执行所消耗的时间来度量</li>
+<li>两种度量方式<ul>
+<li>事后统计<ul>
+<li>将算法实现，测算其时间和空间开销</li>
+<li>缺点：编写程序实现算法将花费较多的时间和精力；所得实验结果依赖于计算机得软硬件等环境因素，掩盖算法本身的优劣</li>
+</ul>
+</li>
+<li>事前分析<ul>
+<li>对算法所消耗资源的一种估算方法</li>
+<li>一个算法的运行时间是指一个算法在计算机上运行所消耗的时间大致可以等于计算机执行一种简单的操作所需的时间与算法中进行的简单操作次数乘积。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>算法的运行时间 = 一个简单操作所需的时间 x 简单操作次数</strong><br><strong>算法的运行时间 = $\sum$每条语句执行的次数 x 该语句执行一次所需要的时间</strong><br><strong>算法的运行时间 = $\sum$每条语句频度 x 该语句执行一次所需要的时间</strong></p>
+<p>​        每条语句执行的一次所需要的时间，一般是随机器而异的。取决于机器的指令性能、速度以及编码的代码质量。是由机器本身软硬件环境决定的，它与算法无关。<br>​        所以，我们可以假设执行每条语句所需要的时间均为单位时间。此时对算法的运行时间的讨论就可以转化为该算法中所有语句的执行次数，即频度之和。<br>​        这就可以独立于不同机器的软硬件环境来分析算法的时间性能了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//矩阵乘法</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[][] MatrixMultiplication(<span class="keyword">int</span>[][] a, <span class="keyword">int</span>[][] b)&#123;</span><br><span class="line">    <span class="keyword">int</span> n = a.length;</span><br><span class="line">    <span class="keyword">int</span>[][] c = <span class="keyword">new</span> <span class="keyword">int</span>[n][n];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;<span class="comment">//n+1次</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)&#123;<span class="comment">//n(n+1)次</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; n; k++)&#123;<span class="comment">//n*n(n+1)次</span></span><br><span class="line">                c[i][j] += a[i][k] * b[k][j];<span class="comment">//n*n*n次</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        我们把算法所消耗的时间定义为该算法中每条语句的频度之和，则上述算法的时间消耗T(n)为：$2n^3+3n^2+2n+1$</p>
+<p><strong>算法时间复杂度的渐进表示法</strong></p>
+<ul>
+<li>为了便于比较不同算法的时间效率，我们仅比较它们的数量级。</li>
+<li>若有某个辅助函数f(n)，使得当n趋近于无穷大时，$T(n)/f(n)$的极限为不等于零的常数，则称f(n)是T(n)的同数量级函数。记作$T(n)=O(f(n))$，称$O(f(n))$为算法的渐进时间复杂度(O是数量级的符号)，简称时间复杂度。</li>
+<li>一般情况下，不必计算所有操作的执行次数，而只考虑算法中基本操作执行的次数，它是问题规模n的某个函数，用$T(n)$表示。</li>
+</ul>
+<p>上述矩阵相乘问题的时间复杂度为$O(n^3)$</p>
+<h3 id="算法时间复杂度定义"><a href="#算法时间复杂度定义" class="headerlink" title="算法时间复杂度定义"></a>算法时间复杂度定义</h3><p>​        算法中基本语句重复执行的次数是问题规模n的某个函数f(n)，算法的时间量度记为：$T(n)=O(f(n))$</p>
+<h3 id="分析算法时间复杂度的基本方法"><a href="#分析算法时间复杂度的基本方法" class="headerlink" title="分析算法时间复杂度的基本方法"></a>分析算法时间复杂度的基本方法</h3><p>定理1.1 若$f(n)=a_mn^m+a_{m-1}n^{m-1}+…+a_1n+a_0$是m次多项式，则$T(n)=O(n^m)$</p>
+<ul>
+<li>找出语句频度最大的那条语句作为基本语句</li>
+<li>计算基本语句的频度得到问题规模n的某个函数$f(n)$</li>
+<li>取其数量级用符号“O”表示</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//例1</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++)&#123;</span><br><span class="line">        c[i][j] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(k = <span class="number">1</span>; k &lt;= n; k++)</span><br><span class="line">            c[i][j] = c[i][j]+a[i][k] * b[k][j];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>$$<br>\sum_{i=1}^{n}\sum_{j=1}^{n}\sum_{k=1}^n1=\sum_{i=1}^{n}\sum_{j=1}^{n}n=\sum_{i=1}^{n}n^2=n^3<br>$$</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//例2</span></span><br><span class="line"><span class="keyword">for</span>(i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    <span class="keyword">for</span>(j=<span class="number">1</span>; j &lt;= i; j++)</span><br><span class="line">        <span class="keyword">for</span>(k=<span class="number">1</span>;k &lt;= j; k++)</span><br><span class="line">            x=x+<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p>$$<br>\sum_{i=1}^n\sum_{j=1}^i\sum_{k=1}^j1=\sum_{i=1}^n\sum_{j=1}^ij=\sum_{i=1}^n\frac{(1+i)i}{2}=\frac{1}{2}(\sum_{i=1}^ni^2+\sum_{i=1}^ni)=(\frac{1}{2})(\frac{n(n+1)(2n+1)}{6}+\frac{n(n+1)}{2})=\frac{n(n+1)(n+2)}{6}<br>$$</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//例3</span></span><br><span class="line"><span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span>(i &lt;= n)</span><br><span class="line">    i = i * <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>$$<br>2^{f(n)} &lt;= n;f(n)&lt;=log_2n;T(n)=log_2n<br>$$</p>
+<h3 id="算法时间复杂度计算"><a href="#算法时间复杂度计算" class="headerlink" title="算法时间复杂度计算"></a>算法时间复杂度计算</h3><p>​        请注意：有的情况下，算法中基本操作重复执行的次数还随问题的输入数据集不同而不同。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//例如</span></span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;n; i++)</span><br><span class="line">    <span class="keyword">if</span>(a[i]==e) <span class="keyword">return</span> i+<span class="number">1</span>;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>最好情况：1次</li>
+<li>最坏情况：n次</li>
+<li>平均时间复杂度为：$O(n)$</li>
+</ul>
+<p>最坏时间复杂度：指在最坏情况下，算法的时间复杂度<br>平均时间复杂度：指在所有可能输入实例在等概率出现的情况下，算法的期望运行时间<br>最好时间复杂度：指在最好情况下，算法的时间复杂度</p>
+<p>​        一般总是考虑在最坏情况下的时间复杂度，以保证算法的运行时间不会比它更长。</p>
+<p>​        对于复杂的算法，可以将它分成几个容易估算的部分，然后利用大O加法法则和乘法法则，计算算法的时间复杂度：<br>​        加法规则：$T(n)=T_1(n)+T_2(n)=O(f(n))+O(g(n))=O(max(f(n),g(n)))$<br>​        乘法法则：<br>$T(n)=T_1(n)\times T_2(n)=O(f(n))\times O(g(n))=O(f(n)\times g(n))$</p>
+<h3 id="算法时间效率的比较"><a href="#算法时间效率的比较" class="headerlink" title="算法时间效率的比较"></a>算法时间效率的比较</h3><p>​        当n取得很大时，指数时间算法和多项式时间算法在所需时间上非常悬殊。</p>
+<p><strong>时间复杂度$T(n)$按数量级递增顺序</strong></p>
+<p>​        常数阶-&gt; 对数阶 -&gt; 线性阶 -&gt; 线性对数阶 -&gt; 平方阶 -&gt; 立方阶 -&gt; … -&gt;K方阶 -&gt; 指数阶。</p>
+<h3 id="渐进空间复杂度"><a href="#渐进空间复杂度" class="headerlink" title="渐进空间复杂度"></a>渐进空间复杂度</h3><p>​        空间复杂度：算法所需要存储空间的度量，记作：$S(n)=O(f(n))$，其中n为问题的规模大小。<br>​        算法要占据的空间：算法本身要占据的空间，输入/输出，指令，常数，变量等；算法要使用的<strong>辅助空间</strong>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//code1</span></span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;n; i++)&#123;</span><br><span class="line">    t=a[i];</span><br><span class="line">    a[i]=a[n-i<span class="number">-1</span>];</span><br><span class="line">    a[n-i<span class="number">-1</span>]=t;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//code2</span></span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    b[i]=a[n-i<span class="number">-1</span>];</span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    a[i]=b[i];</span><br></pre></td></tr></table></figure>
+
+<p>​        code1中$S(n)=O(1)$原地工作，code2中$S(n)=O(n)$。</p>
+<h3 id="设计好算法的过程"><a href="#设计好算法的过程" class="headerlink" title="设计好算法的过程"></a>设计好算法的过程</h3><p>抽象数据类型=数据的逻辑结构+抽象运算<br>        数据的逻辑结构可以有多种数据的存储结构；基于不同的数据存储结构可以有不同的算法；不同的算法考虑其渐进的时间复杂度和渐进的空间复杂度；最后得出好的算法。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A[数据结构]--&gt;B[数据的逻辑结构]</span><br><span class="line">A[数据结构]--&gt;C[数据的存储结构]</span><br><span class="line">A[数据结构]--&gt;D[数据的运算]</span><br><span class="line">B[数据的逻辑结构]--&gt;E[线性结构]</span><br><span class="line">B[数据的逻辑结构]--&gt;F[非线性结构]</span><br><span class="line">E[线性结构]--&gt;G[线性表]</span><br><span class="line">E[线性结构]--&gt;H[栈--特殊的线性表]</span><br><span class="line">E[线性结构]--&gt;I[队列--特殊的线性表]</span><br><span class="line">E[线性结构]--&gt;J[字符串-数组-广义表]</span><br><span class="line">F[非线性结构]--&gt;K[树形结构]</span><br><span class="line">F[非线性结构]--&gt;L[图形结构]</span><br><span class="line">C[数据的存储结构]--&gt;M[顺序存储]</span><br><span class="line">C[数据的存储结构]--&gt;N[链式存储]</span><br><span class="line">D[数据的运算]--&gt;O[检索-排序-插入-删除-修改]</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h2><h3 id="线性表的定义和特点"><a href="#线性表的定义和特点" class="headerlink" title="线性表的定义和特点"></a>线性表的定义和特点</h3><ul>
+<li>线性表(Linear List)：由$n(n&gt;=0)$个数据元素(结点)$a_1,…,a_n$组成的有限序列</li>
+<li>其中数据元素的个数为n定义为表的长度</li>
+<li>当n=0时称为空表</li>
+<li>将非空的线性表(n&gt;0)记作：$(a_1,a_2,…,a_n)$</li>
+<li>这里的数据元素$a_i(1&lt;=i&lt;=n)$只是一个抽象的符号，其具体含义在不同的情况下可以不同</li>
+</ul>
+<p>同一线性表中的元素必定具有相同特性，数据元素间的关系是线性关系。</p>
+<p><strong>线性表的逻辑特征</strong></p>
+<ul>
+<li>从非空的线性表，有且仅有一个开始结点$a_1$，它没有直接前驱，而仅有一个直接后继$a_2$；</li>
+<li>有且仅有一个终端结点$a_n$，它没有直接后继，而仅有一个直接前驱$a_{n-1}$</li>
+<li>其余的内部结点$a_i(2&lt;=i&lt;=n-1)$都有仅有一个直接前驱$a_{i-1}$和一个直接后继$a_{i+1}$。</li>
+</ul>
+<p><strong>线性表是一种典型的线性结构。</strong></p>
+<h3 id="案例引入"><a href="#案例引入" class="headerlink" title="案例引入"></a>案例引入</h3><p>​        <strong>一元多项式的运算：实现两个多项式加、减、乘运算</strong></p>
+<p>$P_n(x)=p_0+p_1x+p_2x^2+…+p_nx^n$</p>
+<p>例如：$P(x)=10+5z-4x^2+3x^3+2x^4$用数组来表示[10, 5, -4, 3, 2]</p>
+<p>$R_n(x)=P_n(x)+Q_m(x)$-&gt;线性表$R=(p_0+q_0,p_1+q_1,…,p_m+q_m,p_{m+1},…p_n)$</p>
+<p>​        <strong>稀疏多项式的运算：</strong></p>
+<p>$S(x)=1+3x^{10000}+2x^{20000}$</p>
+<p>例如：$A(x)=7+3x+9x^8+5z^{17}$$B(X)=8x+22x^7-9x^8$</p>
+<p>线性表$A=((7,0),(3,1),(9,8),(5,17))$；线性表$B=((8,1),(22,7),(-9,8))$</p>
+<p>$P_n(x)=p_1x^{e1}+p_2x^{e2}+…+p_mx^{em}$-&gt;线性表$P=((p_1,e_1),(p_2,e_2),…,(p_m,e_m))$</p>
+<p>​        <strong>图书信息管理系统：</strong>需要的功能：查找、插入、删除、修改、排序、计数</p>
+<p><strong>总结</strong></p>
+<p>​        线性表中数据元素的类型可以为简单类型，也可以为复杂类型。许多实际应用问题所涉及的基本操作有很大相似性，不应为每个具体应用单独编写一个程序。从具体应用中抽象出共性的逻辑结构和基本操作(抽象数据类型)，然后实现其存储结构和基本操作。</p>
+<h3 id="线性的类型定义"><a href="#线性的类型定义" class="headerlink" title="线性的类型定义"></a>线性的类型定义</h3><p><strong>基本操作</strong></p>
+<ul>
+<li>InitList(&amp;L)：构造一个空的线性表L</li>
+<li>DestroyList(&amp;L)：销毁线性表L</li>
+<li>ClearList(&amp;L)：将线性表L重置为空表</li>
+<li>ListEmpty(&amp;L)：若线性表L为空表，则返回true；否则返回false</li>
+<li>ListLength(&amp;L)：返回线性表L中的数据元素个数</li>
+<li>GetElem(L,i,&amp;e)：用e返回线性表L中第i个数据元素的值</li>
+<li>LocateElem(L,e,compare())：返回L中第一个与e满足compare()的数据元素的位序。若这样的数据元素不存在则返回值为0。</li>
+<li>PriorElem(L,cur_e,&amp;pre_e)：若cur_e是L的数据元素，且不是第一个，则用pre_e返回它的前驱，否则操作失败；pre_e无意义</li>
+<li>NextElem(L,cur_e,&amp;next_e)：若cur_e是L的数据元素，且不是最后一个，则用next_e返回它的后继，否则操作失败；next_e无意义</li>
+<li>ListInsert(&amp;L,i,e)：在L的第i个位置之前插入新的数据元素e，L的长度+1</li>
+<li>ListDelete(&amp;L,i,&amp;e)：删除L的第i个数据元素，并用e返回其值，L的长度-1</li>
+<li>ListTraverse(&amp;L,visited())：依次对线性表中每个元素调用visited()</li>
+</ul>
+<p>以上所提及的运算是逻辑结构上定义的运算。只要给出这些运算的功能是“做什么”，至于“如何做”等实现细节，只有待确定了存储结构之后才考虑。</p>
+<h3 id="线性表的顺序表示和实现"><a href="#线性表的顺序表示和实现" class="headerlink" title="线性表的顺序表示和实现"></a>线性表的顺序表示和实现</h3><p><strong>顺序存储结构</strong></p>
+<p>​        线性表的顺序表示又称为顺序存储结构或顺序映像。<br>​        <strong>顺序存储定义</strong>：把逻辑上相邻的数据元素存储在物理上相邻的存储单元中的存储结构。线性表顺序存储结构占用一片连续的存储空间。知道某个元素的存储位置就可以计算其他元素的存储位置。</p>
+<p><strong>顺序表中元素存储位置的计算</strong></p>
+<p>​        假设线性表的每个元素需占l个存储单元，则第i+1个数据元素的存储位置和第i个数据元素的存储位置之间满足关系：$LOC(a_{i+1})=LOC(a_i) + l$。由此，所有数据元素的存储位置均可由第一个数据元素的存储位置得到：$LOC(a_i)=LOC(a_1) +(i-1)\times l$</p>
+<p>​        顺序表的特点：以物理位置相邻表示逻辑关系。任一元素均可随机存取。</p>
+<p><strong>顺序表的顺序存储表示</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//模板</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LIST_INIT_SIZE 100</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    ElemType elem[LIST_INIT_SIZE];</span><br><span class="line">    <span class="keyword">int</span> length;</span><br><span class="line">&#125;SqList;</span><br></pre></td></tr></table></figure>
+
+<p>多项式的顺序存储结构类型定义：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXSIZE 1000</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    <span class="keyword">float</span> p;<span class="comment">//系数</span></span><br><span class="line">    <span class="keyword">int</span> e;<span class="comment">//指数</span></span><br><span class="line">&#125;Polynomial;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    Polynomial *elem;<span class="comment">//存储空间基地址</span></span><br><span class="line">    <span class="keyword">int</span> length;<span class="comment">//多项式中当前项的个数</span></span><br><span class="line">&#125;SqList;</span><br></pre></td></tr></table></figure>
+
+<p><strong>顺序表基本操作的实现</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">InitList_Sq</span><span class="params">(SqList &amp;L)</span></span>&#123;</span><br><span class="line">    L.elem= <span class="keyword">new</span> ElemType[MAXSIZE];</span><br><span class="line">    <span class="keyword">if</span>(!L.elem) <span class="built_in">exit</span>(OVERFLOW);</span><br><span class="line">    L.length=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DestroyList</span><span class="params">(SqList &amp;L)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(L.elem) <span class="keyword">delete</span> L.elem;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ClearList</span><span class="params">(SqList &amp;L)</span></span>&#123;</span><br><span class="line">    L.length=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">GetLength</span><span class="params">(SqList L)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (L.length);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">IsEmpty</span><span class="params">(SqList L)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(L.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//顺序表的取值</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">GetElem</span><span class="params">(SqList L, <span class="keyword">int</span> i, ElemType &amp;e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">1</span>||i&gt;L.length) <span class="keyword">return</span> ERROR;</span><br><span class="line">    e=L.elem[i<span class="number">-1</span>];</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//随机存取</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>顺序表的查找</strong></p>
+<p>​        在线性表L中查找与指定值e相同的数据元素的位置；从表的一端开始，逐个进行记录关键字和给定值的比较。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">LocateElem</span><span class="params">(SqList L, ElemType e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;L.length;i++)</span><br><span class="line">        <span class="keyword">if</span>(L.elem[i] == e) <span class="keyword">return</span> i+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//最坏时间复杂度：O(N);空间复杂度：O(1)</span></span><br></pre></td></tr></table></figure>
+
+<p>​        平均查找长度ASL(Average Search Length)：为确定记录在表中的位置，需要与给定值进行比较的关键字的个数的期望值叫做查找算法的平均查找长度。<br>$$<br>ASL=\sum_{i=1}^n P_iC_i<br>$$<br>若每个记录的查找概率相等则：<br>$$<br>ASL=\sum_{i=1}^n\frac{1}{n}C_i=\frac{1}{n}\frac{(1+n)n}{2}=\frac{n+1}{2}<br>$$<br>顺序表的平均查找时间复杂度为O(n)</p>
+<p><strong>顺序表的插入</strong></p>
+<p>插入不同的位置：插入位置在最后，插入位置在中间，插入位置在最前面。</p>
+<p>算法思想：①判断插入位置是否合理；②判断顺序表存储空间是否满，若已满返回ERROR；③将第n至第i位的元素依次向后移动一个位置，空出第i个位置；④将要插入的新元素e放入第i个位置。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">ListInsert_Sq</span><span class="params">(SqList &amp;L, <span class="keyword">int</span> i, ElemType e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">1</span>||i&gt;L.length+<span class="number">1</span>) <span class="keyword">return</span> ERROR;</span><br><span class="line">    <span class="keyword">if</span>(L.length==MAXSIZE) <span class="keyword">return</span> ERROR;</span><br><span class="line">    <span class="keyword">for</span>(j=L.length<span class="number">-1</span>;j&gt;=i<span class="number">-1</span>;j--)</span><br><span class="line">        L.elem[j+<span class="number">1</span>]=L.elem[j];</span><br><span class="line">    L.elem[i<span class="number">-1</span>]=e;</span><br><span class="line">    L.length++;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>顺序表的插入算法分析：</strong></p>
+<ul>
+<li>若插入在尾节点之后，则根本无需移动</li>
+<li>若插入在首结点之前，则表中元素全部后移</li>
+<li>考虑在各种位置插入的平均移动次数为：</li>
+</ul>
+<p>$$<br>E_{ins}=\frac{1}{n+1}\sum_{i=1}^{n+1}(n-i+1)=\frac{1}{n+1}\frac{n(n+1)}{2}=\frac{n}{2}<br>$$</p>
+<p>顺序表插入算法的平均时间复杂度为O(n)</p>
+<h3 id="线性表的链式表示和实现"><a href="#线性表的链式表示和实现" class="headerlink" title="线性表的链式表示和实现"></a>线性表的链式表示和实现</h3><h3 id="顺序表和链表的比较"><a href="#顺序表和链表的比较" class="headerlink" title="顺序表和链表的比较"></a>顺序表和链表的比较</h3><h3 id="线性表的应用"><a href="#线性表的应用" class="headerlink" title="线性表的应用"></a>线性表的应用</h3><h3 id="案例分析与实现"><a href="#案例分析与实现" class="headerlink" title="案例分析与实现"></a>案例分析与实现</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="NoTrouble 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag"># 数据结构与算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/04/13/ArrayList%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" rel="next" title="ArrayList原理解析">
+                <i class="fa fa-chevron-left"></i> ArrayList原理解析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MDk0MC8yNzQyMg=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/wk.jpg"
+                alt="NoTrouble" />
+            
+              <p class="site-author-name" itemprop="name">NoTrouble</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wukun0221@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#算法与算法分析"><span class="nav-number">1.</span> <span class="nav-text">算法与算法分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法时间效率度量"><span class="nav-number">1.1.</span> <span class="nav-text">算法时间效率度量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法时间复杂度定义"><span class="nav-number">1.2.</span> <span class="nav-text">算法时间复杂度定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析算法时间复杂度的基本方法"><span class="nav-number">1.3.</span> <span class="nav-text">分析算法时间复杂度的基本方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法时间复杂度计算"><span class="nav-number">1.4.</span> <span class="nav-text">算法时间复杂度计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法时间效率的比较"><span class="nav-number">1.5.</span> <span class="nav-text">算法时间效率的比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#渐进空间复杂度"><span class="nav-number">1.6.</span> <span class="nav-text">渐进空间复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计好算法的过程"><span class="nav-number">1.7.</span> <span class="nav-text">设计好算法的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.8.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性表"><span class="nav-number">2.</span> <span class="nav-text">线性表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线性表的定义和特点"><span class="nav-number">2.1.</span> <span class="nav-text">线性表的定义和特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例引入"><span class="nav-number">2.2.</span> <span class="nav-text">案例引入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性的类型定义"><span class="nav-number">2.3.</span> <span class="nav-text">线性的类型定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性表的顺序表示和实现"><span class="nav-number">2.4.</span> <span class="nav-text">线性表的顺序表示和实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性表的链式表示和实现"><span class="nav-number">2.5.</span> <span class="nav-text">线性表的链式表示和实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序表和链表的比较"><span class="nav-number">2.6.</span> <span class="nav-text">顺序表和链表的比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性表的应用"><span class="nav-number">2.7.</span> <span class="nav-text">线性表的应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例分析与实现"><span class="nav-number">2.8.</span> <span class="nav-text">案例分析与实现</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">NoTrouble</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
