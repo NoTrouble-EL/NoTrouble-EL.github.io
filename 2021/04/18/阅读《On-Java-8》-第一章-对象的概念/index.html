@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JAVASE,《On Java 8》," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="抽象​        我们可以理解“纯粹”的面向对象设计方法是什么样的：  万物皆对象。你可以将对象想象成一种特殊的变量。它存储数据，但可以在你对其“发出请求”时执行本身的操作。  程序是一组对象，通过消息传递来告知彼此该做什么。要请求调用一个对象的方法，你需要向该对象发送消息。  每个对象都有自己的存储空间，可容纳其他对象。或者说，通过封装现有对象，可制作出新型对象。所以，尽管对象的概念非常简单">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阅读《On Java 8》--第一章 对象的概念">
+<meta property="og:url" content="http://yoursite.com/2021/04/18/%E9%98%85%E8%AF%BB%E3%80%8AOn-Java-8%E3%80%8B-%E7%AC%AC%E4%B8%80%E7%AB%A0-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%A6%82%E5%BF%B5/index.html">
+<meta property="og:site_name" content="NoTrouble&#39;s Blog">
+<meta property="og:description" content="抽象​        我们可以理解“纯粹”的面向对象设计方法是什么样的：  万物皆对象。你可以将对象想象成一种特殊的变量。它存储数据，但可以在你对其“发出请求”时执行本身的操作。  程序是一组对象，通过消息传递来告知彼此该做什么。要请求调用一个对象的方法，你需要向该对象发送消息。  每个对象都有自己的存储空间，可容纳其他对象。或者说，通过封装现有对象，可制作出新型对象。所以，尽管对象的概念非常简单">
+<meta property="article:published_time" content="2021-04-18T01:39:54.000Z">
+<meta property="article:modified_time" content="2021-04-18T01:42:31.783Z">
+<meta property="article:author" content="NoTrouble">
+<meta property="article:tag" content="JAVASE">
+<meta property="article:tag" content="《On Java 8》">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/04/18/阅读《On-Java-8》-第一章-对象的概念/"/>
+
+
+
+
+
+  <title>阅读《On Java 8》--第一章 对象的概念 | NoTrouble's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NoTrouble's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录分享生活中的点点滴滴</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-playlist">
+          <a href="/playlist/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-music"></i> <br />
+            
+            歌单
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/18/%E9%98%85%E8%AF%BB%E3%80%8AOn-Java-8%E3%80%8B-%E7%AC%AC%E4%B8%80%E7%AB%A0-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%A6%82%E5%BF%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="NoTrouble">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoTrouble's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">阅读《On Java 8》--第一章 对象的概念</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-18T09:39:54+08:00">
+                2021-04-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVASE/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVASE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h2><p>​        我们可以理解“纯粹”的面向对象设计方法是什么样的：</p>
+<ul>
+<li><p>万物皆对象。你可以将对象想象成一种特殊的变量。它存储数据，但可以在你对其“发出请求”时执行本身的操作。</p>
+</li>
+<li><p>程序是一组对象，通过消息传递来告知彼此该做什么。要请求调用一个对象的方法，你需要向该对象发送消息。</p>
+</li>
+<li><p>每个对象都有自己的存储空间，可容纳其他对象。或者说，通过封装现有对象，可制作出新型对象。所以，尽管对象的概念非常简单，但在程序中却可达到任意高的复杂度。</p>
+</li>
+<li><p>每个对象都有一种类型。根据语法，每个对象都是某个“类”的一个“实例”</p>
+</li>
+<li><p>同一类所有对象都能接收相同的消息。这实际是别有含义的一种说法。由于类型为Circle的一个对象也属于类型为Shape的一个对象，所以一个圆完全能接收发送给“形状”的消息。这意味着可让程序代码统一指挥“形状”，令其自动控制所有符合“形状”描述的对象，其中自然包括“圆”。这一特性称为对象的“可替换性”，是OOP最重要的概念之一。</p>
+<a id="more"></a> 
+
+</li>
+</ul>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><p>​        使用访问控制的原因有以下两点：</p>
+<ul>
+<li>让应用程序员不要触摸他们不应该触摸的部分；</li>
+<li>使类库的创建者在不影响后者使用的情况下完善更新工具库。</li>
+</ul>
+<p>Java有三个显示关键字来设置类中的访问权限：public、private和protected。这些访问修饰符决定了谁能使用它们修饰的方法，变量或类</p>
+<ul>
+<li>public：表示任何人都可以访问和使用该元素；</li>
+<li>private：除了类本身和类内部的方法，外界无法直接访问该元素。private是类和调用者之间的屏障。任何试图访问私有成员的行为都会报编译错误；</li>
+<li>protected：类似于private，区别是子类可以访问protected的成员，但不能访问private成员</li>
+<li>default：如果你不使用前面三者，默认就是default访问权限，default被称为包访问，因为该权限下的资源可以被同一包中其类的成员访问。</li>
+</ul>
+<h2 id="复用"><a href="#复用" class="headerlink" title="复用"></a>复用</h2><p>​        一个类经创建和测试后，理应是可复用的。</p>
+<p>​        代码和设计方案的复用性是面向对象程序设计的优点之一。我们可以通过重复使用某个类的对象来达到这种复用。同时，我们也可以将一个类的对象作为另一个类的成员变量使用。新的类可以是由任意数量和任意类型的其他对象构成。这里涉及到“组合”和“聚合”的概念：</p>
+<ul>
+<li>组合(Composition)经常用来表示“拥有关系”(has-a relationship)</li>
+<li>聚合(Aggregation)动态的组合。</li>
+</ul>
+<p>​        组合和聚合都属于关联关系的一种，只是额外具有整体-部分的意义。至于是聚合还是组合，需要根据实际业务需求来判断。可能相同超类和子类，在不同的业务场景，关联关系会发生变化。只看代码是无法区分聚合和组合的具体是哪一种关系，只能从语义级别来区分。聚合关系中：整体不会拥有部件的生命周期，所以整体删除时，部件不会被删除。再者，多个整体可以共享一个部件。组合关系：整体拥有部件的生命周期，所以整体删除时，部件也一定跟着删除。而且，多个整体不可以同时共享同一部件。这个区别可以用来区分某个关联关系到底是聚合还是组合。两个类生命周期不同步，则是聚合关系，生命周期同步就是组合关系。</p>
+<p>​        使用“组合”关系给我们的程序带来极大的灵活性。通常新建的类中，成员变量会使用private访问权限，这样应用程序员则无法对其直接访问。我们可以在不影响客户代码的前提下，从容地修改那些成员。我们也可以在“运行时”改变成员对象从而动态地改变程序的行为，这进一步增大了灵活性。</p>
+<p>​        在面向对象编程中经常重点强调“继承”。在新手程序员的印象里，或许先入为主地认为“继承应当随处可见”。沿着这种思路产生的程序设计通常拙劣又复杂。相反，在创建新类时首先要考虑“组合”，因为它更简单灵活，而且设计更加清晰。</p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>​        有两种方法可以区分新的派生类与原始基类。第一种方法很简单：在派生类中添加新的方法。这些新的方法不是基类接口的一部分。这意味着基类不能满足你的所有需求，所以你添加了更多的方法。继承的这种简单而原始的用途有时是解决问题的完美解决方案。然而，还是要仔细考虑是否在基类中也要有这些额外的方法。这种涉及的发现和迭代过程在面向对象程序设计中会经常发生。</p>
+<p>​        尽管继承有时候意味着你要在接口中添加新方法(尤其是在以extends关键字表示继承的Java中)，但并总需如此。第二种也更重要地区分派生类和基类的方法是改变现有基类方法的行为，这被称为覆盖(overriding)。要想覆盖一个方法，只需要在派生类中重新定义这个方法即可。</p>
+<h2 id="“是一个”与“像是一个”的关系"><a href="#“是一个”与“像是一个”的关系" class="headerlink" title="“是一个”与“像是一个”的关系"></a>“是一个”与“像是一个”的关系</h2><p>​        对于继承可能会发生争论：继承应该只覆盖基类的方法吗？如果这样的话，基类和派生类就是相同的类型了，因为它们具有相同的接口。这会造成，你可以用一个派生类对象完全替代基类对象，这叫做“纯粹替代”，也经常倍被称作“替代原则”。在某种意义上，这是一种继承的理想方式。我们经常把这种基类和派生类关系称为是一个(is - a)关系。</p>
+<p>​        有时你在派生类添加了新的接口元素，从而扩展接口。虽然新类型仍然可以替代基类，但这种替代不完美，原因在于基类无法访问新添加的方法。这种关系称为像是一个(is-like-a)关系。新类型不但拥有旧类型的接口，而且包含其他方法，所以不能说新旧类型完全相同。</p>
+<p>​        当你看到替代原则时，很容易会认为纯粹替代是唯一可行的方式，并且使用纯粹替代的设计很好。但有时候，你会发现必须得在派生类中添加新方法。只要仔细审视，你可以很明显地区分两种设计方式的使用场合。</p>
+<h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><p>​        我们在处理类的层次结构时，通常把一个对象看成它是所属的基类，而不是把它看成具体类。通过这种方式，我们可以编写出不局限于特定类型的代码。</p>
+<p>​        这样的代码不会受添加的新类型影响，并且添加新类型是扩展面向对象程序以处理新情况的常用方法。通过派生新的子类来扩展设计的这种能力是封装变化的基本方法之一。这种能力改善了我们的设计，且减少了软件的维护代价。</p>
+<p>​        面向对象程序设计的妙诀：在传统意义上，编译器不能进行函数调用。由非OOP编译器产生的函数调用会引起所谓的早期绑定。这意味着编译器生成特定函数名的调用，该调用会被解析为执行的代码的绝对地址。</p>
+<p>​        通过继承，程序直到运行时才能确定代码的地址，因此发送消息给对象时，还需要其他一些方案。为了解决这个问题，面向对象语言使用后期编译的概念。当面向对象发送消息时，被调用的代码直到运行时才确定。编译器确保方法存在，并对参数和返回值执行类型检查，但是它不知道要执行的确切代码。</p>
+<p>​        为了执行后期绑定，Java使用一个特殊的代码位来代替绝对调用。这段代码使用对象中存储的信息来计算方法主体的地址。因此，每个对象的行为根据特定代码位的内容而不同。当你向对象发送消息时，对象知道该如何处理调用这条消息。</p>
+<p>​        发送消息给对象时，如果程序不知道接收的具体类型是什么，最终执行是正确的，这就是对象的“多态性”(Polymorphism)。面向对象的程序设计语言是通过“动态绑定”的方式来实现对象的多态性。编译器和运行时系统会负责对所有细节的控制。</p>
+<h2 id="单继承结构"><a href="#单继承结构" class="headerlink" title="单继承结构"></a>单继承结构</h2><p>​        自从C++引入以来，一个OOP问题变得尤为突出：是否所有类都应该默认从一个基类继承呢？这个答案在Java中是肯定的。在Java中，这个最终基类的名字就是Object。</p>
+<p>​        Java的单继承结构有很多好处。由于所有对象都具有一个公共接口，因此它们最终都属于同一个基类。</p>
+<p>​        另外，单继承的结构使得垃圾收集的实现更为容易。</p>
+<p>​        由于运行期的类型信息会存在于所有对象中，所以我们永远不会遇到判断不了对象类型的情况。这对于系统级操作尤为重要，例如异常处理。同时，这也让我们的编程具有更大的灵活性。</p>
+<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><p>​        通常，我们并不知道解决某个问题需要的对象数量和持续时间，以及对象的存储方式。那么我们如何知悉程序在运行时需要分配的内存空间呢？</p>
+<p>​        “集合”这种类型的对象可以存储任意类型，数量的其他对象。它能根据需要自动扩容，我们不需要关心过程是如何实现的。</p>
+<p>​        在一些库中，一两个泛型集合就能满足我们所有需求了，而在其他一些类库中，不同类型的集合对应不同的需求：常见的有List，常用于保存序列；Map，也称为关联数组，常用于将对象与其他对象关联；Set，只能保存非重复的值；其他还包括如队列(Queue)、树(Tree)、栈(Stack)、堆(Heap)等等。</p>
+<p>​        之所以选择集合有以下两个原因：</p>
+<ul>
+<li>集合可以提供不同类型的接口和外部行为。堆栈、队列的应用场景和集合、列表不同，它们中的一种提供解决方案可能比其他灵活得多。它们中的一种提供解决方案可能比其他灵活的多。</li>
+<li>不同集合对某些操作有不同的效率。例如，List的两种基本类型：ArrayList和LinkedList。虽然两者具有相同的接口和外部行为，但是在某些操作中它们的效率差别很大。在ArrayList中随机查找元素是很高效的，而LinkedList随即查找效率低下。反之，在LinkedList中插入元素的效率要比ArrayList中高。由于底层数据结构的不同，每种集合类在执行相同的操作时会表现出效率的差别。</li>
+</ul>
+<p>​        我们可以一开始使用LinkedList构建程序，在优化系统性能时改用ArrayList。通过List接口的抽象，我们可以很容易地将LinkedList改为ArrayList。</p>
+<p>​        在Java5泛型出来之前，集合中保存的通用类型Object。Java单继承的结构意味着所有元素都基于Object类，所以在集合中可以保存任何类型的数据。要使用这样的集合，我们先要往集合添加元素。由于Java5版本前的集合只保存Object，当我们往集合中添加元素时，元素都向上转型成了Object，从而丢失自己原有的类型特性。这时我们再从集合中取出该元素时，元素变成了Object。那么，我们该怎么将其转回原先具体的类型呢？这里，我们使用了强制类型转换将其转为更为具体的类型，这个过程称为对象的“向下转型”。向上转型的过程是安全的，向下转型的过程是不安全的。无论如何，我们要寻找一种在取出集合元素时确定其具体类型的方法。另外，每次取出元素都要做额外的“向下转型”对程序和程序员都是一种开销。以某种方式创建集合，以确认保证元素的具体类型，减少集合元素“向下转型”的开销和可能出现的错误难道不好吗？这种解决方案就是：参数化类型机制(Parameterized Type Mechanism)。</p>
+<p>​        参数化类型机制可以使得编译器能够自动识别某个class的具体类型并正确地执行。Java5版本支持了参数化类型机制，称之为“泛型”(Generic)。泛型是Java5的主要特性之一。</p>
+<h2 id="对象创建与声明周期"><a href="#对象创建与声明周期" class="headerlink" title="对象创建与声明周期"></a>对象创建与声明周期</h2><p>​        我们在使用对象时需要注意一个关键问题就是对象的创建和销毁。每个对象的生存都需要资源，尤其是内存。为了资源的重复利用，当对象不再被使用时，我们应该及时释放资源，清理内存。</p>
+<p>​        在简单的编程场景下，对象的清理并不是问题。我们创建对象，按需使用，最后销毁它。然而，情况往往要比这更复杂。</p>
+<p>​        Java使用动态内存分配。每次创建对象时，使用new关键字构建该对象的动态实例。这又带来了另一个问题：对象的生命周期。较之堆内存，在栈内存中创建对象，编译器能够确定该对象的生命周期并自动销毁它；然而如果你在堆内存创建对象的话，编译器是不知道它的生命周期的。在C++中你必须以编程方式确定何时销毁对象，否则可能导致内存泄漏。Java的内存管理是建立在垃圾收集器上的，它能自动发现对象不再被使用并释放内存。垃圾收集器的存在带来了极大的便利，它减少了我们之前必须要跟踪的问题和编写相关代码的数量。因此，垃圾收集器提供了更高级别的保险，以防止潜在的内存泄露问题。</p>
+<p>​        Java的垃圾收集器被设计用来解决内存释放的问题。垃圾收集器知道对象什么时候不再被使用并且自动释放内存。结合单继承和仅可在堆中创建对象的机制，Java的编程过程中比用C++要简单得多。</p>
+<h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><p>​        异常处理机制将程序错误直接交给编程语言甚至是操作系统。“异常”(Exception)是一个从错误点“抛出”(thrown)后能被特定类型的异常处理程序捕获(catch)的一个对象。它不会干扰程序的正常运行，仅当程序出错的时候才被执行。这让我们编程更加简单：不用再反复检查错误了。另外，异常不像方法返回的错误值和方法设置用来表示发生错误的标志位那样可以被忽略。异常的发生是不会被忽略的，它终究会在某一时刻被处理。</p>
+<p>​        最后，“异常机制”提供了一种可靠地从错误状态中恢复的方法，使得我们可以编写出更健壮的程序。有时你只要处理好抛出的异常情况并且恢复程序的运行即可，无需退出。</p>
+<p>​        Java的异常处理机制在编程语言中脱颖而出。Java从一开始就内置了异常处理，因此你不得不使用它。这是Java语言唯一接受的错误报告方法。如果没有编写适当的异常处理代码，你将会收到一条编译时错误消息。这种有保证的一致性有时会让程序的错误处理变得更容易。值得注意的是，异常处理并不是面向对象的特性。尽管在面向对象的语言中异常通常由对象表示，但在面向语言之前也存在异常处理。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="NoTrouble 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JAVASE/" rel="tag"># JAVASE</a>
+          
+            <a href="/tags/%E3%80%8AOn-Java-8%E3%80%8B/" rel="tag"># 《On Java 8》</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/04/14/MyBatis%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" rel="next" title="MyBatis基本使用">
+                <i class="fa fa-chevron-left"></i> MyBatis基本使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MDk0MC8yNzQyMg=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/wk.jpg"
+                alt="NoTrouble" />
+            
+              <p class="site-author-name" itemprop="name">NoTrouble</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wukun0221@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象"><span class="nav-number">1.</span> <span class="nav-text">抽象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#封装"><span class="nav-number">2.</span> <span class="nav-text">封装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复用"><span class="nav-number">3.</span> <span class="nav-text">复用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承"><span class="nav-number">4.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#“是一个”与“像是一个”的关系"><span class="nav-number">5.</span> <span class="nav-text">“是一个”与“像是一个”的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多态"><span class="nav-number">6.</span> <span class="nav-text">多态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单继承结构"><span class="nav-number">7.</span> <span class="nav-text">单继承结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合"><span class="nav-number">8.</span> <span class="nav-text">集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象创建与声明周期"><span class="nav-number">9.</span> <span class="nav-text">对象创建与声明周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常处理"><span class="nav-number">10.</span> <span class="nav-text">异常处理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">NoTrouble</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
