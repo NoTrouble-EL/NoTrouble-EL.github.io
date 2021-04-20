@@ -14,6 +14,13 @@
 
 
 
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-big-counter.min.css?v=1.0.2" rel="stylesheet">
+
 
 
 
@@ -86,7 +93,7 @@
 <meta property="og:site_name" content="NoTrouble&#39;s Blog">
 <meta property="og:description" content="算法与算法分析 算法效率以下两个方面来考虑：  时间效率：指的是算法所耗费的时间 空间效率：指的是算法执行过程中所消耗的存储空间   时间效率和空间效率有时候是矛盾的">
 <meta property="article:published_time" content="2021-04-13T14:26:36.000Z">
-<meta property="article:modified_time" content="2021-04-18T06:45:02.925Z">
+<meta property="article:modified_time" content="2021-04-20T14:29:51.325Z">
 <meta property="article:author" content="NoTrouble">
 <meta property="article:tag" content="数据结构与算法">
 <meta name="twitter:card" content="summary">
@@ -769,7 +776,43 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreatePolyn</span><span class="params">(Polynomial &amp;p, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    P= <span class="keyword">new</span> PNode;</span><br><span class="line">    P-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        s=<span class="keyword">new</span> PNode;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;s-&gt;coef&gt;&gt;s-&gt;expn;</span><br><span class="line">        pre=P;</span><br><span class="line">        q=P-&gt;next;</span><br><span class="line">        <span class="keyword">while</span>(q&amp;&amp;q-&gt;expn&lt;s-&gt;expn)&#123;</span><br><span class="line">            pre=q;</span><br><span class="line">            q=q-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        s-&gt;next=q;</span><br><span class="line">        pre-&gt;next=s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>相加算法步骤：①指针p1和p2初始化，分别指向pa和pb的首元结点；②p3指向多项式的当前结点，初值为pa的头结点；③当指针p1和p2均未到达相应表尾时，则循环比较p1和p2所指结点对应的指数值，有下列3种情况：(1)当p1-&gt;expn==p2-&gt;expn时，则将两个结点中的系数相加，若和不为零，则修改p1所指结点的系数值，同时删除p2所指结点，若和为零，则删除p1和p2所指结点；当p1-&gt;expn &lt; p2-&gt;expn时，则应摘取p1所指结点插入到“和多项式”链表中去；当p1-&gt;expn &gt; p2-&gt;expn时，则应摘取p2所指结点插入到“和多项式”链表中去；④将非空多项式的剩余段插入到p3所指结点之后；⑤释放Pb的头结点。</p>
-
+<hr>
+<h2 id="栈和队列"><a href="#栈和队列" class="headerlink" title="栈和队列"></a>栈和队列</h2><h3 id="栈和队列的定义和特点"><a href="#栈和队列的定义和特点" class="headerlink" title="栈和队列的定义和特点"></a>栈和队列的定义和特点</h3><ul>
+<li>栈和队列是两种常用、重要的数据结构</li>
+<li>栈和队列是限定插入和删除只能在表的“端点”进行的线性表</li>
+<li>栈和队列是线性表的子集(是插入和删除位置受限的线性表)</li>
+</ul>
+<p><strong>栈</strong></p>
+<p>​        由于栈的操作具有后进先出的固有特性，使得栈成为程序设计中的有用工具。另外，若问题求解的过程具有“后进先出”的天然特性的话，则求解的算法中也必然需要利用“栈”。</p>
+<p><strong>栈的定义和特点</strong></p>
+<p>​        栈(Stack)是一个特殊的线性表，是限定仅在一端(通常是表尾)进行插入和删除操作的线性表。又称为后进先出(Last In First Out)的线性表，简称LIFO结构。</p>
+<p>​        栈是仅在表尾进行插入、删除操作的线性表。表尾称为栈顶Top；表头称为栈底Base。插入元素到栈顶的操作，称为入栈。从栈顶删除最后一个元素的操作，称为出栈。</p>
+<p><strong>队列</strong></p>
+<p>​        由于队列的操作具有先进先出的特性，使得队列称为程序设计中解决类似排队问题的有用工具。</p>
+<p><strong>队列的定义和特点</strong></p>
+<p>​        队列(queue)是一种先进先出(First In First Out，FIFO)的线性表。在表一端插入(表尾)，在另一端(表头)删除。</p>
+<h3 id="案例引入-1"><a href="#案例引入-1" class="headerlink" title="案例引入"></a>案例引入</h3><p><strong>进制转换</strong></p>
+<p>十进制整数N向其它进制数d(二、八、十六)的转换是计算机实现计算的基本问题。</p>
+<p>例如：把十进制数159转换成八进制数。</p>
+<p><strong>括号匹配的检验</strong></p>
+<p>假设表达式中允许包含两种括号：圆括号和方括号；其嵌套的顺序随意。</p>
+<p>算法思路：可以利用一个栈结构保存每个出现的左括号，当遇到右括号时，从栈中弹出左括号，检验其匹配情况；在检验过程中，若遇到以下几种情况之一，就可以得出括号不匹配的结论：(1)当遇到某一个右括号时，栈已空，说明到目前为止，右括号多于左括号；(2)从栈中弹出的左括号与当前检验的右括号类型不同，说明出现了括号交叉情况；(3)算数表达式输入完毕，但栈中还没没有匹配的左括号，说明左括号多于右括号。</p>
+<p><strong>表达式求值</strong></p>
+<p>表达式求值是程序设计语言中一个最基本的问题，它的实现也需要运用栈。这里介绍的算法是由运算符优先级确定运算顺序的对表达式求值算法。</p>
+<p>算法思路：为了实现表达式求值。需要两个栈：一个是算符栈OPTR，用于寄存运算符；另一个称为操作数OPND，用于寄存运算数和运算结果。</p>
+<p>求值的处理过程是自左向右扫描表达式的每一个字符：</p>
+<ul>
+<li>当扫描到的是运算数，则将其压入栈OPND</li>
+<li>当扫描到的是运算符时<ul>
+<li>若这个运算符比OPTR栈顶运算符的优先级高，则入栈OPTP，继续向后处理</li>
+<li>若这个运算符比ORTR栈顶运算符优先级低，则从OPND栈中弹出两个运算数，从栈OPTR中弹出栈顶运算符进行运算，并将运算结果压入栈OPND。</li>
+</ul>
+</li>
+<li>继续处理当前字符，知道遇到结束符为止。</li>
+</ul>
+<p><strong>舞伴问题</strong></p>
+<p>首先构造两个队列；依次将头元素出队配成舞伴；某队为空，则另外一队等待着则是下一舞曲第一个可获得舞伴的人。</p>
+<h3 id="栈的表示和操作的实现"><a href="#栈的表示和操作的实现" class="headerlink" title="栈的表示和操作的实现"></a>栈的表示和操作的实现</h3><h3 id="栈与递归"><a href="#栈与递归" class="headerlink" title="栈与递归"></a>栈与递归</h3><h3 id="队列的表示和操作的实现"><a href="#队列的表示和操作的实现" class="headerlink" title="队列的表示和操作的实现"></a>队列的表示和操作的实现</h3><h3 id="案例分析与实现-1"><a href="#案例分析与实现-1" class="headerlink" title="案例分析与实现"></a>案例分析与实现</h3>
       
     </div>
     
@@ -866,8 +909,9 @@
   
   
   
-  </article>
+    
 
+  
 
 
     <div class="post-spread">
@@ -1010,7 +1054,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#算法与算法分析"><span class="nav-number">1.</span> <span class="nav-text">算法与算法分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法时间效率度量"><span class="nav-number">1.1.</span> <span class="nav-text">算法时间效率度量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法时间复杂度定义"><span class="nav-number">1.2.</span> <span class="nav-text">算法时间复杂度定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析算法时间复杂度的基本方法"><span class="nav-number">1.3.</span> <span class="nav-text">分析算法时间复杂度的基本方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法时间复杂度计算"><span class="nav-number">1.4.</span> <span class="nav-text">算法时间复杂度计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法时间效率的比较"><span class="nav-number">1.5.</span> <span class="nav-text">算法时间效率的比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#渐进空间复杂度"><span class="nav-number">1.6.</span> <span class="nav-text">渐进空间复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计好算法的过程"><span class="nav-number">1.7.</span> <span class="nav-text">设计好算法的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.8.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性表"><span class="nav-number">2.</span> <span class="nav-text">线性表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线性表的定义和特点"><span class="nav-number">2.1.</span> <span class="nav-text">线性表的定义和特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例引入"><span class="nav-number">2.2.</span> <span class="nav-text">案例引入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性的类型定义"><span class="nav-number">2.3.</span> <span class="nav-text">线性的类型定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性表的顺序表示和实现"><span class="nav-number">2.4.</span> <span class="nav-text">线性表的顺序表示和实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性表的链式表示和实现"><span class="nav-number">2.5.</span> <span class="nav-text">线性表的链式表示和实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单链表的定义和表示"><span class="nav-number">2.5.1.</span> <span class="nav-text">单链表的定义和表示</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序表和链表的比较"><span class="nav-number">2.6.</span> <span class="nav-text">顺序表和链表的比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性表的应用"><span class="nav-number">2.7.</span> <span class="nav-text">线性表的应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例分析与实现"><span class="nav-number">2.8.</span> <span class="nav-text">案例分析与实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一元多项式的运算：实现两个多项式加、减、乘运算"><span class="nav-number">2.8.1.</span> <span class="nav-text">一元多项式的运算：实现两个多项式加、减、乘运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#稀疏多项式的运算"><span class="nav-number">2.8.2.</span> <span class="nav-text">稀疏多项式的运算</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#算法与算法分析"><span class="nav-number">1.</span> <span class="nav-text">算法与算法分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法时间效率度量"><span class="nav-number">1.1.</span> <span class="nav-text">算法时间效率度量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法时间复杂度定义"><span class="nav-number">1.2.</span> <span class="nav-text">算法时间复杂度定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析算法时间复杂度的基本方法"><span class="nav-number">1.3.</span> <span class="nav-text">分析算法时间复杂度的基本方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法时间复杂度计算"><span class="nav-number">1.4.</span> <span class="nav-text">算法时间复杂度计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法时间效率的比较"><span class="nav-number">1.5.</span> <span class="nav-text">算法时间效率的比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#渐进空间复杂度"><span class="nav-number">1.6.</span> <span class="nav-text">渐进空间复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计好算法的过程"><span class="nav-number">1.7.</span> <span class="nav-text">设计好算法的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.8.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性表"><span class="nav-number">2.</span> <span class="nav-text">线性表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线性表的定义和特点"><span class="nav-number">2.1.</span> <span class="nav-text">线性表的定义和特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例引入"><span class="nav-number">2.2.</span> <span class="nav-text">案例引入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性的类型定义"><span class="nav-number">2.3.</span> <span class="nav-text">线性的类型定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性表的顺序表示和实现"><span class="nav-number">2.4.</span> <span class="nav-text">线性表的顺序表示和实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性表的链式表示和实现"><span class="nav-number">2.5.</span> <span class="nav-text">线性表的链式表示和实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单链表的定义和表示"><span class="nav-number">2.5.1.</span> <span class="nav-text">单链表的定义和表示</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序表和链表的比较"><span class="nav-number">2.6.</span> <span class="nav-text">顺序表和链表的比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性表的应用"><span class="nav-number">2.7.</span> <span class="nav-text">线性表的应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例分析与实现"><span class="nav-number">2.8.</span> <span class="nav-text">案例分析与实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一元多项式的运算：实现两个多项式加、减、乘运算"><span class="nav-number">2.8.1.</span> <span class="nav-text">一元多项式的运算：实现两个多项式加、减、乘运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#稀疏多项式的运算"><span class="nav-number">2.8.2.</span> <span class="nav-text">稀疏多项式的运算</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈和队列"><span class="nav-number">3.</span> <span class="nav-text">栈和队列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#栈和队列的定义和特点"><span class="nav-number">3.1.</span> <span class="nav-text">栈和队列的定义和特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例引入-1"><span class="nav-number">3.2.</span> <span class="nav-text">案例引入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈的表示和操作的实现"><span class="nav-number">3.3.</span> <span class="nav-text">栈的表示和操作的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈与递归"><span class="nav-number">3.4.</span> <span class="nav-text">栈与递归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#队列的表示和操作的实现"><span class="nav-number">3.5.</span> <span class="nav-text">队列的表示和操作的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例分析与实现-1"><span class="nav-number">3.6.</span> <span class="nav-text">案例分析与实现</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1279,6 +1323,11 @@
   
 
   
+
+  
+
+  <script async src="/js/cursor/text.js"></script>
+
 
 </body>
 </html>
