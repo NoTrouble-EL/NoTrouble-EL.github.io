@@ -92,8 +92,9 @@
 <meta property="og:url" content="http://yoursite.com/2020/12/29/%E9%AB%98%E7%BA%A7%E6%8E%92%E5%BA%8F/index.html">
 <meta property="og:site_name" content="NoTrouble&#39;s Blog">
 <meta property="og:description" content="高级排序 之前的简单排序，包括冒泡排序、选择排序、插入排序，并且对他们在最坏情况下的时间复杂度做了分析，发现都是$O(N^2)$，复杂度为平方阶的会随着输入规模的增大，时间成本急剧上升，所以这些基本排序方法不能处理更大规模的问题，接下来将会使用一些高级的排序算法，争取降低算法的时间复杂度最高阶次幂。 希尔排序希尔排序是插入排序的一种，又称“缩小增量排序”，是插入排序算法的一种更高效的改进版本。">
+<meta property="og:locale">
 <meta property="article:published_time" content="2020-12-29T15:01:44.000Z">
-<meta property="article:modified_time" content="2020-12-29T15:03:37.127Z">
+<meta property="article:modified_time" content="2020-12-29T15:01:44.000Z">
 <meta property="article:author" content="NoTrouble">
 <meta property="article:tag" content="数据结构与算法">
 <meta name="twitter:card" content="summary">
@@ -103,7 +104,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Gemini',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -142,7 +143,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
@@ -262,7 +263,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/29/%E9%AB%98%E7%BA%A7%E6%8E%92%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="NoTrouble">
+      <meta itemprop="name" content="">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/wk.jpg">
     </span>
@@ -356,7 +357,7 @@
         <h1 id="高级排序"><a href="#高级排序" class="headerlink" title="高级排序"></a>高级排序</h1><hr>
 <p>之前的简单排序，包括冒泡排序、选择排序、插入排序，并且对他们在最坏情况下的时间复杂度做了分析，发现都是$O(N^2)$，复杂度为平方阶的会随着输入规模的增大，时间成本急剧上升，所以这些基本排序方法不能处理更大规模的问题，接下来将会使用一些高级的排序算法，争取降低算法的时间复杂度最高阶次幂。</p>
 <h2 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h2><p>希尔排序是插入排序的一种，又称“缩小增量排序”，是插入排序算法的一种更高效的改进版本。</p>
- <a id="more"></a> 
+ <span id="more"></span> 
 
 <p><strong>需求：</strong></p>
 <ul>
@@ -425,11 +426,11 @@
 <p><strong>希尔排序的时间复杂度分析：</strong></p>
 <p>在希尔排序中，增长量h并没有固定的规则，有很多论文研究了各种不同的递增序列，但都无法证明某个序列是最好的，对于希尔排序的时间复杂度分析，在这里不做分析了。</p>
 <p>我们可以使用事后分析法对希尔排序和插入排序做性能比较。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SortCompare</span></span>&#123;</span><br><span class="line">    <span class="comment">//调用不同的测试方法，完成测试</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">//创建一个ArrayList集合，保存读取出来的数据</span></span><br><span class="line">        ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="comment">//创建缓存读取流BufferedReader，读取数据，并存储到ArrayList中</span></span><br><span class="line">        BufferedReader reader = new BufferedReader(new InputStreamReader(SortCompare.class.getclassLoader().getResourceAsStream("reverse_arr.test")));</span><br><span class="line">        String line = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">while</span>((line = reader.readLine()) != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="comment">//line是字符串</span></span><br><span class="line">           	<span class="comment">//把line转换成Integer，存储到集合中</span></span><br><span class="line">            <span class="keyword">int</span> i = Integer.parseInt(line);</span><br><span class="line">            list.add(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//关闭流</span></span><br><span class="line">        reader.close();</span><br><span class="line">        <span class="comment">//把ArrayList集合转换成数据</span></span><br><span class="line">        Integer[] a = <span class="keyword">new</span> Integer[list.size()];</span><br><span class="line">        list.toArray(a);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//调用测试代码</span></span><br><span class="line">        testInsertion(a);</span><br><span class="line">        testShell(a);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testShell</span><span class="params">(Integer[] a)</span></span>&#123;</span><br><span class="line">        <span class="comment">//获取执行之间的时间</span></span><br><span class="line">        <span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line">        Shell.sort(a);</span><br><span class="line">        <span class="keyword">long</span> end = System.currentTimeMillis();</span><br><span class="line">        System.out.println(<span class="string">"希尔排序执行的时间为"</span>+ (end -start) + <span class="string">"ms!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testInsertion</span><span class="params">(Integer[] a)</span></span>&#123;</span><br><span class="line">        <span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line">        Insertion.sort(a);</span><br><span class="line">        <span class="keyword">long</span> end = System.currentTimeMillis();</span><br><span class="line">        System.out.println(<span class="string">"插入排序执行的时间为"</span>+ (end -start) + <span class="string">"ms!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SortCompare</span></span>&#123;</span><br><span class="line">    <span class="comment">//调用不同的测试方法，完成测试</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">//创建一个ArrayList集合，保存读取出来的数据</span></span><br><span class="line">        ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="comment">//创建缓存读取流BufferedReader，读取数据，并存储到ArrayList中</span></span><br><span class="line">        BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(SortCompare.class.getclassLoader().getResourceAsStream(<span class="string">&quot;reverse_arr.test&quot;</span>)));</span><br><span class="line">        String line = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">while</span>((line = reader.readLine()) != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="comment">//line是字符串</span></span><br><span class="line">           	<span class="comment">//把line转换成Integer，存储到集合中</span></span><br><span class="line">            <span class="keyword">int</span> i = Integer.parseInt(line);</span><br><span class="line">            list.add(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//关闭流</span></span><br><span class="line">        reader.close();</span><br><span class="line">        <span class="comment">//把ArrayList集合转换成数据</span></span><br><span class="line">        Integer[] a = <span class="keyword">new</span> Integer[list.size()];</span><br><span class="line">        list.toArray(a);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//调用测试代码</span></span><br><span class="line">        testInsertion(a);</span><br><span class="line">        testShell(a);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testShell</span><span class="params">(Integer[] a)</span></span>&#123;</span><br><span class="line">        <span class="comment">//获取执行之间的时间</span></span><br><span class="line">        <span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line">        Shell.sort(a);</span><br><span class="line">        <span class="keyword">long</span> end = System.currentTimeMillis();</span><br><span class="line">        System.out.println(<span class="string">&quot;希尔排序执行的时间为&quot;</span>+ (end -start) + <span class="string">&quot;ms!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testInsertion</span><span class="params">(Integer[] a)</span></span>&#123;</span><br><span class="line">        <span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line">        Insertion.sort(a);</span><br><span class="line">        <span class="keyword">long</span> end = System.currentTimeMillis();</span><br><span class="line">        System.out.println(<span class="string">&quot;插入排序执行的时间为&quot;</span>+ (end -start) + <span class="string">&quot;ms!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <hr>
 <h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><p><strong>定义：</strong>定义方法时，在方法内部调用方法本身，称之为递归。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"aaaa"</span>);</span><br><span class="line">    show();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;aaaa&quot;</span>);</span><br><span class="line">    show();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>作用：</strong></p>
 <p>它通常把一个大型复杂的问题，层层转换为一个与原问题相似的，规模较小的问题来求解。递归策略只需要少量的程序就可以描述出解题过程所需要的多次重复计算，大大的减少了程序的代码量。</p>
@@ -596,7 +597,7 @@
 
     
       <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="NoTrouble 微信支付"/>
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
         <p>微信支付</p>
       </div>
     
@@ -734,9 +735,9 @@
             
               <img class="site-author-image" itemprop="image"
                 src="/images/wk.jpg"
-                alt="NoTrouble" />
+                alt="" />
             
-              <p class="site-author-name" itemprop="name">NoTrouble</p>
+              <p class="site-author-name" itemprop="name"></p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
@@ -747,7 +748,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -818,7 +819,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#高级排序"><span class="nav-number">1.</span> <span class="nav-text">高级排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#希尔排序"><span class="nav-number">1.1.</span> <span class="nav-text">希尔排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#归并排序"><span class="nav-number">1.2.</span> <span class="nav-text">归并排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#递归"><span class="nav-number">1.2.1.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#归并排序-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">归并排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速排序"><span class="nav-number">1.3.</span> <span class="nav-text">快速排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排序的稳定性"><span class="nav-number">1.4.</span> <span class="nav-text">排序的稳定性</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E6%8E%92%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">高级排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F"><span class="nav-number">1.1.</span> <span class="nav-text">希尔排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="nav-number">1.2.</span> <span class="nav-text">归并排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%92%E5%BD%92"><span class="nav-number">1.2.1.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">归并排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="nav-number">1.3.</span> <span class="nav-text">快速排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E7%9A%84%E7%A8%B3%E5%AE%9A%E6%80%A7"><span class="nav-number">1.4.</span> <span class="nav-text">排序的稳定性</span></a></li></ol></li></ol></div>
             
 
           </div>

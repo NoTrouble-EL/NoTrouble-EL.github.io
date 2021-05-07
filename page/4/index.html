@@ -90,6 +90,7 @@
 <meta property="og:title" content="NoTrouble&#39;s Blog">
 <meta property="og:url" content="http://yoursite.com/page/4/index.html">
 <meta property="og:site_name" content="NoTrouble&#39;s Blog">
+<meta property="og:locale">
 <meta property="article:author" content="NoTrouble">
 <meta name="twitter:card" content="summary">
 
@@ -98,7 +99,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Gemini',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -137,7 +138,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
@@ -255,10 +256,306 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/26/%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9-237/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoTrouble's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/10/26/%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9-237/" itemprop="url">删除链表中的节点_237</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-26T08:58:55+08:00">
+                2020-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DataStructure/" itemprop="url" rel="index">
+                    <span itemprop="name">DataStructure</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="删除链表中的节点-237"><a href="#删除链表中的节点-237" class="headerlink" title="删除链表中的节点_237"></a>删除链表中的节点_237</h1><h2 id="请编写一个函数，使其可以删除某个链表中给定的（非末尾）节点。传入函数的唯一参数为要被删除的节点。"><a href="#请编写一个函数，使其可以删除某个链表中给定的（非末尾）节点。传入函数的唯一参数为要被删除的节点。" class="headerlink" title="请编写一个函数，使其可以删除某个链表中给定的（非末尾）节点。传入函数的唯一参数为要被删除的节点。"></a>请编写一个函数，使其可以删除某个链表中给定的（非末尾）节点。传入函数的唯一参数为要被删除的节点。</h2><p><img src="/2020/10/26/%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9-237/image-20201025185014252.png" alt="image-20201025185014252"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [<span class="number">4</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">9</span>], node = <span class="number">5</span></span><br><span class="line">输出：[<span class="number">4</span>,<span class="number">1</span>,<span class="number">9</span>]</span><br><span class="line">解释：给定你链表中值为 <span class="number">5</span> 的第二个节点，那么在调用了你的函数之后，该链表应变为 <span class="number">4</span> -&gt; <span class="number">1</span> -&gt; <span class="number">9.</span></span><br><span class="line">    </span><br><span class="line">输入：head = [<span class="number">4</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">9</span>], node = <span class="number">1</span></span><br><span class="line">输出：[<span class="number">4</span>,<span class="number">5</span>,<span class="number">9</span>]</span><br><span class="line">解释：给定你链表中值为 <span class="number">1</span> 的第三个节点，那么在调用了你的函数之后，该链表应变为 <span class="number">4</span> -&gt; <span class="number">5</span> -&gt; <span class="number">9.</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteNode</span><span class="params">(ListNode node)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        node.val = node.next.val;</span><br><span class="line">        node.next = node.next.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>思路分析：将要被删除节点的下一个节点的数据赋值给当前节点，将当前节点的next指向下一节点的next(跳过下一节点)。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+    
+
+  
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/25/%E5%89%91%E6%8C%87Offer-18-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E8%8A%82%E7%82%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoTrouble's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/10/25/%E5%89%91%E6%8C%87Offer-18-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E8%8A%82%E7%82%B9/" itemprop="url">剑指Offer 18. 删除链表的节点</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-25T09:09:16+08:00">
+                2020-10-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DataStructure/" itemprop="url" rel="index">
+                    <span itemprop="name">DataStructure</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="剑指Offer-18-删除链表的节点"><a href="#剑指Offer-18-删除链表的节点" class="headerlink" title="剑指Offer 18. 删除链表的节点"></a>剑指Offer 18. 删除链表的节点</h1><h2 id="给定单链表的头指针和一个要删除的节点值，定义一个函数删除该节点。返回删除后的链表的头节点。"><a href="#给定单链表的头指针和一个要删除的节点值，定义一个函数删除该节点。返回删除后的链表的头节点。" class="headerlink" title="给定单链表的头指针和一个要删除的节点值，定义一个函数删除该节点。返回删除后的链表的头节点。"></a>给定单链表的头指针和一个要删除的节点值，定义一个函数删除该节点。返回删除后的链表的头节点。</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: head = [<span class="number">4</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">9</span>], val = <span class="number">5</span></span><br><span class="line">输出: [<span class="number">4</span>,<span class="number">1</span>,<span class="number">9</span>]</span><br><span class="line">解释: 给定你链表中值为 <span class="number">5</span> 的第二个节点，那么在调用了你的函数之后，该链表应变为 <span class="number">4</span> -&gt; <span class="number">1</span> -&gt; <span class="number">9.</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: head = [<span class="number">4</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">9</span>], val = <span class="number">1</span></span><br><span class="line">输出: [<span class="number">4</span>,<span class="number">5</span>,<span class="number">9</span>]</span><br><span class="line">解释: 给定你链表中值为 <span class="number">1</span> 的第三个节点，那么在调用了你的函数之后，该链表应变为 <span class="number">4</span> -&gt; <span class="number">5</span> -&gt; <span class="number">9.</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">deleteNode</span><span class="params">(ListNode head, <span class="keyword">int</span> val)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head == <span class="keyword">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(head.val = val)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> head.next;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode pre = <span class="keyword">null</span>;</span><br><span class="line">        ListNode cur = head;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(cur.val != val)</span><br><span class="line">        &#123;</span><br><span class="line">            pre = cru;</span><br><span class="line">            cru = cru.next;</span><br><span class="line">        &#125;</span><br><span class="line">        pre.next = cru.next;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+    
+
+  
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/24/LeetCode-206/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="NoTrouble">
+      <meta itemprop="name" content="">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/wk.jpg">
     </span>
@@ -410,7 +707,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/20/%E9%98%9F%E5%88%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="NoTrouble">
+      <meta itemprop="name" content="">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/wk.jpg">
     </span>
@@ -505,9 +802,9 @@
 </ol>
 <p>存入队列的思路分析：</p>
 <ol>
-<li><p>将尾指针往后移：rear+1，当front == rear 空</p>
-</li>
-<li><p>当尾指针real小于队列的最大值maxSize-1，可将数据存入rear所指的数组元素中，否则无法存入数据 rear == maxSize -1 队列满。</p></li></ol>
+<li>将尾指针往后移：rear+1，当front == rear 空</li>
+<li>当尾指针real小于队列的最大值maxSize-1，可将数据存入rear所指的数组元素中，否则无法存入数据 rear == maxSize -1 队列满。</li>
+</ol>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2020/10/20/%E9%98%9F%E5%88%97/#more" rel="contents">
@@ -565,7 +862,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="NoTrouble">
+      <meta itemprop="name" content="">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/wk.jpg">
     </span>
@@ -673,11 +970,10 @@
 <p>间接通过成员方法访问成员变量：方法属于谁，就优先用谁，没有则向上找。</p>
 <p>区分子类方法中重名的三种变量：</p>
 <ul>
-<li><p>局部变量： 直接写</p>
-</li>
-<li><p>本类的成员变量：this.成员变量名</p>
-</li>
-<li><p>父类的成员变量：super.成员变量名</p></li></ul>
+<li>局部变量： 直接写</li>
+<li>本类的成员变量：this.成员变量名</li>
+<li>父类的成员变量：super.成员变量名</li>
+</ul>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/#more" rel="contents">
@@ -735,7 +1031,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/12/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="NoTrouble">
+      <meta itemprop="name" content="">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/wk.jpg">
     </span>
@@ -838,11 +1134,10 @@
 </ul>
 <h3 id="4-1-3-识别类"><a href="#4-1-3-识别类" class="headerlink" title="4.1.3 识别类"></a>4.1.3 识别类</h3><h3 id="4-1-4-类之间的关系"><a href="#4-1-4-类之间的关系" class="headerlink" title="4.1.4 类之间的关系"></a>4.1.4 类之间的关系</h3><p>在类之间，最常见的关系有：</p>
 <ul>
-<li><p>依赖(dependence)(“uses-a”)</p>
-</li>
-<li><p>聚合(aggregation)(“has-a”)</p>
-</li>
-<li><p>继承(inheritance)(“is-a”)</p></li></ul>
+<li>依赖(dependence)(“uses-a”)</li>
+<li>聚合(aggregation)(“has-a”)</li>
+<li>继承(inheritance)(“is-a”)</li>
+</ul>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2020/10/12/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/#more" rel="contents">
@@ -900,7 +1195,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/05/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="NoTrouble">
+      <meta itemprop="name" content="">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/wk.jpg">
     </span>
@@ -1004,7 +1299,7 @@
 <h3 id="3-3-3-char类型"><a href="#3-3-3-char类型" class="headerlink" title="3.3.3 char类型"></a>3.3.3 char类型</h3><h3 id="3-3-4-Unicode和char类型"><a href="#3-3-4-Unicode和char类型" class="headerlink" title="3.3.4 Unicode和char类型"></a>3.3.4 Unicode和char类型</h3><h3 id="3-3-5-boolean类型"><a href="#3-3-5-boolean类型" class="headerlink" title="3.3.5 boolean类型"></a>3.3.5 boolean类型</h3><h2 id="3-4-变量与常量"><a href="#3-4-变量与常量" class="headerlink" title="3.4 变量与常量"></a>3.4 变量与常量</h2><h3 id="3-4-1-声明变量"><a href="#3-4-1-声明变量" class="headerlink" title="3.4.1 声明变量"></a>3.4.1 声明变量</h3><h3 id="3-4-2-变量初始化"><a href="#3-4-2-变量初始化" class="headerlink" title="3.4.2 变量初始化"></a>3.4.2 变量初始化</h3><h3 id="3-4-3-常量"><a href="#3-4-3-常量" class="headerlink" title="3.4.3 常量"></a>3.4.3 常量</h3><p>可以利用关键字final 指示常量。关键字final表示这个变量只能被赋值一次，一旦被赋值之后就不能够再更改了；常量使用全大写。</p>
 <p>当希望某个常量可以在一个类的多个方法中使用，通常将这些常量称为类常量（class constant）；可以使用static final设置一个常量；类常量的定义位于main方法的外部，在同一个类的其他方法也可以使用这个常量。若一个常量被声明为public，那么其他类的方法也可以使用这个常量。</p>
 <h3 id="3-4-4-枚举类型"><a href="#3-4-4-枚举类型" class="headerlink" title="3.4.4 枚举类型"></a>3.4.4 枚举类型</h3><p>变量的取值只有在一个有限的集合内。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Size &#123;SMALL,MEDIUM,LARGE,EXTRA_LARGE&#125;;</span><br><span class="line">Size s = Size.MEDIUM;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Size</span> </span>&#123;SMALL,MEDIUM,LARGE,EXTRA_LARGE&#125;;</span><br><span class="line">Size s = Size.MEDIUM;</span><br></pre></td></tr></table></figure>
 
 <p>Size类型的变量只能存储这个类型声明中给定的某个枚举值，或是特殊值null。</p>
           <!--noindex-->
@@ -1064,7 +1359,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/01/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="NoTrouble">
+      <meta itemprop="name" content="">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/wk.jpg">
     </span>
@@ -1170,9 +1465,9 @@
 </ol>
 <p>稀疏数组转二维数组：</p>
 <ol>
-<li><p>点读取稀疏数组的第一行，创建原始的二维数组，比如上面的chessArr2 = int[11][11]；</p>
-</li>
-<li><p>读取稀疏数组后面的几行数据，并赋给原始的二维数组。</p></li></ol>
+<li>点读取稀疏数组的第一行，创建原始的二维数组，比如上面的chessArr2 = int[11][11]；</li>
+<li> 读取稀疏数组后面的几行数据，并赋给原始的二维数组。</li>
+</ol>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2020/10/01/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/#more" rel="contents">
@@ -1230,7 +1525,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/19/%E6%9B%B2%E7%8E%87%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="NoTrouble">
+      <meta itemprop="name" content="">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/wk.jpg">
     </span>
@@ -1380,7 +1675,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/08/%E4%BD%A0%E4%B8%8D%E4%BA%86%E8%A7%A3%E7%9A%84WiFi/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="NoTrouble">
+      <meta itemprop="name" content="">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/wk.jpg">
     </span>
@@ -1474,158 +1769,12 @@
 <ul>
 <li><p>$ 2.4GHz $，指的是:$2.4GHz \sim 2.4835GHz$</p>
 </li>
-<li><p>$ 5GHz $，指的是:$5.15GHz \sim 5.85GHz$</p></li></ul>
+<li><p>$ 5GHz $，指的是:$5.15GHz \sim 5.85GHz$</p>
+</li>
+</ul>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2020/07/08/%E4%BD%A0%E4%B8%8D%E4%BA%86%E8%A7%A3%E7%9A%84WiFi/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-    
-
-  
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/06/%E9%80%9A%E4%BF%97%E7%9A%84%E6%97%A0%E7%BA%BF%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="NoTrouble">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/wk.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NoTrouble's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/07/06/%E9%80%9A%E4%BF%97%E7%9A%84%E6%97%A0%E7%BA%BF%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86/" itemprop="url">通俗的无线技术原理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-06T13:33:38+08:00">
-                2020-07-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%A1%AC%E6%A0%B8%E6%97%A0%E7%BA%BF%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">硬核无线技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="1-什么是无线电波？"><a href="#1-什么是无线电波？" class="headerlink" title="1.什么是无线电波？"></a>1.什么是无线电波？</h2><p>无线电波是一种电磁波。低频的无线电波不能穿越大气层，只能在地面传播；而高频的无线电波可以穿透大气层的电离层，例如：X光可以穿透人体，生成X光影像；伽马射线产生的电离辐射，就是核武器的杀伤手段之一。不同频率的无线电波表现出来的性质不一样，其实就是一种东西都是电磁波。</p>
-<h2 id="2-无线电波的信道。"><a href="#2-无线电波的信道。" class="headerlink" title="2.无线电波的信道。"></a>2.无线电波的信道。</h2><p> 生活中常用的无线电波主要在几千Hz~300GHz。根据频率的高低被国际电信联盟（Internationals Telecommunication Union,ITU）规定出各种专用的通信频率，也叫做信道。专业信道涵盖的业务范围特别广，例如：海上移动通信业务，AM广播，FM广播，无线电视广播，太空对地通信，GPS卫星通信服务，深空研究通信，卫星时间校准服务，卫星广播业务服务。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/07/06/%E9%80%9A%E4%BF%97%E7%9A%84%E6%97%A0%E7%BA%BF%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1668,7 +1817,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    <a class="extend prev" rel="prev" href="/page/3/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">&gt;</a>
   </nav>
 
 
@@ -1705,9 +1854,9 @@
             
               <img class="site-author-image" itemprop="image"
                 src="/images/wk.jpg"
-                alt="NoTrouble" />
+                alt="" />
             
-              <p class="site-author-name" itemprop="name">NoTrouble</p>
+              <p class="site-author-name" itemprop="name"></p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
@@ -1718,7 +1867,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -86,14 +86,15 @@
 
 
 
-<meta name="description" content="抽象​        我们可以理解“纯粹”的面向对象设计方法是什么样的：  万物皆对象。你可以将对象想象成一种特殊的变量。它存储数据，但可以在你对其“发出请求”时执行本身的操作。  程序是一组对象，通过消息传递来告知彼此该做什么。要请求调用一个对象的方法，你需要向该对象发送消息。  每个对象都有自己的存储空间，可容纳其他对象。或者说，通过封装现有对象，可制作出新型对象。所以，尽管对象的概念非常简单">
+<meta name="description" content="抽象​        我们可以理解“纯粹”的面向对象设计方法是什么样的：  万物皆对象。你可以将对象想象成一种特殊的变量。它存储数据，但可以在你对其“发出请求”时执行本身的操作。 程序是一组对象，通过消息传递来告知彼此该做什么。要请求调用一个对象的方法，你需要向该对象发送消息。 每个对象都有自己的存储空间，可容纳其他对象。或者说，通过封装现有对象，可制作出新型对象。所以，尽管对象的概念非常简单，但">
 <meta property="og:type" content="article">
 <meta property="og:title" content="阅读《On Java 8》--第一章 对象的概念">
 <meta property="og:url" content="http://yoursite.com/2021/04/18/%E9%98%85%E8%AF%BB%E3%80%8AOn-Java-8%E3%80%8B-%E7%AC%AC%E4%B8%80%E7%AB%A0-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%A6%82%E5%BF%B5/index.html">
 <meta property="og:site_name" content="NoTrouble&#39;s Blog">
-<meta property="og:description" content="抽象​        我们可以理解“纯粹”的面向对象设计方法是什么样的：  万物皆对象。你可以将对象想象成一种特殊的变量。它存储数据，但可以在你对其“发出请求”时执行本身的操作。  程序是一组对象，通过消息传递来告知彼此该做什么。要请求调用一个对象的方法，你需要向该对象发送消息。  每个对象都有自己的存储空间，可容纳其他对象。或者说，通过封装现有对象，可制作出新型对象。所以，尽管对象的概念非常简单">
+<meta property="og:description" content="抽象​        我们可以理解“纯粹”的面向对象设计方法是什么样的：  万物皆对象。你可以将对象想象成一种特殊的变量。它存储数据，但可以在你对其“发出请求”时执行本身的操作。 程序是一组对象，通过消息传递来告知彼此该做什么。要请求调用一个对象的方法，你需要向该对象发送消息。 每个对象都有自己的存储空间，可容纳其他对象。或者说，通过封装现有对象，可制作出新型对象。所以，尽管对象的概念非常简单，但">
+<meta property="og:locale">
 <meta property="article:published_time" content="2021-04-18T01:39:54.000Z">
-<meta property="article:modified_time" content="2021-04-18T01:42:31.783Z">
+<meta property="article:modified_time" content="2021-04-18T01:39:54.000Z">
 <meta property="article:author" content="NoTrouble">
 <meta property="article:tag" content="JAVASE">
 <meta property="article:tag" content="《On Java 8》">
@@ -104,7 +105,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Gemini',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -143,7 +144,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
@@ -263,7 +264,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/18/%E9%98%85%E8%AF%BB%E3%80%8AOn-Java-8%E3%80%8B-%E7%AC%AC%E4%B8%80%E7%AB%A0-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%A6%82%E5%BF%B5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="NoTrouble">
+      <meta itemprop="name" content="">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/wk.jpg">
     </span>
@@ -356,19 +357,14 @@
       
         <h2 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h2><p>​        我们可以理解“纯粹”的面向对象设计方法是什么样的：</p>
 <ul>
-<li><p>万物皆对象。你可以将对象想象成一种特殊的变量。它存储数据，但可以在你对其“发出请求”时执行本身的操作。</p>
-</li>
-<li><p>程序是一组对象，通过消息传递来告知彼此该做什么。要请求调用一个对象的方法，你需要向该对象发送消息。</p>
-</li>
-<li><p>每个对象都有自己的存储空间，可容纳其他对象。或者说，通过封装现有对象，可制作出新型对象。所以，尽管对象的概念非常简单，但在程序中却可达到任意高的复杂度。</p>
-</li>
-<li><p>每个对象都有一种类型。根据语法，每个对象都是某个“类”的一个“实例”</p>
-</li>
-<li><p>同一类所有对象都能接收相同的消息。这实际是别有含义的一种说法。由于类型为Circle的一个对象也属于类型为Shape的一个对象，所以一个圆完全能接收发送给“形状”的消息。这意味着可让程序代码统一指挥“形状”，令其自动控制所有符合“形状”描述的对象，其中自然包括“圆”。这一特性称为对象的“可替换性”，是OOP最重要的概念之一。</p>
-<a id="more"></a> 
-
-</li>
+<li>万物皆对象。你可以将对象想象成一种特殊的变量。它存储数据，但可以在你对其“发出请求”时执行本身的操作。</li>
+<li>程序是一组对象，通过消息传递来告知彼此该做什么。要请求调用一个对象的方法，你需要向该对象发送消息。</li>
+<li>每个对象都有自己的存储空间，可容纳其他对象。或者说，通过封装现有对象，可制作出新型对象。所以，尽管对象的概念非常简单，但在程序中却可达到任意高的复杂度。</li>
+<li>每个对象都有一种类型。根据语法，每个对象都是某个“类”的一个“实例”</li>
+<li>同一类所有对象都能接收相同的消息。这实际是别有含义的一种说法。由于类型为Circle的一个对象也属于类型为Shape的一个对象，所以一个圆完全能接收发送给“形状”的消息。这意味着可让程序代码统一指挥“形状”，令其自动控制所有符合“形状”描述的对象，其中自然包括“圆”。这一特性称为对象的“可替换性”，是OOP最重要的概念之一。</li>
 </ul>
+ <span id="more"></span> 
+
 <h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><p>​        使用访问控制的原因有以下两点：</p>
 <ul>
 <li>让应用程序员不要触摸他们不应该触摸的部分；</li>
@@ -443,7 +439,7 @@
 
     
       <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="NoTrouble 微信支付"/>
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
         <p>微信支付</p>
       </div>
     
@@ -583,9 +579,9 @@
             
               <img class="site-author-image" itemprop="image"
                 src="/images/wk.jpg"
-                alt="NoTrouble" />
+                alt="" />
             
-              <p class="site-author-name" itemprop="name">NoTrouble</p>
+              <p class="site-author-name" itemprop="name"></p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
@@ -596,7 +592,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -667,7 +663,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象"><span class="nav-number">1.</span> <span class="nav-text">抽象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#封装"><span class="nav-number">2.</span> <span class="nav-text">封装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复用"><span class="nav-number">3.</span> <span class="nav-text">复用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承"><span class="nav-number">4.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#“是一个”与“像是一个”的关系"><span class="nav-number">5.</span> <span class="nav-text">“是一个”与“像是一个”的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多态"><span class="nav-number">6.</span> <span class="nav-text">多态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单继承结构"><span class="nav-number">7.</span> <span class="nav-text">单继承结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合"><span class="nav-number">8.</span> <span class="nav-text">集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象创建与声明周期"><span class="nav-number">9.</span> <span class="nav-text">对象创建与声明周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常处理"><span class="nav-number">10.</span> <span class="nav-text">异常处理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">抽象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%81%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">封装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">复用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF"><span class="nav-number">4.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%80%9C%E6%98%AF%E4%B8%80%E4%B8%AA%E2%80%9D%E4%B8%8E%E2%80%9C%E5%83%8F%E6%98%AF%E4%B8%80%E4%B8%AA%E2%80%9D%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">5.</span> <span class="nav-text">“是一个”与“像是一个”的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E6%80%81"><span class="nav-number">6.</span> <span class="nav-text">多态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E7%BB%A7%E6%89%BF%E7%BB%93%E6%9E%84"><span class="nav-number">7.</span> <span class="nav-text">单继承结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E5%90%88"><span class="nav-number">8.</span> <span class="nav-text">集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA%E4%B8%8E%E5%A3%B0%E6%98%8E%E5%91%A8%E6%9C%9F"><span class="nav-number">9.</span> <span class="nav-text">对象创建与声明周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-number">10.</span> <span class="nav-text">异常处理</span></a></li></ol></div>
             
 
           </div>

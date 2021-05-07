@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-big-counter.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JAVASE,《On Java 8》," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="​        如何在不污染代码的前提下使用现存代码是需要技巧的。在本章，将学习到两种方式来达到这个目的：  第一种方式直接了当。在新类中创建现有类的对象。这种方式叫做“组合”(Composition)，通过这种方式复用代码的功能，而非其形式。 第二种方式更为微秒。创建现有类类型的新类。照字面理解：采用现有类形式，又无需在编码时改动其代码，这种方式就叫做“继承”(Inheritance)，编译器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阅读《On-Java-8》-第八章-复用">
+<meta property="og:url" content="http://yoursite.com/2021/05/07/%E9%98%85%E8%AF%BB%E3%80%8AOn-Java-8%E3%80%8B-%E7%AC%AC%E5%85%AB%E7%AB%A0-%E5%A4%8D%E7%94%A8/index.html">
+<meta property="og:site_name" content="NoTrouble&#39;s Blog">
+<meta property="og:description" content="​        如何在不污染代码的前提下使用现存代码是需要技巧的。在本章，将学习到两种方式来达到这个目的：  第一种方式直接了当。在新类中创建现有类的对象。这种方式叫做“组合”(Composition)，通过这种方式复用代码的功能，而非其形式。 第二种方式更为微秒。创建现有类类型的新类。照字面理解：采用现有类形式，又无需在编码时改动其代码，这种方式就叫做“继承”(Inheritance)，编译器">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-05-07T13:42:20.000Z">
+<meta property="article:modified_time" content="2021-05-07T13:42:20.000Z">
+<meta property="article:author" content="NoTrouble">
+<meta property="article:tag" content="JAVASE">
+<meta property="article:tag" content="《On Java 8》">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/05/07/阅读《On-Java-8》-第八章-复用/"/>
+
+
+
+
+
+  <title>阅读《On-Java-8》-第八章-复用 | NoTrouble's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NoTrouble's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录分享生活中的点点滴滴</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-playlist">
+          <a href="/playlist/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-music"></i> <br />
+            
+            歌单
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/07/%E9%98%85%E8%AF%BB%E3%80%8AOn-Java-8%E3%80%8B-%E7%AC%AC%E5%85%AB%E7%AB%A0-%E5%A4%8D%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoTrouble's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">阅读《On-Java-8》-第八章-复用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-07T21:42:20+08:00">
+                2021-05-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVASE/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVASE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>​        如何在不污染代码的前提下使用现存代码是需要技巧的。在本章，将学习到两种方式来达到这个目的：</p>
+<ul>
+<li>第一种方式直接了当。在新类中创建现有类的对象。这种方式叫做“组合”(Composition)，通过这种方式复用代码的功能，而非其形式。</li>
+<li>第二种方式更为微秒。创建现有类类型的新类。照字面理解：采用现有类形式，又无需在编码时改动其代码，这种方式就叫做“继承”(Inheritance)，编译器会做大部分的工作。继承是面向对象编程(OOP)的重要基础之一。</li>
+</ul>
+ <span id="more"></span> 
+
+<h2 id="组合语法"><a href="#组合语法" class="headerlink" title="组合语法"></a>组合语法</h2><p>​        在前面的学习中，“组合”(Composition)已经被多次使用。你仅需要把对象的引用(object references)放置在一个新的类里，这里使用了组合。例如，假设你需要一个对象，其中内置了几个String对象，两个基本类型(primitives)的属性字段，一个其他类的对象。对于非基本类型对象，将引用直接放置在新类中，对于基本类型属性字段则仅进行声明。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// reuse/SprinklerSystem.java</span></span><br><span class="line"><span class="comment">// (c)2017 MindView LLC: see Copyright.txt</span></span><br><span class="line"><span class="comment">// We make no guarantees that this code is fit for any purpose.</span></span><br><span class="line"><span class="comment">// Visit http://OnJava8.com for more book information.</span></span><br><span class="line"><span class="comment">// Composition for code reuse</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WaterSource</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> String s;</span><br><span class="line">  WaterSource() &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;WaterSource()&quot;</span>);</span><br><span class="line">    s = <span class="string">&quot;Constructed&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> s; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SprinklerSystem</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> String valve1, valve2, valve3, valve4;</span><br><span class="line">  <span class="keyword">private</span> WaterSource source = <span class="keyword">new</span> WaterSource();</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> i;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">float</span> f;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">      <span class="string">&quot;valve1 = &quot;</span> + valve1 + <span class="string">&quot; &quot;</span> +</span><br><span class="line">      <span class="string">&quot;valve2 = &quot;</span> + valve2 + <span class="string">&quot; &quot;</span> +</span><br><span class="line">      <span class="string">&quot;valve3 = &quot;</span> + valve3 + <span class="string">&quot; &quot;</span> +</span><br><span class="line">      <span class="string">&quot;valve4 = &quot;</span> + valve4 + <span class="string">&quot;\n&quot;</span> +</span><br><span class="line">      <span class="string">&quot;i = &quot;</span> + i + <span class="string">&quot; &quot;</span> + <span class="string">&quot;f = &quot;</span> + f + <span class="string">&quot; &quot;</span> +</span><br><span class="line">      <span class="string">&quot;source = &quot;</span> + source; <span class="comment">// [1]</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    SprinklerSystem sprinklers = <span class="keyword">new</span> SprinklerSystem();</span><br><span class="line">    System.out.println(sprinklers);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* Output:</span></span><br><span class="line"><span class="comment">WaterSource()</span></span><br><span class="line"><span class="comment">valve1 = null valve2 = null valve3 = null valve4 = null</span></span><br><span class="line"><span class="comment">i = 0 f = 0.0 source = Constructed</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>​        这两个类中定义的一个方法是特殊的：toString()。每个非基本类型对象都有一个toString()方法，在编译器需要字符串但它有对象的特殊情况下调用该方法。因此，在[1]中，编译器看到你试图“添加”一个WaterSource类型的字符串对象。因为字符串只能拼接另一个字符串，所以它就会调用toString()将source转换成一个字符串。然后，它可以拼接这两个字符串并将结果字符串传递给System.out.println()。要创建的任何类允许这种行为，只需要编写一个toString()方法。在toString()上使用@Override注解来告诉编译器，以确保正确地覆盖。@Override是可选的，但它有助于验证你没有拼写错误。类中的基本类型字段自动初始化为零，正如object Everywhere一章中所述。但是对象引用被初始化为null，如果你尝试调用其任何一个方法，你将得到一个异常。方便的是，打印null引用却不会得到异常。</p>
+<p>​        编译器不会为每个引用创建一个默认对象，这是有意义的，因为在许多情况下，这会导致不必要的开销。初始化引用有四种方法：</p>
+<ul>
+<li>当对象被定义时。这意味着它们总是在调用构造函数之前初始化。</li>
+<li>在该类的构造函数中。</li>
+<li>在实际使用对象之前。这通常称为延迟初始化。在对象创建开销大且不需要每次都创建对象的情况下，它可以减少开销。</li>
+<li>使用实例初始化</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// reuse/Bath.java</span></span><br><span class="line"><span class="comment">// (c)2017 MindView LLC: see Copyright.txt</span></span><br><span class="line"><span class="comment">// We make no guarantees that this code is fit for any purpose.</span></span><br><span class="line"><span class="comment">// Visit http://OnJava8.com for more book information.</span></span><br><span class="line"><span class="comment">// Constructor initialization with composition</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Soap</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> String s;</span><br><span class="line">  Soap() &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Soap()&quot;</span>);</span><br><span class="line">    s = <span class="string">&quot;Constructed&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> s; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bath</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> String <span class="comment">// Initializing at point of definition:</span></span><br><span class="line">    s1 = <span class="string">&quot;Happy&quot;</span>,</span><br><span class="line">    s2 = <span class="string">&quot;Happy&quot;</span>,</span><br><span class="line">    s3, s4;</span><br><span class="line">  <span class="keyword">private</span> Soap castille;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> i;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">float</span> toy;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Bath</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Inside Bath()&quot;</span>);</span><br><span class="line">    s3 = <span class="string">&quot;Joy&quot;</span>;</span><br><span class="line">    toy = <span class="number">3.14f</span>;</span><br><span class="line">    castille = <span class="keyword">new</span> Soap();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// Instance initialization:</span></span><br><span class="line">  &#123; i = <span class="number">47</span>; &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(s4 == <span class="keyword">null</span>) <span class="comment">// Delayed initialization:</span></span><br><span class="line">      s4 = <span class="string">&quot;Joy&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">      <span class="string">&quot;s1 = &quot;</span> + s1 + <span class="string">&quot;\n&quot;</span> +</span><br><span class="line">      <span class="string">&quot;s2 = &quot;</span> + s2 + <span class="string">&quot;\n&quot;</span> +</span><br><span class="line">      <span class="string">&quot;s3 = &quot;</span> + s3 + <span class="string">&quot;\n&quot;</span> +</span><br><span class="line">      <span class="string">&quot;s4 = &quot;</span> + s4 + <span class="string">&quot;\n&quot;</span> +</span><br><span class="line">      <span class="string">&quot;i = &quot;</span> + i + <span class="string">&quot;\n&quot;</span> +</span><br><span class="line">      <span class="string">&quot;toy = &quot;</span> + toy + <span class="string">&quot;\n&quot;</span> +</span><br><span class="line">      <span class="string">&quot;castille = &quot;</span> + castille;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Bath b = <span class="keyword">new</span> Bath();</span><br><span class="line">    System.out.println(b);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* Output:</span></span><br><span class="line"><span class="comment">Inside Bath()</span></span><br><span class="line"><span class="comment">Soap()</span></span><br><span class="line"><span class="comment">s1 = Happy</span></span><br><span class="line"><span class="comment">s2 = Happy</span></span><br><span class="line"><span class="comment">s3 = Joy</span></span><br><span class="line"><span class="comment">s4 = Joy</span></span><br><span class="line"><span class="comment">i = 47</span></span><br><span class="line"><span class="comment">toy = 3.14</span></span><br><span class="line"><span class="comment">castille = Constructed</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>​        在Bath构造函数中，有一个代码块在所有初始化发生前就已执行了。当你不在定义初始化时，仍然不能保证在向对象引用发送消息之前执行任何初始化——如果你试图对未初始化的引用调用方法，则未初始化的引用将产生运行时异常。</p>
+<p>​        当调用toString()时，它将赋值s4，以便在使用字段的时候所有的属性都已被初始化。</p>
+<h2 id="继承语法"><a href="#继承语法" class="headerlink" title="继承语法"></a>继承语法</h2><p>​        继承是所有面向对象语言的一个组成部分。事实证明，在创建类时总要继承，因为除非显式地继承其它类，否则就隐式地继承Java的标准根类对象(Object)。</p>
+<p>​        组合的语法很明显，但是继承使用了一种特殊的语法。当你继承时，你说，这个新类与那个旧类类似。你可以在类主体的左括号前的代码中声明这一点，使用关键字<strong>extends</strong>后跟基类的名称。当你这样做时，你将自动获取基类中的所有字段和方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// reuse/Detergent.java</span></span><br><span class="line"><span class="comment">// (c)2017 MindView LLC: see Copyright.txt</span></span><br><span class="line"><span class="comment">// We make no guarantees that this code is fit for any purpose.</span></span><br><span class="line"><span class="comment">// Visit http://OnJava8.com for more book information.</span></span><br><span class="line"><span class="comment">// Inheritance syntax &amp; properties</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cleanser</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> String s = <span class="string">&quot;Cleanser&quot;</span>;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">append</span><span class="params">(String a)</span> </span>&#123; s += a; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dilute</span><span class="params">()</span> </span>&#123; append(<span class="string">&quot; dilute()&quot;</span>); &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">apply</span><span class="params">()</span> </span>&#123; append(<span class="string">&quot; apply()&quot;</span>); &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">scrub</span><span class="params">()</span> </span>&#123; append(<span class="string">&quot; scrub()&quot;</span>); &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> s; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Cleanser x = <span class="keyword">new</span> Cleanser();</span><br><span class="line">    x.dilute(); x.apply(); x.scrub();</span><br><span class="line">    System.out.println(x);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Detergent</span> <span class="keyword">extends</span> <span class="title">Cleanser</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Change a method:</span></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">scrub</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    append(<span class="string">&quot; Detergent.scrub()&quot;</span>);</span><br><span class="line">    <span class="keyword">super</span>.scrub(); <span class="comment">// Call base-class version</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// Add methods to the interface:</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">foam</span><span class="params">()</span> </span>&#123; append(<span class="string">&quot; foam()&quot;</span>); &#125;</span><br><span class="line">  <span class="comment">// Test the new class:</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Detergent x = <span class="keyword">new</span> Detergent();</span><br><span class="line">    x.dilute();</span><br><span class="line">    x.apply();</span><br><span class="line">    x.scrub();</span><br><span class="line">    x.foam();</span><br><span class="line">    System.out.println(x);</span><br><span class="line">    System.out.println(<span class="string">&quot;Testing base class:&quot;</span>);</span><br><span class="line">    Cleanser.main(args);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* Output:</span></span><br><span class="line"><span class="comment">Cleanser dilute() apply() Detergent.scrub() scrub() foam()</span></span><br><span class="line"><span class="comment">Testing base class:</span></span><br><span class="line"><span class="comment">Cleanser dilute() apply() scrub()</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>​        首先，在Cleanser的append()方法中，使用+=操作符将字符串连接到s，这是Java设计人员“重载”来处理字符串的操作符之一。</p>
+<p>​        第二，Cleanser和Detergent都包含了一个main()方法。你可以为每个类创建一个main()；这允许对每个类进行简单的测试。当你完成测试时，不需要删除main()；你可以将其留在以后的测试中。即使程序中有很类都有main()方法，唯一运行的只有在命令行上调用的main()。这里，当你使用java Detergent时候，就调用了Detergent.main()。但是你也可以使用java.Cleanser来调用Cleanser.main()，即使Cleanser不是一个公共类。即使类只具有包访问权限，也可以访问public main()。</p>
+<p>​        在这里，Detergent.main()显式地调用Cleanser.main()，从命令行传递相同的参数。</p>
+<p>​        Cleanser中的所有方法都是公开的。请记住，如果不使用任何访问修饰符，则成员默认为包访问权限，这只允许包内成员访问。因此，如果没有访问修饰符，那么包内的任何人都可以使用这些方法。例如，Detergent就没有问题。但是，如果其他包中的类继承Cleanser，则该类只能访问Cleanser的公共成员。因此，为了允许继承，一般规则是所有字段为私有，所有方法为公共。在特定的情况下，你必须进行调整，但这是一个有用的指南。</p>
+<p>​        Cleanser的接口中有一组方法：append()、dilute()、apply()、scrub()和toString()。因为Detergent是从Cleanser派生的，所以它会在接口中自动获取所有这些方法，即使你没有在Detergent中看到所有这些方法的显示定义。那么，可以把继承看作是复用类。如在scrub()中所见，可以使用基类中定义的方法并修改它。在这里，你可以在新类中调用基类的该方法。但是在scrub()内部，不能简单地调用scrub()，因为这会产生递归调用。为了解决这个问题，Java的<strong>super</strong>关键字引用了当前类继承的“超类”。因此表达式super.scrub()调用方法scrub()的基类版本。</p>
+<p>​        继承时，你不受限于使用基类的方法。你还可以像向类添加任何方法一样向派生类添加新方法：只需定义它。方法foam()就是一个例子。Detergent.main()中可以看到，对于Detergent对象，你可以调用Cleanser和Detergent中可用的所有方法。</p>
+<h3 id="初始化基类"><a href="#初始化基类" class="headerlink" title="初始化基类"></a>初始化基类</h3><p>​        现在涉及到两个类：基类和派生类。想象派生类生成的结果对象可能会让人感到困惑。从外部看，新类和基类具有相同的接口，可能还有一些额外的方法和字段。但是继承并不只是复制基类的接口。当你创建派生类的对象时，它包含基类的子对象。这个子对象与你自己创建基类的对象是一样的。只是从外部看，基类的子对象被包装在派生类的对象中。</p>
+<p>​        必须正确初始化基类子对象，而且只有一种方法可以保证这一点：通过调用基类构造函数在构造函数中执行初始化，该构造函数具有执行基类初始化所需的所有适当信息和特权。Java自动在派生类构造函数中插入对基类构造函数的调用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// reuse/Cartoon.java</span></span><br><span class="line"><span class="comment">// (c)2017 MindView LLC: see Copyright.txt</span></span><br><span class="line"><span class="comment">// We make no guarantees that this code is fit for any purpose.</span></span><br><span class="line"><span class="comment">// Visit http://OnJava8.com for more book information.</span></span><br><span class="line"><span class="comment">// Constructor calls during inheritance</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Art</span> </span>&#123;</span><br><span class="line">  Art() &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Art constructor&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Drawing</span> <span class="keyword">extends</span> <span class="title">Art</span> </span>&#123;</span><br><span class="line">  Drawing() &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Drawing constructor&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cartoon</span> <span class="keyword">extends</span> <span class="title">Drawing</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Cartoon</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Cartoon constructor&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Cartoon x = <span class="keyword">new</span> Cartoon();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* Output:</span></span><br><span class="line"><span class="comment">Art constructor</span></span><br><span class="line"><span class="comment">Drawing constructor</span></span><br><span class="line"><span class="comment">Cartoon constructor</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>​        构造从基类“向外”进行，因此基类在派生类构造函数能够访问它之前进行初始化。即使不为Cartoon创建构造函数，编译器也会为你合成一个无参构造函数，调用基类构造函数。</p>
+<h3 id="带参数的构造函数"><a href="#带参数的构造函数" class="headerlink" title="带参数的构造函数"></a>带参数的构造函数</h3><p>​        上面的所有例子中构造函数都是无参数的；编译器很容易调用这些构造函数，因为不需要参数。如果没有无参数的基类构造器，或者必须调用具有参数的基类构造函数，则必须使用super关键字和适当的参数列表显示地编写对基类构造函数的调用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// reuse/Chess.java</span></span><br><span class="line"><span class="comment">// (c)2017 MindView LLC: see Copyright.txt</span></span><br><span class="line"><span class="comment">// We make no guarantees that this code is fit for any purpose.</span></span><br><span class="line"><span class="comment">// Visit http://OnJava8.com for more book information.</span></span><br><span class="line"><span class="comment">// Inheritance, constructors and arguments</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Game</span> </span>&#123;</span><br><span class="line">  Game(<span class="keyword">int</span> i) &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Game constructor&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BoardGame</span> <span class="keyword">extends</span> <span class="title">Game</span> </span>&#123;</span><br><span class="line">  BoardGame(<span class="keyword">int</span> i) &#123;</span><br><span class="line">    <span class="keyword">super</span>(i);</span><br><span class="line">    System.out.println(<span class="string">&quot;BoardGame constructor&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Chess</span> <span class="keyword">extends</span> <span class="title">BoardGame</span> </span>&#123;</span><br><span class="line">  Chess() &#123;</span><br><span class="line">    <span class="keyword">super</span>(<span class="number">11</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;Chess constructor&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Chess x = <span class="keyword">new</span> Chess();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* Output:</span></span><br><span class="line"><span class="comment">Game constructor</span></span><br><span class="line"><span class="comment">BoardGame constructor</span></span><br><span class="line"><span class="comment">Chess constructor</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>​        如果没有BoardGame构造函数中调用基类构造函数，编译器就会报错找不到Game()的构造函数。此外，对基类构造函数的调用必须是派生类构造函数中的第一个操作。</p>
+<h2 id="委托"><a href="#委托" class="headerlink" title="委托"></a>委托</h2><p>​        Java不直接支持的第三种重用关系称为委托。这介于继承和组合之间，因为你将一个成员对象放在正在构建的类中，但同时又在新类中公开来自成员对象的所有方法。例如，宇宙飞船需要一个控制模块：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// reuse/SpaceShipControls.java</span></span><br><span class="line"><span class="comment">// (c)2017 MindView LLC: see Copyright.txt</span></span><br><span class="line"><span class="comment">// We make no guarantees that this code is fit for any purpose.</span></span><br><span class="line"><span class="comment">// Visit http://OnJava8.com for more book information.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpaceShipControls</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">up</span><span class="params">(<span class="keyword">int</span> velocity)</span> </span>&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">down</span><span class="params">(<span class="keyword">int</span> velocity)</span> </span>&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">left</span><span class="params">(<span class="keyword">int</span> velocity)</span> </span>&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">right</span><span class="params">(<span class="keyword">int</span> velocity)</span> </span>&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">forward</span><span class="params">(<span class="keyword">int</span> velocity)</span> </span>&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">back</span><span class="params">(<span class="keyword">int</span> velocity)</span> </span>&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">turboBoost</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        建造宇宙飞船的一种方法是使用继承：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// reuse/DerivedSpaceShip.java</span></span><br><span class="line"><span class="comment">// (c)2017 MindView LLC: see Copyright.txt</span></span><br><span class="line"><span class="comment">// We make no guarantees that this code is fit for any purpose.</span></span><br><span class="line"><span class="comment">// Visit http://OnJava8.com for more book information.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span></span></span><br><span class="line"><span class="class"><span class="title">DerivedSpaceShip</span> <span class="keyword">extends</span> <span class="title">SpaceShipControls</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> String name;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">DerivedSpaceShip</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> name; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    DerivedSpaceShip protector =</span><br><span class="line">        <span class="keyword">new</span> DerivedSpaceShip(<span class="string">&quot;NSEA Protector&quot;</span>);</span><br><span class="line">    protector.forward(<span class="number">100</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        然而，DerivedSpaceShip并不是真正的“一种”SpaceShipControls，即使你“告诉”DerivedSpaceShip调用forward()。更准确地说，一艘宇宙飞船包含了SpaceShipControls，同时SpaceShipControls中的所有方法都暴露在宇宙飞船中。委托解决了这个难题：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// reuse/SpaceShipDelegation.java</span></span><br><span class="line"><span class="comment">// (c)2017 MindView LLC: see Copyright.txt</span></span><br><span class="line"><span class="comment">// We make no guarantees that this code is fit for any purpose.</span></span><br><span class="line"><span class="comment">// Visit http://OnJava8.com for more book information.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpaceShipDelegation</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> String name;</span><br><span class="line">  <span class="keyword">private</span> SpaceShipControls controls =</span><br><span class="line">    <span class="keyword">new</span> SpaceShipControls();</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">SpaceShipDelegation</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// Delegated methods:</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">back</span><span class="params">(<span class="keyword">int</span> velocity)</span> </span>&#123;</span><br><span class="line">    controls.back(velocity);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">down</span><span class="params">(<span class="keyword">int</span> velocity)</span> </span>&#123;</span><br><span class="line">    controls.down(velocity);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">forward</span><span class="params">(<span class="keyword">int</span> velocity)</span> </span>&#123;</span><br><span class="line">    controls.forward(velocity);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">left</span><span class="params">(<span class="keyword">int</span> velocity)</span> </span>&#123;</span><br><span class="line">    controls.left(velocity);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">right</span><span class="params">(<span class="keyword">int</span> velocity)</span> </span>&#123;</span><br><span class="line">    controls.right(velocity);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">turboBoost</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    controls.turboBoost();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">up</span><span class="params">(<span class="keyword">int</span> velocity)</span> </span>&#123;</span><br><span class="line">    controls.up(velocity);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    SpaceShipDelegation protector =</span><br><span class="line">      <span class="keyword">new</span> SpaceShipDelegation(<span class="string">&quot;NSEA Protector&quot;</span>);</span><br><span class="line">    protector.forward(<span class="number">100</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        方法被转发到底层control对象，因此接口与继承的接口是相同的。但是，你对委托有更多的控制，因为你可以选择只在成员对象中提供方法的子集。虽然Java语言不支持委托，但是开发工具常常支持。</p>
+<h2 id="结合组合与继承"><a href="#结合组合与继承" class="headerlink" title="结合组合与继承"></a>结合组合与继承</h2><p>​        你经常同时使用组合和继承。下面的例子展示了使用继承和组合创建类，以及必要的构造函数初始化：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// reuse/PlaceSetting.java</span></span><br><span class="line"><span class="comment">// (c)2017 MindView LLC: see Copyright.txt</span></span><br><span class="line"><span class="comment">// We make no guarantees that this code is fit for any purpose.</span></span><br><span class="line"><span class="comment">// Visit http://OnJava8.com for more book information.</span></span><br><span class="line"><span class="comment">// Combining composition &amp; inheritance</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Plate</span> </span>&#123;</span><br><span class="line">  Plate(<span class="keyword">int</span> i) &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Plate constructor&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DinnerPlate</span> <span class="keyword">extends</span> <span class="title">Plate</span> </span>&#123;</span><br><span class="line">  DinnerPlate(<span class="keyword">int</span> i) &#123;</span><br><span class="line">    <span class="keyword">super</span>(i);</span><br><span class="line">    System.out.println(<span class="string">&quot;DinnerPlate constructor&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Utensil</span> </span>&#123;</span><br><span class="line">  Utensil(<span class="keyword">int</span> i) &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Utensil constructor&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Spoon</span> <span class="keyword">extends</span> <span class="title">Utensil</span> </span>&#123;</span><br><span class="line">  Spoon(<span class="keyword">int</span> i) &#123;</span><br><span class="line">    <span class="keyword">super</span>(i);</span><br><span class="line">    System.out.println(<span class="string">&quot;Spoon constructor&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fork</span> <span class="keyword">extends</span> <span class="title">Utensil</span> </span>&#123;</span><br><span class="line">  Fork(<span class="keyword">int</span> i) &#123;</span><br><span class="line">    <span class="keyword">super</span>(i);</span><br><span class="line">    System.out.println(<span class="string">&quot;Fork constructor&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Knife</span> <span class="keyword">extends</span> <span class="title">Utensil</span> </span>&#123;</span><br><span class="line">  Knife(<span class="keyword">int</span> i) &#123;</span><br><span class="line">    <span class="keyword">super</span>(i);</span><br><span class="line">    System.out.println(<span class="string">&quot;Knife constructor&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// A cultural way of doing something:</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Custom</span> </span>&#123;</span><br><span class="line">  Custom(<span class="keyword">int</span> i) &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Custom constructor&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PlaceSetting</span> <span class="keyword">extends</span> <span class="title">Custom</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Spoon sp;</span><br><span class="line">  <span class="keyword">private</span> Fork frk;</span><br><span class="line">  <span class="keyword">private</span> Knife kn;</span><br><span class="line">  <span class="keyword">private</span> DinnerPlate pl;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">PlaceSetting</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(i + <span class="number">1</span>);</span><br><span class="line">    sp = <span class="keyword">new</span> Spoon(i + <span class="number">2</span>);</span><br><span class="line">    frk = <span class="keyword">new</span> Fork(i + <span class="number">3</span>);</span><br><span class="line">    kn = <span class="keyword">new</span> Knife(i + <span class="number">4</span>);</span><br><span class="line">    pl = <span class="keyword">new</span> DinnerPlate(i + <span class="number">5</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;PlaceSetting constructor&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    PlaceSetting x = <span class="keyword">new</span> PlaceSetting(<span class="number">9</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* Output:</span></span><br><span class="line"><span class="comment">Custom constructor</span></span><br><span class="line"><span class="comment">Utensil constructor</span></span><br><span class="line"><span class="comment">Spoon constructor</span></span><br><span class="line"><span class="comment">Utensil constructor</span></span><br><span class="line"><span class="comment">Fork constructor</span></span><br><span class="line"><span class="comment">Utensil constructor</span></span><br><span class="line"><span class="comment">Knife constructor</span></span><br><span class="line"><span class="comment">Plate constructor</span></span><br><span class="line"><span class="comment">DinnerPlate constructor</span></span><br><span class="line"><span class="comment">PlaceSetting constructor</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>​        尽管编译器强制你初始化基类，并要求你在构造函数的开头就初始化基类，但它并不监视你以确保你初始化了成员对象。注意类是如何干净地分离的。你甚至不需要方法重用代码的源代码。你最多只导入一个包。</p>
+<h3 id="保证适当的清理"><a href="#保证适当的清理" class="headerlink" title="保证适当的清理"></a>保证适当的清理</h3><p>​        Java没有C++中析构函数的概念，析构函数是在对象被销毁时自动调用的方法。原因可能是，在Java中，通常是忘掉而不是销毁对象，从而允许垃圾收集器根据需要回收内存。通常这是可以的，但是有时你的类可能在其生命周期中执行一些需要清理的活动。初始化和清理章节提到，你无法知道垃圾收集器何时会被调用，甚至它是否会被调用。因此，如果你想为类清理一些东西，必须显示地编写一个特殊的方法来完成它，并确保客户端程序员知道他们必须调用这个方法。最重要的是——正如“异常”章节中描述的——你必须通过在finally子句中放置此类清理来防止异常。</p>
+<p>​        请考虑一个在屏幕上绘制图片的计算机辅助设计系统的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// reuse/CADSystem.java</span></span><br><span class="line"><span class="comment">// (c)2017 MindView LLC: see Copyright.txt</span></span><br><span class="line"><span class="comment">// We make no guarantees that this code is fit for any purpose.</span></span><br><span class="line"><span class="comment">// Visit http://OnJava8.com for more book information.</span></span><br><span class="line"><span class="comment">// Ensuring proper cleanup</span></span><br><span class="line"><span class="comment">// &#123;java reuse.CADSystem&#125;</span></span><br><span class="line"><span class="keyword">package</span> reuse;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">  Shape(<span class="keyword">int</span> i) &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Shape constructor&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">dispose</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Shape dispose&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">  Circle(<span class="keyword">int</span> i) &#123;</span><br><span class="line">    <span class="keyword">super</span>(i);</span><br><span class="line">    System.out.println(<span class="string">&quot;Drawing Circle&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">dispose</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Erasing Circle&quot;</span>);</span><br><span class="line">    <span class="keyword">super</span>.dispose();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Triangle</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">  Triangle(<span class="keyword">int</span> i) &#123;</span><br><span class="line">    <span class="keyword">super</span>(i);</span><br><span class="line">    System.out.println(<span class="string">&quot;Drawing Triangle&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">dispose</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Erasing Triangle&quot;</span>);</span><br><span class="line">    <span class="keyword">super</span>.dispose();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Line</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> start, end;</span><br><span class="line">  Line(<span class="keyword">int</span> start, <span class="keyword">int</span> end) &#123;</span><br><span class="line">    <span class="keyword">super</span>(start);</span><br><span class="line">    <span class="keyword">this</span>.start = start;</span><br><span class="line">    <span class="keyword">this</span>.end = end;</span><br><span class="line">    System.out.println(</span><br><span class="line">      <span class="string">&quot;Drawing Line: &quot;</span> + start + <span class="string">&quot;, &quot;</span> + end);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">dispose</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(</span><br><span class="line">      <span class="string">&quot;Erasing Line: &quot;</span> + start + <span class="string">&quot;, &quot;</span> + end);</span><br><span class="line">    <span class="keyword">super</span>.dispose();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CADSystem</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Circle c;</span><br><span class="line">  <span class="keyword">private</span> Triangle t;</span><br><span class="line">  <span class="keyword">private</span> Line[] lines = <span class="keyword">new</span> Line[<span class="number">3</span>];</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">CADSystem</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(i + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; lines.length; j++)</span><br><span class="line">      lines[j] = <span class="keyword">new</span> Line(j, j*j);</span><br><span class="line">    c = <span class="keyword">new</span> Circle(<span class="number">1</span>);</span><br><span class="line">    t = <span class="keyword">new</span> Triangle(<span class="number">1</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;Combined constructor&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dispose</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;CADSystem.dispose()&quot;</span>);</span><br><span class="line">    <span class="comment">// The order of cleanup is the reverse</span></span><br><span class="line">    <span class="comment">// of the order of initialization:</span></span><br><span class="line">    t.dispose();</span><br><span class="line">    c.dispose();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = lines.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">      lines[i].dispose();</span><br><span class="line">    <span class="keyword">super</span>.dispose();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    CADSystem x = <span class="keyword">new</span> CADSystem(<span class="number">47</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// Code and exception handling...</span></span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      x.dispose();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* Output:</span></span><br><span class="line"><span class="comment">Shape constructor</span></span><br><span class="line"><span class="comment">Shape constructor</span></span><br><span class="line"><span class="comment">Drawing Line: 0, 0</span></span><br><span class="line"><span class="comment">Shape constructor</span></span><br><span class="line"><span class="comment">Drawing Line: 1, 1</span></span><br><span class="line"><span class="comment">Shape constructor</span></span><br><span class="line"><span class="comment">Drawing Line: 2, 4</span></span><br><span class="line"><span class="comment">Shape constructor</span></span><br><span class="line"><span class="comment">Drawing Circle</span></span><br><span class="line"><span class="comment">Shape constructor</span></span><br><span class="line"><span class="comment">Drawing Triangle</span></span><br><span class="line"><span class="comment">Combined constructor</span></span><br><span class="line"><span class="comment">CADSystem.dispose()</span></span><br><span class="line"><span class="comment">Erasing Triangle</span></span><br><span class="line"><span class="comment">Shape dispose</span></span><br><span class="line"><span class="comment">Erasing Circle</span></span><br><span class="line"><span class="comment">Shape dispose</span></span><br><span class="line"><span class="comment">Erasing Line: 2, 4</span></span><br><span class="line"><span class="comment">Shape dispose</span></span><br><span class="line"><span class="comment">Erasing Line: 1, 1</span></span><br><span class="line"><span class="comment">Shape dispose</span></span><br><span class="line"><span class="comment">Erasing Line: 0, 0</span></span><br><span class="line"><span class="comment">Shape dispose</span></span><br><span class="line"><span class="comment">Shape dispose</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>​        这个系统中的所有东西都是某种Shape。除了使用Super调用该方法的基类版本外，每个类还覆盖dispose()方法。特定的Shape类——Circle、Triangle和Line，都有“draw”构造函数，尽管在对象的生命周期中调用的任何方法都可以负责做一些需要清理的事情。每个类都有自己的dispose()方法来将非内存的内容恢复到对象存在之前的状态。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    NoTrouble
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2021/05/07/%E9%98%85%E8%AF%BB%E3%80%8AOn-Java-8%E3%80%8B-%E7%AC%AC%E5%85%AB%E7%AB%A0-%E5%A4%8D%E7%94%A8/" title="阅读《On-Java-8》-第八章-复用">http://yoursite.com/2021/05/07/%E9%98%85%E8%AF%BB%E3%80%8AOn-Java-8%E3%80%8B-%E7%AC%AC%E5%85%AB%E7%AB%A0-%E5%A4%8D%E7%94%A8/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JAVASE/" rel="tag"># JAVASE</a>
+          
+            <a href="/tags/%E3%80%8AOn-Java-8%E3%80%8B/" rel="tag"># 《On Java 8》</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/05/07/%E9%98%85%E8%AF%BB%E3%80%8AOn-Java-8%E3%80%8B-%E7%AC%AC%E4%B8%83%E7%AB%A0-%E5%B0%81%E8%A3%85/" rel="next" title="阅读《On-Java-8》-第七章-封装">
+                <i class="fa fa-chevron-left"></i> 阅读《On-Java-8》-第七章-封装
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+    
+
+  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MDk0MC8yNzQyMg=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/wk.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wukun0221@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://space.bilibili.com/53303565" target="_blank" title="Bilibili">
+                      
+                        <i class="fa fa-fw fa-youtube"></i>Bilibili</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5clr89hn3fz&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;s=340" async="async"></script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E8%AF%AD%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">组合语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%E8%AF%AD%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">继承语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%9F%BA%E7%B1%BB"><span class="nav-number">2.1.</span> <span class="nav-text">初始化基类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">2.2.</span> <span class="nav-text">带参数的构造函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A7%94%E6%89%98"><span class="nav-number">3.</span> <span class="nav-text">委托</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E5%90%88%E7%BB%84%E5%90%88%E4%B8%8E%E7%BB%A7%E6%89%BF"><span class="nav-number">4.</span> <span class="nav-text">结合组合与继承</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E8%AF%81%E9%80%82%E5%BD%93%E7%9A%84%E6%B8%85%E7%90%86"><span class="nav-number">4.1.</span> <span class="nav-text">保证适当的清理</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">NoTrouble</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+  <script async src="/js/cursor/text.js"></script>
+
+
+</body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

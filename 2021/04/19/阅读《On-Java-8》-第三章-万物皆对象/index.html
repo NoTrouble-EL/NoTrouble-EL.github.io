@@ -92,8 +92,9 @@
 <meta property="og:url" content="http://yoursite.com/2021/04/19/%E9%98%85%E8%AF%BB%E3%80%8AOn-Java-8%E3%80%8B-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E4%B8%87%E7%89%A9%E7%9A%86%E5%AF%B9%E8%B1%A1/index.html">
 <meta property="og:site_name" content="NoTrouble&#39;s Blog">
 <meta property="og:description" content="对象操作​        Java利用万物皆对象的思维和单一一致的语法方式来简化问题。虽然万物皆对象，但我们所操纵的标识符实际上只是对象的引用。 ​        下面来创建一个String引用，用于保存单词或语句： 1String s;  ​        这里只是创建一个String对象的引用，而非对象。直接拿出来会出现错误：因为此时你并没有给变量s赋值——指向任何对象。通常更安全的做法是：创">
+<meta property="og:locale">
 <meta property="article:published_time" content="2021-04-19T05:33:51.000Z">
-<meta property="article:modified_time" content="2021-04-19T05:35:39.270Z">
+<meta property="article:modified_time" content="2021-04-19T05:33:51.000Z">
 <meta property="article:author" content="NoTrouble">
 <meta property="article:tag" content="JAVASE">
 <meta property="article:tag" content="《On Java 8》">
@@ -104,7 +105,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Gemini',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -143,7 +144,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
@@ -263,7 +264,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/19/%E9%98%85%E8%AF%BB%E3%80%8AOn-Java-8%E3%80%8B-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E4%B8%87%E7%89%A9%E7%9A%86%E5%AF%B9%E8%B1%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="NoTrouble">
+      <meta itemprop="name" content="">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/wk.jpg">
     </span>
@@ -359,13 +360,13 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s;</span><br></pre></td></tr></table></figure>
 
 <p>​        这里只是创建一个String对象的引用，而非对象。直接拿出来会出现错误：因为此时你并没有给变量s赋值——指向任何对象。通常更安全的做法是：创建一个引用的同时进行初始化：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="string">"asdf"</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="string">&quot;asdf&quot;</span>;</span><br></pre></td></tr></table></figure>
 
 <p>​        Java语法允许我们使用带双引号的文本内容来初始化字符串，同样，其他类型的对象也有相应的初始化方式。</p>
- <a id="more"></a> 
+ <span id="more"></span> 
 
 <h2 id="对象创建"><a href="#对象创建" class="headerlink" title="对象创建"></a>对象创建</h2><p>​        “引用”用来关联“对象”。在Java中，通常我们使用new操作符来创建一个对象。new关键字代表：创建一个新的对象实例。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="keyword">new</span> String(<span class="string">"asdf"</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="keyword">new</span> String(<span class="string">&quot;asdf&quot;</span>);</span><br></pre></td></tr></table></figure>
 
 <p>​        以上展示了字符串对象的创建过程，以及如何初始化生成字符串。除了String类型以外，Java本身带了许多现成的数据类型。除此之外，我们还可以创建自己的数据类型。</p>
 <h3 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h3><p>​        那么，程序在运行时是如何存储的呢？尤其是内存是怎么分配的。有5个不同的地方可以存储数据：</p>
@@ -453,13 +454,13 @@
 </tr>
 </tbody></table>
 <p>​        所有的数值类型都是有正/负符号的。布尔(boolean)类型的大小没有明确规定，通常定义为字面值“true”或“false”。基本类型有有自己对应的包装类型，如果你希望在堆内存里表示基本类型的数据，就需要用到它们的包装类型。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> c = <span class="string">'x'</span>;</span><br><span class="line">Character ch = <span class="keyword">new</span> Character(c);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> c = <span class="string">&#x27;x&#x27;</span>;</span><br><span class="line">Character ch = <span class="keyword">new</span> Character(c);</span><br></pre></td></tr></table></figure>
 
 <p>​        或者你也可以使用下面的形式：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Character ch = <span class="keyword">new</span> Character(<span class="string">'x'</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Character ch = <span class="keyword">new</span> Character(<span class="string">&#x27;x&#x27;</span>);</span><br></pre></td></tr></table></figure>
 
 <p>​        基本类型自动转换成包装类型(自动装箱)：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Character ch = <span class="string">'x'</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Character ch = <span class="string">&#x27;x&#x27;</span>;	</span><br></pre></td></tr></table></figure>
 
 <p>​        相对应的，包装类型转换为基本类型(自动拆箱)：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> c = ch;</span><br></pre></td></tr></table></figure>
@@ -486,7 +487,7 @@
 
 <p>​        在上例中，Java编译器在提示变量x已经被定义过了。</p>
 <h3 id="对象作用域"><a href="#对象作用域" class="headerlink" title="对象作用域"></a>对象作用域</h3><p>​        Java对象与基本类型具有不同的生命周期。当我们使用new关键字来创建Java对象时，它的生命周期将会超出作用域。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    String s = <span class="keyword">new</span> String(<span class="string">"a string"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//作用域终点</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    String s = <span class="keyword">new</span> String(<span class="string">&quot;a string&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//作用域终点</span></span><br></pre></td></tr></table></figure>
 
 <p>​        上例中，引用s在作用域终点就结束了。但是，引用s指向的字符串对象依然还占用内存。这段代码中，我们无法在这个作用域之后访问这个对象，因为唯一对它的引用s已超出了作用域的范围。</p>
 <p>​        只要你需要，new出来的对象就会一直存活下去。相比C++编码中操作内存可能会出现的诸多问题，这些困扰在Java中都不复存在了。在C++中你不仅要确保对象的内存在你的操作的范围内存在，还必须在使用完它们之后，将其销毁。</p>
@@ -616,11 +617,11 @@
 
 <p>​        相比非静态的对象，static属性改变了数据创建的方式。同样，当static关键字修饰方法时，它允许我们无需创建对象就可以直接通过类的引用来调用该方法。正如我们所知的，static关键字的这些特性对于应用程序入口点的main()方法尤为重要。</p>
 <h2 id="小试牛刀"><a href="#小试牛刀" class="headerlink" title="小试牛刀"></a>小试牛刀</h2><p>​        我们来编写一个完整的程序。我们使用Java标准库中Date类来展示一个字符串和日期。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloDate</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello, it's: "</span>);</span><br><span class="line">        System.out.println(<span class="keyword">new</span> Date());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloDate</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello, it&#x27;s: &quot;</span>);</span><br><span class="line">        System.out.println(<span class="keyword">new</span> Date());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>​        如果你想在代码中使用一些额外的类库，那么就必须在程序文件的开始处使用import关键字来导入它们。之所以说是额外的，因为有一些类库已经默认自动导入到了每个文件里了。例如：java.lang包。</p>
 <p>​        在Java.lang中在System类中有几个字段，如果选择了out，你会发现它是一个静态的PrintStream对象。所以，即使我们不使用new创建，out对象就已经存在并可以使用了out对象可以执行操作取决于它的类型：PrintStream。现在我们重点说的是println()这个方法，它的作用是“将信息输出到控制台，并以换行符结束”。既然如此，我们可以这样编码来输出信息到控制台。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="string">"A String of things"</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="string">&quot;A String of things&quot;</span>);</span><br></pre></td></tr></table></figure>
 
 <p>​        每个Java源文件中允许有多个类。同时，源文件的名称必须要和其中一个类名相同，否则编译器会报错。每个独立的程序应该包含一个main()方法作为程序运行的入口。其方法签名和返回类型如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -663,7 +664,7 @@
 
     
       <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="NoTrouble 微信支付"/>
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
         <p>微信支付</p>
       </div>
     
@@ -803,9 +804,9 @@
             
               <img class="site-author-image" itemprop="image"
                 src="/images/wk.jpg"
-                alt="NoTrouble" />
+                alt="" />
             
-              <p class="site-author-name" itemprop="name">NoTrouble</p>
+              <p class="site-author-name" itemprop="name"></p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
@@ -816,7 +817,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -887,7 +888,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#对象操作"><span class="nav-number">1.</span> <span class="nav-text">对象操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象创建"><span class="nav-number">2.</span> <span class="nav-text">对象创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据存储"><span class="nav-number">2.1.</span> <span class="nav-text">数据存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本类型的存储"><span class="nav-number">2.2.</span> <span class="nav-text">基本类型的存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高精度数值"><span class="nav-number">2.3.</span> <span class="nav-text">高精度数值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的存储"><span class="nav-number">2.4.</span> <span class="nav-text">数组的存储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码注释"><span class="nav-number">3.</span> <span class="nav-text">代码注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象请理"><span class="nav-number">4.</span> <span class="nav-text">对象请理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域"><span class="nav-number">4.1.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象作用域"><span class="nav-number">4.2.</span> <span class="nav-text">对象作用域</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类的创建"><span class="nav-number">5.</span> <span class="nav-text">类的创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类型"><span class="nav-number">5.1.</span> <span class="nav-text">类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字段"><span class="nav-number">5.2.</span> <span class="nav-text">字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本类型默认值"><span class="nav-number">5.3.</span> <span class="nav-text">基本类型默认值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法使用"><span class="nav-number">5.4.</span> <span class="nav-text">方法使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#返回类型"><span class="nav-number">5.4.1.</span> <span class="nav-text">返回类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参数列表"><span class="nav-number">5.4.2.</span> <span class="nav-text">参数列表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#程序编写"><span class="nav-number">6.</span> <span class="nav-text">程序编写</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命名可见性"><span class="nav-number">6.1.</span> <span class="nav-text">命名可见性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用其他组件"><span class="nav-number">6.2.</span> <span class="nav-text">使用其他组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static关键字"><span class="nav-number">6.3.</span> <span class="nav-text">static关键字</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小试牛刀"><span class="nav-number">7.</span> <span class="nav-text">小试牛刀</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译和运行"><span class="nav-number">7.1.</span> <span class="nav-text">编译和运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编码风格"><span class="nav-number">8.</span> <span class="nav-text">编码风格</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">对象操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA"><span class="nav-number">2.</span> <span class="nav-text">对象创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8"><span class="nav-number">2.1.</span> <span class="nav-text">数据存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%AD%98%E5%82%A8"><span class="nav-number">2.2.</span> <span class="nav-text">基本类型的存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E7%B2%BE%E5%BA%A6%E6%95%B0%E5%80%BC"><span class="nav-number">2.3.</span> <span class="nav-text">高精度数值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E5%AD%98%E5%82%A8"><span class="nav-number">2.4.</span> <span class="nav-text">数组的存储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%B3%A8%E9%87%8A"><span class="nav-number">3.</span> <span class="nav-text">代码注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E8%AF%B7%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">对象请理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">4.1.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">4.2.</span> <span class="nav-text">对象作用域</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-number">5.</span> <span class="nav-text">类的创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.1.</span> <span class="nav-text">类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E6%AE%B5"><span class="nav-number">5.2.</span> <span class="nav-text">字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E9%BB%98%E8%AE%A4%E5%80%BC"><span class="nav-number">5.3.</span> <span class="nav-text">基本类型默认值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BD%BF%E7%94%A8"><span class="nav-number">5.4.</span> <span class="nav-text">方法使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.4.1.</span> <span class="nav-text">返回类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%88%97%E8%A1%A8"><span class="nav-number">5.4.2.</span> <span class="nav-text">参数列表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99"><span class="nav-number">6.</span> <span class="nav-text">程序编写</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E5%8F%AF%E8%A7%81%E6%80%A7"><span class="nav-number">6.1.</span> <span class="nav-text">命名可见性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%85%B6%E4%BB%96%E7%BB%84%E4%BB%B6"><span class="nav-number">6.2.</span> <span class="nav-text">使用其他组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">6.3.</span> <span class="nav-text">static关键字</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E8%AF%95%E7%89%9B%E5%88%80"><span class="nav-number">7.</span> <span class="nav-text">小试牛刀</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%92%8C%E8%BF%90%E8%A1%8C"><span class="nav-number">7.1.</span> <span class="nav-text">编译和运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E7%A0%81%E9%A3%8E%E6%A0%BC"><span class="nav-number">8.</span> <span class="nav-text">编码风格</span></a></li></ol></div>
             
 
           </div>
