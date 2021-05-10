@@ -5152,7 +5152,7 @@
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">Status <span class="title">StackEmpty</span><span class="params">(LinkStack S)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(S==<span class="literal">NULL</span>) <span class="keyword">return</span> TRUE;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> FALSE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>链栈的入栈</strong></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">Status <span class="title">Push</span><span class="params">(LinkStack &amp;S, SElemType e)</span></span>&#123;</span><br><span class="line">    p = <span class="keyword">new</span> StackNode;</span><br><span class="line">    p-&gt;next=e;</span><br><span class="line">    p-&gt;next=S;</span><br><span class="line">    S=p;</span><br><span class="line">    <span class="keyword">return</span> OK; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">Status <span class="title">Push</span><span class="params">(LinkStack &amp;S, SElemType e)</span></span>&#123;</span><br><span class="line">    p = <span class="keyword">new</span> StackNode;</span><br><span class="line">    p-&gt;data = e;</span><br><span class="line">    p-&gt;next = S;</span><br><span class="line">    S=p;</span><br><span class="line">    <span class="keyword">return</span> OK; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>链栈的出栈</strong></p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">Status <span class="title">Pop</span><span class="params">(LinkStack &amp;S, SElemtype &amp;e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(S==<span class="literal">NULL</span>) <span class="keyword">return</span> ERROR;</span><br><span class="line">    e = S-&gt;data;</span><br><span class="line">    p=S;</span><br><span class="line">    S=S-&gt;next;</span><br><span class="line">    <span class="keyword">delete</span> p;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -5228,7 +5228,42 @@
 <li><p>自用栈模拟系统的运行时栈</p>
 </li>
 </ul>
-<h3 id="队列的表示和操作的实现"><a href="#队列的表示和操作的实现" class="headerlink" title="队列的表示和操作的实现"></a>队列的表示和操作的实现</h3><h3 id="案例分析与实现-1"><a href="#案例分析与实现-1" class="headerlink" title="案例分析与实现"></a>案例分析与实现</h3>]]></content>
+<h3 id="队列的表示和操作的实现"><a href="#队列的表示和操作的实现" class="headerlink" title="队列的表示和操作的实现"></a>队列的表示和操作的实现</h3><p><strong>相关术语</strong></p>
+<ul>
+<li>队列(Queue)是仅在表尾进行插入操作，在表头进行删除操作的线性表。</li>
+<li>表尾即$a_n$端，称为队尾；表头即$a_1$端，称为队头。</li>
+<li>它是一种先进先出(FIFO)的线性表。</li>
+<li>插入元素称为入队；删除元素称为出队。</li>
+<li>队列的存储结构为链队或顺序队(常用循环顺序队)</li>
+</ul>
+<p><strong>队列的相关概念</strong></p>
+<ul>
+<li>定义：只能在表的一端进行插入运算，在表的另一端进行删除运算的线性表。</li>
+<li>逻辑结构：与同线性表相同，仍为一对一关系。</li>
+<li>存储结构：顺序队和链队。</li>
+<li>运算规则：只能在队首和队尾运算，且访问结点时依照先进先出(FIFO)的原则。</li>
+<li>实现方式：关键是掌握入队和出队操作，具体实现依照顺序队和链队的不同而不同。</li>
+</ul>
+<p><strong>队列的常见应用</strong></p>
+<ul>
+<li>脱机打印输出：按申请的先后顺序依次输出</li>
+<li>多用户系统中，多个用户排成队，分时地循环使用CPU和主存</li>
+<li>按用户的优先级排成多个队，每个优先级一个队列</li>
+<li>实时控制系统中，信号按接收的先后顺序依次处理</li>
+<li>网络电文传输，按到达的时间先后顺序依次进行</li>
+</ul>
+<p><strong>队列的抽象数据类型定义</strong></p>
+<p><strong>队列的顺序表示</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXQSIZE 100</span></span><br><span class="line">Typedef <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    QElemType *base;<span class="comment">//初始化的动态分配存储空间</span></span><br><span class="line">    <span class="keyword">int</span> front;<span class="comment">//头指针</span></span><br><span class="line">    <span class="keyword">int</span> rear;<span class="comment">//尾指针</span></span><br><span class="line">&#125;SqQueue;</span><br></pre></td></tr></table></figure>
+
+<p>存在的问题：</p>
+<p>设数组大小为MAXQSIZE，当rear=MAXQSIZE时，发生溢出；若front=0，rear=MAXQSIZE时再入队，则发生真溢出；当front$\neq 0$，rear=MAXQSIZE时，再入队，则发生假溢出。</p>
+<p>解决假上溢的方法：</p>
+<p>1.将队中元素依次向队头方向移动。缺点：浪费时间。每移动一次，队中元素都要移动</p>
+<p>2.将队空间设想成一个循环的表即分配给队列的m个存储单元可以循环使用，当rear为maxqsize时，若向量的开始端空着，又可以从头使用空着空间。当front为maxqsize时，也是一样。</p>
+<p>队空队满的判断：1.另外设一个标志以区别队空、队满；2.另一个变量，记录元素个数；3.少用一个元素空间</p>
+<p>少用一个元素空间：队空：front==rear；队满：(rear+1)%MAXQSIZE==front</p>
+<h3 id="案例分析与实现-1"><a href="#案例分析与实现-1" class="headerlink" title="案例分析与实现"></a>案例分析与实现</h3>]]></content>
       <categories>
         <category>数据结构与算法</category>
       </categories>
