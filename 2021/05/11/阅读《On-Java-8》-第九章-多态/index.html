@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-big-counter.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JAVASE,《On Java 8》," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="​        多态是面向对象编程语言中，继数据抽象和继承之外的第三个重要特性。 ​        多态提供了另一个维度的接口与实现分离，以解耦做什么和怎么做。多态不仅能改善代码的组织，提高代码的可读性，而且能创建有扩展性的程序——无论在最初创建项目还是在添加新特性时都可以“生长”的程序。 ​        封装通过合并特征和行为来创建新的数据类型。隐藏实现通过将细节私有化把接口与实现分离。这种">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阅读《On Java 8》-- 第九章 多态">
+<meta property="og:url" content="http://yoursite.com/2021/05/11/%E9%98%85%E8%AF%BB%E3%80%8AOn-Java-8%E3%80%8B-%E7%AC%AC%E4%B9%9D%E7%AB%A0-%E5%A4%9A%E6%80%81/index.html">
+<meta property="og:site_name" content="NoTrouble&#39;s Blog">
+<meta property="og:description" content="​        多态是面向对象编程语言中，继数据抽象和继承之外的第三个重要特性。 ​        多态提供了另一个维度的接口与实现分离，以解耦做什么和怎么做。多态不仅能改善代码的组织，提高代码的可读性，而且能创建有扩展性的程序——无论在最初创建项目还是在添加新特性时都可以“生长”的程序。 ​        封装通过合并特征和行为来创建新的数据类型。隐藏实现通过将细节私有化把接口与实现分离。这种">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-05-11T03:17:10.000Z">
+<meta property="article:modified_time" content="2021-05-11T03:17:10.000Z">
+<meta property="article:author" content="NoTrouble">
+<meta property="article:tag" content="JAVASE">
+<meta property="article:tag" content="《On Java 8》">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/05/11/阅读《On-Java-8》-第九章-多态/"/>
+
+
+
+
+
+  <title>阅读《On Java 8》-- 第九章 多态 | NoTrouble's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NoTrouble's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录分享生活中的点点滴滴</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-playlist">
+          <a href="/playlist/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-music"></i> <br />
+            
+            歌单
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/11/%E9%98%85%E8%AF%BB%E3%80%8AOn-Java-8%E3%80%8B-%E7%AC%AC%E4%B9%9D%E7%AB%A0-%E5%A4%9A%E6%80%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoTrouble's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">阅读《On Java 8》-- 第九章 多态</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-11T11:17:10+08:00">
+                2021-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVASE/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVASE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>​        多态是面向对象编程语言中，继数据抽象和继承之外的第三个重要特性。</p>
+<p>​        多态提供了另一个维度的接口与实现分离，以解耦做什么和怎么做。多态不仅能改善代码的组织，提高代码的可读性，而且能创建有扩展性的程序——无论在最初创建项目还是在添加新特性时都可以“生长”的程序。</p>
+<p>​        封装通过合并特征和行为来创建新的数据类型。隐藏实现通过将细节私有化把接口与实现分离。这种类型的组织机制对于有面向过程编程背景的人来说，更容易理解。而多态是消除类型之间的耦合。在上一章中，继承允许把一个对象视为它本身的类型或它的基类类型。这样就能把很多派生自一个基类的类型当作同一类型处理，因而一段代码就可以无差别地运行在所有不同的类型上了。多态方法调用允许一种类型表现出与相似类型的区别，只要这些类型派生自一个基类。这种区别是当你通过基类调用时，由方法的不同行为表现出来的。</p>
+ <span id="more"></span> 
+
+<h2 id="向上转型回顾"><a href="#向上转型回顾" class="headerlink" title="向上转型回顾"></a>向上转型回顾</h2><p>​        在上一章，你看到了如何把一个对象视作它的自身类型或它的基类类型。这种把一个对象引用当作它的基类引用的做法称为向上转型，因为继承图中基类一般位于最上方。</p>
+<p>​        同样你也在下面的音乐乐器例子中发现了问题。既然几个例子都要演奏乐符(Note)，首先我们先在包中单独创建一个Note枚举类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// polymorphism/music/Note.java</span></span><br><span class="line"><span class="comment">// Notes to play on musical instruments</span></span><br><span class="line"><span class="keyword">package</span> polymorphism.music;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">Note</span> </span>&#123;</span><br><span class="line">    MIDDLE_C, C_SHARP, B_FLAT; <span class="comment">// Etc.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        这里，Wind是一种Instrument；因此，Wind继承Instrument：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// polymorphism/music/Instrument.java</span></span><br><span class="line"><span class="keyword">package</span> polymorphism.music;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Instrument</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">(Note n)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Instrument.play()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// polymorphism/music/Wind.java</span></span><br><span class="line"><span class="keyword">package</span> polymorphism.music;</span><br><span class="line"><span class="comment">// Wind objects are instruments</span></span><br><span class="line"><span class="comment">// because they have the same interface:</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Wind</span> <span class="keyword">extends</span> <span class="title">Instrument</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Redefine interface method:</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">(Note n)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Wind.play() &quot;</span> + n);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        Music的方法tune()接收一个Instrument引用，同时也接受任何派生自Instrument的类引用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// polymorphism/music/Music.java</span></span><br><span class="line"><span class="comment">// Inheritance &amp; upcasting</span></span><br><span class="line"><span class="comment">// &#123;java polymorphism.music.Music&#125;</span></span><br><span class="line"><span class="keyword">package</span> polymorphism.music;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Music</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">tune</span><span class="params">(Instrument i)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        i.play(Note.MIDDLE_C);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Wind flute = <span class="keyword">new</span> Wind();</span><br><span class="line">        tune(flute); <span class="comment">// Upcasting</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Wind.play() MIDDLE_C</span></span><br></pre></td></tr></table></figure>
+
+<p>​        在main()中你看到了tune()方法传入了一个Wind引用，而没有做类型转换。这样做是允许的——Instrument的接口一定存在于Wind中，因此Wind继承了Instrument。从Wind向上转型为Instrument可能“缩小”接口，但不会比Instrument的全部接口更少。</p>
+<h3 id="忘掉对象类型"><a href="#忘掉对象类型" class="headerlink" title="忘掉对象类型"></a>忘掉对象类型</h3><p>​        Music.java看起来似乎有点奇怪。为什么所有人都故意忘记掉对象类型呢？当向上转型时，就会发生这种情况，而且看起来如果tune()接受的参数是一个Wind引用会更为直观。这会带来一个重要问题：如果你那么做，就要为系统内Instrument的每种类型都编写一个新的tune()方法。假设按照这种推理，再增加Stringed和Brass这两种Instrument：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// polymorphism/music/Music2.java</span></span><br><span class="line"><span class="comment">// Overloading instead of upcasting</span></span><br><span class="line"><span class="comment">// &#123;java polymorphism.music.Music2&#125;</span></span><br><span class="line"><span class="keyword">package</span> polymorphism.music;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stringed</span> <span class="keyword">extends</span> <span class="title">Instrument</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">(Note n)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Stringed.play() &quot;</span> + n);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Brass</span> <span class="keyword">extends</span> <span class="title">Instrument</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">(Note n)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Brass.play() &quot;</span> + n);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Music2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">tune</span><span class="params">(Wind i)</span> </span>&#123;</span><br><span class="line">        i.play(Note.MIDDLE_C);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">tune</span><span class="params">(Stringed i)</span> </span>&#123;</span><br><span class="line">        i.play(Note.MIDDLE_C);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">tune</span><span class="params">(Brass i)</span> </span>&#123;</span><br><span class="line">        i.play(Note.MIDDLE_C);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Wind flute = <span class="keyword">new</span> Wind();</span><br><span class="line">        Stringed violin = <span class="keyword">new</span> Stringed();</span><br><span class="line">        Brass frenchHorn = <span class="keyword">new</span> Brass();</span><br><span class="line">        tune(flute); <span class="comment">// No upcasting</span></span><br><span class="line">        tune(violin);</span><br><span class="line">        tune(frenchHorn);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Wind.play() MIDDLE_C</span></span><br><span class="line"><span class="comment">//Stringed.play() MIDDLE_C</span></span><br><span class="line"><span class="comment">//Brass.play() MIDDLE_C</span></span><br></pre></td></tr></table></figure>
+
+<p>​        这样行的通，但是有一个主要缺点：必须为添加的每个新的Instrument类编写特定的方法。这意味着开始时就需要更多的编程，而且以后如果添加类似tune()的新方法或Instrument的新类型时，还有大量的工作要做。考虑到如果你忘记重载某个方法，编译器也不会提示你，这会造成类型的整个处理过程变得难以管理。</p>
+<p>​        如果只写一个方法以基类作为参数，而不用管是哪个具体派生类，这样会变得更好吗？也就是说，如果忘掉派生类，编写的代码只与基类打交道，会不会更好呢？</p>
+<p>​        这正是多态所允许的。但是大部分拥有面向过程编程背景的程序员会对多态的运作方式感到一些困惑。</p>
+<h2 id="转机"><a href="#转机" class="headerlink" title="转机"></a>转机</h2><p>​        运行程序后会看到Music.java的难点。Wind.play()的输出结果正是我们期望的，然后它看起来似乎不应该得出这样的结果。观察tune()方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">tune</span><span class="params">(Instrument i)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    i.play(Note.MIDDLE_C);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        它接受一个Instrument引用。那么编译器是如何知道这里的Instrument引用指向的是Wind，而不是Brass或Stringed呢？编译器无法得知。为了深入理解这个问题，有必要研究一下绑定这个主题。</p>
+<h3 id="方法调用绑定"><a href="#方法调用绑定" class="headerlink" title="方法调用绑定"></a>方法调用绑定</h3><p>​        将一个方法调用和一个方法主体关联起来称作绑定。若绑定发生在程序运行前(如果有的话，由编译器和链接器实现)，叫做前期绑定。你可能从来没有听说这个术语，因为它是面向过程语言不需选择的绑定方式，例如在C语言中就只有前期绑定这一种方法调用。</p>
+<p>​        上述程序让人困惑的地方在于前期绑定，因为编译器只知道一个Instrument引用，它无法得知究竟会调用哪个方法。</p>
+<p>​        解决方法就是后期绑定，意味着在运行时根据对象的类型进行绑定。后期绑定也称为动态绑定或运行时绑定。当一种语言实现了后期绑定，就必须具有某种机制在运行时能判断对象的类型，从而调用恰当的方法。也就是说，编译器仍然不知道对象的类型，但是方法调用机制能找到正确的方法体并调用。每种语言的后期绑定机制不同，但是可以想到，对象中一定存在某种类型信息。</p>
+<p>​        Java中除了static和final方法(private方法也是隐式的final)外，其它所有方法都是后期绑定。这意味着通常情况下，我们不需要判断后期绑定是否会发生——它自动发生。</p>
+<p>​        为什么将一个对象指明为final？正如前一章所述，它可以防止方法被重写。但更重要的一点可能是，它有效地“关闭了”动态绑定，或者说告诉编译器不需要对其进行动态绑定。这可以让编译器为final方法生成更高效的代码。然而，大部分情况下这样做不会对程序的整体性能带来什么改变，因此最好是为了设计使用final，而不是为了提升性能而使用。</p>
+<h3 id="产生正确的行为"><a href="#产生正确的行为" class="headerlink" title="产生正确的行为"></a>产生正确的行为</h3><p>​        一旦当你知道Java中所有方法都是通过后期绑定来实现多态时，就可以编写只与基类打交道的代码，而且代码对于派生类来说都能正常地工作。或者换种说法，你向对象发送一条消息，让对象自己做正确的事。</p>
+<p>​        在形状的例子中，有一个基类称为Shape，多个不同的派生类型分别是：Circle、Square、Triangle等等。</p>
+<p>​        向上转型就像下面这么简单：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Shape s = <span class="keyword">new</span> Circle();</span><br></pre></td></tr></table></figure>
+
+<p>​        这会创建一个Circle对象，引用被赋值给Shape类型的变量s，这看似错误(将一种类型赋值给另一种类型)，然而是没问题的，因此从继承上认为圆(Circle)就是一个形状(Shape)。因此编译器认可了赋值语句，没有报错。</p>
+<p>​        假设你调用了一个基类方法(在各个派生类中都被重写)：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s.draw()</span><br></pre></td></tr></table></figure>
+
+<p>​        你可能再次认为Shape的draw()方法被调用，因为s是一个Shape引用——编译器怎么可能知道要做其它的事呢？然而，由于后期绑定(多态)被调用的是Circle的draw()方法，这是正确的。</p>
+<p>​        下面的例子稍微有些不同。首先让我们创建一个可复用的Shape类库，基类Shape为它的所有子类建立了公共接口——所有形状都可以被绘画和擦除：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// polymorphism/shape/Shape.java</span></span><br><span class="line"><span class="keyword">package</span> polymorphism.shape;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">erase</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        派生类通过重写这些方法为每个具体的形状提供独一无二的方法行为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// polymorphism/shape/Circle.java</span></span><br><span class="line"><span class="keyword">package</span> polymorphism.shape;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Circle.draw()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">erase</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Circle.erase()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// polymorphism/shape/Square.java</span></span><br><span class="line"><span class="keyword">package</span> polymorphism.shape;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Square.draw()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">erase</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Square.erase()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// polymorphism/shape/Triangle.java</span></span><br><span class="line"><span class="keyword">package</span> polymorphism.shape;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Triangle</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Triangle.draw()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">erase</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Triangle.erase()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        RandomShapes是一种工厂，每当我们调用get()方法时，就会产生一个指向随机创建的Shape对象的引用。注意，向上转型发生在return语句中，每条return语句取得一个指向某个Circle，Square或Triangle的引用，并将其以Shape类型从get()方法发送出去。因此无论何时调用get()方法，你都无法知道具体的类型是什么，因为你总是得到一个简单的Shape引用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// polymorphism/shape/RandomShapes.java</span></span><br><span class="line"><span class="comment">// A &quot;factory&quot; that randomly creates shapes</span></span><br><span class="line"><span class="keyword">package</span> polymorphism.shape;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RandomShapes</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Random rand = <span class="keyword">new</span> Random(<span class="number">47</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Shape <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span>(rand.nextInt(<span class="number">3</span>)) &#123;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span>: <span class="keyword">return</span> <span class="keyword">new</span> Circle();</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>: <span class="keyword">return</span> <span class="keyword">new</span> Square();</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span>: <span class="keyword">return</span> <span class="keyword">new</span> Triangle();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> Shape[] array(<span class="keyword">int</span> sz) &#123;</span><br><span class="line">        Shape[] shapes = <span class="keyword">new</span> Shape[sz];</span><br><span class="line">        <span class="comment">// Fill up the array with shapes:</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; shapes.length; i++) &#123;</span><br><span class="line">            shapes[i] = get();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> shapes;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        array()方法分配并填充了Shape数组，这里使用了for-in表达式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// polymorphism/Shapes.java</span></span><br><span class="line"><span class="comment">// Polymorphism in Java</span></span><br><span class="line"><span class="keyword">import</span> polymorphism.shape.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Shapes</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        RandomShapes gen = <span class="keyword">new</span> RandomShapes();</span><br><span class="line">        <span class="comment">// Make polymorphic method calls:</span></span><br><span class="line">        <span class="keyword">for</span> (Shape shape: gen.array(<span class="number">9</span>)) &#123;</span><br><span class="line">            shape.draw();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Triangle.draw()</span></span><br><span class="line"><span class="comment">//Triangle.draw()</span></span><br><span class="line"><span class="comment">//Square.draw()</span></span><br><span class="line"><span class="comment">//Triangle.draw()</span></span><br><span class="line"><span class="comment">//Square.draw()</span></span><br><span class="line"><span class="comment">//Triangle.draw()</span></span><br><span class="line"><span class="comment">//Square.draw()</span></span><br><span class="line"><span class="comment">//Triangle.draw()</span></span><br><span class="line"><span class="comment">//Circle.draw()</span></span><br></pre></td></tr></table></figure>
+
+<p>​        main()方法中包含了一个Shape引用组成的数组，其中每个元素通过调用RandomShapes类的get()方法生成。现在你知道拥有一些形状，但除此之外一无所知。然而当遍历这个数组为每个元素调用draw()方法时，从运行程序的结果中可以看到，与类型有关的特定行为奇迹般地发生了。</p>
+<p>​        随机生成形状是为了让大家理解：在编译时，编译器不需要知道任何具体信息以进行正确的调用。所有对方法draw()的调用都是通过动态绑定进行的。</p>
+<h3 id="可扩展性"><a href="#可扩展性" class="headerlink" title="可扩展性"></a>可扩展性</h3><p>​        现在让我们回头看音乐乐器的例子。由于多态机制，你可以向系统中添加任意多的新类型，而不需要修改tune()方法。在一个设计良好的面向对象程序中，许多方法将会遵循tune()的模型，只与基类接口通信。这样的程序是可扩展的，因为可以从通用的基类派生出新的数据类型，从而添加新的功能。那些操纵基类接口的方法不需要改动就可以应用于新类。</p>
+<p>​        考虑一下乐器的例子，如果在基类中添加更多的方法，并加入一些新类，将会发生什么呢：</p>
+<p>​        所有的新类都可以和原有类正常运行，不需要改动tune()方法。即使tune()方法单独存放在某个文件中，而且向Instrument接口中添加了新的方法，tune()方法也无需再编译就能正确运行。下面为类图的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// polymorphism/music3/Music3.java</span></span><br><span class="line"><span class="comment">// An extensible program</span></span><br><span class="line"><span class="comment">// &#123;java polymorphism.music3.Music3&#125;</span></span><br><span class="line"><span class="keyword">package</span> polymorphism.music3;</span><br><span class="line"><span class="keyword">import</span> polymorphism.music.Note;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Instrument</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">play</span><span class="params">(Note n)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Instrument.play() &quot;</span> + n);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">String <span class="title">what</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Instrument&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">adjust</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Adjusting Instrument&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Wind</span> <span class="keyword">extends</span> <span class="title">Instrument</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">play</span><span class="params">(Note n)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Wind.play() &quot;</span> + n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function">String <span class="title">what</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Wind&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">adjust</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Adjusting Wind&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Percussion</span> <span class="keyword">extends</span> <span class="title">Instrument</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">play</span><span class="params">(Note n)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Percussion.play() &quot;</span> + n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function">String <span class="title">what</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Percussion&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">adjust</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Adjusting Percussion&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stringed</span> <span class="keyword">extends</span> <span class="title">Instrument</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">play</span><span class="params">(Note n)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Stringed.play() &quot;</span> + n);</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function">String <span class="title">what</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Stringed&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">adjust</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Adjusting Stringed&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Brass</span> <span class="keyword">extends</span> <span class="title">Wind</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">play</span><span class="params">(Note n)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Brass.play() &quot;</span> + n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">adjust</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Adjusting Brass&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Woodwind</span> <span class="keyword">extends</span> <span class="title">Wind</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">play</span><span class="params">(Note n)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Woodwind.play() &quot;</span> + n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function">String <span class="title">what</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Woodwind&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Music3</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Doesn&#x27;t care about type, so new types</span></span><br><span class="line">    <span class="comment">// added to the system still work right:</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">tune</span><span class="params">(Instrument i)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        i.play(Note.MIDDLE_C);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">tuneAll</span><span class="params">(Instrument[] e)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (Instrument i: e) &#123;</span><br><span class="line">            tune(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Upcasting during addition to the array:</span></span><br><span class="line">        Instrument[] orchestra = &#123;</span><br><span class="line">            <span class="keyword">new</span> Wind(),</span><br><span class="line">            <span class="keyword">new</span> Percussion(),</span><br><span class="line">            <span class="keyword">new</span> Stringed(),</span><br><span class="line">            <span class="keyword">new</span> Brass(),</span><br><span class="line">            <span class="keyword">new</span> Woodwind()</span><br><span class="line">        &#125;;</span><br><span class="line">        tuneAll(orchestra);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Wind.play() MIDDLE_C</span></span><br><span class="line"><span class="comment">//Percussion.play() MIDDLE_C</span></span><br><span class="line"><span class="comment">//Stringed.play() MIDDLE_C</span></span><br><span class="line"><span class="comment">//Brass.play() MIDDLE_C</span></span><br><span class="line"><span class="comment">//Woodwind.play() MIDDLE_C</span></span><br></pre></td></tr></table></figure>
+
+<p>​        新方法what()返回一个带有类描述的String引用，adjust()提供一些乐器调音的方法。</p>
+<p>​        在main()方法中，当向orchestra数组添加元素时，元素会自动向上转型为Instrument。</p>
+<p>​        tune()方法可以忽略周围所有代码发生的变化，仍然可以正常运转。这正是我们期待多态能提供的特性。代码中的修改不会破坏程序中其它不应受到影响的部分。换句话说，多态是一项“将改变的事物与不变的事务分离”的重要技术。</p>
+<h3 id="陷阱：“重写”私有方法"><a href="#陷阱：“重写”私有方法" class="headerlink" title="陷阱：“重写”私有方法"></a>陷阱：“重写”私有方法</h3><p>​        你可能天真地试图像下面这样做：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// polymorphism/PrivateOverride.java</span></span><br><span class="line"><span class="comment">// Trying to override a private method</span></span><br><span class="line"><span class="comment">// &#123;java polymorphism.PrivateOverride&#125;</span></span><br><span class="line"><span class="keyword">package</span> polymorphism;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PrivateOverride</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;private f()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        PrivateOverride po = <span class="keyword">new</span> Derived();</span><br><span class="line">        po.f();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Derived</span> <span class="keyword">extends</span> <span class="title">PrivateOverride</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;public f()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//private f()</span></span><br></pre></td></tr></table></figure>
+
+<p>​        你可能期望输出是public f()，然而private方法可以当作final的，对于派生类来说是隐蔽的。因此，这里Derived的f()是一个全新的方法；因为基类版本的f()屏蔽了Derived，因此它都不算是重写方法。</p>
+<p>​        结论是只有非private方法才能被重写，但是得小心重写private方法的现象，编译器不报错，但不会按我们所预期的执行。为了清晰起见，派生类中的方法名与基类中private方法名不同的命名。</p>
+<p>​        如果使用了@Override注解，就能检测出问题：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// polymorphism/PrivateOverride2.java</span></span><br><span class="line"><span class="comment">// Detecting a mistaken override using @Override</span></span><br><span class="line"><span class="comment">// &#123;WillNotCompile&#125;</span></span><br><span class="line"><span class="keyword">package</span> polymorphism;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PrivateOverride2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;private f()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        PrivateOverride2 po = <span class="keyword">new</span> Derived2();</span><br><span class="line">        po.f();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Derived2</span> <span class="keyword">extends</span> <span class="title">PrivateOverride2</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;public f()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//error: method does not override or</span></span><br><span class="line"><span class="comment">//implement a method from a supertype</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="陷阱：属性与静态方法"><a href="#陷阱：属性与静态方法" class="headerlink" title="陷阱：属性与静态方法"></a>陷阱：属性与静态方法</h3><p>​        一旦学会了多态，就可以以多态的思维方式考虑每件事。然而，只有普通的方法调用可以是多态的。例如，如果你直接访问一个属性，该访问会在编译时解析：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// polymorphism/FieldAccess.java</span></span><br><span class="line"><span class="comment">// Direct field access is determined at compile time</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Super</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> field = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getField</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> field;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sub</span> <span class="keyword">extends</span> <span class="title">Super</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> field = <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getField</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> field;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSuperField</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.field;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FieldAccess</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Super sup = <span class="keyword">new</span> Sub(); <span class="comment">// Upcast</span></span><br><span class="line">        System.out.println(<span class="string">&quot;sup.field = &quot;</span> + sup.field + </span><br><span class="line">                          <span class="string">&quot;, sup.getField() = &quot;</span> + sup.getField());</span><br><span class="line">        Sub sub = <span class="keyword">new</span> Sub();</span><br><span class="line">        System.out.println(<span class="string">&quot;sub.field = &quot;</span> + sub.field + </span><br><span class="line">                          <span class="string">&quot;, sub.getField() = &quot;</span> + sub.getField()</span><br><span class="line">                          + <span class="string">&quot;, sub.getSuperField() = &quot;</span> + sub.getSuperField())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//sup.field = 0, sup.getField() = 1</span></span><br><span class="line"><span class="comment">//sub.field = 1, sub.getField() = 1, sub.getSuperField() = 0</span></span><br></pre></td></tr></table></figure>
+
+<p>​        当Sub对象向上转型为Super引用，任何属性访问都被编译器解析，因此不是多态的。在这个例子中，Super.field和Sub.field被分配了不同的存储空间，因此，Sub实际上包含了两个称为field的属性：它自己的和来自Super的。然而，在引用Sub的field属性时，默认的field属性并不是Super版本的field属性。为了获取Super的field属性，需要显示地指明super.field。</p>
+<p>​        尽管这看起来是个令人困惑的问题，实际上基本不会发生。首先，通常会将所有的属性都声明为private，因此不能直接访问它们，只能通过方法来访问。此外，你可能也不会给基类属性和派生类属性起相同的名字，这样做会令人困惑。</p>
+<p>​        如果是一个方法是静态(static)的，它的行为就不具有多态性：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// polymorphism/StaticPolymorphism.java</span></span><br><span class="line"><span class="comment">// static methods are not polymorphic</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StaticSuper</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">staticGet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Base staticGet()&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">dynamicGet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Base dynamicGet()&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StaticSub</span> <span class="keyword">extends</span> <span class="title">StaticSuper</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">staticGet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Derived staticGet()&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">dynamicGet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Derived dynamicGet()&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticPolymorphism</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        StaticSuper sup = <span class="keyword">new</span> StaticSub(); <span class="comment">// Upcast</span></span><br><span class="line">        System.out.println(StaticSuper.staticGet());</span><br><span class="line">        System.out.println(sup.dynamicGet());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Base staticGet()</span></span><br><span class="line"><span class="comment">//Derived dynamicGet()</span></span><br></pre></td></tr></table></figure>
+
+<p>​        静态的方法只与类关联，与单个的对象无关。</p>
+<h2 id="构造器和多态"><a href="#构造器和多态" class="headerlink" title="构造器和多态"></a>构造器和多态</h2><p>​        通常，构造器不同于其它类型的方法。在涉及多态时也是如此。尽管构造器不具有多态性(事实上人们会把它看作是隐式声明的静态方法)，但是理解构造器在复杂层次结构中运作多态还是非常重要的。理解这个可以帮助你避免一些不愉快的困扰。</p>
+<h3 id="构造器调用顺序"><a href="#构造器调用顺序" class="headerlink" title="构造器调用顺序"></a>构造器调用顺序</h3><p>​        在“初始化和清理”和“复用”两章中已经简单地介绍过构造器的调用顺序，但那时还没有介绍多态。</p>
+<p>​        在派生类的构造过程中总会调用基类的构造器。初始化会自动按继承层次结构上移，因此每个基类的构造器都会被调用到。这么做是有意义的，因为构造器有着特殊的任务：检查对象是否被正确地构造。由于属性通常声明为private，你必须假定派生类只能访问自己的成员而不能访问基类的成员。只有基类的构造器拥有恰当的知识和权限来初始化自身的元素。因此，必须得调用所有构造器；否则就不能构造完整的对象。这就是为什么编译器会强制调用每个派生类中的构造器的原因。如果在派生类的构造器主体中没有显示地调用基类构造器，编译器就会默默地调用无参构造器。如果没有无参构造器，编译器就会报错(当类中不含有构造器时，编译器会自动合成一个无参构造器)。</p>
+<p>​        下面的例子展示了组合、继承和多态在构建顺序上的作用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// polymorphism/Sandwich.java</span></span><br><span class="line"><span class="comment">// Order of constructor calls</span></span><br><span class="line"><span class="comment">// &#123;java polymorphism.Sandwich&#125;</span></span><br><span class="line"><span class="keyword">package</span> polymorphism;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Meal</span> </span>&#123;</span><br><span class="line">    Meal() &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Meal()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bread</span> </span>&#123;</span><br><span class="line">    Bread() &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Bread()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cheese</span> </span>&#123;</span><br><span class="line">    Cheese() &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Cheese()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Lettuce</span> </span>&#123;</span><br><span class="line">    Lettuce() &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Lettuce()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Lunch</span> <span class="keyword">extends</span> <span class="title">Meal</span> </span>&#123;</span><br><span class="line">    Lunch() &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Lunch()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PortableLunch</span> <span class="keyword">extends</span> <span class="title">Lunch</span> </span>&#123;</span><br><span class="line">    PortableLunch() &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;PortableLunch()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Sandwich</span> <span class="keyword">extends</span> <span class="title">PortableLunch</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Bread b = <span class="keyword">new</span> Bread();</span><br><span class="line">    <span class="keyword">private</span> Cheese c = <span class="keyword">new</span> Cheese();</span><br><span class="line">    <span class="keyword">private</span> Lettuce l = <span class="keyword">new</span> Lettuce();</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Sandwich</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Sandwich()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Sandwich();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Meal()</span></span><br><span class="line"><span class="comment">//Lunch()</span></span><br><span class="line"><span class="comment">//PortableLunch()</span></span><br><span class="line"><span class="comment">//Bread()</span></span><br><span class="line"><span class="comment">//Cheese()</span></span><br><span class="line"><span class="comment">//Lettuce()</span></span><br><span class="line"><span class="comment">//Sandwich()</span></span><br></pre></td></tr></table></figure>
+
+<p>​        这个例子用其他类创建了一个复杂的类。每个类都在构造器中声明自己。重要的类是Sandwich，它反映了三层继承(如果算上Object的话，就是四层)，包含了三个成员对象。</p>
+<p>​        从创建Sandwich对象的输出中可以看出对象的构造器调用顺序如下：</p>
+<ul>
+<li>基类构造器被调用。这个步骤被递归地重复，这样一来类层次的顶级父类会被最先构造，然后是它的派生类，以此类推，直到最顶层的派生类。</li>
+<li>按声明顺序初始化成员。</li>
+<li>调用派生类构造器的方法体。</li>
+</ul>
+<p>​        构造器的调用顺序很重要。当使用继承时，就已经知道了基类的一切，并可以访问基类中任意public和protected的成员。这意味着在派生类中可以假定所有基类成员都是有效的。在一个标准方法中，构造动作已经发生过，对象其它部分的所有成员都已经创建好。</p>
+<p>​        在构造器中必须确保所有的成员都已经构建完。唯一能保证这点的方法就是首先调用基类的构造器。接着，在派生类的构造器中，所有你可以访问的基类成员都已经初始化。另一个在构造器中能知道所有成员都是有效的理由的是：无论何时有可能的话，你应该在所有成员对象(通过组合将对象置于类中)定义处初始化它们。如果遵循这条实践，就可以帮助确保所有的基类成员和当前对象的成员对象都已经初始化。</p>
+<p>​        不幸的是，这不能处理所有情况，在下一节会看到。</p>
+<h3 id="继承和清理"><a href="#继承和清理" class="headerlink" title="继承和清理"></a>继承和清理</h3><p>​        在使用组合和继承创建新类时，大部分时候你无需关心清理。子对象通常会留给垃圾收集器处理。如果你存在清理问题，那么必须用心地为新类创建一个dispose()方法(这里用的是我选择的名称，你可以使用更好的名称)。由于继承，如果有其它特殊的清理工作的话，就必须在派生类中重写dispose()方法。当重写dispose()方法时，记得调用基类的dispose()方法，否则基类的清理工作不会发生：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// polymorphism/Frog.java</span></span><br><span class="line"><span class="comment">// Cleanup and inheritance</span></span><br><span class="line"><span class="comment">// &#123;java polymorphism.Frog&#125;</span></span><br><span class="line"><span class="keyword">package</span> polymorphism;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Characteristic</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String s;</span><br><span class="line">    </span><br><span class="line">    Characteristic(String s) &#123;</span><br><span class="line">        <span class="keyword">this</span>.s = s;</span><br><span class="line">        System.out.println(<span class="string">&quot;Creating Characteristic &quot;</span> + s);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">dispose</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;disposing Characteristic &quot;</span> + s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Description</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String s;</span><br><span class="line">    </span><br><span class="line">    Description(String s) &#123;</span><br><span class="line">        <span class="keyword">this</span>.s = s;</span><br><span class="line">        System.out.println(<span class="string">&quot;Creating Description &quot;</span> + s);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">dispose</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;disposing Description &quot;</span> + s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LivingCreature</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Characteristic p = <span class="keyword">new</span> Characteristic(<span class="string">&quot;is alive&quot;</span>);</span><br><span class="line">    <span class="keyword">private</span> Description t = <span class="keyword">new</span> Description(<span class="string">&quot;Basic Living Creature&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    LivingCreature() &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;LivingCreature()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">dispose</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;LivingCreature dispose&quot;</span>);</span><br><span class="line">        t.dispose();</span><br><span class="line">        p.dispose();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> <span class="keyword">extends</span> <span class="title">LivingCreature</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Characteristic p = <span class="keyword">new</span> Characteristic(<span class="string">&quot;has heart&quot;</span>);</span><br><span class="line">    <span class="keyword">private</span> Description t = <span class="keyword">new</span> Description(<span class="string">&quot;Animal not Vegetable&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    Animal() &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Animal()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">dispose</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Animal dispose&quot;</span>);</span><br><span class="line">        t.dispose();</span><br><span class="line">        p.dispose();</span><br><span class="line">        <span class="keyword">super</span>.dispose();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Amphibian</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Characteristic p = <span class="keyword">new</span> Characteristic(<span class="string">&quot;can live in water&quot;</span>);</span><br><span class="line">    <span class="keyword">private</span> Description t = <span class="keyword">new</span> Description(<span class="string">&quot;Both water and land&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    Amphibian() &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Amphibian()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">dispose</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Amphibian dispose&quot;</span>);</span><br><span class="line">        t.dispose();</span><br><span class="line">        p.dispose();</span><br><span class="line">        <span class="keyword">super</span>.dispose();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Frog</span> <span class="keyword">extends</span> <span class="title">Amphibian</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Characteristic p = <span class="keyword">new</span> Characteristic(<span class="string">&quot;Croaks&quot;</span>);</span><br><span class="line">    <span class="keyword">private</span> Description t = <span class="keyword">new</span> Description(<span class="string">&quot;Eats Bugs&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Frog</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Frog()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">dispose</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Frog dispose&quot;</span>);</span><br><span class="line">        t.dispose();</span><br><span class="line">        p.dispose();</span><br><span class="line">        <span class="keyword">super</span>.dispose();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Frog frog = <span class="keyword">new</span> Frog();</span><br><span class="line">        System.out.println(<span class="string">&quot;Bye!&quot;</span>);</span><br><span class="line">        frog.dispose();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Creating Characteristic is alive</span></span><br><span class="line"><span class="comment">//Creating Description Basic Living Creature</span></span><br><span class="line"><span class="comment">//LivingCreature()</span></span><br><span class="line"><span class="comment">//Creating Characteristiv has heart</span></span><br><span class="line"><span class="comment">//Creating Description Animal not Vegetable</span></span><br><span class="line"><span class="comment">//Animal()</span></span><br><span class="line"><span class="comment">//Creating Characteristic can live in water</span></span><br><span class="line"><span class="comment">//Creating Description Both water and land</span></span><br><span class="line"><span class="comment">//Amphibian()</span></span><br><span class="line"><span class="comment">//Creating Characteristic Croaks</span></span><br><span class="line"><span class="comment">//Creating Description Eats Bugs</span></span><br><span class="line"><span class="comment">//Frog()</span></span><br><span class="line"><span class="comment">//Bye!</span></span><br><span class="line"><span class="comment">//Frog dispose</span></span><br><span class="line"><span class="comment">//disposing Description Eats Bugs</span></span><br><span class="line"><span class="comment">//disposing Characteristic Croaks</span></span><br><span class="line"><span class="comment">//Amphibian dispose</span></span><br><span class="line"><span class="comment">//disposing Description Both wanter and land</span></span><br><span class="line"><span class="comment">//disposing Characteristic can live in water</span></span><br><span class="line"><span class="comment">//Animal dispose</span></span><br><span class="line"><span class="comment">//disposing Description Animal not Vegetable</span></span><br><span class="line"><span class="comment">//disposing Characteristic has heart</span></span><br><span class="line"><span class="comment">//LivingCreature dispose</span></span><br><span class="line"><span class="comment">//disposing Description Basic Living Creature</span></span><br><span class="line"><span class="comment">//disposing Characteristic is alive</span></span><br></pre></td></tr></table></figure>
+
+<p>​        层级结构中的每个类都有Characteristic和Description两个类型的成员对象，它们必须得被销毁。销毁得顺序应该与初始化的顺序相反，以访一个对象依赖另一个对象。对于属性来说，就意味着与声明的顺序相反(因为属性是按照声明顺序初始化的)。对于基类，首先进行派生类的清理工作，然后才是基类的清理。这是因为派生类的清理可能调用基类的一些方法，所以基类组件这时得存活，不能过早地被销毁。输出显示了，Frog对象的所有部分都是按照创建的逆序销毁的。</p>
+<p>​        尽管通常不必进行清理工作，但万一需要时，就得谨慎小心地执行。</p>
+<p>​        Frog对象拥有自己的成员对象，它创建了这些成员对象，并且知道它们能存活多久，所以它知道何时调用dispose()方法。然而，一旦某个成员对象被其它一个或多个对象共享时，问题就变得复杂了，不能简单地调用dispose()。这里，也许就必须使用引用计数来跟踪仍然访问着共享对象数量，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// polymorphism/ReferenceCounting.java</span></span><br><span class="line"><span class="comment">// Cleaning up shared member objects</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shared</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> refcount = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">long</span> counter = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> id = counter++;</span><br><span class="line">    </span><br><span class="line">    Shared() &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Creating &quot;</span> + <span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addRef</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        refcount++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">dispose</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (--refcount == <span class="number">0</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Disposing &quot;</span> + <span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Shared &quot;</span> + id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Composing</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Shared shared;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">long</span> counter = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> id = counter++;</span><br><span class="line">    </span><br><span class="line">    Composing(Shared shared) &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Creating &quot;</span> + <span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">this</span>.shared = shared;</span><br><span class="line">        <span class="keyword">this</span>.shared.addRef();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">dispose</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;disposing &quot;</span> + <span class="keyword">this</span>);</span><br><span class="line">        shared.dispose();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Composing &quot;</span> + id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReferenceCounting</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Shared shared = <span class="keyword">new</span> Shared();</span><br><span class="line">        Composing[] composing = &#123;</span><br><span class="line">            <span class="keyword">new</span> Composing(shared),</span><br><span class="line">            <span class="keyword">new</span> Composing(shared),</span><br><span class="line">            <span class="keyword">new</span> Composing(shared),</span><br><span class="line">            <span class="keyword">new</span> Composing(shared),</span><br><span class="line">            <span class="keyword">new</span> Composing(shared),</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">for</span> (Composing c: composing) &#123;</span><br><span class="line">            c.dispose();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Creating Shared 0</span></span><br><span class="line"><span class="comment">//Creating Composing 0</span></span><br><span class="line"><span class="comment">//Creating Composing 1</span></span><br><span class="line"><span class="comment">//Creating Composing 2</span></span><br><span class="line"><span class="comment">//Creating Composing 3</span></span><br><span class="line"><span class="comment">//Creating Composing 4</span></span><br><span class="line"><span class="comment">//disposing Composing 0</span></span><br><span class="line"><span class="comment">//disposing Composing 1</span></span><br><span class="line"><span class="comment">//disposing Composing 2</span></span><br><span class="line"><span class="comment">//disposing Composing 3</span></span><br><span class="line"><span class="comment">//disposing Composing 4</span></span><br><span class="line"><span class="comment">//Disposing Shared 0</span></span><br></pre></td></tr></table></figure>
+
+<p>​        static long counter跟踪所创建的Shared实例数量，还提供了id的值。counter的类型是long而不是int，以防溢出。id是final的，因为它的值在初始化时确定后不应该变化。</p>
+<p>​        在将一个shared对象附着在类上时，必须记住调用addRef()，而dispose()方法会跟踪引用数，以确定在何时真正地执行清理工作。使用这种技巧需要加倍小心，但是如果需要清理正在共享的对象，你没有太多选择。</p>
+<h3 id="构造器内部多态方法的行为"><a href="#构造器内部多态方法的行为" class="headerlink" title="构造器内部多态方法的行为"></a>构造器内部多态方法的行为</h3><p>​        构造器调用的层次结构带来了一个困境。如果在构造器中调用了正在构造的对象的动态绑定方法，会发生什么？</p>
+<p>​        在普通的方法中，动态绑定的调用是在运行时解析的，因为对象不知道它属于方法所在的类还是类的派生类。</p>
+<p>​        如果在构造器中调用了动态绑定方法，就会用到那个方法的重写定义。然而，调用的结果难以预料因为被重写的方法在对象被完全构造出来之前已经被调用，这使得一些bug很隐蔽，难以发现。</p>
+<p>​        从概念上将，构造器的工作就是创建对象。在构造器内部，整个对象可能只是部分形成——只知道基类对象已经初始化。如果构造器只是构造对象过程中的一个步骤，且构造器的对象所属的类是从构造器所属的类派生的，那么派生部分在当前构造器被调用时还没有初始化。然而，一个动态绑定的方法调用向外深入到继承层次结构中，它可以调用派生类的方法。如果你在构造器中这么做，就可能调用一个方法，该方法操作的成员可能还没有初始化——这肯定会带来灾难：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// polymorphism/PolyConstructors.java</span></span><br><span class="line"><span class="comment">// Constructors and polymorphism</span></span><br><span class="line"><span class="comment">// don&#x27;t produce what you might expect</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Glyph</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Glyph.draw()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Glyph() &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Glyph() before draw()&quot;</span>);</span><br><span class="line">        draw();</span><br><span class="line">        System.out.println(<span class="string">&quot;Glyph() after draw()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RoundGlyph</span> <span class="keyword">extends</span> <span class="title">Glyph</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> radius = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    RoundGlyph(<span class="keyword">int</span> r) &#123;</span><br><span class="line">        radius = r;</span><br><span class="line">        System.out.println(<span class="string">&quot;RoundGlyph.RoundGlyph(), radius = &quot;</span> + radius);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;RoundGlyph.draw(), radius = &quot;</span> + radius);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PolyConstructors</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> RoundGlyph(<span class="number">5</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Glyph() before draw()</span></span><br><span class="line"><span class="comment">//RoundGlyph.draw(), radius = 0</span></span><br><span class="line"><span class="comment">//Glyph() after draw()</span></span><br><span class="line"><span class="comment">//RoundGlyph.RoundGlyph(), radius = 5</span></span><br></pre></td></tr></table></figure>
+
+<p>​        Glyph()的draw()被设计为可重写，在RoundGlyph这个方法被重写。但是Glyph的构造器里调用了这个方法，结果调用了RoundGlyph的draw()方法，这看起来正是我们的目的。输出结果表明，当Glyph构造器调用了draw()时，radius的值不是默认初始值1而是0。这可能会导致在屏幕上只画了一个点或干脆什么都不画，于是我们只能干瞪眼，试图找到程序不工作的原因。</p>
+<p>​        前一小节描述的初始化顺序并不十分完整，而这正是解决谜团的关键所在。初始化过程是：</p>
+<ul>
+<li>在所有事发生前，分配给对象的存储空间会被初始化为二进制0。</li>
+<li>如前所述调用基类构造器。此时调用重写后的draw()方法(是的，在调用RoundGraph构造器之前调用)，由步骤1可知，radius的值为0。</li>
+<li>按声明顺序初始化成员。</li>
+<li>最终调用派生类的构造器。</li>
+</ul>
+<p>​        这么做有个优点：所有事物至少初始化为0(或某些特殊数据类型与0等价的值)，而不是仅仅留作垃圾。这包括了通过组合嵌入类中的对象引用，被赋予null。如果忘记初始化该引用，就会在运行时出现异常。观察输出结果，就会发现所有事物都是0。</p>
+<p>​        另一方面，应该震惊于输出结果。逻辑方面我们已经做得非常完美，然而行为让不可思议的错了，编译器也没有报错。像这样的bug很容易被忽略，需要花很长时间才能发现。</p>
+<p>​        因此，编写构造器有一条良好规范：做尽量少的事让对象进入良好的状态。如果有可能的话，尽量不要调用类中的任何方法。在基类的构造器中能安全调用的只有基类的final方法(这也适用于可被看作是final的private方法)。这些方法不能被重写，因此不会产生意想不到的结果。你可能无法永远遵循这条规范，但应该朝着它努力。</p>
+<h2 id="协变返回类型"><a href="#协变返回类型" class="headerlink" title="协变返回类型"></a>协变返回类型</h2><p>​        Java5中引入了协变返回类型，这表示派生类的被重写方法可以返回基类方法返回类型的派生类型：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// polymorphism/CovariantReturn.java</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Grain</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Grain&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Wheat</span> <span class="keyword">extends</span> <span class="title">Grain</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Wheat&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mill</span> </span>&#123;</span><br><span class="line">    <span class="function">Grain <span class="title">process</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Grain();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WheatMill</span> <span class="keyword">extends</span> <span class="title">Mill</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function">Wheat <span class="title">process</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Wheat();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CovariantReturn</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Mill m = <span class="keyword">new</span> Mill();</span><br><span class="line">        Grain g = m.process();</span><br><span class="line">        System.out.println(g);</span><br><span class="line">        m = <span class="keyword">new</span> WheatMill();</span><br><span class="line">        g = m.process();</span><br><span class="line">        System.out.println(g);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Grain</span></span><br><span class="line"><span class="comment">//Wheat</span></span><br></pre></td></tr></table></figure>
+
+<p>​        关键区别在于Java5之前的版本强制要求被重写的process()方法必须返回Grain而不是Wheat，即使Wheat派生自Grain，因而也应该是一种合法的返沪类型。协变返回类型允许返回更具体的Wheat类型。</p>
+<h2 id="使用继承设计"><a href="#使用继承设计" class="headerlink" title="使用继承设计"></a>使用继承设计</h2><p>​        学习过多态之后，一切看似都可以被继承，因为多态是如此巧妙的工具。这会给设计带来负担。事实上，如果利用已有类创建新类首先选择继承的话，事情会变得莫名的复杂。</p>
+<p>​        更好的方法是首先选择组合，特别是不知道该使用哪种方法时。组合不会强制设计是继承层次结构，而且组合更加灵活，因为可以动态地选择类型，而继承要求必须在编译时知道确切类型：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// polymorphism/Transmogrify.java</span></span><br><span class="line"><span class="comment">// Dynamically changing the behavior of an object</span></span><br><span class="line"><span class="comment">// via composition (the &quot;State&quot; design pattern)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Actor</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">act</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HappyActor</span> <span class="keyword">extends</span> <span class="title">Actor</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">act</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;HappyActor&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SadActor</span> <span class="keyword">extends</span> <span class="title">Actor</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">act</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;SadActor&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stage</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Actor actor = <span class="keyword">new</span> HappyActor();</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">change</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        actor = <span class="keyword">new</span> SadActor();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">performPlay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        actor.act();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Transmogrify</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Stage stage = <span class="keyword">new</span> Stage();</span><br><span class="line">        stage.performPlay();</span><br><span class="line">        stage.change();</span><br><span class="line">        stage.performPlay();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//HappyActor</span></span><br><span class="line"><span class="comment">//SadActor</span></span><br></pre></td></tr></table></figure>
+
+<p>​        Stage对象中包含了Actor引用，改引用被初始化指向一个HappyActor对象，这意味着performPlay()会产生一个特殊行为。但是既然引用可以在运行时与其它不同的对象绑定，那么它就可以被替换成SadActor的引用，performPlay()的行为随之改变。这样你就获得了运行时的灵活性(这被称为状态模式)。与之相反，我们无法在运行时才决定继承不同的对象；那在编译时就完全决定好了。</p>
+<p>​        有一条通用准则：使用继承表达行为的差异，使用属性表达状态的变化。在上个例子中，两者都用到了。通过继承得到的两个类在act()方法中表达了不同的行为，Stage通过组合使自己的状态发生变化。这里状态的改变产生了行为的改变。</p>
+<h3 id="替代-vs-扩展"><a href="#替代-vs-扩展" class="headerlink" title="替代 vs 扩展"></a>替代 vs 扩展</h3><p>​        采用“纯粹”的方式创建继承层次结构看上去是最清晰的方法。即只有基类的方法才能在派生类中被重写。</p>
+<p>​        这被称作纯粹的“is-a”关系，因为类的接口已经确定了它是什么。继承可以确保任何派生类都拥有基类的接口，绝对不会少。如果按上面这么做，派生类将只拥有基类的接口。</p>
+<p>​        纯粹的替代意味着派生类可以完美地替代基类，当使用它们时，完全不需要知道这些子类的信息。也就是说，基类可以接受任意发送给派生类的消息，因为它们具有完全相同的接口。只需将派生类向上转型，不要关注对象的具体类型。所有一切都可以通过多态处理。</p>
+<p>​        按这种方式思考，似乎只有纯粹的“is-a”关系才是唯一明智的做法，其他任何设计只会导致混乱且注定失败。这其实也是个陷阱。一旦按这种方式开始思考，就会转而发现继承扩展接口(遗憾的是，extends关键字似乎怂恿我们这么做)才是解决特定问题的完美方案。这可以称为“is-like-a”关系，因为派生类就像是基类——它有着相同的基本接口，但还具有需要额外方法实现的其他特性：</p>
+<p>​        虽然这是一种有用且明智的方法，但是也存在缺点。派生类中接口的扩展部分在基类中不存在，因此一旦向上转型，就不能通过基类调用这些新方法：</p>
+<p>​        如果不向上转型，就不会遇到这个问题。但通常情况下，我们需要重新查明对象的确切类型，从而能够访问该类型中的扩展方法。</p>
+<h3 id="向下转型与运行时类型信息"><a href="#向下转型与运行时类型信息" class="headerlink" title="向下转型与运行时类型信息"></a>向下转型与运行时类型信息</h3><p>​        由于向上转型会丢失具体的类型信息，那么为了重新获取类型信息，就需要在继承层次中向下移动，使用向下转型。</p>
+<p>​        向上转型永远是安全的，因为基类不会具有比派生类更多的接口。因此，每条发送给基类接口的消息都能被接收。但对于向下转型，你无法知道一个形状是圆，它有可能是三角形、正方形或其他一些类型。</p>
+<p>​        为了解决这个问题，必须得有某种方法确保向下转型是正确的，防止意外转型到一个错误类型，进而发送对象无法接收的消息。这么做是不安全的。</p>
+<p>​        在某些语言中(如C++)，必须执行一个特殊的操作来获得安全的向下转型，但是在Java中，每次转型都会被检查！所以即使只是进行一次普通的加括号形式的类型转换，在运行时这个转换仍会被检查，以确保它的确是希望的那种类型。如果不是，就会得到ClassCastException(类转型异常)。这种在运行时检查类型的行为称作运行时类型信息。下面的例子展示了RTTI的行为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// polymorphism/RTTI.java</span></span><br><span class="line"><span class="comment">// Downcasting &amp; Runtime type information (RTTI)</span></span><br><span class="line"><span class="comment">// &#123;ThrowsException&#125;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Useful</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">g</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MoreUseful</span> <span class="keyword">extends</span> <span class="title">Useful</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">g</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">u</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">v</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">w</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RTTI</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Useful[] x = &#123;</span><br><span class="line">            <span class="keyword">new</span> Useful(),</span><br><span class="line">            <span class="keyword">new</span> MoreUseful()</span><br><span class="line">        &#125;;</span><br><span class="line">        x[<span class="number">0</span>].f();</span><br><span class="line">        x[<span class="number">1</span>].g();</span><br><span class="line">        <span class="comment">// Compile time: method not found in Useful:</span></span><br><span class="line">        <span class="comment">//- x[1].u();</span></span><br><span class="line">        ((MoreUseful) x[<span class="number">1</span>]).u(); <span class="comment">// Downcast/RTTI</span></span><br><span class="line">        ((MoreUseful) x[<span class="number">0</span>]).u(); <span class="comment">// Exception thrown</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Exception in thread &quot;main&quot;</span></span><br><span class="line"><span class="comment">//java.lang.ClassCastException: Useful cannot be cast to</span></span><br><span class="line"><span class="comment">//MoreUseful</span></span><br><span class="line"><span class="comment">//at RTTI.main</span></span><br></pre></td></tr></table></figure>
+
+<p>​        MoreUse’ful扩展了Useful的接口。而MoreUseful也继承了Useful。在main()方法中可以看到这种情况的发生。因为两个对象都是Useful类型，所以对它们都可以调用f()和g()方法。如果试图调用u()方法，就会得到编译时错误信息。</p>
+<p>​        为了访问MoreUseful对象接口的扩展接口，就得尝试向下转型。如果转型为正确的类型，就转型成功。否则，就会得到ClassCastException异常。你不必为这个异常编写任何特殊代码，因为它指出了程序员的任何地方都可能犯的错误。{ThrowsException}注释标签告知：在运行程序时，预期抛出一个异常。</p>
+<p>​        RTTI不仅仅包括简单的转型。例如，它还提供了一种方法，使你可以在试图向下转型前检查所要处理的类型。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    NoTrouble
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2021/05/11/%E9%98%85%E8%AF%BB%E3%80%8AOn-Java-8%E3%80%8B-%E7%AC%AC%E4%B9%9D%E7%AB%A0-%E5%A4%9A%E6%80%81/" title="阅读《On Java 8》-- 第九章 多态">http://yoursite.com/2021/05/11/%E9%98%85%E8%AF%BB%E3%80%8AOn-Java-8%E3%80%8B-%E7%AC%AC%E4%B9%9D%E7%AB%A0-%E5%A4%9A%E6%80%81/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JAVASE/" rel="tag"># JAVASE</a>
+          
+            <a href="/tags/%E3%80%8AOn-Java-8%E3%80%8B/" rel="tag"># 《On Java 8》</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/05/07/%E9%98%85%E8%AF%BB%E3%80%8AOn-Java-8%E3%80%8B-%E7%AC%AC%E5%85%AB%E7%AB%A0-%E5%A4%8D%E7%94%A8/" rel="next" title="阅读《On-Java-8》-第八章-复用">
+                <i class="fa fa-chevron-left"></i> 阅读《On-Java-8》-第八章-复用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+    
+
+  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MDk0MC8yNzQyMg=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/wk.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Wkun1996" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wukun0221@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://space.bilibili.com/53303565" target="_blank" title="Bilibili">
+                      
+                        <i class="fa fa-fw fa-youtube"></i>Bilibili</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5clr89hn3fz&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;s=340" async="async"></script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E4%B8%8A%E8%BD%AC%E5%9E%8B%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.</span> <span class="nav-text">向上转型回顾</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%98%E6%8E%89%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">忘掉对象类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E6%9C%BA"><span class="nav-number">2.</span> <span class="nav-text">转机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E7%BB%91%E5%AE%9A"><span class="nav-number">2.1.</span> <span class="nav-text">方法调用绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A7%E7%94%9F%E6%AD%A3%E7%A1%AE%E7%9A%84%E8%A1%8C%E4%B8%BA"><span class="nav-number">2.2.</span> <span class="nav-text">产生正确的行为</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7"><span class="nav-number">2.3.</span> <span class="nav-text">可扩展性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%B7%E9%98%B1%EF%BC%9A%E2%80%9C%E9%87%8D%E5%86%99%E2%80%9D%E7%A7%81%E6%9C%89%E6%96%B9%E6%B3%95"><span class="nav-number">2.4.</span> <span class="nav-text">陷阱：“重写”私有方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%B7%E9%98%B1%EF%BC%9A%E5%B1%9E%E6%80%A7%E4%B8%8E%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="nav-number">2.5.</span> <span class="nav-text">陷阱：属性与静态方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%99%A8%E5%92%8C%E5%A4%9A%E6%80%81"><span class="nav-number">3.</span> <span class="nav-text">构造器和多态</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F"><span class="nav-number">3.1.</span> <span class="nav-text">构造器调用顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%E5%92%8C%E6%B8%85%E7%90%86"><span class="nav-number">3.2.</span> <span class="nav-text">继承和清理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%99%A8%E5%86%85%E9%83%A8%E5%A4%9A%E6%80%81%E6%96%B9%E6%B3%95%E7%9A%84%E8%A1%8C%E4%B8%BA"><span class="nav-number">3.3.</span> <span class="nav-text">构造器内部多态方法的行为</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E5%8F%98%E8%BF%94%E5%9B%9E%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">协变返回类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%BB%A7%E6%89%BF%E8%AE%BE%E8%AE%A1"><span class="nav-number">5.</span> <span class="nav-text">使用继承设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%BF%E4%BB%A3-vs-%E6%89%A9%E5%B1%95"><span class="nav-number">5.1.</span> <span class="nav-text">替代 vs 扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%91%E4%B8%8B%E8%BD%AC%E5%9E%8B%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E7%B1%BB%E5%9E%8B%E4%BF%A1%E6%81%AF"><span class="nav-number">5.2.</span> <span class="nav-text">向下转型与运行时类型信息</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">NoTrouble</span>
+
+  
+</div>
+
+
+
+
+
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+  <script async src="/js/cursor/text.js"></script>
+
+
+</body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
