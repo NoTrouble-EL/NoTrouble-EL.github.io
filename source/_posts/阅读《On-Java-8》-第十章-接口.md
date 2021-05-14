@@ -273,7 +273,7 @@ public class Music4 {
 
 ## 接口创建
 
-​		使用interface关键字创建接口。在本书中，interface和class一样随处可见，除非特指关键字interface，其他情况下都采用正常字体书写interface。
+​		使用interface关键字创建接口。interface和class一样随处可见，除非特指关键字interface，其他情况下都采用正常字体书写interface。
 
 ​		描述Java8之前的接口更加容易，因为它们只允许抽象方法。像下面这样：
 
@@ -1011,7 +1011,7 @@ public class FilterProcessor {
 
 ​		将接口与实现解耦使得接口可以应用于多种不同的实现，因而代码更具可复用性。
 
-## 多借口结合
+## 多接口结合
 
 ​		接口没有任何实现——也就是说，没有任何与接口相关的存储——因此无法阻止结合的多借口。这是有价值的，因为你有时需要表示“一个x是一个a和b以及一个c”。
 
