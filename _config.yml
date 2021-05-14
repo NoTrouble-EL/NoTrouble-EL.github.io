@@ -119,5 +119,5 @@ backup:
   theme: next
   message: Back up my www.xiaohupao.cn blog
   repository:
-    origin: https://github.com/Wkun1996/Wkun1996.github.io.git,backup
+    github: https://github.com/Wkun1996/Wkun1996.github.io.git,backup
 
