@@ -755,3 +755,442 @@ RestFul是一种网络应用程序的设计风格和开发方式。现在很多�
 * 客户端使用GET、POST、PUT、DELETE4个表示操作方式的动词对服务端资源进行操作：GET用来获取资源、POST用来新建资源、PUT用来跟新资源、DELETE用来删除资源；
 * 简单参数例如id等写到url路径上 例如：/user/1 HTTP GET：获取id=1的user信息 /user/1 HTTP DELETE ：删除id=1的user信息
 * 复杂的参数转换成json或者xml写到请求中。
+
+## 获取请求参数
+
+### 获取路径参数
+
+RestFul风格的接口一些参数是在请求路径上的。类似：/user/1 这里的1就是id。如果我们想要获取这种格式的数据可以使用@PathVariable来实现。
+
+例如：要求定义一个RestFul风格的接口，该接口可以用来根据id查询用户。请求路径要求为/user，请求方式要求为GET。而请求参数id要写在请求路径上，例如/user/1 这里的1就是id。我们可以定义如下方法，通过如下方式来获取参数路径：
+
+```java
+/**
+ * @Author: xiaohupao
+ * @Date: 2021/5/14 15:39
+ */
+@Controller
+public class UserController {
+
+    @GetMapping(value = "/user/{id}")
+    public String findUserById(@PathVariable("id") Integer id){
+        System.out.println("findUserById");
+        System.out.println(id);
+        return "/success.jsp";
+    }
+}
+```
+
+```tex
+GET http://localhost:81/user/1
+
+findUserById
+1
+```
+
+例如：如果这个接口，根据id和username查询用户。请求路径要求为/user，请求方式为GET。请求参数为id和name要写在请求路径上，例如：/user/1/xiaohupao 这里1就是id，xiaohupao是name。我们可以定义如下的方法，通过如下方式来获取路径参数：
+
+```java
+/**
+ * @Author: xiaohupao
+ * @Date: 2021/5/14 15:39
+ */
+@Controller
+public class UserController {
+
+    @GetMapping(value = "/user/{id}")
+    public String findUserById(@PathVariable("id") Integer id){
+        System.out.println("findUserById");
+        System.out.println(id);
+        return "/success.jsp";
+    }
+
+    @GetMapping(value = "/user/{id}/{name}")
+    public String findUserByIdAndName(@PathVariable("id") Integer id, @PathVariable("name") String name){
+        System.out.println("findUserByIdAndName");
+        System.out.println("id: " + id + ", name: " + name);
+        return "/success.jsp";
+    }
+}
+```
+
+```tex
+GET http://localhost:81/user/1/xiaohupao
+
+findUserByIdAndName
+id: 1, name: xiaohupao
+```
+
+### 获取请求体中的Json参数
+
+RestFul风格的接口一些比较复杂的参数会转换成json通过请求体传递过来。这时候我们可以用@RequestBody注解获取请求体中的数据。
+
+**配置**
+
+SpringMVC可以帮我们把json数据换成我们需要的类型，但是需要一些基本配置。SpringMVC默认会使用jackson来进行json解析。所以我们需要导入jackson的依赖。
+
+```xml
+<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+<!--帮助进行json转换-->
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.9.0</version>
+</dependency>
+```
+
+然后还要配置注解驱动
+
+```xml
+<!--解决响应乱码-->
+<mvc:annotation-driven>
+    <mvc:message-converters>
+        <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+            <constructor-arg value="utf-8"/>
+        </bean>
+    </mvc:message-converters>
+</mvc:annotation-driven>
+```
+
+**使用**
+
+**获取参数封装成实体对象**
+
+例如：我们要求定义一个RestFul风格的接口，该接口可以用来新建用户，请求路径要求为/user，请求方式要求为POST。用户数据会转换成json通过请求体传递：
+
+```java
+package cn.xiaohupao.controller;
+
+import cn.xiaohupao.pojo.User;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+/**
+ * @Author: xiaohupao
+ * @Date: 2021/5/14 15:39
+ */
+@Controller
+public class UserController {
+
+    @GetMapping(value = "/user/{id}")
+    public String findUserById(@PathVariable("id") Integer id){
+        System.out.println("findUserById");
+        System.out.println("id:" + id);
+        return "/success.jsp";
+    }
+
+    @GetMapping(value = "/user/{id}/{name}")
+    public String findUserByIdAndName(@PathVariable("id") Integer id, @PathVariable("name") String name){
+        System.out.println("findUserByIdAndName");
+        System.out.println("id: " + id + ", name: " + name);
+        return "/success.jsp";
+    }
+
+    @PostMapping(value = "/user")
+    public String insertUser(@RequestBody User user){
+        System.out.println("insertUser");
+        System.out.println(user);
+        return "/success.jsp";
+    }
+}
+```
+
+```java
+package cn.xiaohupao.pojo;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * @Author: xiaohupao
+ * @Date: 2021/5/14 16:55
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class User {
+    private Integer id;
+    private String name;
+    private Integer age;
+}
+```
+
+```tex
+Body raw JSON
+{
+    "id":1025,
+    "name":"576",
+    "age":23
+}
+
+insertUser
+User(id=1025, name=576, age=23)
+```
+
+**获取参数封装成Map集合**
+
+```java
+package cn.xiaohupao.controller;
+
+import cn.xiaohupao.pojo.User;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+/**
+ * @Author: xiaohupao
+ * @Date: 2021/5/14 15:39
+ */
+@Controller
+public class UserController {
+
+    @GetMapping(value = "/user/{id}")
+    public String findUserById(@PathVariable("id") Integer id){
+        System.out.println("findUserById");
+        System.out.println("id:" + id);
+        return "/success.jsp";
+    }
+
+    @GetMapping(value = "/user/{id}/{name}")
+    public String findUserByIdAndName(@PathVariable("id") Integer id, @PathVariable("name") String name){
+        System.out.println("findUserByIdAndName");
+        System.out.println("id: " + id + ", name: " + name);
+        return "/success.jsp";
+    }
+
+    @PostMapping(value = "/user")
+    public String insertUser(@RequestBody Map map){
+        System.out.println("insertUser");
+        System.out.println(map);
+        return "/success.jsp";
+    }
+}
+```
+
+```tex
+Body raw JSON
+{
+    "id":1025,
+    "name":"576",
+    "age":23
+}
+
+insertUser
+User(id=1025, name=576, age=23)
+```
+
+**获取的JSON数据转换成List**
+
+例如：如果请求体传递过来的数据是一个User集合转换成的JSON，则可以按照如下写法：
+
+```tex
+[{"id":1025, "name":"576, "age":23},{"id":221, "name":"95", "age":25},{"id":222, "name":"xiaohupao", "age":25}]
+```
+
+```java
+package cn.xiaohupao.controller;
+
+import cn.xiaohupao.pojo.User;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
+
+/**
+ * @Author: xiaohupao
+ * @Date: 2021/5/14 15:39
+ */
+@Controller
+public class UserController {
+
+    @GetMapping(value = "/user/{id}")
+    public String findUserById(@PathVariable("id") Integer id){
+        System.out.println("findUserById");
+        System.out.println("id:" + id);
+        return "/success.jsp";
+    }
+
+    @GetMapping(value = "/user/{id}/{name}")
+    public String findUserByIdAndName(@PathVariable("id") Integer id, @PathVariable("name") String name){
+        System.out.println("findUserByIdAndName");
+        System.out.println("id: " + id + ", name: " + name);
+        return "/success.jsp";
+    }
+
+    @PostMapping(value = "/user")
+    public String insertUser(@RequestBody User user){
+        System.out.println("insertUser");
+        System.out.println(user);
+        return "/success.jsp";
+    }
+
+    @PostMapping(value = "/users")
+    public String insertUsers(@RequestBody List<User> users){
+        System.out.println("insertUsers");
+        System.out.println(users);
+        return "/success.jsp";
+    }
+}
+```
+
+```tex
+insertUsers
+[User(id=1025, name=576, age=23), User(id=221, name=95, age=25), User(id=222, name=xiaohupao, age=25)]
+```
+
+**获取JSON数据的注意事项**
+
+如果需要@RequestBody来获取请求体中json并且进行转换，要求请求头Content-Type的值要为application/json
+
+### 获取QueryString格式参数
+
+如果接受参数是使用QueryString的格式的话，我们也可以使用SpringMVC快速获取参数。我们可以使用@RequestParam来获取QueryString格式的参数。
+
+**使用**
+
+**参数单独的获取**
+
+在方法中定义方法参数，方法参数名要和请求参数名一致，这种情况下我们可以省略@RequestParam注解。如果方法参数名和请求参数名不一致，我们可以加上@RequestParam注解
+
+例如：要求定义个接口，该接口的请求路径为/testRequestParam，请求方式无要求。参数为id和name和likes。使用QueryString格式传递。
+
+```java
+package cn.xiaohupao.controller;
+
+import cn.xiaohupao.pojo.User;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * @Author: xiaohupao
+ * @Date: 2021/5/14 15:39
+ */
+@Controller
+public class UserController {
+
+    @GetMapping(value = "/user/{id}")
+    public String findUserById(@PathVariable("id") Integer id){
+        System.out.println("findUserById");
+        System.out.println("id:" + id);
+        return "/success.jsp";
+    }
+
+    @GetMapping(value = "/user/{id}/{name}")
+    public String findUserByIdAndName(@PathVariable("id") Integer id, @PathVariable("name") String name){
+        System.out.println("findUserByIdAndName");
+        System.out.println("id: " + id + ", name: " + name);
+        return "/success.jsp";
+    }
+
+    @PostMapping(value = "/user")
+    public String insertUser(@RequestBody User user){
+        System.out.println("insertUser");
+        System.out.println(user);
+        return "/success.jsp";
+    }
+
+    @PostMapping(value = "/users")
+    public String insertUsers(@RequestBody List<User> users){
+        System.out.println("insertUsers");
+        System.out.println(users);
+        return "/success.jsp";
+    }
+
+    @RequestMapping(value = "/testRequestPara")
+    public String testRequestParam(@RequestParam("id") Integer id, @RequestParam("name") String name, @RequestParam("likes") String[] likes){
+        System.out.println("testRequestParam");
+        System.out.println("id: " + id + ", name: " + name + ",likes: " + Arrays.toString(likes));
+        return "/success.jsp";
+    }
+}
+```
+
+```tex
+GET http://localhost:81//testRequestPara?id=221&name=xiaohupao&likes=Game&likes=Game
+
+testRequestParam
+id: 221, name: xiaohupao,likes: [Game, Game]
+```
+
+**多个参数封装成对象**
+
+```java
+package cn.xiaohupao.controller;
+
+import cn.xiaohupao.pojo.User;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * @Author: xiaohupao
+ * @Date: 2021/5/14 15:39
+ */
+@Controller
+public class UserController {
+
+    @GetMapping(value = "/user/{id}")
+    public String findUserById(@PathVariable("id") Integer id){
+        System.out.println("findUserById");
+        System.out.println("id:" + id);
+        return "/success.jsp";
+    }
+
+    @GetMapping(value = "/user/{id}/{name}")
+    public String findUserByIdAndName(@PathVariable("id") Integer id, @PathVariable("name") String name){
+        System.out.println("findUserByIdAndName");
+        System.out.println("id: " + id + ", name: " + name);
+        return "/success.jsp";
+    }
+
+    @PostMapping(value = "/user")
+    public String insertUser(@RequestBody User user){
+        System.out.println("insertUser");
+        System.out.println(user);
+        return "/success.jsp";
+    }
+
+    @PostMapping(value = "/users")
+    public String insertUsers(@RequestBody List<User> users){
+        System.out.println("insertUsers");
+        System.out.println(users);
+        return "/success.jsp";
+    }
+
+    @RequestMapping(value = "/testRequestPara")
+    public String testRequestParam(@RequestParam("id") Integer id, @RequestParam("name") String name, @RequestParam("likes") String[] likes){
+        System.out.println("testRequestParam");
+        System.out.println("id: " + id + ", name: " + name + ",likes: " + Arrays.toString(likes));
+        return "/success.jsp";
+    }
+
+    @RequestMapping(value = "/testRequestParas")
+    public String testRequestParams(User user){
+        System.out.println("testRequestParams");
+        System.out.println(user);
+        return "/success.jsp";
+    }
+}
+```
+
+```tex
+GET http://localhost:81//testRequestParas?id=221&age=25&name=xiaohupao
+
+testRequestParams
+User(id=221, name=xiaohupao, age=25)
+```
+

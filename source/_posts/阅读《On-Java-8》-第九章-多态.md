@@ -1138,7 +1138,7 @@ public class RTTI {
 //at RTTI.main
 ```
 
-​		MoreUse'ful扩展了Useful的接口。而MoreUseful也继承了Useful。在main()方法中可以看到这种情况的发生。因为两个对象都是Useful类型，所以对它们都可以调用f()和g()方法。如果试图调用u()方法，就会得到编译时错误信息。
+​		MoreUseful扩展了Useful的接口。而MoreUseful也继承了Useful。在main()方法中可以看到这种情况的发生。因为两个对象都是Useful类型，所以对它们都可以调用f()和g()方法。如果试图调用u()方法，就会得到编译时错误信息。
 
 ​		为了访问MoreUseful对象接口的扩展接口，就得尝试向下转型。如果转型为正确的类型，就转型成功。否则，就会得到ClassCastException异常。你不必为这个异常编写任何特殊代码，因为它指出了程序员的任何地方都可能犯的错误。{ThrowsException}注释标签告知：在运行程序时，预期抛出一个异常。
 
