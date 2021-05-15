@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Collection," />
+  <meta name="keywords" content="Git,Shell," />
 
 
 
@@ -86,20 +86,19 @@
 
 
 
-<meta name="description" content="Collection框架">
+<meta name="description" content="Git 是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。Git 与常用的版本控制工具 CVS, Subversion 等不同，它采用了分布式版本库的方式，不必服务器端软件支持。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Collection框架">
-<meta property="og:url" content="http://yoursite.com/2020/11/23/Collection%E6%A1%86%E6%9E%B6/index.html">
+<meta property="og:title" content="Git的基本使用">
+<meta property="og:url" content="http://yoursite.com/2021/05/15/Git%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="NoTrouble&#39;s Blog">
-<meta property="og:description" content="Collection框架">
+<meta property="og:description" content="Git 是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。Git 与常用的版本控制工具 CVS, Subversion 等不同，它采用了分布式版本库的方式，不必服务器端软件支持。">
 <meta property="og:locale">
-<meta property="og:image" content="http://yoursite.com/2020/11/23/Collection%E6%A1%86%E6%9E%B6/Collection.png">
-<meta property="article:published_time" content="2020-11-23T06:22:40.000Z">
-<meta property="article:modified_time" content="2020-11-23T06:22:40.000Z">
+<meta property="article:published_time" content="2021-05-15T05:52:21.000Z">
+<meta property="article:modified_time" content="2021-05-15T05:52:21.000Z">
 <meta property="article:author" content="NoTrouble">
-<meta property="article:tag" content="Collection">
+<meta property="article:tag" content="Git">
+<meta property="article:tag" content="Shell">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/11/23/Collection%E6%A1%86%E6%9E%B6/Collection.png">
 
 
 
@@ -129,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/11/23/Collection框架/"/>
+  <link rel="canonical" href="http://yoursite.com/2021/05/15/Git的基本使用/"/>
 
 
 
 
 
-  <title>Collection框架 | NoTrouble's Blog</title>
+  <title>Git的基本使用 | NoTrouble's Blog</title>
   
 
 
@@ -296,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/23/Collection%E6%A1%86%E6%9E%B6/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/15/Git%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -313,7 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Collection框架</h1>
+          <h1 class="post-title" itemprop="name headline">Git的基本使用</h1>
         
 
         <div class="post-meta">
@@ -325,8 +324,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-23T14:22:40+08:00">
-                2020-11-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-15T13:52:21+08:00">
+                2021-05-15
               </time>
             
 
@@ -348,8 +347,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVA%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVA基础</span>
+                  <a href="/categories/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
                   </a>
                 </span>
 
@@ -390,108 +389,71 @@
       
 
       
-        <h1 id="Collection框架"><a href="#Collection框架" class="headerlink" title="Collection框架"></a>Collection框架</h1><p><img src="/2020/11/23/Collection%E6%A1%86%E6%9E%B6/Collection.png" alt="Collection"></p>
+        <p>Git 是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。Git 与常用的版本控制工具 CVS, Subversion 等不同，它采用了分布式版本库的方式，不必服务器端软件支持。</p>
  <span id="more"></span> 
 
-<h2 id="增"><a href="#增" class="headerlink" title="增"></a>增</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span></span>;</span><br><span class="line"><span class="comment">//add()方法传入的数据类型必须是Object，所以写入基本数据类型时，会自动装箱和自动拆箱</span></span><br></pre></td></tr></table></figure>
+<h2 id="初始化git本地仓库"><a href="#初始化git本地仓库" class="headerlink" title="初始化git本地仓库"></a>初始化git本地仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">addAll</span><span class="params">(Colleciton&lt;? extends E&gt; c)</span></span>;</span><br><span class="line"><span class="comment">//把另一个集合里的元素添加到此集合中</span></span><br></pre></td></tr></table></figure>
+<h2 id="查看工作目录和暂存区文件状态"><a href="#查看工作目录和暂存区文件状态" class="headerlink" title="查看工作目录和暂存区文件状态"></a>查看工作目录和暂存区文件状态</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
 
-<h2 id="删"><a href="#删" class="headerlink" title="删"></a>删</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(Object o)</span></span>;</span><br><span class="line"><span class="comment">//删除指定元素</span></span><br></pre></td></tr></table></figure>
+<h2 id="添加工作目录文件到暂存区"><a href="#添加工作目录文件到暂存区" class="headerlink" title="添加工作目录文件到暂存区"></a>添加工作目录文件到暂存区</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add &lt;file&gt; #添加指定文件到暂存区</span><br><span class="line">git add . #添加当前目录中的所有文件到暂存区</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">removeAll</span><span class="params">(Collection&lt;?&gt; c)</span></span>;</span><br><span class="line"><span class="comment">//把集合中B的所有元素都删除</span></span><br></pre></td></tr></table></figure>
+<h2 id="提交暂存区文件到本地仓库"><a href="#提交暂存区文件到本地仓库" class="headerlink" title="提交暂存区文件到本地仓库"></a>提交暂存区文件到本地仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git commit</span><br><span class="line">git commit -m&#x27;提交的日志信息&#x27; #提交并记录对本地仓库的更改</span><br></pre></td></tr></table></figure>
 
-<h2 id="改"><a href="#改" class="headerlink" title="改"></a>改</h2><h2 id="查"><a href="#查" class="headerlink" title="查"></a>查</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Object o)</span></span>;</span><br><span class="line"><span class="comment">//查看集合中有没有某个特定的元素</span></span><br></pre></td></tr></table></figure>
+<h2 id="查看提交的日志信息"><a href="#查看提交的日志信息" class="headerlink" title="查看提交的日志信息"></a>查看提交的日志信息</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br><span class="line">git log --pretty=oneline #在一行中显式日志</span><br><span class="line">git log --graph --pretty=online #图形化日志</span><br><span class="line">git log -3 --pretty=oneline #在一行中显式最近三次提交的日志</span><br><span class="line">git reflog #查看所有日志</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">containsAll</span><span class="params">(Collection&lt;?&gt; c)</span></span>;</span><br><span class="line"><span class="comment">//查看集合A是否包含了集合B</span></span><br></pre></td></tr></table></figure>
+<h2 id="查看本地仓库和工作区之间的更改"><a href="#查看本地仓库和工作区之间的更改" class="headerlink" title="查看本地仓库和工作区之间的更改"></a>查看本地仓库和工作区之间的更改</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff HEAD -- &lt;file&gt;</span><br></pre></td></tr></table></figure>
 
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">//判断集合是否为空</span></span><br></pre></td></tr></table></figure>
+<p>--- 表变动之前的文件；+++表变动后的文件。变动的位置用两个@作为起始和结束</p>
+<h2 id="从暂存区中撤销到工作区"><a href="#从暂存区中撤销到工作区" class="headerlink" title="从暂存区中撤销到工作区"></a>从暂存区中撤销到工作区</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git restore --staged &lt;file&gt;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">//集合的大小</span></span><br></pre></td></tr></table></figure>
+<h2 id="撤销上一次操作"><a href="#撤销上一次操作" class="headerlink" title="撤销上一次操作"></a>撤销上一次操作</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD &lt;file&gt; #撤销上一次的操作</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object[] toArray();</span><br><span class="line"><span class="comment">//把集合转换成数组</span></span><br></pre></td></tr></table></figure>
+<h2 id="本地仓库版本回退"><a href="#本地仓库版本回退" class="headerlink" title="本地仓库版本回退"></a>本地仓库版本回退</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HEAD^ #回退到上一个版本</span><br><span class="line">git reset --hard HEAD^^ #回退两个版本</span><br><span class="line">git reset --hard HEAD~2 #回退两个版本</span><br><span class="line">git reset --hard &lt;版本的唯一标识id&gt; #回退或前进到指定id的版本</span><br></pre></td></tr></table></figure>
 
-<h1 id="List"><a href="#List" class="headerlink" title="List"></a>List</h1><p>特点：有序、可重复</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">add(E e);</span><br><span class="line"><span class="comment">//在尾巴上加元素，ArrayList可能有扩容的情况出现。ArrayList和LinkedList的时间复杂度均为O(1)。</span></span><br></pre></td></tr></table></figure>
+<h2 id="查看git本地仓库中的文件目录"><a href="#查看git本地仓库中的文件目录" class="headerlink" title="查看git本地仓库中的文件目录"></a>查看git本地仓库中的文件目录</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git ls-files</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">add(<span class="keyword">int</span> index, E e);</span><br><span class="line"><span class="comment">//在特定的位置上加元素，LinkedList需要先找到这个位置，再加上这个元素，虽然加这个动作的复杂度为O(1),但是要找到这个位置还是O(n)。ArrayList和LinkedList的时间复杂度均为O(n)。</span></span><br></pre></td></tr></table></figure>
+<h2 id="从本地仓库中拉取文件到工作目录"><a href="#从本地仓库中拉取文件到工作目录" class="headerlink" title="从本地仓库中拉取文件到工作目录"></a>从本地仓库中拉取文件到工作目录</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">remove(<span class="keyword">int</span> index);</span><br><span class="line"><span class="comment">//remove这个index上的元素</span></span><br><span class="line"><span class="comment">//ArrayList找到这个元素的过程是O(1)，但是remove之后，后续元素要往前移动一位，所以均摊复杂度是O(n);</span></span><br><span class="line"><span class="comment">//LinkedList也是要先找到这个index，这个过程是O(n)，所以整体也是O(n)。</span></span><br></pre></td></tr></table></figure>
+<h2 id="从本地仓库中删除指定文件"><a href="#从本地仓库中删除指定文件" class="headerlink" title="从本地仓库中删除指定文件"></a>从本地仓库中删除指定文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm &lt;file&gt;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">remove(E e);</span><br><span class="line"><span class="comment">//remove见到的第一个这个元素</span></span><br><span class="line"><span class="comment">//ArrayList找到这个元素的过程是O(n)，然后移除后还要往前移一位，这个更是O(n),总体还是O(n)。</span></span><br><span class="line"><span class="comment">//LinkedList也要先找，这个过程是O(n),然后移走，这个过程为O(1),总的是O(n)。</span></span><br></pre></td></tr></table></figure>
+<h2 id="git查看远程仓库地址："><a href="#git查看远程仓库地址：" class="headerlink" title="git查看远程仓库地址："></a>git查看远程仓库地址：</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
 
-<h2 id="那造成时间复杂度的区别的原因是什么？"><a href="#那造成时间复杂度的区别的原因是什么？" class="headerlink" title="那造成时间复杂度的区别的原因是什么？"></a>那造成时间复杂度的区别的原因是什么？</h2><ul>
-<li>因为ArrayList是用数组来实现的。</li>
-<li>而数组和链表的最大区别就是数组可以随机访问(random access)。</li>
-</ul>
-<p>这个特点造成在数组可以通过下标用O(1)的时间拿到任何位置的数，而链表做不到，只能从头开始逐个遍历。</p>
-<p>在【改查】这两个功能上，数组能够随机访问。所以ArrayList的效率高。</p>
-<p>在【增删】中，若不考虑找到这个元素的时间，数组因为物理上的连续性，当要增删元素时，在尾部还好，但在其他地方就会导致后续元素都要移动所以效率较低；而链表则可以轻松的断开和下一个元素的链接，直接插入新元素或者移除旧元素。</p>
-<p>实际上你不能不考虑找到元素的时间!如果在尾部操作，数据量大时ArrayList会更快。</p>
-<ul>
-<li>改查选择ArrayList</li>
-<li>增删在尾部选择ArrayList</li>
-<li>其他情况下，如果时间复杂度一样，推荐选择ArrayList，因为overhead更小，或者说内存使用更有效率。</li>
-</ul>
-<h1 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h1><h2 id="Vector和ArrayList的区别是什么"><a href="#Vector和ArrayList的区别是什么" class="headerlink" title="Vector和ArrayList的区别是什么"></a>Vector和ArrayList的区别是什么</h2><ul>
-<li>线程安全问题</li>
-<li>扩容时扩多少的区别：ArrayList扩容为原容量的1.5倍；而Vector扩容为原来的两倍。</li>
-</ul>
-<h1 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h1><p>Queue是一端进另一端出的线性数据结构；而Deque是两端都可以进出的。</p>
-<h2 id="PriorityQueue-heap"><a href="#PriorityQueue-heap" class="headerlink" title="PriorityQueue(heap)"></a>PriorityQueue(heap)</h2><p>并不按照进去的时间顺序出来，而是按照规定的优先级出去，并且它的操作并不是O(1)，时间复杂度的计算稍微有点复杂。</p>
-<h2 id="Queue-1"><a href="#Queue-1" class="headerlink" title="Queue"></a>Queue</h2><p>其有两组API，基本功能一样，但是：</p>
-<ul>
-<li>一组会抛异常</li>
-<li>另一组会返回一个特殊值</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//增		抛异常		返回值</span></span><br><span class="line">		add(e)		offter(e)</span><br><span class="line"><span class="comment">//删</span></span><br><span class="line">         remove()	 poll()</span><br><span class="line"><span class="comment">//瞧		</span></span><br><span class="line">         element()	 peek()</span><br></pre></td></tr></table></figure>
+<h2 id="使用本地Git客户端生成SSH公钥与私钥"><a href="#使用本地Git客户端生成SSH公钥与私钥" class="headerlink" title="使用本地Git客户端生成SSH公钥与私钥"></a>使用本地Git客户端生成SSH公钥与私钥</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
 
-<h2 id="为什么会抛异常呢？"><a href="#为什么会抛异常呢？" class="headerlink" title="为什么会抛异常呢？"></a>为什么会抛异常呢？</h2><p>比如队列空了，那就remove()就会抛异常，但是poll()就返回null；element()就会抛异常，而peek()就返回null</p>
-<h2 id="add-e-怎么会抛异常呢？"><a href="#add-e-怎么会抛异常呢？" class="headerlink" title="add(e)怎么会抛异常呢？"></a>add(e)怎么会抛异常呢？</h2><p>有些Queue它会有容量的限制，比如BlockingQueue，那如果已经达到了它最大的容量且不会扩容，就会抛异常；但如果offer(e)，就会return false。</p>
-<h2 id="怎么选择呢？"><a href="#怎么选择呢？" class="headerlink" title="怎么选择呢？"></a>怎么选择呢？</h2><ul>
-<li>首先，要用就用同一组API，前后要统一；</li>
-<li>其次，根据需求。如果你需要它抛异常，那就用抛异常的；不过做算法题时基本不用，所以选那组返回特殊值的就好了。</li>
-</ul>
-<h1 id="Deque"><a href="#Deque" class="headerlink" title="Deque"></a>Deque</h1><p>Deque是两端都可以进出的，那自然是针对First端的操作和对Last端的操作，那每端都有两组，一组抛异常，一组返回特殊值：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//增		抛异常						返回值</span></span><br><span class="line">		addFirst(e)/addLast(e)		offterFirst(e)/offerLast(e)</span><br><span class="line"><span class="comment">//删</span></span><br><span class="line">         removeFirst()/removeLast()	 pollFirst()/pollLast()</span><br><span class="line"><span class="comment">//瞧		</span></span><br><span class="line">         getFirst()/getLast()	 	 peekFirst()/peekLast()</span><br></pre></td></tr></table></figure>
+<h2 id="检查测试链接"><a href="#检查测试链接" class="headerlink" title="检查测试链接"></a>检查测试链接</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
 
-<p>使用时同理，要用就用一组。Queue和Deque的这些API都是O(1)的时间复杂度，准确来说是均摊时间复杂度。</p>
-<h2 id="实现类"><a href="#实现类" class="headerlink" title="实现类"></a>实现类</h2><ul>
-<li><p>LinkedList</p>
-</li>
-<li><p>ArrayDeque</p>
-</li>
-<li><p>PriorityQueue</p>
-</li>
-<li><p>若想实现普通队列-先进先出的语义，就使用LinkedList或ArrayDeque；</p>
-</li>
-<li><p>若想实现优先队列，就使用PriorityQueue；</p>
-</li>
-<li><p>如果想实现栈的语义，就使用ArrayDeque</p>
-</li>
-</ul>
-<h2 id="在实现一个普通的队列时，如何选择LinkedList还是ArrayDeque"><a href="#在实现一个普通的队列时，如何选择LinkedList还是ArrayDeque" class="headerlink" title="在实现一个普通的队列时，如何选择LinkedList还是ArrayDeque"></a>在实现一个普通的队列时，如何选择LinkedList还是ArrayDeque</h2><p>推荐使用ArrayDeque，因为效率高，LinkedList还会有其他的额外开销(overhead)。</p>
-<h2 id="ArrayDeque和LinkedList的区别有哪些？"><a href="#ArrayDeque和LinkedList的区别有哪些？" class="headerlink" title="ArrayDeque和LinkedList的区别有哪些？"></a>ArrayDeque和LinkedList的区别有哪些？</h2><ul>
-<li>ArrayDeque是一个可扩容的数组，LinkedList是链表结构；</li>
-<li>ArrayDeque里不可以存null值，但是LinkedList可以；</li>
-<li>ArrayDeque在操作头尾端的增删操作时更高效，但是LinkedList只有在当要移除中间某个元素且已经找到这个元素后的移除才是O(1)；</li>
-<li>ArrayDeque在内存使用方面更高效。</li>
-</ul>
-<p>所以，只要不是必须存null值，就选择ArrayDeque！</p>
-<h2 id="什么情况下选择用LinkedList呢？"><a href="#什么情况下选择用LinkedList呢？" class="headerlink" title="什么情况下选择用LinkedList呢？"></a>什么情况下选择用LinkedList呢？</h2><p>Java6之前。</p>
-<h1 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h1><p>Stack在语义上是后进先出(LIFO)的线性数据结构。</p>
-<p>由于Vector已经被弃用了，而Stack是继承Vector的。那么想要实现Stack的语义，就用ArrayDeque吧！</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Deque&lt;Integer&gt; stack = <span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br></pre></td></tr></table></figure>
+<h2 id="绑定远程仓库"><a href="#绑定远程仓库" class="headerlink" title="绑定远程仓库"></a>绑定远程仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin &lt;ssh&gt;</span><br></pre></td></tr></table></figure>
 
+<h2 id="将本地仓库推送到远程仓库"><a href="#将本地仓库推送到远程仓库" class="headerlink" title="将本地仓库推送到远程仓库"></a>将本地仓库推送到远程仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master #首次推送</span><br><span class="line">git push #推送</span><br><span class="line">git push origin &lt;branch_name&gt; #推送本地分支到指定远程分支</span><br></pre></td></tr></table></figure>
 
+<h2 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout &lt;branch&gt; #切换分支</span><br><span class="line">git checkout -b &lt;new_branch&gt; #新建分支并切换到新建分支</span><br></pre></td></tr></table></figure>
 
-<h1 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h1><p>Set的特点是：无序，不重复的</p>
-<h2 id="实现类-1"><a href="#实现类-1" class="headerlink" title="实现类"></a>实现类</h2><ul>
-<li>HashSet：采用Hashmap的key来存储元素，主要特点是无序的，基本操作都是O(1)的时间复杂度</li>
-<li>LinkedHashSet：这个是一个HashSet + LinkedList的结构，特点就是即拥有了O(1)的时间复杂度，又能够保留插入的顺序。</li>
-<li>TreeSet：采用红黑树结构，特点是可以有序，可以用自然排序或者自己定义比较器来排序；缺点就是查询速度没有HashSet快。</li>
-</ul>
-<p>每个Set的底层实现其实就是对应的Map：数值放在map中的key上，value上放了个PRESENT，是一个静态的Object，相当于place holder，每个key都指向这个object。</p>
+<h2 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -d &lt;branch&gt; #删除本地分支</span><br><span class="line">git push origin :&lt;remote_branch&gt; #删除远程分支(本地分支还在)</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看所有分支"><a href="#查看所有分支" class="headerlink" title="查看所有分支"></a>查看所有分支</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch #查看本地分支</span><br><span class="line">git branch -a #查看本地和远程分支</span><br></pre></td></tr></table></figure>
+
+<h2 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge &lt;branch&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="重命名分支"><a href="#重命名分支" class="headerlink" title="重命名分支"></a>重命名分支</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -m|-M &lt;oldbranch&gt; &lt;newbranch&gt;</span><br></pre></td></tr></table></figure>
+
+<p>若newbranch名字分支已经存在，则需要使用-M为强制重命名，否则，使用-m进行重命名。</p>
+<h2 id="拉取远程仓库指定分支并在本地创建分支"><a href="#拉取远程仓库指定分支并在本地创建分支" class="headerlink" title="拉取远程仓库指定分支并在本地创建分支"></a>拉取远程仓库指定分支并在本地创建分支</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b &lt;local_branch&gt; origin/&lt;remote_branch&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="获取远程仓库中最新的状态"><a href="#获取远程仓库中最新的状态" class="headerlink" title="获取远程仓库中最新的状态"></a>获取远程仓库中最新的状态</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch</span><br></pre></td></tr></table></figure>
+
+<h2 id="新建标签"><a href="#新建标签" class="headerlink" title="新建标签"></a>新建标签</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git tag &lt;tag_name&gt;</span><br><span class="line">git tag &lt;tag_name&gt; &lt;指定id版本&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="添加标签并指定标签描述信息"><a href="#添加标签并指定标签描述信息" class="headerlink" title="添加标签并指定标签描述信息"></a>添加标签并指定标签描述信息</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git tag -a &lt;tag_name&gt; -m&#x27;XXX&#x27;</span><br><span class="line">git tag -a &lt;tag_name&gt; -m&#x27;XXX&#x27; &lt;指定id版本&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看所有的标签"><a href="#查看所有的标签" class="headerlink" title="查看所有的标签"></a>查看所有的标签</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag</span><br></pre></td></tr></table></figure>
+
+<h2 id="删除一个本地标签"><a href="#删除一个本地标签" class="headerlink" title="删除一个本地标签"></a>删除一个本地标签</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -d &lt;tag_name&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="推送本地标签到远程"><a href="#推送本地标签到远程" class="headerlink" title="推送本地标签到远程"></a>推送本地标签到远程</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push origin &lt;tag_name&gt; #推送本地标签到远程</span><br><span class="line">git push origin --tags #推送全部未推送过的本地标签到远程</span><br></pre></td></tr></table></figure>
+
+<h2 id="删除一个远程标签"><a href="#删除一个远程标签" class="headerlink" title="删除一个远程标签"></a>删除一个远程标签</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin :refs/tags/&lt;tag_name&gt; #远程删除，但本地的还在</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -536,7 +498,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/2020/11/23/Collection%E6%A1%86%E6%9E%B6/" title="Collection框架">http://yoursite.com/2020/11/23/Collection%E6%A1%86%E6%9E%B6/</a>
+    <a href="http://yoursite.com/2021/05/15/Git%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" title="Git的基本使用">http://yoursite.com/2021/05/15/Git%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -551,7 +513,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Collection/" rel="tag"># Collection</a>
+            <a href="/tags/Git/" rel="tag"># Git</a>
+          
+            <a href="/tags/Shell/" rel="tag"># Shell</a>
           
         </div>
       
@@ -564,8 +528,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/11/09/%E7%AC%AC%E5%85%AB%E7%AB%A0-%E6%B3%9B%E5%9E%8B%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" rel="next" title="第八章 泛型程序设计">
-                <i class="fa fa-chevron-left"></i> 第八章 泛型程序设计
+              <a href="/2021/05/14/%E9%98%85%E8%AF%BB%E3%80%8AOn-Java-8%E3%80%8B-%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0-%E5%86%85%E9%83%A8%E7%B1%BB/" rel="next" title="阅读《On Java 8》-- 第十一章 内部类">
+                <i class="fa fa-chevron-left"></i> 阅读《On Java 8》-- 第十一章 内部类
               </a>
             
           </div>
@@ -573,10 +537,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/11/25/HTML%E5%92%8CCSS%E5%9F%BA%E7%A1%80/" rel="prev" title="HTML和CSS基础">
-                HTML和CSS基础 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -740,7 +700,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Collection%E6%A1%86%E6%9E%B6"><span class="nav-number">1.</span> <span class="nav-text">Collection框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A2%9E"><span class="nav-number">1.1.</span> <span class="nav-text">增</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0"><span class="nav-number">1.2.</span> <span class="nav-text">删</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B9"><span class="nav-number">1.3.</span> <span class="nav-text">改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5"><span class="nav-number">1.4.</span> <span class="nav-text">查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">1.5.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#List"><span class="nav-number">2.</span> <span class="nav-text">List</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%A3%E9%80%A0%E6%88%90%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E7%9A%84%E5%8C%BA%E5%88%AB%E7%9A%84%E5%8E%9F%E5%9B%A0%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">2.1.</span> <span class="nav-text">那造成时间复杂度的区别的原因是什么？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vector"><span class="nav-number">3.</span> <span class="nav-text">Vector</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vector%E5%92%8CArrayList%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">3.1.</span> <span class="nav-text">Vector和ArrayList的区别是什么</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Queue"><span class="nav-number">4.</span> <span class="nav-text">Queue</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PriorityQueue-heap"><span class="nav-number">4.1.</span> <span class="nav-text">PriorityQueue(heap)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Queue-1"><span class="nav-number">4.2.</span> <span class="nav-text">Queue</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E6%8A%9B%E5%BC%82%E5%B8%B8%E5%91%A2%EF%BC%9F"><span class="nav-number">4.3.</span> <span class="nav-text">为什么会抛异常呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#add-e-%E6%80%8E%E4%B9%88%E4%BC%9A%E6%8A%9B%E5%BC%82%E5%B8%B8%E5%91%A2%EF%BC%9F"><span class="nav-number">4.4.</span> <span class="nav-text">add(e)怎么会抛异常呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E9%80%89%E6%8B%A9%E5%91%A2%EF%BC%9F"><span class="nav-number">4.5.</span> <span class="nav-text">怎么选择呢？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Deque"><span class="nav-number">5.</span> <span class="nav-text">Deque</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="nav-number">5.1.</span> <span class="nav-text">实现类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%99%AE%E9%80%9A%E7%9A%84%E9%98%9F%E5%88%97%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9LinkedList%E8%BF%98%E6%98%AFArrayDeque"><span class="nav-number">5.2.</span> <span class="nav-text">在实现一个普通的队列时，如何选择LinkedList还是ArrayDeque</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArrayDeque%E5%92%8CLinkedList%E7%9A%84%E5%8C%BA%E5%88%AB%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">5.3.</span> <span class="nav-text">ArrayDeque和LinkedList的区别有哪些？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E9%80%89%E6%8B%A9%E7%94%A8LinkedList%E5%91%A2%EF%BC%9F"><span class="nav-number">5.4.</span> <span class="nav-text">什么情况下选择用LinkedList呢？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Stack"><span class="nav-number">6.</span> <span class="nav-text">Stack</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Set"><span class="nav-number">7.</span> <span class="nav-text">Set</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E7%B1%BB-1"><span class="nav-number">7.1.</span> <span class="nav-text">实现类</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96git%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">初始化git本地仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95%E5%92%8C%E6%9A%82%E5%AD%98%E5%8C%BA%E6%96%87%E4%BB%B6%E7%8A%B6%E6%80%81"><span class="nav-number">2.</span> <span class="nav-text">查看工作目录和暂存区文件状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95%E6%96%87%E4%BB%B6%E5%88%B0%E6%9A%82%E5%AD%98%E5%8C%BA"><span class="nav-number">3.</span> <span class="nav-text">添加工作目录文件到暂存区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E6%9A%82%E5%AD%98%E5%8C%BA%E6%96%87%E4%BB%B6%E5%88%B0%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93"><span class="nav-number">4.</span> <span class="nav-text">提交暂存区文件到本地仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E7%9A%84%E6%97%A5%E5%BF%97%E4%BF%A1%E6%81%AF"><span class="nav-number">5.</span> <span class="nav-text">查看提交的日志信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%92%8C%E5%B7%A5%E4%BD%9C%E5%8C%BA%E4%B9%8B%E9%97%B4%E7%9A%84%E6%9B%B4%E6%94%B9"><span class="nav-number">6.</span> <span class="nav-text">查看本地仓库和工作区之间的更改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E6%9A%82%E5%AD%98%E5%8C%BA%E4%B8%AD%E6%92%A4%E9%94%80%E5%88%B0%E5%B7%A5%E4%BD%9C%E5%8C%BA"><span class="nav-number">7.</span> <span class="nav-text">从暂存区中撤销到工作区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%92%A4%E9%94%80%E4%B8%8A%E4%B8%80%E6%AC%A1%E6%93%8D%E4%BD%9C"><span class="nav-number">8.</span> <span class="nav-text">撤销上一次操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80"><span class="nav-number">9.</span> <span class="nav-text">本地仓库版本回退</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8Bgit%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95"><span class="nav-number">10.</span> <span class="nav-text">查看git本地仓库中的文件目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E4%B8%AD%E6%8B%89%E5%8F%96%E6%96%87%E4%BB%B6%E5%88%B0%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95"><span class="nav-number">11.</span> <span class="nav-text">从本地仓库中拉取文件到工作目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E4%B8%AD%E5%88%A0%E9%99%A4%E6%8C%87%E5%AE%9A%E6%96%87%E4%BB%B6"><span class="nav-number">12.</span> <span class="nav-text">从本地仓库中删除指定文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git%E6%9F%A5%E7%9C%8B%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E5%9C%B0%E5%9D%80%EF%BC%9A"><span class="nav-number">13.</span> <span class="nav-text">git查看远程仓库地址：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0Git%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%94%9F%E6%88%90SSH%E5%85%AC%E9%92%A5%E4%B8%8E%E7%A7%81%E9%92%A5"><span class="nav-number">14.</span> <span class="nav-text">使用本地Git客户端生成SSH公钥与私钥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E6%B5%8B%E8%AF%95%E9%93%BE%E6%8E%A5"><span class="nav-number">15.</span> <span class="nav-text">检查测试链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%91%E5%AE%9A%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="nav-number">16.</span> <span class="nav-text">绑定远程仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E6%8E%A8%E9%80%81%E5%88%B0%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="nav-number">17.</span> <span class="nav-text">将本地仓库推送到远程仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%87%E6%8D%A2%E5%88%86%E6%94%AF"><span class="nav-number">18.</span> <span class="nav-text">切换分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%88%86%E6%94%AF"><span class="nav-number">19.</span> <span class="nav-text">删除分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF"><span class="nav-number">20.</span> <span class="nav-text">查看所有分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF"><span class="nav-number">21.</span> <span class="nav-text">合并分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%91%BD%E5%90%8D%E5%88%86%E6%94%AF"><span class="nav-number">22.</span> <span class="nav-text">重命名分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%89%E5%8F%96%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E6%8C%87%E5%AE%9A%E5%88%86%E6%94%AF%E5%B9%B6%E5%9C%A8%E6%9C%AC%E5%9C%B0%E5%88%9B%E5%BB%BA%E5%88%86%E6%94%AF"><span class="nav-number">23.</span> <span class="nav-text">拉取远程仓库指定分支并在本地创建分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E4%B8%AD%E6%9C%80%E6%96%B0%E7%9A%84%E7%8A%B6%E6%80%81"><span class="nav-number">24.</span> <span class="nav-text">获取远程仓库中最新的状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E6%A0%87%E7%AD%BE"><span class="nav-number">25.</span> <span class="nav-text">新建标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%A0%87%E7%AD%BE%E5%B9%B6%E6%8C%87%E5%AE%9A%E6%A0%87%E7%AD%BE%E6%8F%8F%E8%BF%B0%E4%BF%A1%E6%81%AF"><span class="nav-number">26.</span> <span class="nav-text">添加标签并指定标签描述信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E7%9A%84%E6%A0%87%E7%AD%BE"><span class="nav-number">27.</span> <span class="nav-text">查看所有的标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E6%9C%AC%E5%9C%B0%E6%A0%87%E7%AD%BE"><span class="nav-number">28.</span> <span class="nav-text">删除一个本地标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A8%E9%80%81%E6%9C%AC%E5%9C%B0%E6%A0%87%E7%AD%BE%E5%88%B0%E8%BF%9C%E7%A8%8B"><span class="nav-number">29.</span> <span class="nav-text">推送本地标签到远程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E8%BF%9C%E7%A8%8B%E6%A0%87%E7%AD%BE"><span class="nav-number">30.</span> <span class="nav-text">删除一个远程标签</span></a></li></ol></div>
             
 
           </div>
