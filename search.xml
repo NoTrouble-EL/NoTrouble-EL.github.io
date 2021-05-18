@@ -11455,6 +11455,10 @@
 
 <h2 id="添加工作目录文件到暂存区"><a href="#添加工作目录文件到暂存区" class="headerlink" title="添加工作目录文件到暂存区"></a>添加工作目录文件到暂存区</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add &lt;file&gt; #添加指定文件到暂存区</span><br><span class="line">git add . #添加当前目录中的所有文件到暂存区</span><br></pre></td></tr></table></figure>
 
+<h2 id="移除暂存区中的文件"><a href="#移除暂存区中的文件" class="headerlink" title="移除暂存区中的文件"></a>移除暂存区中的文件</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git rm &lt;file_path&gt; #删除暂存区或分支上的文件，同时工作区也不需要这个文件</span><br><span class="line">git rm --cache &lt;file_path&gt; # 删除暂存区或分支上的文件，但本地又需要使用，只是不希望这个文件被版本控制。</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="提交暂存区文件到本地仓库"><a href="#提交暂存区文件到本地仓库" class="headerlink" title="提交暂存区文件到本地仓库"></a>提交暂存区文件到本地仓库</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git commit</span><br><span class="line">git commit -m&#x27;提交的日志信息&#x27; #提交并记录对本地仓库的更改</span><br></pre></td></tr></table></figure>
 
 <h2 id="查看提交的日志信息"><a href="#查看提交的日志信息" class="headerlink" title="查看提交的日志信息"></a>查看提交的日志信息</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log</span><br><span class="line">git log --pretty=oneline #在一行中显式日志</span><br><span class="line">git log --graph --pretty=online #图形化日志</span><br><span class="line">git log -3 --pretty=oneline #在一行中显式最近三次提交的日志</span><br><span class="line">git reflog #查看所有日志</span><br></pre></td></tr></table></figure>
