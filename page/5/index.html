@@ -290,6 +290,175 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoTrouble's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/" itemprop="url">第五章 继承</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-19T14:53:00+08:00">
+                2020-10-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="第五章-继承"><a href="#第五章-继承" class="headerlink" title="第五章 继承"></a>第五章 继承</h1><p>本章将学习面向对象程序设计的另外一个基本概念：继承(inheritance)。继承的基本思想是，可以基于已有的类创建新的类。继承已存在的类就是复用(继承)这些类的方法，而且可以增加一些新的方法和字段，使新类能够适应新的情况。这是Java程序设计中的一项核心技术。</p>
+<p>另外，本章还阐述了反射(reflection)的概念。反射是指在程序运行期间更多地了解类及其属性的能力。反射是一个功能强大的特性，不过，不可否认它也相当复杂。</p>
+<p>继承主要解决的问题就是：共性抽取。</p>
+<h2 id="5-1-类、超类和子类"><a href="#5-1-类、超类和子类" class="headerlink" title="5.1 类、超类和子类"></a>5.1 类、超类和子类</h2><p>回忆一下在前一章中讨论过的Employee类。假设你在某个公司工作，这个公司里的经理的待遇与普通员工的待遇存在着一些差异。不过，他们之间也存在着很多相同的地方，例如，他们都领取薪水。只是普通员工在完成本职任务之后仅领取薪水，而经理在完成了预期的业绩之后还能得到奖金。这种情形下就需要使用继承。为什么呢？因为需要为经理定义一个新类Manager，并增加一些新功能。但可以重用Employee类中已经编写的部分代码，并保留原来Employee类中的所有字段。从理论上讲，在Manager与Employee之间存在着明显的“is-a”关系，每个经理都是一个员工：“is-a”关系是继承的一个明显特征。</p>
+<h3 id="5-1-1-定义子类"><a href="#5-1-1-定义子类" class="headerlink" title="5.1.1 定义子类"></a>5.1.1 定义子类</h3><p>可以如下继承Employee类来定义Manager类，这里使用关键字extends表示继承。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Manager</span> <span class="keyword">extends</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    added methods and fields</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>关键字extends表明正在构建的新类派生于一个已经存在的类。这个已存在的类称为超类(superclass)、基类(base class)</p>
+<p>或父类(parent class)；新类称为子类(subclass)、派生类(derived class)或孩子类(child class)。</p>
+<p>尽管Employee类是一个超类，但并不是因为它优于子类或者拥有比子类更多的功能。实际上恰恰相反，子类比超类拥有更多的功能。</p>
+<p>继承关系的特点：</p>
+<ul>
+<li>子类可以拥有父类的内容</li>
+<li>子类还可以拥有自己专有的内容</li>
+</ul>
+<p>直接通过子类对象访问成员变量：等号左边是谁，就优先用谁，没有则向上找。</p>
+<p>间接通过成员方法访问成员变量：方法属于谁，就优先用谁，没有则向上找。</p>
+<p>区分子类方法中重名的三种变量：</p>
+<ul>
+<li>局部变量： 直接写</li>
+<li>本类的成员变量：this.成员变量名</li>
+<li>父类的成员变量：super.成员变量名</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+    
+
+  
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/12/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1277,7 +1446,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
