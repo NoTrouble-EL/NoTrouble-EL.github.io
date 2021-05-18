@@ -108,7 +108,7 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: git@github.com:Wkun1996/Wkun1996.github.io.git
+  repository: git@github.com:NoTrouble-EL/NoTrouble-EL.github.io.git
   branch: master
 
 aplayer:
@@ -119,5 +119,5 @@ backup:
   theme: next
   message: Back up my www.xiaohupao.cn blog
   repository:
-    github: https://github.com/Wkun1996/Wkun1996.github.io.git,backup
+    github: git@github.com:NoTrouble-EL/NoTrouble-EL.github.io.git,backup
 
