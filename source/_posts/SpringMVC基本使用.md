@@ -2425,7 +2425,7 @@ afterCompletion方法会在最后执行，这个时候已经没有办法对域�
                *.do        表示.do结尾的请求路径才能被SpringMVC处理(老项目会出现)
                /*          表示当前servlet映射所有请求（包含静态资源,jsp），不应该使用其配置DispatcherServlet
            -->
-      <url-pattern>/</url-pattern>
+      <url-pattern>/loginDemo</url-pattern>
   </servlet-mapping>
   
   
@@ -2479,7 +2479,7 @@ afterCompletion方法会在最后执行，这个时候已经没有办法对域�
     <title>Title</title>
 </head>
 <body>
-    <form method="post" action="/login">
+    <form method="post" action="/loginDemo/login">
         用户名：<input type="text" name="username">
         密码：<input type="password" name="password">
         <input type="submit">
@@ -2583,4 +2583,230 @@ GET http://localhost:81/loginDemo/test
 ```
 
 ### 多拦截器执行顺序
+
+如果我们配置了多个拦截器，拦截器的顺序是按照配置的先后顺序的。若在preHandler都返回true的情况下：Request->preHandle1->preHandle2->preHandle3->Handle处理器->postHandle3->postHandle2->postHandle1->afterCompletion3->afterCompletion2->afterCompletion1->Response.
+
+若拦截器3的preHandler方法返回值为false：Request->preHandle1->preHandle2->preHandle3->afterCompletion2->afterCompletion1->Response.
+
+* 只有所有拦截器都放行了，postHandle方法才会被执行。
+* 只有当前拦截器放行了，当前拦截器的afterCompletion方法才会执行。
+
+### 统一异常处理
+
+​		我们在实际项目中Dao层和Service层的异常都会被抛到Controller层。但是，如果我们在Controller的方法中都加上了异常的try…catch处理也会显的非常的繁琐。
+
+#### HandlerExceptionResolver
+
+①实现接口
+
+```java
+package cn.xiaohupao.resolver;
+
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerExceptionResolver;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * @Author: xiaohupao
+ * @Date: 2021/5/25 20:12
+ */
+@Component
+public class MyHandlerExceptionResolver implements HandlerExceptionResolver {
+
+    /**
+     * 如果handler方法出现异常，就会调用到该方法，我们可以在本方法中进行统一的异常处理
+     * @param httpServletRequest request对象
+     * @param httpServletResponse response对象
+     * @param o 出现异常的handler方法封装的对象
+     * @param e 异常对象
+     * @return
+     */
+    @Override
+    public ModelAndView resolveException(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) {
+        return null;
+    }
+}
+```
+
+②重写方法
+
+```java
+package cn.xiaohupao.resolver;
+
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerExceptionResolver;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * @Author: xiaohupao
+ * @Date: 2021/5/25 20:12
+ */
+@Component
+public class MyHandlerExceptionResolver implements HandlerExceptionResolver {
+
+    /**
+     * 如果handler方法出现异常，就会调用到该方法，我们可以在本方法中进行统一的异常处理
+     * @param httpServletRequest request对象
+     * @param httpServletResponse response对象
+     * @param o 出现异常的handler方法封装的对象
+     * @param e 异常对象
+     * @return modelAndView对象
+     */
+    @Override
+    public ModelAndView resolveException(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) {
+        //获取异常信息，把异常信息放入域对象中
+        String msg = e.getMessage();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("msg", msg);
+        //跳转到error.jsp
+        modelAndView.setViewName("error");
+        return modelAndView;
+
+    }
+}
+```
+
+
+
+③注入容器
+
+可以使用注解注入也可以使用xml配置注入。这里使用注解注入的方式。在类上加@Compoment注解，注意要保证类能被组件扫描扫描到。
+
+#### @ControllerAdvice
+
+①创建类，加上@ControllerAdvice注解进行标识
+
+```java
+package cn.xiaohupao.resolver;
+
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.ModelAndView;
+
+/**
+ * @Author: xiaohupao
+ * @Date: 2021/5/25 20:48
+ */
+@Component
+@ControllerAdvice
+public class MyControllerAdvice {
+
+    @ExceptionHandler(value = {NullPointerException.class, ArrayIndexOutOfBoundsException.class})
+    public ModelAndView handlerException(Exception ex, ModelAndView modelAndView){
+        //如果出现了相关异常，就会调用该方法
+        String msg = ex.getMessage();
+        modelAndView.addObject("msg", msg);
+        modelAndView.setViewName("error");
+        return modelAndView;
+    }
+}
+```
+
+②定义异常处理方法
+
+```java
+package cn.xiaohupao.resolver;
+
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.ModelAndView;
+
+/**
+ * @Author: xiaohupao
+ * @Date: 2021/5/25 20:48
+ */
+@Component
+@ControllerAdvice
+public class MyControllerAdvice {
+
+    @ExceptionHandler(value = {NullPointerException.class, ArrayIndexOutOfBoundsException.class})
+    public ModelAndView handlerException(Exception ex, ModelAndView modelAndView){
+        //如果出现了相关异常，就会调用该方法
+        String msg = ex.getMessage();
+        modelAndView.addObject("msg", msg);
+        modelAndView.setViewName("error");
+        return modelAndView;
+    }
+}
+```
+
+定义异常处理方法，使用@ExceptionHandler标识可以处理的异常
+
+③注入容器
+
+使用@Compoment注解
+
+#### 总结
+
+在实际的项目中一般会选择@ControllerAdvice来进行异常的统一处理。如果在前后端不分离的项目中，异常处理一般是跳转到错误页面，让用户有个更好的体验。而前后端分离的项目中，异常处理一般把异常信息封装到Json中写入响应体。无论是哪种情况，使用@ControllerAdvice的写法都比较方便的实现。
+
+返回json格式
+
+```java
+package cn.xiaohupao.pojo;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * @Author: xiaohupao
+ * @Date: 2021/5/25 21:11
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Result {
+
+    private String msg;
+    private Integer code;
+
+}
+```
+
+```java
+package cn.xiaohupao.resolver;
+
+import cn.xiaohupao.pojo.Result;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+/**
+ * @Author: xiaohupao
+ * @Date: 2021/5/25 20:48
+ */
+@Component
+@ControllerAdvice
+public class MyControllerAdvice {
+
+    @ExceptionHandler(value = {NullPointerException.class, ArrayIndexOutOfBoundsException.class, ArithmeticException.class})
+    public ModelAndView handlerException(Exception ex, ModelAndView modelAndView){
+        //如果出现了相关异常，就会调用该方法
+        String msg = ex.getMessage();
+        modelAndView.addObject("msg", msg);
+        modelAndView.setViewName("error");
+        return modelAndView;
+    }
+
+    @ExceptionHandler(value = {NullPointerException.class, ArrayIndexOutOfBoundsException.class, ArithmeticException.class})
+    @ResponseBody
+    public Result handlerException1(Exception ex){
+        Result result = new Result();
+        result.setMsg(ex.getMessage());
+        result.setCode(500);
+        return result;
+    }
+}
+```
 
