@@ -349,3 +349,256 @@ public class MethodReferences {
 
 ​		上例只是简短的介绍，我们很快就能看到方法引用的所有不同形式。
 
+### Runnable接口
+
+​		Runnable接口自1.0版以来一直在Java中，因此不需要导入。它符合特殊的单方法接口格式：它的方法run()不带参数，也没有返回值。因此，我们可以使用Lambda表达式和方法引用作为Runnable：
+
+```java
+// functional/RunnableMethodReference.java
+
+// 方法引用与 Runnable 接口的结合使用
+
+class Go {
+  static void go() {
+    System.out.println("Go::go()");
+  }
+}
+
+public class RunnableMethodReference {
+  public static void main(String[] args) {
+
+    new Thread(new Runnable() {
+      public void run() {
+        System.out.println("Anonymous");
+      }
+    }).start();
+
+    new Thread(
+      () -> System.out.println("lambda")
+    ).start();
+
+    new Thread(Go::go).start();
+  }
+}
+//Anonymous
+//lambda
+//Go::go()
+```
+
+​		Thread对象将Runnable作为其构造函数参数，并具有会调用run()的方法start()。注意这里只有匿名内部类才要求显示声明run()方法。
+
+### 未绑定的方法引用
+
+​		未绑定的方法引用是指没有关联对象的普通(非静态)方法。使用未绑定的引用，我们必须先提供对象：
+
+```java
+// functional/UnboundMethodReference.java
+
+// 没有方法引用的对象
+
+class X {
+  String f() { return "X::f()"; }
+}
+
+interface MakeString {
+  String make();
+}
+
+interface TransformX {
+  String transform(X x);
+}
+
+public class UnboundMethodReference {
+  public static void main(String[] args) {
+    // MakeString ms = X::f; // [1]
+    TransformX sp = X::f;
+    X x = new X();
+    System.out.println(sp.transform(x)); // [2]
+    System.out.println(x.f()); // 同等效果
+  }
+}
+//X::f()
+//X::f()
+```
+
+​		到目前为止，我们已经见过了方法引用和对应接口的签名(参数类型和返回类型)一致的几个赋值例子。在[1]中，我们尝试同样的做法，把X的f()方法引用赋值给MakeString。结果即使make()与f()具有相同的签名，编译也会报“invalid method reference”(无效方法引用)错误。问题在于，这里其实还需要另一个隐藏参数参与：我们的老朋友this。你不能在没有X对象的前提下调用f()。因此，X::f表示未绑定的方法引用，因为它尚未“绑定”到对象。
+
+​		要解决这个问题，我们需要一个X对象，因此我们接口实际上需要一个额外的参数，正如TransformX中看到的那样。如果将X::f赋值给TransformX，在Java中是允许的。我们必须做第二个心理调整——使用未绑定的引用时，函数式方法的签名(接口中的单个方法)不再与方法引用的签名完全匹配。原因是：你需要一个对象来调用方法。
+
+​		[2]的结果有点像脑经急转弯。我拿到未绑定的方法引用，并且调用它的transform()方法，将一个x类的对象传递给它，最后使得x.f()以某种方式被调用。Java知道它必须拿第一个参数，该参数实际就是this对象，然后对此调用方法。
+
+​		如果你的方法有更多个参数，就以第一个参数接受this的模式来处理。
+
+```java
+// functional/MultiUnbound.java
+
+// 未绑定的方法与多参数的结合运用
+
+class This {
+  void two(int i, double d) {}
+  void three(int i, double d, String s) {}
+  void four(int i, double d, String s, char c) {}
+}
+
+interface TwoArgs {
+  void call2(This athis, int i, double d);
+}
+
+interface ThreeArgs {
+  void call3(This athis, int i, double d, String s);
+}
+
+interface FourArgs {
+  void call4(
+    This athis, int i, double d, String s, char c);
+}
+
+public class MultiUnbound {
+  public static void main(String[] args) {
+    TwoArgs twoargs = This::two;
+    ThreeArgs threeargs = This::three;
+    FourArgs fourargs = This::four;
+    This athis = new This();
+    twoargs.call2(athis, 11, 3.14);
+    threeargs.call3(athis, 11, 3.14, "Three");
+    fourargs.call4(athis, 11, 3.14, "Four", 'Z');
+  }
+}
+```
+
+​		需要指出的是，我将类命名为This，并将函数式方法的第一个参数命名为athis，但你在生产代码中应该使用其他名字，以防止混淆。
+
+### 构造函数引用
+
+​		你还可以捕获构造函数的引用，然后通过引用调用该构造函数。
+
+```java
+// functional/CtorReference.java
+
+class Dog {
+  String name;
+  int age = -1; // For "unknown"
+  Dog() { name = "stray"; }
+  Dog(String nm) { name = nm; }
+  Dog(String nm, int yrs) { name = nm; age = yrs; }
+}
+
+interface MakeNoArgs {
+  Dog make();
+}
+
+interface Make1Arg {
+  Dog make(String nm);
+}
+
+interface Make2Args {
+  Dog make(String nm, int age);
+}
+
+public class CtorReference {
+  public static void main(String[] args) {
+    MakeNoArgs mna = Dog::new; // [1]
+    Make1Arg m1a = Dog::new;   // [2]
+    Make2Args m2a = Dog::new;  // [3]
+
+    Dog dn = mna.make();
+    Dog d1 = m1a.make("Comet");
+    Dog d2 = m2a.make("Ralph", 4);
+  }
+}
+```
+
+​		Dog有三个构造函数，函数式接口的make()方法反映了构造函数参数列表(make()方法名称可以不同)。
+
+​		注意我们如何对[1]，[2]和[3]中的每一个使用Dog::new。这三个构造函数只有一个相同名称：::new，但在每种情况下赋值给不同的接口，编译器可以从中知道具体使用哪个构造函数。
+
+​		编译器知道调用函数式方法(本例中为make())就相当于调用构造函数。
+
+## 函数式接口
+
+​		方法引用和Lambda表达式都必须被赋值，同时赋值需要类型信息才能使编译器保证类型的正确性。尤其是Lambda表达式，它引入了新的要求。代码示例：
+
+```java
+x -> x.toString()
+```
+
+​		我们清楚这里返回类型必须是String，但x是什么类型呢？
+
+​		Lambda表达式包含**类型推导**(编译器会自动推导出类型信息，避免了程序员显式地声明)。编译器必须能够以某种方式推导出x的类型。
+
+​		下面是第二个代码实例：
+
+```java
+(x, y) -> x + y
+```
+
+​		现在x和y可以是任何支持+运算符连接的数据类型，可以是两个不同的数值类型或者是一个String加任意一种可自动转换为String的数据类型(这包括了大多数类型)。但是，当Lambda表达式被赋值时，编译器必须确定x和y的确切类型以生成正确的代码。
+
+​		该问题也适用于方法引用。假设你要传递System.out::println到你正在编写的方法，你怎么知道传递给方法的参数的类型？
+
+​		为了解决这个问题，Java8引入了java.util.function包。它包含一组接口，这些接口是Lambda表达式和方法引用的目标类型。每个接口只包含一个抽象方法，称为**函数式方法**。
+
+​		在编写接口时，可以使用@FunctionalInterface注解强制执行此“函数式方法”模式：
+
+```java
+// functional/FunctionalAnnotation.java
+
+@FunctionalInterface
+interface Functional {
+  String goodbye(String arg);
+}
+
+interface FunctionalNoAnn {
+  String goodbye(String arg);
+}
+
+/*
+@FunctionalInterface
+interface NotFunctional {
+  String goodbye(String arg);
+  String hello(String arg);
+}
+产生错误信息:
+NotFunctional is not a functional interface
+multiple non-overriding abstract methods
+found in interface NotFunctional
+*/
+
+public class FunctionalAnnotation {
+  public String goodbye(String arg) {
+    return "Goodbye, " + arg;
+  }
+  public static void main(String[] args) {
+    FunctionalAnnotation fa =
+      new FunctionalAnnotation();
+    Functional f = fa::goodbye;
+    FunctionalNoAnn fna = fa::goodbye;
+    // Functional fac = fa; // Incompatible
+    Functional fl = a -> "Goodbye, " + a;
+    FunctionalNoAnn fnal = a -> "Goodbye, " + a;
+  }
+}
+```
+
+​		@FunctionalInterface注解是可选的；Java会在main()中把Functional和FunctionalNoAnn都当作函数式接口来看待。在NotFunctional的定义中可看出@FunctionalInterface的作用：当接口中抽象方法多于一个时产生编译期错误。
+
+​		仔细观察在定义f和fna时发生了什么。Functional和FunctionalNoAnn声明了是接口，然而被赋值的只是方法goodbye()。首先，这只是一个方法而不是类；其次，它甚至都不是实现了该接口的类中的方法。这是添加到Java8中的一点小魔法：如果将方法引用或Lambda表达式赋值给函数式接口(类型需要匹配)，Java会适配你的赋值到目标接口。编译器会在后台把方法引用或Lambda表达式包装进实现目标接口的类的实例中。
+
+​		虽然FunctionalAnnotation确实符合Functional模型，但是Java不允许我们像fac定义的那样，将FunctionalAnnotation直接赋值给Functional，因为FunctionalAnnotation并没有显示地去实现Functional接口。唯一的惊喜是，Java8允许我们将函数赋值给接口，这样的语法更加简单漂亮。
+
+​		java.util.function包旨在创建一组完整的目标接口，使得我们一般情况下不需要再定义自己的接口。主要因为基本类型的存在，导致预定义的接口数量有少许增加。如果你了解命名模式，顾名思义就能知道特定接口的作用。
+
+​		以下是基本命名准则：
+
+* 1.如果只处理对象而非基本类型，名称则为Function、Consumer、Predicate等。参数类型通过泛型添加。
+* 2.如果接受的参数是基本类型，则由名称的第一部分表示，如：LongConsumer、DoubleFunction、IntPredicate等，但返回基本类型的Supplier接口例外。
+* 3.如果返回值为基本类型，则用To表示，如：ToLongFunction\<T\>和IntToLongFunction。
+* 4.如果返回值类型与参数类型相同，则是一个Operator：单个参数使用UnaryOperator，两个参数使用BinaryOperator。
+* 5.如果接收参数并返回一个布尔值，则是一个**谓词**(Predicate)。
+* 6.如果接受的两个参数类型不同，则名称中有一个Bi。
+
+
+
+​		例如，为什么没有IntComparator，LongComparator和DoubleComparator呢？有BooleanSupplier却没有其他表示Boolean的接口；有通用的BiConsumer却没有用于int，long和double的BiConsumers变体(我理解他们为什么放弃这些接口)。这到底是疏忽还是有人认为其他组合使用得很少呢？
+
+​		你好可以看到基本类型
