@@ -601,4 +601,346 @@ public class FunctionalAnnotation {
 
 ​		例如，为什么没有IntComparator，LongComparator和DoubleComparator呢？有BooleanSupplier却没有其他表示Boolean的接口；有通用的BiConsumer却没有用于int，long和double的BiConsumers变体(我理解他们为什么放弃这些接口)。这到底是疏忽还是有人认为其他组合使用得很少呢？
 
-​		你好可以看到基本类型
+​		你还可以看到基本类型给Java添加了多少复杂性。该语言的第一版中就包含了基本类型，原因是考虑效率问题。现在，在语言的生命周期里，我们一直忍受语言设计的糟糕选择所带来的影响。
+
+​		下面枚举了基于Lambda表达式的所有不同Function变体的示例：
+
+```java
+// functional/FunctionVariants.java
+
+import java.util.function.*;
+
+class Foo {}
+
+class Bar {
+  Foo f;
+  Bar(Foo f) { this.f = f; }
+}
+
+class IBaz {
+  int i;
+  IBaz(int i) {
+    this.i = i;
+  }
+}
+
+class LBaz {
+  long l;
+  LBaz(long l) {
+    this.l = l;
+  }
+}
+
+class DBaz {
+  double d;
+  DBaz(double d) {
+    this.d = d;
+  }
+}
+
+public class FunctionVariants {
+  static Function<Foo,Bar> f1 = f -> new Bar(f);
+  static IntFunction<IBaz> f2 = i -> new IBaz(i);
+  static LongFunction<LBaz> f3 = l -> new LBaz(l);
+  static DoubleFunction<DBaz> f4 = d -> new DBaz(d);
+  static ToIntFunction<IBaz> f5 = ib -> ib.i;
+  static ToLongFunction<LBaz> f6 = lb -> lb.l;
+  static ToDoubleFunction<DBaz> f7 = db -> db.d;
+  static IntToLongFunction f8 = i -> i;
+  static IntToDoubleFunction f9 = i -> i;
+  static LongToIntFunction f10 = l -> (int)l;
+  static LongToDoubleFunction f11 = l -> l;
+  static DoubleToIntFunction f12 = d -> (int)d;
+  static DoubleToLongFunction f13 = d -> (long)d;
+
+  public static void main(String[] args) {
+    Bar b = f1.apply(new Foo());
+    IBaz ib = f2.apply(11);
+    LBaz lb = f3.apply(11);
+    DBaz db = f4.apply(11);
+    int i = f5.applyAsInt(ib);
+    long l = f6.applyAsLong(lb);
+    double d = f7.applyAsDouble(db);
+    l = f8.applyAsLong(12);
+    d = f9.applyAsDouble(12);
+    i = f10.applyAsInt(12);
+    d = f11.applyAsDouble(12);
+    i = f12.applyAsInt(13.0);
+    l = f13.applyAsLong(13.0);
+  }
+}
+```
+
+​		这些Lambda表达式尝试生成适合函数签名的最简代码。在某些情况下有必要进行强制类型转换，否则编译器会报截断错误。
+
+​		main()中的每个测试都显示了Function接口中不同类型的apply()方法。每个都产生一个与其关联的Lambda表达式的调用。
+
+​		方法引用有自己的小魔法：
+
+```java
+/ functional/MethodConversion.java
+
+import java.util.function.*;
+
+class In1 {}
+class In2 {}
+
+public class MethodConversion {
+  static void accept(In1 i1, In2 i2) {
+    System.out.println("accept()");
+  }
+  static void someOtherName(In1 i1, In2 i2) {
+    System.out.println("someOtherName()");
+  }
+  public static void main(String[] args) {
+    BiConsumer<In1,In2> bic;
+
+    bic = MethodConversion::accept;
+    bic.accept(new In1(), new In2());
+
+    bic = MethodConversion::someOtherName;
+    // bic.someOtherName(new In1(), new In2()); // Nope
+    bic.accept(new In1(), new In2());
+  }
+}
+//accept()
+//someOtherName()
+```
+
+​		查看BiConsumer的文档，你会看到它的函数方法为accept()。的确，如果我们将方法命名为accept()，它就可以作为方法引用。但是我们也可用不同的名称，比如someOtherName()。只要参数类型、返沪类型与BiConsumer的accpt()相同即可。
+
+​		因此，在使用函数接口时，名称无关紧要——只要参数类型和返回类型相同。Java会将你的方法映射到接口方法。要调用方法，可以调用接口的函数式方法名，而不是你的方法名。
+
+​		现在我们来看看，将方法引用应用于基于类的函数式接口(即那些不包含基本类型的函数式接口)。下面的例子中，创建了适合函数式方法签名的最简单的方法：
+
+```java
+// functional/ClassFunctionals.java
+
+import java.util.*;
+import java.util.function.*;
+
+class AA {}
+class BB {}
+class CC {}
+
+public class ClassFunctionals {
+  static AA f1() { return new AA(); }
+  static int f2(AA aa1, AA aa2) { return 1; }
+  static void f3(AA aa) {}
+  static void f4(AA aa, BB bb) {}
+  static CC f5(AA aa) { return new CC(); }
+  static CC f6(AA aa, BB bb) { return new CC(); }
+  static boolean f7(AA aa) { return true; }
+  static boolean f8(AA aa, BB bb) { return true; }
+  static AA f9(AA aa) { return new AA(); }
+  static AA f10(AA aa1, AA aa2) { return new AA(); }
+  public static void main(String[] args) {
+    Supplier<AA> s = ClassFunctionals::f1;
+    s.get();
+    Comparator<AA> c = ClassFunctionals::f2;
+    c.compare(new AA(), new AA());
+    Consumer<AA> cons = ClassFunctionals::f3;
+    cons.accept(new AA());
+    BiConsumer<AA,BB> bicons = ClassFunctionals::f4;
+    bicons.accept(new AA(), new BB());
+    Function<AA,CC> f = ClassFunctionals::f5;
+    CC cc = f.apply(new AA());
+    BiFunction<AA,BB,CC> bif = ClassFunctionals::f6;
+    cc = bif.apply(new AA(), new BB());
+    Predicate<AA> p = ClassFunctionals::f7;
+    boolean result = p.test(new AA());
+    BiPredicate<AA,BB> bip = ClassFunctionals::f8;
+    result = bip.test(new AA(), new BB());
+    UnaryOperator<AA> uo = ClassFunctionals::f9;
+    AA aa = uo.apply(new AA());
+    BinaryOperator<AA> bo = ClassFunctionals::f10;
+    aa = bo.apply(new AA(), new AA());
+  }
+}
+```
+
+​		请注意，每个方法名称都是随意的(如f1()，f2()等)。正如你刚才看到的，一旦将方法引用赋值给函数接口，我们就可以调用与该接口关联的函数方法。在此示例中为get()、compare()、accept()、apply()和test()。
+
+### 多参数函数式接口
+
+​		java.util.functional中的接口是有限的。比如有BiFunction，但也仅此而已。如果需要三参数函数的接口怎么办？其实这些接口非常简单，很容易查看Java库源代码并自行创建。代码示例：
+
+```java
+// functional/TriFunction.java
+
+@FunctionalInterface
+public interface TriFunction<T, U, V, R> {
+    R apply(T t, U u, V v);
+}
+```
+
+​		简单测试，验证它是否有效：
+
+```java
+// functional/TriFunctionTest.java
+
+public class TriFunctionTest {
+  static int f(int i, long l, double d) { return 99; }
+  public static void main(String[] args) {
+    TriFunction<Integer, Long, Double, Integer> tf =
+      TriFunctionTest::f;
+    tf = (i, l, d) -> 12;
+  }
+}
+```
+
+​			这里我们同时测试了方法引用和Lambda表达式。
+
+### 缺少基本类型的函数
+
+​		让我们重温一下BiConsumer，看看我们将如何创建各种缺失的预定义组合，涉及int，long和double：
+
+```java
+// functional/BiConsumerPermutations.java
+
+import java.util.function.*;
+
+public class BiConsumerPermutations {
+  static BiConsumer<Integer, Double> bicid = (i, d) ->
+    System.out.format("%d, %f%n", i, d);
+  static BiConsumer<Double, Integer> bicdi = (d, i) ->
+    System.out.format("%d, %f%n", i, d);
+  static BiConsumer<Integer, Long> bicil = (i, l) ->
+    System.out.format("%d, %d%n", i, l);
+  public static void main(String[] args) {
+    bicid.accept(47, 11.34);
+    bicdi.accept(22.45, 92);
+    bicil.accept(1, 11L);
+  }
+}
+//47, 11.340000
+//92, 22.450000
+//1, 11
+```
+
+​		这里使用System.out.format()来显示。它类似于System.out.println()但提供了更多的显示选项。这里，%f表示我将n作为浮点值给出，%d表示n是一个整数值。这其中可以包含空格，输入%n会换行——当然使用传统的\n也能换行，但%n是自动跨平台的，这是使用format()的另一个原因。
+
+​		上例只是简单使用了合适的包装类型，而装箱和拆箱负责它与基本类型之间的来回转换。又比如，我们可以将包装类型和Function一起使用，而不去用各种针对基本类型的预定义接口。代码示例：
+
+```java
+// functional/FunctionWithWrapped.java
+
+import java.util.function.*;
+
+public class FunctionWithWrapped {
+  public static void main(String[] args) {
+    Function<Integer, Double> fid = i -> (double)i;
+    IntToDoubleFunction fid2 = i -> i;
+  }
+}
+```
+
+​		如果没有强制转换，则会收到错误消息：“Integer cannot be converted to Double”，而使用IntToDoubleFunction就没有此类问题。IntToDoubleFunction接口的源代码是这样的：
+
+```java
+@FunctionalInterface 
+public interface IntToDoubleFunction { 
+  double applyAsDouble(int value); 
+}
+```
+
+​		因为我们可以简单地写Function\<Integer，Double\>并产生正常的结果，所以用基本类型(IntToDoubleFunction)的唯一理由是可以避免传递参数和返回结果过程中的自动拆装箱，进而提升性能。
+
+​		似乎是考虑到使用频率，某些函数类型并没有预定义。
+
+​		当然，如果因为缺少针对基本类型的函数式接口造成性能问题，你可以轻松编写自己的接口(参考Java源代码)——尽管这里出现性能瓶颈的可能性不大。
+
+## 高阶函数
+
+​		这个名字可能听起来令人生畏，但是：高阶函数(Higher-order Function)只是一个消费或产生函数的函数。
+
+​		我们先来看看如何产生一个函数：
+
+```java
+// functional/ProduceFunction.java
+
+import java.util.function.*;
+
+interface
+FuncSS extends Function<String, String> {} // [1]
+
+public class ProduceFunction {
+  static FuncSS produce() {
+    return s -> s.toLowerCase(); // [2]
+  }
+  public static void main(String[] args) {
+    FuncSS f = produce();
+    System.out.println(f.apply("YELLING"));
+  }
+}
+//yelling
+```
+
+​		这里，produce()是高阶函数。
+
+[1]使用继承，可以轻松地为专用接口创建别名。
+
+[2]使用Lambda表达式，可以轻松地在方法中创建和返回一个函数。
+
+​		要消费一个函数，消费函数需要在参数列表正确地描述函数类型。代码示例：
+
+```java
+// functional/ConsumeFunction.java
+
+import java.util.function.*;
+
+class One {}
+class Two {}
+
+public class ConsumeFunction {
+  static Two consume(Function<One,Two> onetwo) {
+    return onetwo.apply(new One());
+  }
+  public static void main(String[] args) {
+    Two two = consume(one -> new Two());
+  }
+}
+```
+
+​		当基于消费函数生成新函数时，事情就变得相当有趣了。代码示例如下：
+
+```java
+// functional/TransformFunction.java
+
+import java.util.function.*;
+
+class I {
+  @Override
+  public String toString() { return "I"; }
+}
+
+class O {
+  @Override
+  public String toString() { return "O"; }
+}
+
+public class TransformFunction {
+  static Function<I,O> transform(Function<I,O> in) {
+    return in.andThen(o -> {
+      System.out.println(o);
+      return o;
+    });
+  }
+  public static void main(String[] args) {
+    Function<I,O> f2 = transform(i -> {
+      System.out.println(i);
+      return new O();
+    });
+    O o = f2.apply(new I());
+  }
+}
+//I
+//O
+```
+
+​		在这里，transform()生成一个与传入的函数具有相同签名的函数，但是你可以生成任何你想要的类型。
+
+​		这里使用了Function接口中名为andThen()的默认方法，该方法专门用于操作函数。顾名思义，在调用in函数之后调用andThen()(还有个compose()方法，它在in函数之前应用新的函数)。要附加一个andThen()函数，我们只需要将该函数作为参数传递。transform()产生的是一个新函数，它将in动作与andThen()参数的动作结合起来。
+
+## 闭包
+
