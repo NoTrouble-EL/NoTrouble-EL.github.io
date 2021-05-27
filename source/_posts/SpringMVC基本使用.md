@@ -2810,3 +2810,139 @@ public class MyControllerAdvice {
 }
 ```
 
+### 文件上传
+
+#### 文件上传要求
+
+http协议规定了我们在进行文件上传时的请求格式要求。所以在进行文件上传时，除了在表单中增加一个用于上传文件的表单项(input标签，type=file)外必须满足以下的条件才能进行上传。
+
+**①请求方式为POST请求**
+
+如果使用表单进行提交的话，可以把form标签的method属性设置为POST。例如：
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="uploadFile">
+            <input type="submit">
+        </form>
+    </body>
+</html>
+```
+
+**②请求头Content-Type必须为multipart/form-data**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="uploadFile">
+            <input type="submit">
+        </form>
+    </body>
+</html>
+```
+
+#### SpringMVC接收上传过来的文件
+
+SpringMVC使用commons-fileupload的包对文件上进行了封装，我们只需要引入相关依赖和进行相应配置就可以很轻松的实现文件上传功能。
+
+**①导入依赖**
+
+在pom中导入依赖
+
+```xml
+<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+<dependency>
+    <groupId>commons-fileupload</groupId>
+    <artifactId>commons-fileupload</artifactId>
+    <version>1.3.3</version>
+</dependency>
+```
+
+**②配置**
+
+在spring-mvc中配置
+
+```xml
+<!-- 文件上传解析器
+            id 必须为multipartResolver-->
+<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <!-- 默认字符编码-->
+    <property name="defaultEncoding" value="uft-8"/>
+    <!-- 一次请求上传的文件总大小的最大值，单位是字节-->
+    <property name="maxUploadSize" value="#{1024*1024*50}"/>
+    <!-- 每个上传文件大小的最大值，单位是字节-->
+    <property name="maxUploadSizePerFile" value="#{1024*1024*10}"/>
+</bean>
+```
+
+**③接收上传的文件数据并处理**
+
+上传表单
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="uploadFile">
+        <input type="submit">
+    </form>
+</body>
+</html>
+```
+
+```java
+package cn.xiaohupao.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+
+/**
+ * @Author: xiaohupao
+ * @Date: 2021/5/26 21:07
+ */
+@Controller
+public class UploadController {
+
+    @PostMapping(value = "/upload")
+    public String upload(@RequestParam(value = "uploadFile") MultipartFile uploadFile1) throws IOException {
+        uploadFile1.transferTo(new File("test.sql"));
+        return "forward:/success.jsp";
+    }
+}
+```
+
+#### MultipartFile常见用法
+
+* 获取上传文件的原名 uploadFile.getOriginalFilename()
+* 获取文件类型的MIME类型 uploadFile.getContentType()
+* 获取上传文件的大小 uploadFile.getSize()
+* 获取对应上传文件的输入流 uploadFile.getInputStream()
+
+### 文件下载
+
+#### 文件下载要求
+
+如果我们想要提供文件下载的功能。Http协议要求我们必须满足如下规则

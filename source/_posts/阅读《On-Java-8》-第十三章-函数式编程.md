@@ -944,3 +944,401 @@ public class TransformFunction {
 
 ## 闭包
 
+​		在上一节的ProduceFunction.java中，我们从方法中返回Lambda函数。虽然过程简单，但是有些问题必要再来回头来探讨下。
+
+​		闭包(Closure)一词总结了这些问题。它非常重要，利用闭包可以轻松生成函数。
+
+​		考虑一个更复杂的Lambda，它使用函数作用域之外的变量。返回该函数会发生什么？也就是说，当你调用函数时，它对那些“外部”变量引用了什么？如果语言不能自动解决，那问题将变得非常棘手。能够解决这个问题的语言被称作支持闭包，或者称作词法定界(lexically scoped，基于词法作用域的)(也有用术语变量捕获variable capture称呼的)。Java8提供了有限但合理的闭包支持，我们将用一些简单的例子来研究它。
+
+​		首先，下列方法返回一个函数，该函数访问对象字段和方法参数：
+
+```java
+// functional/Closure1.java
+
+import java.util.function.*;
+
+public class Closure1 {
+  int i;
+  IntSupplier makeFun(int x) {
+    return () -> x + i++;
+  }
+}
+```
+
+​		但是，仔细考虑一下，i的这种用法并非是个大难题，因为对象很可能在你调用makeFun()之后就存在了——实际上，垃圾收集器几乎肯定会保留以这种方式被绑定到现存函数的对象。当然，如果你对同一个对象调用多次makeFun()，你最终会得到多个函数，它们共享i的存储空间：
+
+```java
+// functional/SharedStorage.java
+
+import java.util.function.*;
+
+public class SharedStorage {
+  public static void main(String[] args) {
+    Closure1 c1 = new Closure1();
+    IntSupplier f1 = c1.makeFun(0);
+    IntSupplier f2 = c1.makeFun(0);
+    IntSupplier f3 = c1.makeFun(0);
+    System.out.println(f1.getAsInt());
+    System.out.println(f2.getAsInt());
+    System.out.println(f3.getAsInt());
+  }
+}
+//0
+//1
+//2
+```
+
+​		每次调用getAsInt()都会增加i，表明存储是共享的。
+
+​		如果i是makeFun()的局部变量怎么办？在正常情况下，当makeFun()完成时i就消失了。但它仍可以编译：
+
+```java
+// functional/Closure2.java
+
+import java.util.function.*;
+
+public class Closure2 {
+  IntSupplier makeFun(int x) {
+    int i = 0;
+    return () -> x + i;
+  }
+}
+```
+
+​		由makeFun()返回IntSupplier“关住了”i和x，因此，因此即使makeFun()以执行完毕，当你调用返回的函数时i和x仍然有效，而不是像正常情况下那样在makeFun()执行后i和x就消失了。但请注意，我没有像Closure1.java那样递增i，因为会产生编译时错误。代码示例：
+
+```java
+// functional/Closure3.java
+
+// {WillNotCompile}
+import java.util.function.*;
+
+public class Closure3 {
+  IntSupplier makeFun(int x) {
+    int i = 0;
+    // x++ 和 i++ 都会报错：
+    return () -> x++ + i++;
+  }
+}
+```
+
+​		x和i的操作都犯了同样的错误：被Lambda表达式引用的局部变量必须是final或者等同final效果的。
+
+​		如果使用final修饰x和i，就不能再递增它们的值了。代码示例：
+
+```java
+// functional/Closure4.java
+
+import java.util.function.*;
+
+public class Closure4 {
+  IntSupplier makeFun(final int x) {
+    final int i = 0;
+    return () -> x + i;
+  }
+}
+```
+
+​		那么为什么在Closure2.java中，x和i非final却可以运行呢？
+
+​		这就叫做**等同final效果**(Effectively Final)。这个术语是在Java8才开始出现的，表示虽然没有明确地声明变量final的，但是因变量值没有被改变过而实际有了final同等的效果。如果局部变量的初始值永远不会改变，那么它实际上就是final的。
+
+​		如果x和i的值在方法中的其他位置发生改变(但不在返回的函数内部)，则编译器仍将视其为错误。每个递增操作则会分别产生错误消息。代码示例：
+
+```java
+// functional/Closure5.java
+
+// {无法编译成功}
+import java.util.function.*;
+
+public class Closure5 {
+  IntSupplier makeFun(int x) {
+    int i = 0;
+    i++;
+    x++;
+    return () -> x + i;
+  }
+}
+```
+
+​		**等同final效果**意味着可以在变量声明前加上**final**关键字而不用更改任何其他代码。实际上就是它具备**final**效果的，只是没有说明。
+
+​		在闭包中，在使用x和i之前，通过将它们赋值给**final**修饰的变量，我们解决了Closure5.java中遇到的问题。代码示例：
+
+```java
+
+// functional/Closure6.java
+
+import java.util.function.*;
+
+public class Closure6 {
+  IntSupplier makeFun(int x) {
+    int i = 0;
+    i++;
+    x++;
+    final int iFinal = i;
+    final int xFinal = x;
+    return () -> xFinal + iFinal;
+  }
+}
+```
+
+​		上例中iFinal和xFinal的值在赋值后并没有改变过，因此在这里使用final是多余的。
+
+​		如果改用包装类型会是什么情况呢？我们可以把int类型改为Integer类型研究一下：
+
+```java
+// functional/Closure7.java
+
+// {无法编译成功}
+import java.util.function.*;
+
+public class Closure7 {
+  IntSupplier makeFun(int x) {
+    Integer i = 0;
+    i = i + 1;
+    return () -> x + i;
+  }
+}
+```
+
+​		编译器非常聪明地识别到变量i的值被更改过。包装类型可能是被特殊处理了，我们再尝试下**List**：
+
+```java
+// functional/Closure8.java
+
+import java.util.*;
+import java.util.function.*;
+
+public class Closure8 {
+  Supplier<List<Integer>> makeFun() {
+    final List<Integer> ai = new ArrayList<>();
+    ai.add(1);
+    return () -> ai;
+  }
+  public static void main(String[] args) {
+    Closure8 c7 = new Closure8();
+    List<Integer>
+      l1 = c7.makeFun().get(),
+      l2 = c7.makeFun().get();
+    System.out.println(l1);
+    System.out.println(l2);
+    l1.add(42);
+    l2.add(96);
+    System.out.println(l1);
+    System.out.println(l2);
+  }
+}
+//[1]
+//[1]
+//[1, 42]
+//[1, 96]
+```
+
+​		可以看到，这次一切正常。我们改变了**List**的内容却没产生编译时错误。通过观察本例的输出结果，我们发现这看起来非常安全。这是因为每次调用makeFun()时，其实都会创建并返回一个全新而非共享的ArrayList。也就是说，每个闭包都有自己独立的ArrayList，它们之间互不干扰。
+
+​		请注意我已经声明ai是final的了。尽管在这个例子中你可以去掉final并得到相同的结果。应用于对象引用**final**关键字仅表示不会重新赋值引用。它并不代表你不能修改对象本身。
+
+​		我们来看看Closure7.java和Closure8.java之间的区别。我们看到：在Closure7.java中变量i有过重新赋值。也许这就是触发等同final效果错误消息的原因。
+
+```java
+// functional/Closure9.java
+
+// {无法编译成功}
+import java.util.*;
+import java.util.function.*;
+
+public class Closure9 {
+  Supplier<List<Integer>> makeFun() {
+    List<Integer> ai = new ArrayList<>();
+    ai = new ArrayList<>(); // Reassignment
+    return () -> ai;
+  }
+}
+```
+
+​		上例，重新赋值引用会触发错误消息。如果只修改指向对象则没有问题，只要没有其他人获得对该对象的引用(这意味着你有多个实体可以修改对象，此时事情会变得非常混乱)，基本上就是安全的。
+
+​		让我们回顾一下Closure1.java。那么现在问题来了：为什么变量i被修改编译器却没有报错呢。它既不是**final**的，也不是等同final效果的。因为i是外部类的成员，所以这样做肯定是安全的(除非你正在创建共享可变内存的多个函数)。是的，你可以辩称在这种情况下不会发生变量捕获(Variable Capture)。但可以肯定的是，Closure3.java的错误消息是专门针对局部变量的。因此，规则并非只是“在Lambda之外定义的任何变量必须是**final**的或等同final效果”那么简单。相反，你必须考虑捕获的变量是否是等同final效果的。如果它是对象中的字段(实例变量)，那么它有独立的声明周期，不需要任何特殊的捕获以便稍后在调用Lambda时存在。**(结论是——Lambda可以没有限制地引用实例变量和静态变量。但局部变量必须显示声明为final，或事实上是final。)**
+
+### 作为闭包的内部类
+
+​		我们可以使用匿名内部类重写之前的例子：
+
+```java
+// functional/AnonymousClosure.java
+
+import java.util.function.*;
+
+public class AnonymousClosure {
+  IntSupplier makeFun(int x) {
+    int i = 0;
+    // 同样规则的应用:
+    // i++; // 非等同 final 效果
+    // x++; // 同上
+    return new IntSupplier() {
+      public int getAsInt() { return x + i; }
+    };
+  }
+}
+```
+
+​		实际上只要有内部类，就会有闭包。在Java8之前，变量x和i必须声明为final。在Java8中，内部类的规则放宽，包括等同final效果。
+
+## 函数组合
+
+​		函数组合(Function Composition)意为“多个函数组合成新函数”。它通常是函数式编程的基本组成部分。在前面的TransformFunction.java类中，就有一个使用andThen()的函数组合示例。一些java.util.function接口中包含支持函数组合的方法。
+
+​		下例使用了Function里的compose()和andThen()。代码示例：
+
+```java
+// functional/FunctionComposition.java
+
+import java.util.function.*;
+
+public class FunctionComposition {
+  static Function<String, String>
+    f1 = s -> {
+      System.out.println(s);
+      return s.replace('A', '_');
+    },
+    f2 = s -> s.substring(3),
+    f3 = s -> s.toLowerCase(),
+    f4 = f1.compose(f2).andThen(f3);
+  public static void main(String[] args) {
+    System.out.println(
+      f4.apply("GO AFTER ALL AMBULANCES"));
+  }
+}
+//AFTER ALL AMBULANCES
+//_fter _ll _mbul_nces
+```
+
+​		这里我们重点看正在创建新函数f4.它调用apply()的方式与常规几乎无异。
+
+​		当f1获得字符串时，它已被f2剥离了前三个字符。这是因为compose(f2)的调用发生在f1之前。
+
+​		下例是谓词(Predicate)的逻辑运算演示。代码示例：
+
+```java
+// functional/PredicateComposition.java
+
+import java.util.function.*;
+import java.util.stream.*;
+
+public class PredicateComposition {
+  static Predicate<String>
+    p1 = s -> s.contains("bar"),
+    p2 = s -> s.length() < 5,
+    p3 = s -> s.contains("foo"),
+    p4 = p1.negate().and(p2).or(p3);
+  public static void main(String[] args) {
+    Stream.of("bar", "foobar", "foobaz", "fongopuckey")
+      .filter(p4)
+      .forEach(System.out::println);
+  }
+}
+//foobar
+//foobaz
+```
+
+​		p4获得到了所有谓词(Predicate)并组合成一个更复杂的谓词。解读：如果字符串中不包含bar且长度小于5，或者它包含foo，则结果为true。
+
+​		正因为它产生如此清晰的语法，我们在主方法中采用了一些小技巧，并借用下一章的内容。首先，我创建了一个字符对象的流，然后将每个对象传递给filter()操作。filter()使用p4的谓词来确定对象的去留。最后我们使用forEach()将println方法引用在每个留存的对象上。
+
+​		从输出结果我们可以看到p4的工作流程：任何带有“foo”的字符串都得以保留，即使它的长度大于5。“fongopuckey”因长度超出且不包含foo而被丢弃。
+
+## 柯里化和部分求值
+
+​		柯里化(Currying)的名称来自于其发明者之一*Haskell Curry*。他可能是计算机领域唯一姓氏和名字都命名过重要概念的人(另外就是Haskell编程语言)。柯里化意为：将一个多参数的函数，转换为一系列单参数函数。
+
+```java
+// functional/CurryingAndPartials.java
+
+import java.util.function.*;
+
+public class CurryingAndPartials {
+   // 未柯里化:
+   static String uncurried(String a, String b) {
+      return a + b;
+   }
+   public static void main(String[] args) {
+      // 柯里化的函数:
+      Function<String, Function<String, String>> sum =
+         a -> b -> a + b; // [1]
+
+      System.out.println(uncurried("Hi ", "Ho"));
+
+      Function<String, String>
+        hi = sum.apply("Hi "); // [2]
+      System.out.println(hi.apply("Ho"));
+
+      // 部分应用:
+      Function<String, String> sumHi =
+        sum.apply("Hup ");
+      System.out.println(sumHi.apply("Ho"));
+      System.out.println(sumHi.apply("Hey"));
+   }
+}
+//Hi Ho
+//Hi Ho
+//Hup Ho
+//Hup Hey
+```
+
+​		[1]这一连串的箭头很巧妙。注意，在函数接口声明中，第二个参数是另一个函数。
+
+​		[2]柯里化的目的是能够通过提供单个参数来创建一个新函数，所以现在有了一个“带参函数”和剩下的“自由函数”(free argument)。实际上，你从一个双参数函数开始，最后得到一个单参函数。
+
+​		我们可以通过继续添加层级来柯里化一个三参数函数：
+
+```java
+// functional/Curry3Args.java
+
+import java.util.function.*;
+
+public class Curry3Args {
+   public static void main(String[] args) {
+      Function<String,
+        Function<String,
+          Function<String, String>>> sum =
+            a -> b -> c -> a + b + c;
+      Function<String,
+        Function<String, String>> hi =
+          sum.apply("Hi ");
+      Function<String, String> ho =
+        hi.apply("Ho ");
+      System.out.println(ho.apply("Hup"));
+   }
+}
+//Hi Ho Hup
+```
+
+​		对于每一级的箭头级联(Arrow-cascading)，你都会在类型声明周围包裹另一个Function。
+
+​		处理基于类型和装箱时，请使用适当的函数式接口：
+
+```java
+// functional/CurriedIntAdd.java
+
+import java.util.function.*;
+
+public class CurriedIntAdd {
+  public static void main(String[] args) {
+    IntFunction<IntUnaryOperator>
+      curriedIntAdd = a -> b -> a + b;
+    IntUnaryOperator add4 = curriedIntAdd.apply(4);
+    System.out.println(add4.applyAsInt(5));
+      }
+}
+//9
+```
+
+​		可以在互联网上找到更多的柯里化示例。通常它们是用在Java之外的语言实现的，但如果理解了柯里化的基本概念，你可以很轻松地用Java实现它们。
+
+## 纯函数式编程
+
+​		只要多加练习，用没有函数式支持的语言也可以写出纯函数式程序(即使是C这样的原始语言)。Java8让函数式编程更简单，不过我们要确保一切是final的，同时你的所有方法和函数没有副作用。因为Java在本质上并非是不可变语言，所以编译器对我们犯的错将无能为力。
+
+​		这种情况下，我们可以借助第三方工具，但使用Scala或Clojure这样的语言可能更简单。因为它们从一开始就是为了保持不变性而设计的。你可以采用这些语言来编写你的Java项目的一部分。如果必须要用纯函数式编写，则可以用Scala或Clojure。虽然Java支持并发编程，但如果这是你项目的核心部分，你应该考虑在项目部分功能中使用Scala或Clojure之类的语言。
+
