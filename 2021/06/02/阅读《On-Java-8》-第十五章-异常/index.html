@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JAVASE,《On Java 8》," />
 
 
 
@@ -86,12 +86,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="NoTrouble&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/page/6/index.html">
+<meta name="description" content="​        改进的错误恢复机制是提高代码健壮性的最强有力的方式。错误恢复在我们所编写的每一个程序中都是基本的要素，但是在Java中它显得格外重要，因为Java的主要目标之一就是创建供他人使用的程序构件。 ​        发现错误的理想时机是在编译阶段，也就是在你试图运行程序之前。然而，编译期间并不能找出所有错误，余下的问题必须在运行期间解决。这就需要错误源能通过某种方式，把适当的信息传递给">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阅读《On Java 8》-- 第十五章 异常">
+<meta property="og:url" content="http://yoursite.com/2021/06/02/%E9%98%85%E8%AF%BB%E3%80%8AOn-Java-8%E3%80%8B-%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AB%A0-%E5%BC%82%E5%B8%B8/index.html">
 <meta property="og:site_name" content="NoTrouble&#39;s Blog">
+<meta property="og:description" content="​        改进的错误恢复机制是提高代码健壮性的最强有力的方式。错误恢复在我们所编写的每一个程序中都是基本的要素，但是在Java中它显得格外重要，因为Java的主要目标之一就是创建供他人使用的程序构件。 ​        发现错误的理想时机是在编译阶段，也就是在你试图运行程序之前。然而，编译期间并不能找出所有错误，余下的问题必须在运行期间解决。这就需要错误源能通过某种方式，把适当的信息传递给">
 <meta property="og:locale">
+<meta property="article:published_time" content="2021-06-02T14:43:09.000Z">
+<meta property="article:modified_time" content="2021-06-02T14:43:09.000Z">
 <meta property="article:author" content="NoTrouble">
+<meta property="article:tag" content="JAVASE">
+<meta property="article:tag" content="《On Java 8》">
 <meta name="twitter:card" content="summary">
 
 
@@ -122,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/page/6/"/>
+  <link rel="canonical" href="http://yoursite.com/2021/06/02/阅读《On-Java-8》-第十五章-异常/"/>
 
 
 
 
 
-  <title>归档 | NoTrouble's Blog</title>
+  <title>阅读《On Java 8》-- 第十五章 异常 | NoTrouble's Blog</title>
   
 
 
@@ -147,7 +153,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -275,336 +281,261 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/06/02/%E9%98%85%E8%AF%BB%E3%80%8AOn-Java-8%E3%80%8B-%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AB%A0-%E5%BC%82%E5%B8%B8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoTrouble's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
-         
+          <h1 class="post-title" itemprop="name headline">阅读《On Java 8》-- 第十五章 异常</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-02T22:43:09+08:00">
+                2021-06-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        好! 目前共计 58 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVASE/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVASE</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2020">2020</h1>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/10/20/%E9%98%9F%E5%88%97/" itemprop="url">
-              
-                <span itemprop="name">队列</span>
-              
-            </a>
-        
-      </h2>
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-10-20T21:22:01+08:00"
-              content="2020-10-20" >
-          10-20
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
 
+        </div>
+      </header>
+    
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/" itemprop="url">
-              
-                <span itemprop="name">第五章 继承</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-10-19T14:53:00+08:00"
-              content="2020-10-19" >
-          10-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
+      
+        <p>​        改进的错误恢复机制是提高代码健壮性的最强有力的方式。错误恢复在我们所编写的每一个程序中都是基本的要素，但是在Java中它显得格外重要，因为Java的主要目标之一就是创建供他人使用的程序构件。</p>
+<p>​        发现错误的理想时机是在编译阶段，也就是在你试图运行程序之前。然而，编译期间并不能找出所有错误，余下的问题必须在运行期间解决。这就需要错误源能通过某种方式，把适当的信息传递给某个接收者——该接收者将知道如何正确处理这个问题。</p>
+<p>​        Java使用异常来提供一致的错误报告模型，使得构建能够与客户端代码可靠地沟通问题。</p>
+<p>​        Java中的异常处理的目的在于通过使用少于目前数量的代码来简化大型、可靠的程序的生成，并且通过这种方式可以使你更加确信：你的应用中没有未处理的错误。</p>
+<p>​        因为异常处理是Java中唯一官方的错误报告机制，并且通过编译器强制执行。</p>
+ <span id="more"></span> 
 
-        
-        
+<h2 id="异常概念"><a href="#异常概念" class="headerlink" title="异常概念"></a>异常概念</h2><p>​        C以及其他早期语言常常具有多种错误处理模式，这些模式往往建立在约定俗成的基础之上，而并不属于语言的一部分。通常会返回某个特殊值或设置某个标志，并且假定接收者将对这个返回值或标志进行检查，以判定是否发生了错误。然而，随着时间的推移，人们发现，高傲的程序员在使用程序库的时候更倾向于认为：“对，错误也许会发生，但那是别人造成的，不关我的事”。所以，程序员不去检察错误情形也就不足为奇了(何况对某些错误情形的检查确实很无聊)。如果的确在每次调用方法的时候都彻底进行错误检查，代码很可能会变得难以阅读。正是由于程序员还仍然用这些方式拼凑系统，所以他们拒绝承认这样一个事实：对于构造大型、健壮、可维护的程序而言，这种错误处理模式已经成为了主要障碍。</p>
+<p>​        解决的办法是，用强制规定的形式来消除错误处理过程中随心所欲的因素。这种做法由来已久，对异常处理的实现可以追溯到20世纪60年代的操作系统，甚至于BASIC语言中的“one error goto”语句。而C++的异常处理机制基于Ada，Java中的异常处理机制则建立在C++的基础之上。</p>
+<p>​        “异常”这个词有“我对此感到意外”的意思。问题出现了，你也许不清楚该如何处理，但你的确知道不应该置之不理，你要停下来，看看是不是有别人或在别的地方，能够处理这个问题。只是在当前的环境中还没有足够的信息来解决这个问题，所以就把这个问题提交到一个更高级别的环境中，在那里将作出正确的决定。</p>
+<p>​        异常往往能够降低错误处理代码的复杂度。如果不使用异常，那么就必须检查特定的错误吗，并在程序中的许多地方去处理它。而如果使用异常，那就不必在方法调用处进行检查，因为异常机制将保证能够捕获这个错误。理想情况下，只需要在一个地方处理错误，即所谓的异常处理程序中。这种方式不仅节省代码，而且把“描述在正常执行过程中做什么事”的代码和“除了问题怎么办”的代码相分离。总之，与之前的错误处理方法相比，异常机制使代码的阅读、编写和调试工作更加井井有条。</p>
+<h2 id="基本异常"><a href="#基本异常" class="headerlink" title="基本异常"></a>基本异常</h2><p>​        异常情形(exceptional condition)是指阻止当前方法或作用域继续执行的问题。把异常情形和普通问题相区分很重要，所谓的普通问题是指，在当前环境下能得到足够的信息，总能处理这个错误。而对于异常情形，就不能继续下去了，因为在当前环境中无法获取必要的信息来解决问题。你所能做的就是从当前环境跳出，并且把问题提交给上一级环境。这就是抛出异常时所发生的事情。</p>
+<p>​        除法就是一个简单的例子。除数有可能为0，所以先进行检查很有必要。但除数为0代表的究竟是什么意思呢？通过当前正在解决的问题环境，或许能知道该如何处理除数为0的情况。但如果这是一个意料之外的值，你也不清楚该如何处理，那么就要抛出异常，而不是顺着原来的路径继续执行下去。</p>
+<p>​        当抛出异常后，有几件事会随之发生。首先，同Java中其他对象的创建一样，将使用new在堆上创建异常对象。然后，当前的执行路径被终止，并且从当前环境中弹出对异常对象的引用。此时，异常处理机制接管程序，并开始寻找一个恰当的地方来继续执行程序。这个恰当的地方就是异常处理程序，它的任务就是将程序从错误状态中恢复，以使程序能要么换一种方式运行，要么继续运行下去。</p>
+<p>​        举一个抛出异常的简单例子。对于引用t，传给你的时候可能尚未被初始化。所以在使用这个对象引用调用其方法之前，会先对引用进行检查。可以创建一个代表错误信息的对象，并且将它从当前环境中“抛出”，这样就把错误信息传播到了“更大”的环境中。这被称为抛出一个异常，看起来像这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(t == <span class="keyword">null</span>)</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br></pre></td></tr></table></figure>
 
-        
+<p>​        这就是抛出了异常，于是在当前环境下就不必再为这个问题操心了，它将在别的地方得到处理。</p>
+<p>​        异常允许你将做的每件事都当作一个事务来考虑，而异常守护着这些事务：“事务的基本保障是，我们需要的分布式计算的异常处理机制。事务相当于计算机中的合同法。如果任何事出现了错误，我们只需要丢弃整个计算。”你也可以将异常看作一种内建的“恢复”(undo)系统，因为你在使用程序中可以有各种恢复点。一旦程序的一个部分失败了，异常将“恢复”到一个已知的稳定点上。</p>
+<h3 id="异常参数"><a href="#异常参数" class="headerlink" title="异常参数"></a>异常参数</h3><p>​        与使用Java中的其他对象一样，我们总是用new在堆上创建异常，这也伴着存储空间的分配和构造器的调用。所有标准异常类都有两个构造器：一个是无参构造器；另一个是接受字符串作为参数，以便能把相关信息放入异常对象的构造器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException(<span class="string">&quot;t = null&quot;</span>);</span><br></pre></td></tr></table></figure>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<p>​        关键字throw将产生许多有趣的结果。在使用new创建了异常对象之后，此对象的引用将传给throw。尽管异常对象的类型通常与方法设计的返回类型不同，但从效果上看，它就像是从方法“返回”的。可以简单地把异常处理看成一种不同的返回机制，当然若过分强调这种类比的话，就会有麻烦了。另外还能用抛出异常的方式从当前的作用域退出。在这两种情况下，将会返回一个异常对象，然后退出方法或作用域。</p>
+<p>​        抛出异常与方法正常返回的相似之处到此为止。因为异常返回的“地点”与普通方法调用返回的“地点”完全不同。(异常将一个恰当的异常处理程序中得到解决，它的位置可能离异常被抛出的地方很远，也可能会跨越方法调用栈的许多层级。)</p>
+<p>​        此外，能够抛出任意类型的Throwable对象，它是异常类型的根类。通常，对于不同类型的错误，要抛出相应的异常。错误信息可以保存在异常对象内部或者用异常类的名称来暗示。上一层环境通过这些信息来决定如何处理异常。</p>
+<h2 id="异常捕获"><a href="#异常捕获" class="headerlink" title="异常捕获"></a>异常捕获</h2><p>​        要明白异常是如何被捕获的，必须首先理解监控区域(guarded region)的概念。它是一段可能产生异常的代码，并且后面跟着处理这些异常的代码。</p>
+<h3 id="try语句块"><a href="#try语句块" class="headerlink" title="try语句块"></a>try语句块</h3><p>​        如果在方法内部抛出了异常(或者在方法内部调用的的其他方法抛出了异常)，这个方法将在抛出异常的过程中结束。要是不希望方法就此结束，可以在方法内设置一个特殊的块来捕获异常。因为在这个块里“尝试”各种(可能产生异常的)方法调用，所以称为try块。它是跟在try关键字之后的普通程序块：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// Code that might generate exceptions</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/10/12/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/" itemprop="url">
-              
-                <span itemprop="name">第四章 对象与类</span>
-              
-            </a>
-        
-      </h2>
+<p>​        对于不支持异常处理的程序语言，要想仔细检查错误，就得在每个方法调用的前后加上设置和错误检查的代码，设置在每次调用同一方法时也得这么做。有了异常处理机制，可以把所有动作都放在try块里，然后只需要在一个地方就可以捕获所有异常。这意味着你的代码将更容易编写和阅读，因为代码的意图和错误检查不是混淆在一起的。</p>
+<h3 id="异常处理程序"><a href="#异常处理程序" class="headerlink" title="异常处理程序"></a>异常处理程序</h3><p>​        当然，抛出的异常必须在某处得到处理。这个“地点”就是异常处理程序，而且针对每个要捕获的异常，得准备相应的处理程序。异常处理程序紧跟在try块之后，以关键字catch表示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// Code that might generate exceptions</span></span><br><span class="line">&#125; <span class="keyword">catch</span>(Type1 id1) &#123;</span><br><span class="line">    <span class="comment">// Handle exceptions of Type1</span></span><br><span class="line">&#125; <span class="keyword">catch</span>(Type2 id2) &#123;</span><br><span class="line">    <span class="comment">// Handle exceptions of Type2</span></span><br><span class="line">&#125; <span class="keyword">catch</span>(Type3 id3) &#123;</span><br><span class="line">    <span class="comment">// Handle exceptions of Type3</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// etc.</span></span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-10-12T15:27:50+08:00"
-              content="2020-10-12" >
-          10-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+<p>​        每个catch子句(异常处理程序)看起来就像是接收且仅接收一个特殊类型的参数的方法。可以在处理程序的内部使用标识符(id1, id2等等)，这与方法参数的使用很相似。有时可能用不到标识符，因为异常的类型已经给了你足够的信息来对异常进行处理，但标识符并不可以省略。</p>
+<p>​        异常处理程序必须紧跟在try块之后。当异常被抛出时，异常处理机制将负责搜寻参数与异常类型相匹配的第一个处理程序。然后进入catch子句执行，此时认为异常得到了处理。一旦catch子句结束，则处理程序的查找过程结束。注意，只有匹配catch子句才能得到执行；这与switch语句不同，switch语句需要在每一个case后面跟一个break，以避免执行后续的case子句。</p>
+<p>​        注意在try块内部，许多不同的方法调用可能产生类型相同的异常，而你只需要提供一个针对此类型的异常处理程序。</p>
+<h3 id="终止与恢复"><a href="#终止与恢复" class="headerlink" title="终止与恢复"></a>终止与恢复</h3><p>​        异常处理理论上有两种基本模型。Java支持终止模式(它是Java和C++所支持的模型)。在这种模式中，将假设错误非常严重，以至于程序无法返回到异常发生的地方继续执行。一旦异常被抛出，就表明错误已无法挽回，也不能回来继续执行。</p>
+<p>​        另一种称为恢复模型。意思是异常处理程序的工作是修正错误，然后重新尝试调用出问题的方法，并认为第二次能成功。对于恢复模型，通常希望异常被处理之后能继续执行程序。如果想要用Java实现类似恢复的行为，那么在遇见错误时就不能抛出异常，而是调用方法来修正该错误。或者，把try块放在while循环里，这样就不断地进入try块，直到得到满意的结果。</p>
+<p>​        在过去，使用支持恢复模型异常处理的操作系统的程序员最终还是要转向使用类似“终止模型”的代码，并且忽略恢复行为。所以虽然恢复模型开始显得很吸引人，但不是很实用。其中的主要原因可能是它所导致的耦合：恢复性的处理程序需要了解异常抛出的地点，这势必要包含依赖于抛出位置的非通用性代码。这增加了代码编写和维护的困难，对于异常可能会从许多地方抛出的大型程序来说，跟是如此。</p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/10/05/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/" itemprop="url">
-              
-                <span itemprop="name">第三章 Java的基本程序设计结构</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-10-05T20:10:57+08:00"
-              content="2020-10-05" >
-          10-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/10/01/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/" itemprop="url">
-              
-                <span itemprop="name">稀疏数组</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-10-01T13:27:25+08:00"
-              content="2020-10-01" >
-          10-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/08/19/%E6%9B%B2%E7%8E%87%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC/" itemprop="url">
-              
-                <span itemprop="name">曲率公式推导</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-08-19T01:10:58+08:00"
-              content="2020-08-19" >
-          08-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/08/%E4%BD%A0%E4%B8%8D%E4%BA%86%E8%A7%A3%E7%9A%84WiFi/" itemprop="url">
-              
-                <span itemprop="name">你不了解的WiFi</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-08T00:25:54+08:00"
-              content="2020-07-08" >
-          07-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/06/%E9%80%9A%E4%BF%97%E7%9A%84%E6%97%A0%E7%BA%BF%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86/" itemprop="url">
-              
-                <span itemprop="name">通俗的无线技术原理</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-06T13:33:38+08:00"
-              content="2020-07-06" >
-          07-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    NoTrouble
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2021/06/02/%E9%98%85%E8%AF%BB%E3%80%8AOn-Java-8%E3%80%8B-%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AB%A0-%E5%BC%82%E5%B8%B8/" title="阅读《On Java 8》-- 第十五章 异常">http://yoursite.com/2021/06/02/%E9%98%85%E8%AF%BB%E3%80%8AOn-Java-8%E3%80%8B-%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AB%A0-%E5%BC%82%E5%B8%B8/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JAVASE/" rel="tag"># JAVASE</a>
+          
+            <a href="/tags/%E3%80%8AOn-Java-8%E3%80%8B/" rel="tag"># 《On Java 8》</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/06/01/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F-Builder-Pattern/" rel="next" title="建造者模式(Builder Pattern)">
+                <i class="fa fa-chevron-left"></i> 建造者模式(Builder Pattern)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/06/02/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F-Prototype-Pattern/" rel="prev" title="原型模式(Prototype Pattern)">
+                原型模式(Prototype Pattern) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+    
 
   
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/page/5/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/5/">5</a><span class="page-number current">6</span>
-  </nav>
 
 
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -612,6 +543,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MDk0MC8yNzQyMg=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -632,8 +572,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -719,6 +668,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">异常概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%BC%82%E5%B8%B8"><span class="nav-number">2.</span> <span class="nav-text">基本异常</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%8F%82%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">异常参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7"><span class="nav-number">3.</span> <span class="nav-text">异常捕获</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#try%E8%AF%AD%E5%8F%A5%E5%9D%97"><span class="nav-number">3.1.</span> <span class="nav-text">try语句块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F"><span class="nav-number">3.2.</span> <span class="nav-text">异常处理程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%88%E6%AD%A2%E4%B8%8E%E6%81%A2%E5%A4%8D"><span class="nav-number">3.3.</span> <span class="nav-text">终止与恢复</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -873,6 +838,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -901,6 +870,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
