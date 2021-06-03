@@ -96,3 +96,4 @@ public class Client {
 }
 ```
 
+​		在JDK中的应用：DateFormat类中，可以根据传入的参数不同，可以判断timeStype、dateStyle等等返回不同的DateFormat的子类。

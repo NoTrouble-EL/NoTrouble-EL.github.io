@@ -2945,4 +2945,190 @@ public class UploadController {
 
 #### 文件下载要求
 
-如果我们想要提供文件下载的功能。Http协议要求我们必须满足如下规则
+如果我们想要提供文件下载的功能。Http协议要求我们必须满足如下规则：
+
+**①设置相应头Content-Type**
+
+要求把提供下载文件的MIME类型作为响应头Content-Type的值
+
+```java
+package cn.xiaohupao.utils;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.URLEncoder;
+
+/**
+ * @Author: xiaohupao
+ * @Date: 2021/5/27 17:31
+ */
+public class DownLoadUtils {
+    /**
+     * 该方法可以快速实现设置两个下载需要的响应头和把文件数据写入响应体
+     * @param filePath 该文件的相对路径
+     * @param context  ServletContext对象
+     * @param response
+     * @throws Exception
+     */
+    public static void downloadFile(String filePath, ServletContext context, HttpServletResponse response) throws Exception {
+        String realPath = context.getRealPath(filePath);
+        File file = new File(realPath);
+        String filename = file.getName();
+        FileInputStream fis = new FileInputStream(realPath);
+        String mimeType = context.getMimeType(filename);//获取文件的mime类型
+        response.setHeader("content-type",mimeType);
+        String fname= URLEncoder.encode(filename,"UTF-8");
+        response.setHeader("Content-disposition","attachment; filename="+fname+";"+"filename*=utf-8''"+fname);
+        ServletOutputStream sos = response.getOutputStream();
+        byte[] buff = new byte[1024 * 8];
+        int len = 0;
+        while((len = fis.read(buff)) != -1){
+            sos.write(buff,0,len);
+        }
+        sos.close();
+        fis.close();
+    }
+}
+```
+
+**②设置响应头Content-disposition**
+
+要求把文件名经过URL编码后的值写入响应头Content-disposition。但是要求符合以下格式，因为这样可以解决不同浏览器中文文件名乱码问题。
+
+```java
+package cn.xiaohupao.utils;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.URLEncoder;
+
+/**
+ * @Author: xiaohupao
+ * @Date: 2021/5/27 17:31
+ */
+public class DownLoadUtils {
+    /**
+     * 该方法可以快速实现设置两个下载需要的响应头和把文件数据写入响应体
+     * @param filePath 该文件的相对路径
+     * @param context  ServletContext对象
+     * @param response
+     * @throws Exception
+     */
+    public static void downloadFile(String filePath, ServletContext context, HttpServletResponse response) throws Exception {
+        String realPath = context.getRealPath(filePath);
+        File file = new File(realPath);
+        String filename = file.getName();
+        FileInputStream fis = new FileInputStream(realPath);
+        String mimeType = context.getMimeType(filename);//获取文件的mime类型
+        response.setHeader("content-type",mimeType);
+        String fname= URLEncoder.encode(filename,"UTF-8");
+        response.setHeader("Content-disposition","attachment; filename="+fname+";"+"filename*=utf-8''"+fname);
+        ServletOutputStream sos = response.getOutputStream();
+        byte[] buff = new byte[1024 * 8];
+        int len = 0;
+        while((len = fis.read(buff)) != -1){
+            sos.write(buff,0,len);
+        }
+        sos.close();
+        fis.close();
+    }
+}
+```
+
+```java
+package cn.xiaohupao.controller;
+
+import cn.xiaohupao.utils.DownLoadUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * @Author: xiaohupao
+ * @Date: 2021/5/27 17:32
+ */
+@Controller
+public class DownloadController {
+
+    @RequestMapping(value = "/download")
+    public void downLoad(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        //文件下载
+        DownLoadUtils.downloadFile("/WEB-INF/file/576.txt",request.getServletContext(), response);
+    }
+}
+```
+
+```java
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    hello
+    <a href="/download">下载文件</a>
+</body>
+</html>
+```
+
+### SpringMVC的执行流程
+
+因为我们有两种开发模式：
+
+一种是类似于JSP的开发流程：把数据放入域对象，然后进行页面跳转。
+
+另一种是前后端分离的开发模式：把数据转化为json放入响应体。
+
+#### 类JSP开发模式执行流程
+
+用户：1.发起请求url ——> DispatcherServlet前端控制器：2.查找能够处理的Handler ——>  HandlerMapping处理器映射器：3.返回执行链HandlerExecuttionChain(HandlerInterceptor1，HandlerInterceptor2，…) ——> DispatcherServlet前端控制器：4.请求适配器执行 ——> HandlerAdapter：5.执行Handler方法，把数据处理转换成合适的类型然后作为方法参数传入 ——> Handler处理器(Controller中能出来请求的方法)：6.对方法返回值进行转换成ModelAndView，如果使用了@ResponseBody的话返回的ModelAndView为null。会把Handler方法的返回值放入响应体中 ——> Handler处理器(Controller中能出来请求的方法)：7.返回ModelAndView ——> DispatcherServlet前端控制器：8.如果ModelAndView不为空则请求视图解析器 ——> ViewResolver视图解析器：9.返回view ——> DispatcherServlet前端控制器10.response响应 ——> 视图。
+
+​	1.用户发起请求被DispatchServlet所处理
+
+​	2.DispatchServlet通过HandlerMapping根据具体的请求查找能处理这个请求的Handler。**（HandlerMapping主要是处理请求和Handler方法的映射关系的）**
+
+​	3.HandlerMapping返回一个能够处理请求的执行链给DispatchServlet，这个链中除了包含Handler方法也包含拦截器。
+
+​	4.DispatchServlet拿着执行链去找HandlerAdater执行链中的方法。
+
+​	5.HandlerAdater会去执行对应的Handler方法，把数据处理转换成合适的类型然后作为方法参数传入 
+
+​	6.Handler方法执行完后的返回值会被HandlerAdapter转换成ModelAndView类型。**（HandlerAdater主要进行Handler方法参数和返回值的处理。）**
+
+​	7.返回ModelAndView给DispatchServlet.
+
+​	8.如果对于的ModelAndView对象不为null，则DispatchServlet把ModelAndView交给 ViewResolver 也就是视图解析器解析。
+
+​	9.ViewResolver 也就是视图解析器把ModelAndView中的viewName转换成对应的View对象返回给DispatchServlet。**（ViewResolver 主要负责把String类型的viewName转换成对应的View对象）**
+
+​	10.DispatchServlet使用View对象进行页面的展示。
+
+#### 前后端分离执行流程
+
+用户：1.发起请求url ——> DispatcherServlet前端控制器：2.查找能够处理的Handler ——>  HandlerMapping处理器映射器：3.返回执行链HandlerExecuttionChain(HandlerInterceptor1，HandlerInterceptor2，…) ——> DispatcherServlet前端控制器：4.请求适配器执行 ——> HandlerAdapter：5.执行Handler方法，把数据处理转换成合适的类型然后作为方法参数传入 ——> Handler处理器(Controller中能出来请求的方法)：6.@ResponseBody的话返回的ModelAndView为null。会把Handler方法返回值放入响应体当中  ——> Handler处理器(Controller中能出来请求的方法)：7.返回ModelAndView  ——> DispatcherServlet前端控制器：由于ModelAndView为null，不会执行视图解析器。
+
+1.用户发起请求被DispatchServlet所处理
+
+​	2.DispatchServlet通过HandlerMapping根据具体的请求查找能处理这个请求的Handler。**（HandlerMapping主要是处理请求和Handler方法的映射关系的）**
+
+​	3.HandlerMapping返回一个能够处理请求的执行链给DispatchServlet，这个链中除了包含Handler方法也包含拦截器。
+
+​	4.DispatchServlet拿着执行链去找HandlerAdater执行链中的方法。
+
+​	5.HandlerAdater会去执行对应的Handler方法，把数据处理转换成合适的类型然后作为方法参数传入 
+
+​	6.Handler方法执行完后的返回值会被HandlerAdapter转换成ModelAndView类型。由于使用了@ResponseBody注解，返回的ModelAndView会为null ，并且HandlerAdapter会把方法返回值放到响应体中。**（HandlerAdater主要进行Handler方法参数和返回值的处理。）**
+
+​	7.返回ModelAndView给DispatchServlet。
+
+​	8.因为返回的ModelAndView为null,所以不用去解析视图解析和其后面的操作。
+
