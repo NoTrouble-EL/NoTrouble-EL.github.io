@@ -405,7 +405,7 @@
 <p>​        分组交换为什么更有效呢？我们看一个简单的例子。假如多个用户共享一条1Mbps链路，再假定每个用户活跃周期是变化的，某用户时而以100kbps恒定速率产生数据，时而静止——这时用户不产生数据。进一步假设该用户仅有10%的时间活跃。对于电路交换，在所有的时间内必须为每个用户预留100kps。例如，对于电话交换的TDM，如果一个1s的帧被划分为10个时隙，每个时隙为100ms，则每帧将为每个用户分配一个时隙。</p>
 <p>​        因此，该电路交换链路仅能支持10个并发用户。对于分组交换，一个特定的用户活跃的概率是0.1.如果有35个用户，有11或更多个并发活跃用户的概率大约是0.004。当有10个或更少并发用户时，到达的聚合数据速率小于该链路的输出速率为1Mbps。因此，当有10个或更少的活跃用户时，通过该链路的分组流基本上没有时延这与电路交换的情况一样。当同时活跃用户超过10个时，分组的聚合到达速率超过该链路的输出容量，则输出队列将开始变长。因为在本例子中同时活跃用户超过10个的概率极小，分组交换差不多总是提供了与电路交换相同的性能，并且允许在用户数量是其3倍时情况也是如此。</p>
 <p>​        我们现在考虑第二个简单的例子。假定有10个用户，某个用户突然产生1000个1000比特的分组，而其他用户则保持静默。在每帧具有10个时隙并且每个时隙包含1000比特的TDM电路交换情况下，活跃用户仅能使用每帧中的一个时隙来传输数据，而每个帧中剩余的9个时隙保持空闲。该活跃用户传输完成所有$10^6$比特数据需要10s的时间。在分组交换的情况下，活跃用户能够连续地以1Mbps的全部链路速率发送其分组，因为没有其他用户产生分组与该活跃用户的分组进行复用。在此情况下，该活跃用户的所有数据将在1s内发送完毕。</p>
-
+<h2 id="网络的网络"><a href="#网络的网络" class="headerlink" title="网络的网络"></a>网络的网络</h2>
       
     </div>
     
@@ -653,7 +653,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2"><span class="nav-number">1.</span> <span class="nav-text">分组交换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E8%BD%AC%E5%8F%91%E4%BC%A0%E8%BE%93"><span class="nav-number">1.1.</span> <span class="nav-text">存储转发传输</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2"><span class="nav-number">2.</span> <span class="nav-text">电路交换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2%E4%B8%AD%E7%9A%84%E5%A4%8D%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">电路交换中的复用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2%E4%B8%8E%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">2.2.</span> <span class="nav-text">分组交换与电路交换的对比</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2"><span class="nav-number">1.</span> <span class="nav-text">分组交换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E8%BD%AC%E5%8F%91%E4%BC%A0%E8%BE%93"><span class="nav-number">1.1.</span> <span class="nav-text">存储转发传输</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2"><span class="nav-number">2.</span> <span class="nav-text">电路交换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2%E4%B8%AD%E7%9A%84%E5%A4%8D%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">电路交换中的复用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2%E4%B8%8E%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">2.2.</span> <span class="nav-text">分组交换与电路交换的对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BD%91%E7%BB%9C"><span class="nav-number">3.</span> <span class="nav-text">网络的网络</span></a></li></ol></div>
             
 
           </div>
