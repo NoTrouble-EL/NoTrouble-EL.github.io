@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="JVM," />
+  <meta name="keywords" content="MyBatis,SSM," />
 
 
 
@@ -86,20 +86,19 @@
 
 
 
-<meta name="description" content="介绍​        程序计数器(Program Counter Register)是一块较小的内存空间，它可以看作是当前线程所执行的字节码的行号指示器。在Java虚拟机的概念模型里，字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令，它是程序控制流的指示器，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。 ​        由于Java虚拟机的">
+<meta name="description" content="JDBC的执行过程：获取链接——&gt; 预编译SQL——&gt; 设置参数 ——&gt; 执行SQL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="程序计数器(Program Counter Register)">
-<meta property="og:url" content="http://yoursite.com/2021/06/04/%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8-Program-Counter-Register/index.html">
+<meta property="og:title" content="MyBatis源码解析">
+<meta property="og:url" content="http://yoursite.com/2021/06/16/MyBatis%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/index.html">
 <meta property="og:site_name" content="NoTrouble&#39;s Blog">
-<meta property="og:description" content="介绍​        程序计数器(Program Counter Register)是一块较小的内存空间，它可以看作是当前线程所执行的字节码的行号指示器。在Java虚拟机的概念模型里，字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令，它是程序控制流的指示器，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。 ​        由于Java虚拟机的">
+<meta property="og:description" content="JDBC的执行过程：获取链接——&gt; 预编译SQL——&gt; 设置参数 ——&gt; 执行SQL">
 <meta property="og:locale">
-<meta property="og:image" content="http://yoursite.com/2021/06/04/%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8-Program-Counter-Register/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA.png">
-<meta property="article:published_time" content="2021-06-04T13:46:41.000Z">
-<meta property="article:modified_time" content="2021-06-04T13:46:41.000Z">
+<meta property="article:published_time" content="2021-06-16T15:13:10.000Z">
+<meta property="article:modified_time" content="2021-06-16T15:13:10.000Z">
 <meta property="article:author" content="NoTrouble">
-<meta property="article:tag" content="JVM">
+<meta property="article:tag" content="MyBatis">
+<meta property="article:tag" content="SSM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2021/06/04/%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8-Program-Counter-Register/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA.png">
 
 
 
@@ -129,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2021/06/04/程序计数器-Program-Counter-Register/"/>
+  <link rel="canonical" href="http://yoursite.com/2021/06/16/MyBatis源码解析/"/>
 
 
 
 
 
-  <title>程序计数器(Program Counter Register) | NoTrouble's Blog</title>
+  <title>MyBatis源码解析 | NoTrouble's Blog</title>
   
 
 
@@ -296,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/06/04/%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8-Program-Counter-Register/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/06/16/MyBatis%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -313,7 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">程序计数器(Program Counter Register)</h1>
+          <h1 class="post-title" itemprop="name headline">MyBatis源码解析</h1>
         
 
         <div class="post-meta">
@@ -325,8 +324,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-04T21:46:41+08:00">
-                2021-06-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-16T23:13:10+08:00">
+                2021-06-16
               </time>
             
 
@@ -348,8 +347,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JVM/" itemprop="url" rel="index">
-                    <span itemprop="name">JVM</span>
+                  <a href="/categories/MyBatis/" itemprop="url" rel="index">
+                    <span itemprop="name">MyBatis</span>
                   </a>
                 </span>
 
@@ -390,16 +389,59 @@
       
 
       
-        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>​        程序计数器(Program Counter Register)是一块较小的内存空间，它可以看作是当前线程所执行的字节码的行号指示器。在Java虚拟机的概念模型里，字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令，它是程序控制流的指示器，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。</p>
-<p>​        由于Java虚拟机的多线程是通过线程轮流切换、分配处理器执行时间的方式来实现的，在任何一个确定的时刻，一个处理器(对于多核处理器来说是一个内核)都只会执行一条线程中的指令。因此，为了线程切换后能恢复到正确的执行位置，每条线程都需要有一个独立的程序计数器，各条线程之间计数器互不影响，独立存储，我们称这类内存区域为“线程私有”的内存。</p>
+        <p>JDBC的执行过程：获取链接——&gt; 预编译SQL——&gt; 设置参数 ——&gt; 执行SQL</p>
  <span id="more"></span> 
 
-<p>​        如果线程正在执行的是一个Java方法，这个计数器记录的是正在执行的虚拟机字节码指定的地址；如果执行的是本地(Native)方法，这个计数器值应为空(Undefined)。此内存区域是唯一一个在《Java虚拟机规范》中没有规定任何OutOfMemoryError情况的区域。</p>
-<p><img src="/2021/06/04/%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8-Program-Counter-Register/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA.png" alt="img"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>作用：</strong>PC寄存器用来存储指向下一条指令的地址，即将要执行的指令代码。由执行引擎读取下一条指令。</p>
-<p><strong>使用PC寄存器存储字节码指令地址有什么用：</strong>因为CPU需要不停的切换各个线程，这时候切换回来以后，就得知道接着从哪里开始继续执行。JVM的字节码解释器就需要通过改变PC寄存器的值来明确下一条应该执行什么样的字节码指令。</p>
-<p><strong>PC寄存器为什么被设定为私有的：</strong>我们都知道所谓的多线程在一个特定的时间段内只会执行某一个线程的方法，CPU会不停地做任务切换，这样必然导致经常中断或恢复，如何保证分毫无差呢？为了能够准确地记录各个线程正在执行的当前字节码指令地址，最好的办法自然是为每一个线程都分配一个PC寄存器，这样一来各个线程之间便可以进行独立计算，从而不会出现互相干扰的情况。</p>
-<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p><strong>CPU时间片：</strong>CPU时间片即CPU分配给各个程序的时间，每个线程被分配一个时间段，称作它的时间片。在宏观上：我们可以认为同时打开了多个应用程序，每个程序并行不悖，同时运行；在微观上，由于只有一个CPU，一次只能处理程序要求的一部分，如何处理公平，一种方法就是引入时间片，每个程序轮流执行。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 获取链接*/</span></span><br><span class="line">Connection connection = DriverManager.getConnection(JDBC.URL, JDBC.USERNAME, JDBC.PASSWORD);</span><br><span class="line"><span class="comment">/** 预编译SQL*/</span></span><br><span class="line">PreparedStatement statement = connection.prepareStatement(<span class="string">&quot;select * from users&quot;</span>);</span><br><span class="line"><span class="comment">/** 执行查询*/</span></span><br><span class="line">ResultSet resultSet = statement.executeQuery();</span><br><span class="line"><span class="comment">/** 读取结果*/</span></span><br><span class="line">readResultSet(resultSet);</span><br></pre></td></tr></table></figure>
+
+<p>MyBatis的执行过程：</p>
+<ul>
+<li>获取连接</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//基于事务获取连接</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> Connection <span class="title">getConnection</span><span class="params">(Log statementLog)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">    Connection connection = transaction.getConnection();</span><br><span class="line">    <span class="keyword">if</span> (statementLog.isDebugEnabled()) &#123;</span><br><span class="line">        <span class="comment">//如果需要打印Connection的日志，返回一个ConnectionLogger(代理模式, AOP思想)</span></span><br><span class="line">        <span class="keyword">return</span> ConnectionLogger.newInstance(connection, statementLog, queryStack);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> connection;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> Connection <span class="title">getConnection</span><span class="params">()</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (connection == <span class="keyword">null</span>) &#123;</span><br><span class="line">        openConnection();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> connection;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>构建Statement</li>
+<li>设置参数</li>
+<li>执行修改</li>
+</ul>
+<p>动态代理MapperProxy——&gt; SQL会话SqlSession——&gt;执行器Executor——&gt; JDBC处理器StatementHandler</p>
+<h2 id="会话：SqlSession"><a href="#会话：SqlSession" class="headerlink" title="会话：SqlSession"></a>会话：SqlSession</h2><p>门面模式，API，只提供API，具体的实现是交给Executor来实现的</p>
+<ul>
+<li><p>基本API，增，删，改，查</p>
+</li>
+<li><p>辅助API 提交、关闭会话</p>
+</li>
+</ul>
+<h2 id="执行器：Executor"><a href="#执行器：Executor" class="headerlink" title="执行器：Executor"></a>执行器：Executor</h2><ul>
+<li><p>基本功能：改(Query())、查(Update())</p>
+</li>
+<li><p>缓存维护：若缓存中有数据，就直接从缓存中查找；数据发生变更，则在缓存中的数据也要发生变更</p>
+</li>
+<li><p>辅助功能：提交增删改，关闭执行器的操作</p>
+</li>
+<li><p>批处理刷新功能</p>
+</li>
+</ul>
+<h3 id="执行器实现一：简单执行器SimpleExecutor"><a href="#执行器实现一：简单执行器SimpleExecutor" class="headerlink" title="执行器实现一：简单执行器SimpleExecutor"></a>执行器实现一：简单执行器SimpleExecutor</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xiaohupao.excutortest;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.executor.SimpleExecutor;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.io.Resources;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.mapping.MappedStatement;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.session.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.session.RowBounds;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.session.SqlSessionFactory;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.session.SqlSessionFactoryBuilder;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.transaction.jdbc.JdbcTransaction;</span><br><span class="line"><span class="keyword">import</span> org.junit.Before;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.DriverManager;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: xiaohupao</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2021/6/15 19:30</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExecutorTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 配置信息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Configuration configuration;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> JdbcTransaction jdbcTransaction;</span><br><span class="line">    <span class="keyword">private</span> Connection connection;</span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> SQLException, IOException </span>&#123;</span><br><span class="line">        <span class="comment">//创建SqlSessionFactory</span></span><br><span class="line">        SqlSessionFactoryBuilder factoryBuilder = <span class="keyword">new</span> SqlSessionFactoryBuilder();</span><br><span class="line">        SqlSessionFactory build = factoryBuilder.build(Resources.getResourceAsStream(<span class="string">&quot;mybatis-config.xml&quot;</span>));</span><br><span class="line">        configuration = build.getConfiguration();</span><br><span class="line">        connection = DriverManager.getConnection(<span class="string">&quot;jdbc:mysql://localhost:3306/new_mybatis?useSSL=false&amp;amp;useUnicode=true&amp;amp;characterEncoding=UTF-8&quot;</span>,<span class="string">&quot;root&quot;</span>, <span class="string">&quot;123456&quot;</span>);</span><br><span class="line">        jdbcTransaction = <span class="keyword">new</span> JdbcTransaction(connection);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">simpleTest</span><span class="params">()</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        SimpleExecutor executor = <span class="keyword">new</span> SimpleExecutor(configuration, jdbcTransaction);</span><br><span class="line">        MappedStatement ms = configuration.getMappedStatement(<span class="string">&quot;cn.xiaohupao.dao.UserDao.findUserById&quot;</span>);</span><br><span class="line">        List&lt;Object&gt; list = executor.doQuery(ms, <span class="number">1</span>, RowBounds.DEFAULT, SimpleExecutor.NO_RESULT_HANDLER, ms.getBoundSql(<span class="number">1</span>));</span><br><span class="line">        System.out.println(list.get(<span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>无论SQL是否一样，每次都会进行预编译。</p>
+<p>每次都会创建一个新的预处理器</p>
+<h3 id="执行器实现二：SQL声明重用ReuseExecutor"><a href="#执行器实现二：SQL声明重用ReuseExecutor" class="headerlink" title="执行器实现二：SQL声明重用ReuseExecutor"></a>执行器实现二：SQL声明重用ReuseExecutor</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 重用执行器测试</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> SQLException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reuseTest</span><span class="params">()</span> <span class="keyword">throws</span> SQLException</span>&#123;</span><br><span class="line">    ReuseExecutor executor = <span class="keyword">new</span> ReuseExecutor(configuration, jdbcTransaction);</span><br><span class="line">    MappedStatement ms = configuration.getMappedStatement(<span class="string">&quot;cn.xiaohupao.dao.UserDao.findUserById&quot;</span>);</span><br><span class="line">    List&lt;Object&gt; list = executor.doQuery(ms, <span class="number">1</span>, RowBounds.DEFAULT, ReuseExecutor.NO_RESULT_HANDLER, ms.getBoundSql(<span class="number">1</span>));</span><br><span class="line">    System.out.println(list.get(<span class="number">0</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>相同的SQL只进行一次预处理</p>
+<h3 id="执行器实现三：批处理BatchExecutor"><a href="#执行器实现三：批处理BatchExecutor" class="headerlink" title="执行器实现三：批处理BatchExecutor"></a>执行器实现三：批处理BatchExecutor</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 批处理执行器测试</span></span><br><span class="line"><span class="comment">     * 只针对修改操作，查询操作和SimpleExecutor相同</span></span><br><span class="line"><span class="comment">     * 批处理需要手动刷新</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> SQLException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">batchTest</span><span class="params">()</span> <span class="keyword">throws</span> SQLException</span>&#123;</span><br><span class="line">    BatchExecutor executor = <span class="keyword">new</span> BatchExecutor(configuration, jdbcTransaction);</span><br><span class="line">    MappedStatement ms = configuration.getMappedStatement(<span class="string">&quot;cn.xiaohupao.dao.UserDao.updateUser&quot;</span>);</span><br><span class="line">    Map param = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    param.put(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;kw&quot;</span>);<span class="comment">//设置</span></span><br><span class="line">    param.put(<span class="string">&quot;pwd&quot;</span>, <span class="string">&quot;11111&quot;</span>);<span class="comment">//设置</span></span><br><span class="line">    param.put(<span class="string">&quot;id&quot;</span>, <span class="number">3</span>);<span class="comment">//设置</span></span><br><span class="line">    executor.doUpdate(ms, param);</span><br><span class="line">    executor.doFlushStatements(<span class="keyword">false</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>批处理提交修改必须执行doFlushStatements才会生效。</p>
+<h3 id="执行器抽象类BaseExector"><a href="#执行器抽象类BaseExector" class="headerlink" title="执行器抽象类BaseExector"></a>执行器抽象类BaseExector</h3><p>一级缓存</p>
+<p>获取连接</p>
+<p>缓存执行的流程：调用query方法——&gt;获取动态sql——&gt;创建一个缓存的Key——&gt;调用重载的query()方法——&gt;获取本地一级缓存——&gt;如果没有的话——&gt;调用queryFromDatabase——调用子类实现的doQuery()方法。<br>再次调用时则会走缓存的逻辑。 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">basetest</span><span class="params">()</span> <span class="keyword">throws</span> SQLException</span>&#123;</span><br><span class="line">    BaseExecutor executor = <span class="keyword">new</span> SimpleExecutor(configuration, tran);</span><br><span class="line">    executor.query(mappedStatement, <span class="keyword">null</span>, RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);</span><br><span class="line">    executor.query(mappedStatement, <span class="keyword">null</span>, RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="执行器实现四：二级缓存CachingExecutor"><a href="#执行器实现四：二级缓存CachingExecutor" class="headerlink" title="执行器实现四：二级缓存CachingExecutor"></a>执行器实现四：二级缓存CachingExecutor</h3><p>二级缓存通过设置才能开启，二级缓存与一级缓存的区别：一级缓存在执行查询语句后就有，二级缓存必须在提交事务后缓存才会有。</p>
+<p>二级缓存需要将查询结果映射到POJO对象时，POJO对象需要实现java.io.Serializable接口。如果存在父类、成员POJO都需要实现序列化接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cacheTest</span><span class="params">()</span> <span class="keyword">throws</span> SQLException</span>&#123;</span><br><span class="line">    Executor executor = <span class="keyword">new</span> SimpleExecutor(configuration, tran);</span><br><span class="line">    CachingExecutor cachingExecutor = <span class="keyword">new</span> CachingExecutor(executor);</span><br><span class="line">    <span class="comment">//二级缓存相关逻辑由CachingExecutor来实现  执行数据库相关逻辑由executor来实现</span></span><br><span class="line">    cachingExecutor.query(mappedStatement, <span class="keyword">null</span>, RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);</span><br><span class="line">    cachingExecutor.commit(<span class="keyword">true</span>);<span class="comment">//先走二级缓存再走一级缓存</span></span><br><span class="line">    cachingExecutor.query(mappedStatement, <span class="keyword">null</span>, RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -444,7 +486,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/2021/06/04/%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8-Program-Counter-Register/" title="程序计数器(Program Counter Register)">http://yoursite.com/2021/06/04/%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8-Program-Counter-Register/</a>
+    <a href="http://yoursite.com/2021/06/16/MyBatis%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" title="MyBatis源码解析">http://yoursite.com/2021/06/16/MyBatis%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -459,7 +501,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/JVM/" rel="tag"># JVM</a>
+            <a href="/tags/MyBatis/" rel="tag"># MyBatis</a>
+          
+            <a href="/tags/SSM/" rel="tag"># SSM</a>
           
         </div>
       
@@ -472,8 +516,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/06/03/%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%9E%8B/" rel="next" title="双亲委派模型">
-                <i class="fa fa-chevron-left"></i> 双亲委派模型
+              <a href="/2021/06/11/%E8%B0%88%E4%B8%80%E8%B0%88%E5%AF%B9volatile%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E7%90%86%E8%A7%A3/" rel="next" title="谈一谈对volatile关键字的理解">
+                <i class="fa fa-chevron-left"></i> 谈一谈对volatile关键字的理解
               </a>
             
           </div>
@@ -481,10 +525,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/06/05/%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%A0%E7%89%B9%E7%BD%91/" rel="prev" title="什么是因特网">
-                什么是因特网 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -648,7 +688,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A5%E5%85%85"><span class="nav-number">3.</span> <span class="nav-text">补充</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%EF%BC%9ASqlSession"><span class="nav-number">1.</span> <span class="nav-text">会话：SqlSession</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%EF%BC%9AExecutor"><span class="nav-number">2.</span> <span class="nav-text">执行器：Executor</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E5%AE%9E%E7%8E%B0%E4%B8%80%EF%BC%9A%E7%AE%80%E5%8D%95%E6%89%A7%E8%A1%8C%E5%99%A8SimpleExecutor"><span class="nav-number">2.1.</span> <span class="nav-text">执行器实现一：简单执行器SimpleExecutor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E5%AE%9E%E7%8E%B0%E4%BA%8C%EF%BC%9ASQL%E5%A3%B0%E6%98%8E%E9%87%8D%E7%94%A8ReuseExecutor"><span class="nav-number">2.2.</span> <span class="nav-text">执行器实现二：SQL声明重用ReuseExecutor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E5%AE%9E%E7%8E%B0%E4%B8%89%EF%BC%9A%E6%89%B9%E5%A4%84%E7%90%86BatchExecutor"><span class="nav-number">2.3.</span> <span class="nav-text">执行器实现三：批处理BatchExecutor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E6%8A%BD%E8%B1%A1%E7%B1%BBBaseExector"><span class="nav-number">2.4.</span> <span class="nav-text">执行器抽象类BaseExector</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E5%AE%9E%E7%8E%B0%E5%9B%9B%EF%BC%9A%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98CachingExecutor"><span class="nav-number">2.5.</span> <span class="nav-text">执行器实现四：二级缓存CachingExecutor</span></a></li></ol></li></ol></div>
             
 
           </div>
