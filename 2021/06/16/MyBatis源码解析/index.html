@@ -93,12 +93,14 @@
 <meta property="og:site_name" content="NoTrouble&#39;s Blog">
 <meta property="og:description" content="JDBC的执行过程：获取链接——&gt; 预编译SQL——&gt; 设置参数 ——&gt; 执行SQL">
 <meta property="og:locale">
+<meta property="og:image" content="http://yoursite.com/2021/06/16/MyBatis%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/Mybatis%E6%89%A7%E8%A1%8C%E5%99%A8.png">
 <meta property="article:published_time" content="2021-06-16T15:13:10.000Z">
 <meta property="article:modified_time" content="2021-06-16T15:13:10.000Z">
 <meta property="article:author" content="NoTrouble">
 <meta property="article:tag" content="MyBatis">
 <meta property="article:tag" content="SSM">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/06/16/MyBatis%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/Mybatis%E6%89%A7%E8%A1%8C%E5%99%A8.png">
 
 
 
@@ -406,6 +408,7 @@
 <li>执行修改</li>
 </ul>
 <p>动态代理MapperProxy——&gt; SQL会话SqlSession——&gt;执行器Executor——&gt; JDBC处理器StatementHandler</p>
+<p><img src="/2021/06/16/MyBatis%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/Mybatis%E6%89%A7%E8%A1%8C%E5%99%A8.png" alt="image"></p>
 <h2 id="会话：SqlSession"><a href="#会话：SqlSession" class="headerlink" title="会话：SqlSession"></a>会话：SqlSession</h2><p>门面模式，API，只提供API，具体的实现是交给Executor来实现的</p>
 <ul>
 <li><p>基本API，增，删，改，查</p>
@@ -442,6 +445,31 @@
 <p>二级缓存需要将查询结果映射到POJO对象时，POJO对象需要实现java.io.Serializable接口。如果存在父类、成员POJO都需要实现序列化接口。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cacheTest</span><span class="params">()</span> <span class="keyword">throws</span> SQLException</span>&#123;</span><br><span class="line">    Executor executor = <span class="keyword">new</span> SimpleExecutor(configuration, tran);</span><br><span class="line">    CachingExecutor cachingExecutor = <span class="keyword">new</span> CachingExecutor(executor);</span><br><span class="line">    <span class="comment">//二级缓存相关逻辑由CachingExecutor来实现  执行数据库相关逻辑由executor来实现</span></span><br><span class="line">    cachingExecutor.query(mappedStatement, <span class="keyword">null</span>, RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);</span><br><span class="line">    cachingExecutor.commit(<span class="keyword">true</span>);<span class="comment">//先走二级缓存再走一级缓存</span></span><br><span class="line">    cachingExecutor.query(mappedStatement, <span class="keyword">null</span>, RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p><strong>使用SqlSession会话调用过程</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sessionTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">final</span> SqlSession sqlSession = build.openSession(<span class="keyword">true</span>);</span><br><span class="line">    <span class="keyword">final</span> List&lt;Object&gt; list = sqlSession.selectList(<span class="string">&quot;cn.xiaohupao.dao.UserDa.findAllUser&quot;</span>);</span><br><span class="line">    System.out.println(list);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通常使用sqlsession调用会使用SimpleExector，若想调用ReuseExector则可以在</p>
+<p>SqlSession sqlSession = build.openSession(ExecutorType.Reuse, true);在oppenSession中指定Exectory的类型。</p>
+<h2 id="MyBatis一级缓存命中场景"><a href="#MyBatis一级缓存命中场景" class="headerlink" title="MyBatis一级缓存命中场景"></a>MyBatis一级缓存命中场景</h2><p>二级缓存是在CachingExecutor中实现的；一级缓存是在BaseExector中实现的。</p>
+<p>一级缓存是默认打开的；一级缓存结构是一种key：value的形式，也就是HashMap。</p>
+<p>一级缓存命中的场景与①运行时参数相关；②操作和配置相关。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* sql和参数必须相同</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">final</span> UserDa mapper = sqlSession.getMapper(UserDa.class);</span><br><span class="line">    <span class="keyword">final</span> User user = mapper.findUserById(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">final</span> User user1 = mapper.findUserById(<span class="number">1</span>);</span><br><span class="line">    System.out.println(user == user1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>运行时参数相关</strong></p>
+<ul>
+<li>sql和参数相同</li>
+<li>必须相同的statementID，接口名和方法名相同</li>
+<li>sqlSession必须相同(会话级缓存)</li>
+<li>RowBounds 返回的行范围必须相同</li>
+</ul>
+<p><strong>操作和配置相关</strong></p>
+<ul>
+<li>不能手动清空缓存</li>
+<li>不能在执行接口中不能调用flushCache=true查询</li>
+<li>未执行update，即在两次相同查询中，中间不能有修改操作，否则也将清空缓存clearCache()</li>
+<li>缓存作用域不能为statement</li>
+<li>commit()、rollback()同样会清空缓存，与update相同</li>
+</ul>
 
       
     </div>
@@ -688,7 +716,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%EF%BC%9ASqlSession"><span class="nav-number">1.</span> <span class="nav-text">会话：SqlSession</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%EF%BC%9AExecutor"><span class="nav-number">2.</span> <span class="nav-text">执行器：Executor</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E5%AE%9E%E7%8E%B0%E4%B8%80%EF%BC%9A%E7%AE%80%E5%8D%95%E6%89%A7%E8%A1%8C%E5%99%A8SimpleExecutor"><span class="nav-number">2.1.</span> <span class="nav-text">执行器实现一：简单执行器SimpleExecutor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E5%AE%9E%E7%8E%B0%E4%BA%8C%EF%BC%9ASQL%E5%A3%B0%E6%98%8E%E9%87%8D%E7%94%A8ReuseExecutor"><span class="nav-number">2.2.</span> <span class="nav-text">执行器实现二：SQL声明重用ReuseExecutor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E5%AE%9E%E7%8E%B0%E4%B8%89%EF%BC%9A%E6%89%B9%E5%A4%84%E7%90%86BatchExecutor"><span class="nav-number">2.3.</span> <span class="nav-text">执行器实现三：批处理BatchExecutor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E6%8A%BD%E8%B1%A1%E7%B1%BBBaseExector"><span class="nav-number">2.4.</span> <span class="nav-text">执行器抽象类BaseExector</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E5%AE%9E%E7%8E%B0%E5%9B%9B%EF%BC%9A%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98CachingExecutor"><span class="nav-number">2.5.</span> <span class="nav-text">执行器实现四：二级缓存CachingExecutor</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%EF%BC%9ASqlSession"><span class="nav-number">1.</span> <span class="nav-text">会话：SqlSession</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%EF%BC%9AExecutor"><span class="nav-number">2.</span> <span class="nav-text">执行器：Executor</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E5%AE%9E%E7%8E%B0%E4%B8%80%EF%BC%9A%E7%AE%80%E5%8D%95%E6%89%A7%E8%A1%8C%E5%99%A8SimpleExecutor"><span class="nav-number">2.1.</span> <span class="nav-text">执行器实现一：简单执行器SimpleExecutor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E5%AE%9E%E7%8E%B0%E4%BA%8C%EF%BC%9ASQL%E5%A3%B0%E6%98%8E%E9%87%8D%E7%94%A8ReuseExecutor"><span class="nav-number">2.2.</span> <span class="nav-text">执行器实现二：SQL声明重用ReuseExecutor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E5%AE%9E%E7%8E%B0%E4%B8%89%EF%BC%9A%E6%89%B9%E5%A4%84%E7%90%86BatchExecutor"><span class="nav-number">2.3.</span> <span class="nav-text">执行器实现三：批处理BatchExecutor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E6%8A%BD%E8%B1%A1%E7%B1%BBBaseExector"><span class="nav-number">2.4.</span> <span class="nav-text">执行器抽象类BaseExector</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E5%AE%9E%E7%8E%B0%E5%9B%9B%EF%BC%9A%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98CachingExecutor"><span class="nav-number">2.5.</span> <span class="nav-text">执行器实现四：二级缓存CachingExecutor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MyBatis%E4%B8%80%E7%BA%A7%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E5%9C%BA%E6%99%AF"><span class="nav-number">3.</span> <span class="nav-text">MyBatis一级缓存命中场景</span></a></li></ol></div>
             
 
           </div>
