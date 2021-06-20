@@ -94,6 +94,7 @@
 <meta property="og:description" content="JDBC的执行过程：获取链接——&gt; 预编译SQL——&gt; 设置参数 ——&gt; 执行SQL">
 <meta property="og:locale">
 <meta property="og:image" content="http://yoursite.com/2021/06/16/MyBatis%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/Mybatis%E6%89%A7%E8%A1%8C%E5%99%A8.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/16/MyBatis%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/Mybatis%E4%B8%80%E7%BA%A7%E7%BC%93%E5%AD%98.png">
 <meta property="article:published_time" content="2021-06-16T15:13:10.000Z">
 <meta property="article:modified_time" content="2021-06-16T15:13:10.000Z">
 <meta property="article:author" content="NoTrouble">
@@ -470,6 +471,20 @@
 <li>缓存作用域不能为statement</li>
 <li>commit()、rollback()同样会清空缓存，与update相同</li>
 </ul>
+<h2 id="一级缓存源码解析"><a href="#一级缓存源码解析" class="headerlink" title="一级缓存源码解析"></a>一级缓存源码解析</h2><p>key中存着statementID、RowBounds分页条件、查询条件SQL语句、查询参数、环境变量(核心配置文件中的环境变量)</p>
+<p><img src="/2021/06/16/MyBatis%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/Mybatis%E4%B8%80%E7%BA%A7%E7%BC%93%E5%AD%98.png" alt="image"></p>
+<h3 id="一级缓存总结"><a href="#一级缓存总结" class="headerlink" title="一级缓存总结"></a>一级缓存总结</h3><p>一级缓存与会话相关，只要会话关闭，一级缓存就会被清空。</p>
+<p>一级缓存必须满足一级缓存命中条件才能通过一级缓存查询。因为这些条件就是缓存的key。</p>
+<p>为了保证缓存的一致性，当在提交，回滚，执行update都将调用缓存清空方法。当配置flushCache=true时也不会走缓存，当作用域改为statement时，则不走一级缓存。</p>
+<h3 id="Spring集成MyBatis一级缓存失效"><a href="#Spring集成MyBatis一级缓存失效" class="headerlink" title="Spring集成MyBatis一级缓存失效"></a>Spring集成MyBatis一级缓存失效</h3><p>本质原因是构造了不同的会话，导致一级缓存不能命中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testBySpring</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ClassPathXmlApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">&quot;Spring.xml&quot;</span>);</span><br><span class="line">    UserMapper mapper = context.getBean(UserMapper.class);</span><br><span class="line">    User user = mapper.selecyByid(<span class="number">1</span>);<span class="comment">//每次都会构造一个新的会话  发起调用</span></span><br><span class="line">    User user1 = mapper.selecyByid(<span class="number">1</span>);<span class="comment">//每次都会构造一个新的会话  发起调用</span></span><br><span class="line">    </span><br><span class="line">    System.out.println(user = user1);<span class="comment">//false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>解决方法</strong></p>
+<p>手动开启事务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testBySpring</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ClassPathXmlApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">&quot;Spring.xml&quot;</span>);</span><br><span class="line">    UserMapper mapper = context.getBean(UserMapper.class);</span><br><span class="line">    </span><br><span class="line">    DataSourceTransactionManager transactionManager = (DataSourceTransactionManager) context.getBean(<span class="string">&quot;txManager&quot;</span>);</span><br><span class="line">    TransactionStatus status = transactionManager.getTransaction(<span class="keyword">new</span> DefaultTransactionDefinition());</span><br><span class="line">    </span><br><span class="line">    User user = mapper.selecyByid(<span class="number">1</span>);<span class="comment">//每次都会构造一个新的会话  发起调用</span></span><br><span class="line">    User user1 = mapper.selecyByid(<span class="number">1</span>);<span class="comment">//每次都会构造一个新的会话  发起调用</span></span><br><span class="line">    </span><br><span class="line">    System.out.println(user = user1);<span class="comment">//false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 
       
     </div>
@@ -553,6 +568,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/06/20/%E5%BA%94%E7%94%A8%E5%B1%82%E5%8D%8F%E8%AE%AE%E5%8E%9F%E7%90%86/" rel="prev" title="应用层协议原理">
+                应用层协议原理 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -639,7 +658,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -716,7 +735,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%EF%BC%9ASqlSession"><span class="nav-number">1.</span> <span class="nav-text">会话：SqlSession</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%EF%BC%9AExecutor"><span class="nav-number">2.</span> <span class="nav-text">执行器：Executor</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E5%AE%9E%E7%8E%B0%E4%B8%80%EF%BC%9A%E7%AE%80%E5%8D%95%E6%89%A7%E8%A1%8C%E5%99%A8SimpleExecutor"><span class="nav-number">2.1.</span> <span class="nav-text">执行器实现一：简单执行器SimpleExecutor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E5%AE%9E%E7%8E%B0%E4%BA%8C%EF%BC%9ASQL%E5%A3%B0%E6%98%8E%E9%87%8D%E7%94%A8ReuseExecutor"><span class="nav-number">2.2.</span> <span class="nav-text">执行器实现二：SQL声明重用ReuseExecutor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E5%AE%9E%E7%8E%B0%E4%B8%89%EF%BC%9A%E6%89%B9%E5%A4%84%E7%90%86BatchExecutor"><span class="nav-number">2.3.</span> <span class="nav-text">执行器实现三：批处理BatchExecutor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E6%8A%BD%E8%B1%A1%E7%B1%BBBaseExector"><span class="nav-number">2.4.</span> <span class="nav-text">执行器抽象类BaseExector</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E5%AE%9E%E7%8E%B0%E5%9B%9B%EF%BC%9A%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98CachingExecutor"><span class="nav-number">2.5.</span> <span class="nav-text">执行器实现四：二级缓存CachingExecutor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MyBatis%E4%B8%80%E7%BA%A7%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E5%9C%BA%E6%99%AF"><span class="nav-number">3.</span> <span class="nav-text">MyBatis一级缓存命中场景</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%EF%BC%9ASqlSession"><span class="nav-number">1.</span> <span class="nav-text">会话：SqlSession</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%EF%BC%9AExecutor"><span class="nav-number">2.</span> <span class="nav-text">执行器：Executor</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E5%AE%9E%E7%8E%B0%E4%B8%80%EF%BC%9A%E7%AE%80%E5%8D%95%E6%89%A7%E8%A1%8C%E5%99%A8SimpleExecutor"><span class="nav-number">2.1.</span> <span class="nav-text">执行器实现一：简单执行器SimpleExecutor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E5%AE%9E%E7%8E%B0%E4%BA%8C%EF%BC%9ASQL%E5%A3%B0%E6%98%8E%E9%87%8D%E7%94%A8ReuseExecutor"><span class="nav-number">2.2.</span> <span class="nav-text">执行器实现二：SQL声明重用ReuseExecutor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E5%AE%9E%E7%8E%B0%E4%B8%89%EF%BC%9A%E6%89%B9%E5%A4%84%E7%90%86BatchExecutor"><span class="nav-number">2.3.</span> <span class="nav-text">执行器实现三：批处理BatchExecutor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E6%8A%BD%E8%B1%A1%E7%B1%BBBaseExector"><span class="nav-number">2.4.</span> <span class="nav-text">执行器抽象类BaseExector</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E5%AE%9E%E7%8E%B0%E5%9B%9B%EF%BC%9A%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98CachingExecutor"><span class="nav-number">2.5.</span> <span class="nav-text">执行器实现四：二级缓存CachingExecutor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MyBatis%E4%B8%80%E7%BA%A7%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E5%9C%BA%E6%99%AF"><span class="nav-number">3.</span> <span class="nav-text">MyBatis一级缓存命中场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E7%BA%A7%E7%BC%93%E5%AD%98%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">一级缓存源码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E7%BA%A7%E7%BC%93%E5%AD%98%E6%80%BB%E7%BB%93"><span class="nav-number">4.1.</span> <span class="nav-text">一级缓存总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring%E9%9B%86%E6%88%90MyBatis%E4%B8%80%E7%BA%A7%E7%BC%93%E5%AD%98%E5%A4%B1%E6%95%88"><span class="nav-number">4.2.</span> <span class="nav-text">Spring集成MyBatis一级缓存失效</span></a></li></ol></li></ol></div>
             
 
           </div>
