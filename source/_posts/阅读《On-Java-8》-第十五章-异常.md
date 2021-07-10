@@ -711,4 +711,1173 @@ at RethrowNew.main(RethrowNew.java:26)
 
 ​		永远不必为清理前一个异常对象而担心，或者说为异常对象的清理而担心。它们都是用new在堆上创建的对象，所以垃圾回收器会自动把它们清理掉。
 
-​		
+### 精确的重新抛出异常
+
+​		在Java7之前，如果捕捉到一个异常，重新抛出异常只能与原异常完全相同。这导致代码不精确，Java7修复了这个问题。所以在Java7之前，这无法编译：
+
+```java
+class BaseException extends Exception {}
+class DerivedException extends BaseException {}
+
+public class PreciseRethrow {
+    void catcher() throws DerivedException {
+        try {
+            throw new DerivedException();
+        } catch(BaseException e) {
+            throw e;
+        }
+    }
+}
+```
+
+​		因为catch捕获了一个BaseException，编译器强迫你声明catcher()抛出BaseException，即使它实际上抛出了更具体的DerivedException。从Java7开始，这段代码就可以编译，这是一个很小但很有用的修复。
+
+### 异常链
+
+​		常常会想要在捕获一个异常后抛出另一个异常，并且希望把原始异常的信息保存下来，这被称为异常链。在JDK1.4以前，程序员必须自己编写代码来保存原始异常信息。现在所有Throwable的子类在构造器中都可以接受一个cause对象作为参数。这个cause就用来表示原始异常，这样通过把原始异常传递给新的异常，使得即使在当前位置创建并抛出了新的异常，也能通过这个异常链追踪到异常最初发生的位置。
+
+​		有趣的是，在Throwable的子类中，只有三种基本的异常类提供了带cause参数的构造器。它们是Error、Exception以及RuntimeException。如果要把其他类型的异常链接起来，应该使用initCause()方法而不是构造器。
+
+​		下面的例子能让你在运行时动态地向DynamicFields对象添加字段：
+
+```java
+// exceptions/DynamicFields.java
+// A Class that dynamically adds fields to itself to
+// demonstrate exception chaining
+class DynamicFieldsException extends Exception {}
+public class DynamicFields {
+    private Object[][] fields;
+    public DynamicFields(int initialSize) {
+        fields = new Object[initialSize][2];
+        for(int i = 0; i < initialSize; i++)
+            fields[i] = new Object[] { null, null };
+    }
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        for(Object[] obj : fields) {
+            result.append(obj[0]);
+            result.append(": ");
+            result.append(obj[1]);
+            result.append("\n");
+        }
+        return result.toString();
+    }
+    private int hasField(String id) {
+        for(int i = 0; i < fields.length; i++)
+            if(id.equals(fields[i][0]))
+                return i;
+        return -1;
+    }
+    private int getFieldNumber(String id)
+            throws NoSuchFieldException {
+        int fieldNum = hasField(id);
+        if(fieldNum == -1)
+            throw new NoSuchFieldException();
+        return fieldNum;
+    }
+    private int makeField(String id) {
+        for(int i = 0; i < fields.length; i++)
+            if(fields[i][0] == null) {
+                fields[i][0] = id;
+                return i;
+            }
+// No empty fields. Add one:
+        Object[][] tmp = new Object[fields.length + 1][2];
+        for(int i = 0; i < fields.length; i++)
+            tmp[i] = fields[i];
+        for(int i = fields.length; i < tmp.length; i++)
+            tmp[i] = new Object[] { null, null };
+        fields = tmp;
+// Recursive call with expanded fields:
+        return makeField(id);
+    }
+    public Object
+    getField(String id) throws NoSuchFieldException {
+        return fields[getFieldNumber(id)][1];
+    }
+    public Object setField(String id, Object value)
+            throws DynamicFieldsException {
+        if(value == null) {
+// Most exceptions don't have a "cause"
+// constructor. In these cases you must use
+// initCause(), available in all
+// Throwable subclasses.
+            DynamicFieldsException dfe =
+                    new DynamicFieldsException();
+            dfe.initCause(new NullPointerException());
+            throw dfe;
+        }
+        int fieldNumber = hasField(id);
+        if(fieldNumber == -1)
+            fieldNumber = makeField(id);
+        Object result = null;
+        try {
+            result = getField(id); // Get old value
+        } catch(NoSuchFieldException e) {
+// Use constructor that takes "cause":
+            throw new RuntimeException(e);
+        }
+        fields[fieldNumber][1] = value;
+        return result;
+    }
+    public static void main(String[] args) {
+        DynamicFields df = new DynamicFields(3);
+        System.out.println(df);
+        try {
+            df.setField("d", "A value for d");
+            df.setField("number", 47);
+            df.setField("number2", 48);
+            System.out.println(df);
+            df.setField("d", "A new value for d");
+            df.setField("number3", 11);
+            System.out.println("df: " + df);
+            System.out.println("df.getField(\"d\") : "
+                    + df.getField("d"));
+            Object field =
+                    df.setField("d", null); // Exception
+        } catch(NoSuchFieldException |
+                DynamicFieldsException e) {
+            e.printStackTrace(System.out);
+        }
+    }
+}
+/**
+null: null
+null: null
+null: null
+d: A value for d
+number: 47
+number2: 48
+df: d: A new value for d
+number: 47
+number2: 48
+number3: 11
+
+df.getField("d") : A new value for d
+DynamicFieldsException
+at DynamicFields.setField(DynamicFields.java:65)
+at DynamicFields.
+Caused by: java.lang.NullPointerException
+at DynamicFields.setField(DynamicFields.java:67)
+... 1 more
+*/
+```
+
+​		每个DynamicFields对象都含有一个数组，其元素是“成对的对象”。第一个对象表示字段标识符(一个字符串)，第二个表示字段值，值的类型可以是基本类型外的任意类型。当创建对象的时候，要合理估计一下需要多少字段。当调用setField()方法的时候，它将试图通过标识符修改已有字段，否则就建一个新的字段，并把值放入。如果空间不够了，将建立一个更长的数组，并把原来数组的元素复制进去。如果你试图为字段设置一个空值，将抛出一个DynamicFieldsException异常，它是通过使用initCause()方法把NullPointerException对象插入而建立的。
+
+​		至于返回值，setField()将用getField()方法把此位置的旧值取出，这个操作可能会抛出NoSuchFieldException异常。如果客户端程序员调用了getField()方法，那么他就有责任处理这个可能抛出异常的NoSuchFieldException异常，但如果异常是从setField()方法里抛出的，这种情况将被视为编程错误，所以就使用接受cause参数的构造器把NoSuchFieldException异常转换为RuntimeException异常。
+
+​		你会注意到，toString()方法使用了一个StringBuilder来创建其结果。
+
+​		main()方法中的catch子句看起来不同——它使用相同的子句处理两种不同类型的异常，这两种不同的异常通过“或(|)”符号结合起来。Java7的这项功能有助于减少代码重复，并使你更容易指定要捕获的确切类型，而不是简单地捕获一个基类性。你可以通过这种方式组合多种异常类型。
+
+## Java标准异常
+
+​		Throwable这个Java类被用来表示任何可以作为异常被抛出的类。Throwable对象可分别为两种类型(指从Throwable继承而得到的类型)：Error用来表示编译时和系统错误(除特殊情况外，一般你不用关心)；Exception是可以被抛出的基本类型，在Java类库、用户方法以及运行时故障中都可能抛出Exception型异常。所以Java程序员关心的基类型通常是Exception。但很快你就会发现，这些异常除了名称外其实都差不多。同时，Java中异常的数目在持续增加，所以在书中简单罗列它们毫无意义。所使用的第三方类库也可能会有自己的异常。对异常来说，关键是理解概念以及如何使用。
+
+​		基本理念是用异常的名称代表发生的问题。异常的名称应该可以望文知意。异常并非全是在java.lang包中定义的；有些异常是用来支持其他像util、net和io这样的程序包，这些异常可以通过它们的完整名称或者从它们的父类中看出端倪。比如，所有的输入/输出异常都是从java.io.IOException继承而来的。
+
+### 特例：RuntimeException
+
+​		在本章中第一个例子中：
+
+```java
+if(t == null)
+    throw new NullPointerException();
+```
+
+​		如果必须对传递给方法的每一个引用都检查其是否为null(因为无法确定调用者是否传入了非法引用)，这听起来着实吓人。幸运的是，这不必由你亲自来做，它属于Java的标准运行时检测的一部分。如果对null引用进行调用，Java会自动抛出NullPointerException异常，所以上述代码是多余的，尽管你也许想要执行其他的检查以确保NullPointerException不会出现。
+
+​		属于运行时异常的类型有很多，它们被Java自动抛出，所以不必在异常说明中把它们列出来。非常方便的是，通过这些异常设置为RuntimeException的子类而把它们归类起来，这是继承的一个绝佳例子：建立具有相同特征和行为的一组类型。
+
+​		RuntimeException代表的是编程错误：
+
+* 1.无法预料的错误。比如从你控制范围之外传递进来的null引用。
+* 作为程序员，应该在代码中进行错误检查。(比如对于ArrayIndexOutOfBoundsException，就得注意一下数组的大小了。)在一个地方发生的异常，常常会在另一个地方导致错误。
+
+
+
+​		在这些情况下使用异常很有好处，它们能给调试带来便利。
+
+​		如果不捕获这种类型的异常会发生什么事呢？因为编译器没有在这个问题上对异常说明进行强制检查，RuntimeException类型的异常也许会穿越所有的执行路径直达main()方法，而不会被捕获。要明白到底发生了什么，可以试试下面的例子：
+
+```java
+// exceptions/NeverCaught.java
+// Ignoring RuntimeExceptions
+// {ThrowsException}
+public class NeverCaught {
+    static void f() {
+        throw new RuntimeException("From f()");
+    }
+    static void g() {
+        f();
+    }
+    public static void main(String[] args) {
+        g();
+    }
+}
+/**
+___[ Error Output ]___
+Exception in thread "main" java.lang.RuntimeException:
+From f()
+at NeverCaught.f(NeverCaught.java:7)
+at NeverCaught.g(NeverCaught.java:10)
+at NeverCaught.main(NeverCaught.java:13)
+*/
+```
+
+​		如果RuntimeException没有被捕获而直达main()，那么在程序退出前将调用异常的printStackTrace()方法。
+
+​		你会发现，RuntimeException(或任何从它继承的异常)是一个特例。对于这种异常类型，编译器不需要异常说明，其输出被报告给了System.err。
+
+​		请务必记住：代码中只有RuntimeException(及其子类)类型的异常可以被忽略，因为编译器强制要求处理所有受检查类型的异常。
+
+​		值得注意的是：不应把Java异常处理机制当成是单一用途的工具。是的，它被设计用来处理一些烦人的运行时错误，这些错误往往是由代码控制能力之外的因素导致的；然而，它对于发现某些编译器无法检测到的编程错误，也是非常重要的。
+
+## 使用finally进行清理
+
+​		有一些代码片段，可能会希望无论try块中的异常是否抛出，它们都能得到执行。这通常适用于内存回收之外的情况(因为回收由垃圾回收器完成)，为了达到这个效果。可以在异常处理程序后面加上finally子句。完整的异常处理程序看起来像这样：
+
+```java
+try {
+// The guarded region: Dangerous activities
+// that might throw A, B, or C
+} catch(A a1) {
+// Handler for situation A
+} catch(B b1) {
+// Handler for situation B
+} catch(C c1) {
+// Handler for situation C
+} finally {
+// Activities that happen every time
+}
+```
+
+​		为了证明finally子句总能运行，可以试试下面这个程序：
+
+```java
+// exceptions/FinallyWorks.java
+// The finally clause is always executed
+class ThreeException extends Exception {}
+public class FinallyWorks {
+    static int count = 0;
+    public static void main(String[] args) {
+        while(true) {
+            try {
+                // Post-increment is zero first time:
+                if(count++ == 0)
+                    throw new ThreeException();
+                System.out.println("No exception");
+            } catch(ThreeException e) {
+                System.out.println("ThreeException");
+            } finally {
+                System.out.println("In finally clause");
+                if(count == 2) break; // out of "while"
+            }
+        }
+    }
+}
+/**
+ThreeException
+In finally clause
+No exception
+In finally clause
+*/
+```
+
+​		从输出中发现，无论异常是否被抛出，finally子句总能被执行。这也为解决Java不允许我们回到异常抛出点这一问题，提供了一个思路。如果try块放在循环里，就可以设置一种在程序执行前一定会遇到的异常状况。还可以加入一个static类型的计数器或者别的装置，使循环在结束以前能尝试一定的次数。这将使程序的健壮性更上一个台阶。
+
+### finally用来做什么？
+
+​		对于没有垃圾回收和析构函数自动调用机制的语言来说，finally非常重要。它能使程序员保证：无论try块里发生了什么，内存总能得到释放。但Java有垃圾回收机制，所以内存释放不再是问题。而且，Java也没有析构函数可供调用。那么，Java在什么情况下才能用到finally呢？
+
+​		当要把除内存之外的资源恢复到它们的初始状态时，就要用到finally子句。这种需要清理的资源包括：已经打开的文件或网络连接，在屏幕上画的图形，甚至是可以是外部世界的某个开关，如下面例子所示：
+
+```java
+// exceptions/Switch.java
+public class Switch {
+    private boolean state = false;
+    public boolean read() { return state; }
+    public void on() {
+        state = true;
+        System.out.println(this);
+    }
+    public void off() {
+        state = false;
+        System.out.println(this);
+    }
+    @Override
+    public String toString() {
+        return state ? "on" : "off";
+    }
+}
+// exceptions/OnOffException1.java
+public class OnOffException1 extends Exception {}
+// exceptions/OnOffException2.java
+public class OnOffException2 extends Exception {}
+// exceptions/OnOffSwitch.java
+// Why use finally?
+public class OnOffSwitch {
+    private static Switch sw = new Switch();
+    public static void f()
+            throws OnOffException1, OnOffException2 {}
+    public static void main(String[] args) {
+        try {
+            sw.on();
+            // Code that can throw exceptions...
+            f();
+            sw.off();
+        } catch(OnOffException1 e) {
+            System.out.println("OnOffException1");
+            sw.off();
+        } catch(OnOffException2 e) {
+            System.out.println("OnOffException2");
+            sw.off();
+        }
+    }
+}
+//on
+//off
+```
+
+​		程序的目的是要确保main()结束的时候开关必须是关闭的，所以在每个try块和异常处理程序的末尾都加入了对sw.off()方法的调用。但也可能有这种情况：异常被抛出，但没被处理程序捕获，这时sw.off()就得不到调用。但是有了finally，只要把try块中的清理代码移放在一处即可：
+
+```java
+// exceptions/WithFinally.java
+// Finally Guarantees cleanup
+public class WithFinally {
+    static Switch sw = new Switch();
+    public static void main(String[] args) {
+        try {
+            sw.on();
+            // Code that can throw exceptions...
+            OnOffSwitch.f();
+        } catch(OnOffException1 e) {
+            System.out.println("OnOffException1");
+        } catch(OnOffException2 e) {
+            System.out.println("OnOffException2");
+        } finally {
+            sw.off();
+        }
+    }
+}
+/**
+on
+off
+*/
+```
+
+​		这里sw.off()被移到一处，并且保证在任何情况下都能得到执行。
+
+​		甚至在异常没有被当前的异常处理程序捕获的情况下，异常处理机制也会在跳到更高一层的异常处理程序之前，执行finally子句：
+
+```java
+// exceptions/AlwaysFinally.java
+// Finally is always executed
+class FourException extends Exception {}
+public class AlwaysFinally {
+    public static void main(String[] args) {
+        System.out.println("Entering first try block");
+        try {
+            System.out.println("Entering second try block");
+            try {
+                throw new FourException();
+            } finally {
+                System.out.println("finally in 2nd try block");
+            }
+        } catch(FourException e) {
+            System.out.println(
+                    "Caught FourException in 1st try block");
+        } finally {
+            System.out.println("finally in 1st try block");
+        }
+    }
+}
+/**
+Entering first try block
+Entering second try block
+finally in 2nd try block
+Caught FourException in 1st try block
+finally in 1st try block
+*/
+```
+
+​		当涉及break和continue语句的时候，finally子句也会得到执行。请注意，如果把finally子句和带标签的break及continue配合使用，在Java里就没必要使用goto语句了。
+
+### 在return中使用finally
+
+​		因为finally子句总是会执行，所以可以从一个方法内的多个点返回，仍然能保证重要的清理工作会执行：
+
+```java
+// exceptions/MultipleReturns.java
+public class MultipleReturns {
+    public static void f(int i) {
+        System.out.println(
+                "Initialization that requires cleanup");
+        try {
+            System.out.println("Point 1");
+            if(i == 1) return;
+            System.out.println("Point 2");
+            if(i == 2) return;
+            System.out.println("Point 3");
+            if(i == 3) return;
+            System.out.println("End");
+            return;
+        } finally {
+            System.out.println("Performing cleanup");
+        }
+    }
+    public static void main(String[] args) {
+        for(int i = 1; i <= 4; i++)
+            f(i);
+    }
+}
+/**
+Initialization that requires cleanup
+Point 1
+Performing cleanup
+Initialization that requires cleanup
+Point 1
+Point 2
+Performing cleanup
+Initialization that requires cleanup
+Point 1
+Point 2
+Point 3
+Performing cleanup
+Initialization that requires cleanup
+Point 1
+Point 2
+Point 3
+End
+Performing cleanup
+*/
+```
+
+​		从输出中可以看出，从何处返回无关紧要，finally子句永远会执行。
+
+### 缺憾：异常丢失
+
+​		遗憾的是，Java的异常实现也有瑕疵。异常作为程序出错的标志，决不应该被忽略，但它还是有可能被轻易地忽略。用某些特殊的方式使用finally子句，就会发生这种情况：
+
+```java
+// exceptions/LostMessage.java
+// How an exception can be lost
+class VeryImportantException extends Exception {
+    @Override
+    public String toString() {
+        return "A very important exception!";
+    }
+}
+class HoHumException extends Exception {
+    @Override
+    public String toString() {
+        return "A trivial exception";
+    }
+}
+public class LostMessage {
+    void f() throws VeryImportantException {
+        throw new VeryImportantException();
+    }
+    void dispose() throws HoHumException {
+        throw new HoHumException();
+    }
+    public static void main(String[] args) {
+        try {
+            LostMessage lm = new LostMessage();
+            try {
+                lm.f();
+            } finally {
+                lm.dispose();
+            }
+        } catch(VeryImportantException | HoHumException e) {
+            System.out.println(e);
+        }
+    }
+}
+//A trivial exception
+```
+
+​		从输出中可以看到，VeryImportantException不见了，它被finally子句的HoHumException所取代。这是相当严重的缺陷，因为异常可能会以一种比前面例子所示更微妙和难以察觉的方式完全丢失。相比之下，C++把“前一个异常还没处理就抛出下一异常”的情形看成是糟糕的编程错误。也许在Java的未来版本中会修正这个问题(另一方面，要把所有抛出异常的方法，如上例中的dispose()方法，全部打包放到try-catch子句里面)。
+
+​		一种更简单的丢失异常的方式是从finally子句中返回：
+
+```java
+// exceptions/ExceptionSilencer.java
+public class ExceptionSilencer {
+    public static void main(String[] args) {
+        try {
+            throw new RuntimeException();
+        } finally {
+            // Using 'return' inside the finally block
+            // will silence any thrown exception.
+            return;
+        }
+    }
+}
+```
+
+​		如果运行这个程序，就会看到即使方法里抛出了异常，它也不会产生任何输出。
+
+## 异常限制
+
+​		当覆盖方法的时候，只能抛出在其基类方法的异常说明里列出的那些异常。这个限制很有用，因为这意味着与基类一起工作的代码，也能和导出类一起正常工作(这是面向对象的基本概念)，异常也不例外。
+
+​		下面例子演示了这种(在编译时)施加在异常上面的限制：
+
+```java
+// exceptions/StormyInning.java
+// Overridden methods can throw only the exceptions
+// specified in their base-class versions, or exceptions
+// derived from the base-class exceptions
+class BaseballException extends Exception {}
+class Foul extends BaseballException {}
+class Strike extends BaseballException {}
+abstract class Inning {
+    Inning() throws BaseballException {}
+    public void event() throws BaseballException {
+// Doesn't actually have to throw anything
+    }
+    public abstract void atBat() throws Strike, Foul;
+    public void walk() {} // Throws no checked exceptions
+}
+class StormException extends Exception {}
+class RainedOut extends StormException {}
+class PopFoul extends Foul {}
+interface Storm {
+    void event() throws RainedOut;
+    void rainHard() throws RainedOut;
+}
+public class StormyInning extends Inning implements Storm {
+    // OK to add new exceptions for constructors, but you
+// must deal with the base constructor exceptions:
+    public StormyInning()
+            throws RainedOut, BaseballException {}
+    public StormyInning(String s)
+            throws BaseballException {}
+    // Regular methods must conform to base class:
+//- void walk() throws PopFoul {} //Compile error
+// Interface CANNOT add exceptions to existing
+// methods from the base class:
+//- public void event() throws RainedOut {}
+// If the method doesn't already exist in the
+// base class, the exception is OK:
+    @Override
+    public void rainHard() throws RainedOut {}
+    // You can choose to not throw any exceptions,
+// even if the base version does:
+    @Override
+    public void event() {}
+    // Overridden methods can throw inherited exceptions:
+    @Override
+    public void atBat() throws PopFoul {}
+    public static void main(String[] args) {
+        try {
+            StormyInning si = new StormyInning();
+            si.atBat();
+        } catch(PopFoul e) {
+            System.out.println("Pop foul");
+        } catch(RainedOut e) {
+            System.out.println("Rained out");
+        } catch(BaseballException e) {
+            System.out.println("Generic baseball exception");
+        }
+// Strike not thrown in derived version.
+        try {
+// What happens if you upcast?
+            Inning i = new StormyInning();
+            i.atBat();
+// You must catch the exceptions from the
+// base-class version of the method:
+        } catch(Strike e) {
+            System.out.println("Strike");
+        } catch(Foul e) {
+            System.out.println("Foul");
+        } catch(RainedOut e) {
+            System.out.println("Rained out");
+        } catch(BaseballException e) {
+            System.out.println("Generic baseball exception");
+        }
+    }
+}
+
+```
+
+​		在Inning类中，可以看到构造器和event()方法都声明将异常抛出，但实际上没有抛出。这种方式使你能强制用户去捕获可能在覆盖后的event()版本中增加的异常，所以它很合理。这对于抽象方法同样成立，比如atBat()。
+
+​		接口Storm包含了一个在Inning中定义的方法event()和一个不在Inning中定义的方法rainHard()。这两个方法都抛出新的异常RainedOut，如果StormyInning类在扩展Inning类的同时又实现了Storm接口，那么Strom里的event()方法就不能改变在Inning中的event()方法的异常接口。否则的话，在使用基类的时候就不能判断是否捕获了正确的异常，所以这也很合理。当然，如果接口里定义的方法不是来自于基类，比如rainHard()，那么此方法抛出什么样的异常都没有问题。
+
+​		异常限制对构造器不起作用。你会发现StormyInning的构造器可以抛出任何异常，而不必理会基类构造器所抛出的异常。然而，因为基类构造器必须以这样或那样的方式被调用(这里默认构造器将自动被调用)，派生类构造器的异常说明必须包含基类构造器的异常说明。
+
+​		派生类构造器不能捕获基类构造器抛出的异常。
+
+​		StormyInning.walk()不能通过编译是因为它抛出了一个Inning.walk()中没有声明的异常。如果编译器允许这么做的话，就可以编写调用Inning.walk()却不处理任何异常的代码。但是，当使用Inning派生类的对象时，就会抛出异常，从而导致程序出问题。通过强制派生类遵守基类方法的异常说明，对象的可替换性得到了保证。
+
+​		覆盖后的event()方法表明，派生类版的方法可以不抛出任何异常，即使基类版的方法抛出了异常。因为这样做不会破坏那些假定基类版的方法会抛出异常的代码。类似的情况出现在atBat()上，它抛出的异常PopFoul是由基类版atBat()抛出的Foul异常派生而来。如果你写的代码同Inning一起工作，并且调用了atBat()的话，那么肯定能捕获Foul。又因为PopFoul是由Foul派生而来，因此异常处理程序也捕获PopFoul。
+
+​		最后一个有趣的地方在main()。如果处理的刚好是StormyInning对象的话，编译器只要求捕获这个类所抛出的异常。但如果将它向上转型成基类性，那么编译器就会准确地要求捕获基类的异常。所以这些限制都是为了能产生更为健壮的异常处理代码。
+
+​		尽管在继承过程中，编译器会对异常说明做强制要求，但异常说明本身并不属于方法类型的一部分，方法类型是由方法的名字与参数的类型组成的。因此，不能基于异常说明来重载方法。此外，一个出现在基类方法的异常说明中的异常，不一定会出现在派生类的异常说明里。这点同继承的规则明显不同，在继承中，基类的方法必须出现在派生类里，换句话说，在继承和覆盖的过程中，某个特定方法的“异常说明的接口”不是变大了而是变小了——这恰好和类接口在继承时情形相反。
+
+## 构造器
+
+​		这一点很重要，即你要时刻询问自己“如果异常发生了，所有东西都能被正确的清理吗？”尽管大多数情况下是非常安全的，但涉及构造器时，问题就出现了。构造器会把对象设置成安全的初始状态，但还会有别的动作，比如打开一个文件，这样的动作只有在对象使用完毕并且用户调用了特殊的清理方法之后才能得以清理。如果在构造器内抛出了异常，这些清理行为也许就不能正常工作了。这意味着在编写构造器时要格外小心。
+
+​		你也许会认为使用finally就可以解决问题。但问题并非如此简单，因为finally会每次都执行清理代码。如果构造器在其执行过程中半途而废，也许该对象的某些部分还没有被成功创建，而这部分在finally子句中却是要被清理的。
+
+​		下面的例子中，建立了一个InputFile类在，它能打开一个文件并且每次读取其中一行。这里使用了Java标准输入/输出库中的FileReader和BufferedReader类，这些类的基本用法很简单，你应该很容易明白：
+
+```java
+// exceptions/InputFile.java
+// Paying attention to exceptions in constructors
+import java.io.*;
+public class InputFile {
+    private BufferedReader in;
+    public InputFile(String fname) throws Exception {
+        try {
+            in = new BufferedReader(new FileReader(fname));
+            // Other code that might throw exceptions
+        } catch(FileNotFoundException e) {
+            System.out.println("Could not open " + fname);
+            // Wasn't open, so don't close it
+            throw e;
+        } catch(Exception e) {
+            // All other exceptions must close it
+            try {
+                in.close();
+            } catch(IOException e2) {
+                System.out.println("in.close() unsuccessful");
+            }
+            throw e; // Rethrow
+        } finally {
+        // Don't close it here!!!
+        }
+    }
+    public String getLine() {
+        String s;
+        try {
+            s = in.readLine();
+        } catch(IOException e) {
+            throw new RuntimeException("readLine() failed");
+        }
+        return s;
+    }
+    public void dispose() {
+        try {
+            in.close();
+            System.out.println("dispose() successful");
+        } catch(IOException e2) {
+            throw new RuntimeException("in.close() failed");
+        }
+    }
+}
+```
+
+​		InputFile的构造器接受字符串作为参数，该字符串表示所要打开的文件名。在try块中，会使用此文件名建立FileReader对象。FileReader对象本身用处并不大，但可以用它来建立BufferedReader对象。注意，使用InputFile的好处之一是把两步操作合二为一。
+
+​		如果FileReader的构造器失败了，将抛出FileNotFoundException异常。对于这个异常，并不需要关闭文件，因为这个文件还没有被打开。而任何其他捕获异常的catch子句必须关闭文件，因为在它们捕获到异常之时，文件已经打开了，close()方法也可能会抛出异常，所以尽管它已经在另一个catch子句块里了，还是要再用一层try-catch，这对Java编译器而言只不过是多了一对花括号。在本地做完处理之后，异常被重新抛出，对于构造器而言这么做是很合适的，因为你总不希望去误导调用方，让他认为“这个对象已经创建完毕，可以使用了”。
+
+​		在本例中，由于finally会在每次完成构造器之后都执行一遍，因此它实在不该是调用close()关闭文件的地方。我们希望文件在InputFile对象的整个生命周期内都处于打开状态。
+
+​		getLine()方法会返回表示文件下一行内容的字符串。它调用了能抛出异常的readLine()，但是这个异常已在方法内得到处理，因此getLine()不会抛出任何异常。在设计异常时有一个问题：应该把异常全部放在这一层处理；还是先处理一部分，然后向上层抛出相同的异常；又或者是不做任何处理直接向上层抛出。如果用法恰当的话，直接向上层抛出的确能简化编程。在这里，getLine()方法将异常转换为RuntimeException，表示一个编程错误。
+
+​		用户在不需要InputFile对象时，就必须调用dispose()方法，这将释放BufferedReader或FileReader对象所占用的系统资源，在使用完InputFile对象之前不会调用它的。可能你会考虑把上述功能放到finalize()里面，在封装中讲过，你不知道finalize()会不会被调用，这也是Java的缺陷：除了内存的清理之外，所有的清理都不会自动发生。所以必须告诉客户端程序员，这是他们的责任。
+
+​		对于构造阶段可能会抛出异常，并且要求清理的类，最安全的使用方式是使用嵌套的try子句：
+
+```java
+// exceptions/Cleanup.java
+// Guaranteeing proper cleanup of a resource
+public class Cleanup {
+    public static void main(String[] args) {
+        try {
+            InputFile in = new InputFile("Cleanup.java");
+            try {
+                String s;
+                int i = 1;
+                while((s = in.getLine()) != null)
+                    ; // Perform line-by-line processing here...
+            } catch(Exception e) {
+                System.out.println("Caught Exception in main");
+                e.printStackTrace(System.out);
+            } finally {
+                in.dispose();
+            }
+        } catch(Exception e) {
+            System.out.println(
+                    "InputFile construction failed");
+        }
+    }
+}
+//dispose() successful
+```
+
+​		请仔细观察这里的逻辑：对InputFile对象的构造在其自己的try语句块中有效，如果构造失败，将进入外部的catch子句，而dispose()方法不会被调用。但是，如果构造成功，我们肯定想确保对象能够被清理，因此在构造之后立即创建一个新的try语句块。执行清理的finally与内部的try语句块相关联。在这种方式中，finally子句在构造失败时是不会执行的，而在构造成功时将总是执行。
+
+​		这种通用的清理惯用法在构造器不抛出任何异常时也应该运用，其基本规则是：在创建需要清理的对象之后，立即进入一个try-finally语句块：
+
+```java
+// exceptions/CleanupIdiom.java
+// Disposable objects must be followed by a try-finally
+class NeedsCleanup { // Construction can't fail
+    private static long counter = 1;
+    private final long id = counter++;
+    public void dispose() {
+        System.out.println(
+                "NeedsCleanup " + id + " disposed");
+    }
+}
+class ConstructionException extends Exception {}
+class NeedsCleanup2 extends NeedsCleanup {
+    // Construction can fail:
+    NeedsCleanup2() throws ConstructionException {}
+}
+public class CleanupIdiom {
+    public static void main(String[] args) {
+        // [1]:
+        NeedsCleanup nc1 = new NeedsCleanup();
+        try {
+        // ...
+        } finally {
+            nc1.dispose();
+        }
+        // [2]:
+        // If construction cannot fail,
+        // you can group objects:
+        NeedsCleanup nc2 = new NeedsCleanup();
+        NeedsCleanup nc3 = new NeedsCleanup();
+        try {
+        // ...
+        } finally {
+            nc3.dispose(); // Reverse order of construction
+            nc2.dispose();
+        }
+        // [3]:
+        // If construction can fail you must guard each one:
+        try {
+            NeedsCleanup2 nc4 = new NeedsCleanup2();
+            try {
+                NeedsCleanup2 nc5 = new NeedsCleanup2();
+                try {
+                // ...
+                } finally {
+                    nc5.dispose();
+                }
+            } catch(ConstructionException e) { // nc5 const.
+                System.out.println(e);
+            } finally {
+                nc4.dispose();
+            }
+        } catch(ConstructionException e) { // nc4 const.
+            System.out.println(e);
+        }
+    }
+}
+/**
+NeedsCleanup 1 disposed
+NeedsCleanup 3 disposed
+NeedsCleanup 2 disposed
+NeedsCleanup 5 disposed
+NeedsCleanup 4 disposed
+*/
+```
+
+* [1]相当简单，遵循了在可去除对象之后紧跟try-finally的原则。如果对象构造不会失败，就不需要任何catch。
+* [2]为了构造和清理，可以看到将具有不能失败的构造器的对象分组在一起。
+* [3]展示了如何处理那些具有可以失败的构造器，且需要清理的对象。为了正确处理这种情况，事情变得很棘手，因为对于每一个构造器，都必须包含在其自己的try-finally语句块中，并且每一个对象构造必须都跟随一个try-finally语句块以确保清理。
+
+
+
+​		本例中异常处理的混乱情形，有力的论证了应该创建不会抛出异常的构造器，尽管这并不总会实现。
+
+​		注意，如果dispose()可以抛出异常，那么你可能需要额外的try语句块。基本上，你应该仔细考虑所有可能性，并确保正确处理每一种情况。
+
+## Try-With-Resources 用法
+
+​		上一节的内容可能让你有些头疼。在考虑所有可能失败的方法时，找出放置所有try-catch-finally块的位置变得令人生畏。确保没有任何故障路径，使系统远离不稳定状态，这非常具有挑战性。
+
+​		InputFile.java是一个特别棘手的情况，因为文件被打开，然后它在对象的生命周期中保持打开状态。每次调用getLine()都可能导致异常，而且dispose()也是这种情况。这个例子只是好在它显示了事情可以混乱到什么地步。它还表名了你应该尽量不要那样设计代码。
+
+​		InputFile.java一个更好的实现方式是如果构造函数读取文件并在内部缓冲它——这样，文件的打开，读取和关闭都发生在构造函数中。或者，如果读取和存储文件不切实际，你可以改为生成Stream。理想情况下，你可以设计如下的样子：
+
+```java
+// exceptions/InputFile2.java
+import java.io.*;
+import java.nio.file.*;
+import java.util.stream.*;
+public class InputFile2 {
+    private String fname;
+
+    public InputFile2(String fname) {
+        this.fname = fname;
+    }
+
+    public Stream<String> getLines() throws IOException {
+        return Files.lines(Paths.get(fname));
+    }
+
+    public static void
+    main(String[] args) throws IOException {
+        new InputFile2("InputFile2.java").getLines()
+                .skip(15)
+                .limit(1)
+                .forEach(System.out::println);
+    }
+}
+//main(String[] args) throws IOException {
+```
+
+​		现在，getLines()全权负责打开文件并创建Stream。
+
+​		你不能总是轻易地回避这个问题。有时会有以下问题：
+
+* 需要资源清理
+* 需要在特定的时刻进行资源清理，比如你离开作用域的时候(在通常情况下意味着通过异常进行清理)。
+
+
+
+​		一个常见的例子是java.io.FileInputStrea。要正确使用它，你必须编写一些棘手的样板代码：
+
+```java
+// exceptions/MessyExceptions.java
+import java.io.*;
+public class MessyExceptions {
+    public static void main(String[] args) {
+        InputStream in = null;
+        try {
+            in = new FileInputStream(
+                    new File("MessyExceptions.java"));
+            int contents = in.read();
+            // Process contents
+        } catch(IOException e) {
+            // Handle the error
+        } finally {
+            if(in != null) {
+                try {
+                    in.close();
+                } catch(IOException e) {
+                    // Handle the close() error
+                }
+            }
+        }
+    }
+}
+```
+
+​		当finally子句有自己的try块时，感觉事情变得过于复杂。
+
+​		幸运的是，Java7引入try-with-resources语法，它可以非常清除地简化上面的代码：
+
+```java
+// exceptions/TryWithResources.java
+import java.io.*;
+public class TryWithResources {
+    public static void main(String[] args) {
+        try(
+                InputStream in = new FileInputStream(
+                        new File("TryWithResources.java"))
+        ) {
+            int contents = in.read();
+            // Process contents
+        } catch(IOException e) {
+            // Handle the error
+        }
+    }
+}
+```
+
+​		在Java7之前，try后面总是跟着一个\{，但是现在可以跟一个带括号的定义——这里是我们创建的FileInputStream对象。括号内的部分称为资源规范头(resource specification header)。现在in在整个try块的其余部分都是可用的。更重要的是，无论你如何退出try块(正常或通过异常)，和以前的finally子句等级的代码都会被执行，并且不用编写那些杂乱而棘手的代码。这是一项重要的改进。
+
+​		它是如何工作的？try-with-resources定义子句中创建的对象必须实现java.lang.AutoCloseable接口，这个接口只有一个方法：close()。当在Java7中引入AutoCloseable时，许多接口和类被修改以实现它；
+
+```java
+// exceptions/StreamsAreAutoCloseable.java
+import java.io.*;
+import java.nio.file.*;
+import java.util.stream.*;
+public class StreamsAreAutoCloseable {
+    public static void
+    main(String[] args) throws IOException{
+        try(
+                Stream<String> in = Files.lines(
+                        Paths.get("StreamsAreAutoCloseable.java"));
+                PrintWriter outfile = new PrintWriter(
+                        "Results.txt"); // [1]
+        ) {
+            in.skip(5)
+                    .limit(1)
+                    .map(String::toLowerCase)
+                    .forEachOrdered(outfile::println);
+        } // [2]
+    }
+}
+```
+
+* [1]你在这里可以看到其他的特性：资源规范头中可以包含多个定义，并且通过分号进行分割(最后一个分号是可选的)。规范头中定义的每个对象都会在try语句块运行结束之后调用close()方法。
+* [2]try-with-resources里面的try语句块可以不包含catch或者finally语句独立存在。在这里，IOException被main()方法抛出，所以这里并不需要在try后面跟着一个catch语句块。
+
+
+
+​		Java5中的Closeable已经被修改，修改之后的接口继承了AutoCloseable接口。所以所有实现了Closeable接口的对象，都支持try-with-resources特性。
+
+### 揭示细节
+
+​		为了研究try-with-resources的基本机制，我们将创建自己的AutoCloseable类：
+
+```java
+// exceptions/AutoCloseableDetails.java
+class Reporter implements AutoCloseable {
+    String name = getClass().getSimpleName();
+    Reporter() {
+        System.out.println("Creating " + name);
+    }
+    public void close() {
+        System.out.println("Closing " + name);
+    }
+}
+class First extends Reporter {}
+class Second extends Reporter {}
+public class AutoCloseableDetails {
+    public static void main(String[] args) {
+        try(
+                First f = new First();
+                Second s = new Second()
+        ) {
+        }
+    }
+}
+/**
+Creating First
+Creating Second
+Closing Second
+Closing First
+*/
+```
+
+​		退出try块会调用两个对象的close()方法，并以与创建顺序相反的顺序关闭它们。顺序很重要，因为在这种情况下，Second对象可能依赖于First对象，因此如果First在第Second关闭时已经关闭。Second的close()方法可能会尝试访问First中不再可用的某些功能。
+
+​		假设我们在资源规范头中定义了一个不是AutoCloseable对象
+
+```java
+// exceptions/TryAnything.java
+// {WillNotCompile}
+class Anything {}
+public class TryAnything {
+    public static void main(String[] args) {
+        try(
+                Anything a = new Anything()
+        ) {
+        }
+    }
+}
+```
+
+​		正如我们所希望和期望的那样，Java不会让我们这样做，并且出现编译时错误。
+
+​		如果其中一个构造函数抛出异常怎么办？
+
+```java
+// exceptions/ConstructorException.java
+class CE extends Exception {}
+class SecondExcept extends Reporter {
+    SecondExcept() throws CE {
+        super();
+        throw new CE();
+    }
+}
+public class ConstructorException {
+    public static void main(String[] args) {
+        try(
+                First f = new First();
+                SecondExcept s = new SecondExcept();
+                Second s2 = new Second()
+        ) {
+            System.out.println("In body");
+        } catch(CE e) {
+            System.out.println("Caught: " + e);
+        }
+    }
+}
+/**
+Creating First
+Creating SecondExcept
+Closing First
+Caught: CE
+*/
+```
+
+​		现在资源规范头中定义了3个对象，中间的对象抛出异常。因此，编译器强制我们使用catch子句来捕获构造函数。这意味着资源规范头实际上被try块包围。
+
+​		正如预期的那样，First创建时没有发生意外，SecondExcept在创建期间抛出异常。请注意，不会为SecondExcept调用close()，因为如果构造函数失败，则无法假设你可以安全地对该对象执行任何操作，包括关闭它。由于SecondExcept的异常，Second对象实例s2不会被创建，因此也不会有清除事件发生。
+
+​		如果没有构造函数抛出异常，但在try的主体中可能抛出异常，那么你将再次被强制要求提供一个catch子句：
+
+```java
+// exceptions/BodyException.java
+class Third extends Reporter {}
+public class BodyException {
+    public static void main(String[] args) {
+        try(
+                First f = new First();
+                Second s2 = new Second()
+        ) {
+            System.out.println("In body");
+            Third t = new Third();
+            new SecondExcept();
+            System.out.println("End of body");
+        } catch(CE e) {
+            System.out.println("Caught: " + e);
+        }
+    }
+}
+/**
+Creating First
+Creating Second
+In body
+Creating Third
+Creating SecondExcept
+Closing Second
+Closing First
+Caught: CE
+*/
+```
+
+​		请注意，第3个对象永远不会被清除。那是因为它不是在资源规范头中创建的，所以它没有被保护。这很重要，因为Java在这里没有以警告或错误的形式提供指导，因此像这样的错误很容易漏掉。实际上，如果依赖某些集成开发环境来自动重写代码，以使用try-with-resources特性，那么它们通常只会保护它们遇到的第一个对象，而忽略其余的对象。
+
+​		最后，让我们看一下抛出异常的close()方法：
+
+```java
+// exceptions/CloseExceptions.java
+class CloseException extends Exception {}
+class Reporter2 implements AutoCloseable {
+    String name = getClass().getSimpleName();
+    Reporter2() {
+        System.out.println("Creating " + name);
+    }
+    public void close() throws CloseException {
+        System.out.println("Closing " + name);
+    }
+}
+class Closer extends Reporter2 {
+    @Override
+    public void close() throws CloseException {
+        super.close();
+        throw new CloseException();
+    }
+}
+public class CloseExceptions {
+    public static void main(String[] args) {
+        try(
+                First f = new First();
+                Closer c = new Closer();
+                Second s = new Second()
+        ) {
+            System.out.println("In body");
+        } catch(CloseException e) {
+            System.out.println("Caught: " + e);
+        }
+    }
+}
+/**
+Creating First
+Creating Closer
+Creating Second
+In body
+Closing Second
+Closing Closer
+Closing First
+Caught: CloseException
+*/
+```
+
+​		从技术上讲，我们并没有被迫在这里提供一个catch子句；你可以通过main()throws CloseException的方式来报告异常。但catch子句是放置错误处理代码的典型位置。
+
+​		请注意，因为所有三个对象都已创建，所以它们都以相反的顺序关闭-即时Close.close()抛出异常也是如此。仔细想想，这就是你想要的结果。但如果你必须亲手编写所有的逻辑，或许会丢失一些东西并使得逻辑出错。想想那些程序员没有考虑Clean up的所有影响并且出错的代码。因此，如果可以，你应当始终使用try-with-resources。这个特性有助于生成更简洁，更易于理解的代码。
+
+## 异常匹配
+
+​		抛出异常的时候，异常处理系统会按照代码的书写顺序找出“最近”的处理程序。找到匹配的处理程序之后，它就认为异常将得到处理，然后就不再继续查找。
+
+​		查找的时候并不要求抛出的异常同处理程序所声明的异常完全匹配。派生类的对象也可以匹配其基类的处理程序，就像这样：
+
+```java
+// exceptions/Human.java
+// Catching exception hierarchies
+class Annoyance extends Exception {}
+class Sneeze extends Annoyance {}
+public class Human {
+    public static void main(String[] args) {
+        // Catch the exact type:
+        try {
+            throw new Sneeze();
+        } catch(Sneeze s) {
+            System.out.println("Caught Sneeze");
+        } catch(Annoyance a) {
+            System.out.println("Caught Annoyance");
+        }
+        // Catch the base type:
+        try {
+            throw new Sneeze();
+        } catch(Annoyance a) {
+            System.out.println("Caught Annoyance");
+        }
+    }
+}
+//Caught Sneeze
+//Caught Annoyance
+```
+
+​		Sneeze异常会被第一个匹配的catch子句捕获，也就是程序里的第一个。然而如果将这个catch子句删掉，只留下Annoyance的catch子句，该程序仍然能运行，因为这次捕获的是Sneeze的基类。换句话说，catch(Annoyance a)会捕获Annoyance以及所有从它派生的异常。这一点非常有用，因为如果决定在方法里加上更多派生异常的话，只要客户程序员捕获的是基类异常，那么它的代码就无需更改。
+
+​		如果把捕获基类的catch子句放在最前面，以此想把派生类的异常全给“屏蔽”掉，就像这样：
+
+```java
+try {
+    throw new Sneeze();
+} catch(Annoyance a) {
+    // ...
+} catch(Sneeze s) {
+    // ...
+}
+```
+
+​		此时，编译器会发现Sneeze的catch子句永远得不到执行，因此它会向你报告错误。
+
+## 其他可选方式
+
+​		异常处理系统就像一个活门(trap door)，使你能放弃程序的正常执行序列。当“异常情形”发生的时候，正常的执行已变得不可能或者不需要了，这时就要用到这个“活门”。异常代表了当前方法不能继续执行的情形。开发异常处理系统的原因是，如果为每个方法所有可能发生的错误都进行处理的话，任务就显得过于繁重了，程序员也不愿意这么做。结果常常是将错误忽略。应该注意到，开发异常处理的初衷是为了方便程序员处理错误。
+
+​		异常处理的一个重要原则是“只有在你知道如何处理的情况下才捕获异常”。实际上，异常处理的一个重要目标就是把处理错误的代码同错误发生的地点相分离。这使你能在一段代码中专注于要完成的事情，至于如何处理错误，则放在另一段代码中完成。这样一来，主要代码就不会与错误处理逻辑混在一起，也更容易理解和维护。通过允许一个处理程序去处理多个出错点，异常处理还使得错误处理代码的数量趋于减少。
+
+​		“被检查的异常”使这个问题变得有些复杂，因为它们强制你在可能还没准备好处理错误的时候被迫加上catch子句，这就导致了吞食则有害(harmful if swallowed)的问题：
+
+```java
+try {
+    // ... to do something useful
+} catch(ObligatoryException e) {} // Gulp!
+```
+
+### 历史
+
+### 观点
+
+### 把异常传递给控制台
+
+### 把“被检查异常”转换为“不检查异常”
+
+## 异常指南
+
+​		应该在下列情况下使用异常：
+
+* 1.尽可能使用try-with-resources
+* 2.在恰当的级别处理问题。
+* 3.解决问题并且重新调用产生异常的方法。
+* 4.进行少许修补，然后绕过异常发生的地方继续执行。
+* 5.用别的数据进行计算，以代替方法预计会返回的值。
+* 6.把当前运行环境下能做的事情尽量做完，然后把相同的异常重新抛到更高层。
+* 7.把当前运行环境下能做的事情尽量做完，然后把不同的异常抛到更高层。
+* 8.终止程序。
+* 9.进行简化。
+* 10.让类库和程序更安全。
+

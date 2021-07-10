@@ -18,6 +18,8 @@ mathjax: true
 
 将项目变成Web项目，将生成的目录名字改为webapp，检查Web目录的位置是否正确
 
+打包方式为war
+
 **①导入相关依赖**
 
 ```xml
@@ -268,17 +270,6 @@ method属性可以用来指定可处理的请求方式。
  */
 @Controller
 public class TestController {
-    @RequestMapping("/hello.html")
-    public String hello(){
-        System.out.println("hello");
-        return "/success.jsp";
-    }
-
-    @RequestMapping("/test/testPath")
-    public String testPath(){
-        System.out.println("testPath");
-        return "/success.jsp";
-    }
 
     @RequestMapping(value = "/test/testMethod",method = RequestMethod.POST)
     public String testMethod(){
@@ -339,23 +330,6 @@ public class TestController {
 @Controller
 public class TestController {
 
-    @GetMapping("/hello.html")
-    public String hello(){
-        System.out.println("hello");
-        return "/success.jsp";
-    }
-
-    @GetMapping("/test/testPath")
-    public String testPath(){
-        System.out.println("testPath");
-        return "/success.jsp";
-    }
-
-    @PostMapping("/test/testMethod")
-    public String testMethod(){
-        System.out.println("testMethod处理了请求");
-        return "/success.jsp";
-    }
 	//若参数多个，则用数组的形式
     @GetMapping(value = "/test/testParams", params = "code")
     public String testParams(){
@@ -363,6 +337,10 @@ public class TestController {
         return "/success.jsp";
     }
 }
+```
+
+```tex
+GET http://localhost:81/test/testParams?code=12313
 ```
 
 **要求必须没有某参数**
@@ -376,25 +354,7 @@ public class TestController {
  */
 @Controller
 public class TestController {
-
-    @GetMapping("/hello.html")
-    public String hello(){
-        System.out.println("hello");
-        return "/success.jsp";
-    }
-
-    @GetMapping("/test/testPath")
-    public String testPath(){
-        System.out.println("testPath");
-        return "/success.jsp";
-    }
-
-    @PostMapping("/test/testMethod")
-    public String testMethod(){
-        System.out.println("testMethod处理了请求");
-        return "/success.jsp";
-    }
-    
+  
     @GetMapping(value = "/test/testParams", params = "!code")
     public String testParams(){
         System.out.println("testParams处理了请求");
@@ -412,25 +372,6 @@ public class TestController {
  */
 @Controller
 public class TestController {
-
-    @GetMapping("/hello.html")
-    public String hello(){
-        System.out.println("hello");
-        return "/success.jsp";
-    }
-
-    @GetMapping("/test/testPath")
-    public String testPath(){
-        System.out.println("testPath");
-        return "/success.jsp";
-    }
-
-    @PostMapping("/test/testMethod")
-    public String testMethod(){
-        System.out.println("testMethod处理了请求");
-        return "/success.jsp";
-    }
-    
     @GetMapping(value = "/test/testParams", params = "code=xiaohupao")
     public String testParams(){
         System.out.println("testParams处理了请求");
@@ -446,25 +387,6 @@ public class TestController {
  */
 @Controller
 public class TestController {
-
-    @GetMapping("/hello.html")
-    public String hello(){
-        System.out.println("hello");
-        return "/success.jsp";
-    }
-
-    @GetMapping("/test/testPath")
-    public String testPath(){
-        System.out.println("testPath");
-        return "/success.jsp";
-    }
-
-    @PostMapping("/test/testMethod")
-    public String testMethod(){
-        System.out.println("testMethod处理了请求");
-        return "/success.jsp";
-    }
-    
     @GetMapping(value = "/test/testParams", params = "code!=xiaohupao")
     public String testParams(){
         System.out.println("testParams处理了请求");
@@ -486,31 +408,6 @@ public class TestController {
  */
 @Controller
 public class TestController {
-
-    @GetMapping("/hello.html")
-    public String hello(){
-        System.out.println("hello");
-        return "/success.jsp";
-    }
-
-    @GetMapping("/test/testPath")
-    public String testPath(){
-        System.out.println("testPath");
-        return "/success.jsp";
-    }
-
-    @PostMapping("/test/testMethod")
-    public String testMethod(){
-        System.out.println("testMethod处理了请求");
-        return "/success.jsp";
-    }
-
-    @GetMapping(value = "/test/testParams", params = "code")
-    public String testParams(){
-        System.out.println("testParams处理了请求");
-        return "/success.jsp";
-    }
-
     @GetMapping(value = "/test/testHeaders", headers = "deviceType")
     public String testHeaders(){
         System.out.println("testHeaders处理了请求");
@@ -528,31 +425,6 @@ public class TestController {
  */
 @Controller
 public class TestController {
-
-    @GetMapping("/hello.html")
-    public String hello(){
-        System.out.println("hello");
-        return "/success.jsp";
-    }
-
-    @GetMapping("/test/testPath")
-    public String testPath(){
-        System.out.println("testPath");
-        return "/success.jsp";
-    }
-
-    @PostMapping("/test/testMethod")
-    public String testMethod(){
-        System.out.println("testMethod处理了请求");
-        return "/success.jsp";
-    }
-
-    @GetMapping(value = "/test/testParams", params = "code")
-    public String testParams(){
-        System.out.println("testParams处理了请求");
-        return "/success.jsp";
-    }
-    
     @GetMapping(value = "/test/testHeaders", headers = "!deviceType")
     public String testHeaders(){
         System.out.println("testHeaders处理了请求");
@@ -570,31 +442,6 @@ public class TestController {
  */
 @Controller
 public class TestController {
-
-    @GetMapping("/hello.html")
-    public String hello(){
-        System.out.println("hello");
-        return "/success.jsp";
-    }
-
-    @GetMapping("/test/testPath")
-    public String testPath(){
-        System.out.println("testPath");
-        return "/success.jsp";
-    }
-
-    @PostMapping("/test/testMethod")
-    public String testMethod(){
-        System.out.println("testMethod处理了请求");
-        return "/success.jsp";
-    }
-
-    @GetMapping(value = "/test/testParams", params = "code")
-    public String testParams(){
-        System.out.println("testParams处理了请求");
-        return "/success.jsp";
-    }
-
     @GetMapping(value = "/test/testHeaders", headers = "deviceType=ios")
     public String testHeaders(){
         System.out.println("testHeaders处理了请求");
@@ -612,31 +459,6 @@ public class TestController {
  */
 @Controller
 public class TestController {
-
-    @GetMapping("/hello.html")
-    public String hello(){
-        System.out.println("hello");
-        return "/success.jsp";
-    }
-
-    @GetMapping("/test/testPath")
-    public String testPath(){
-        System.out.println("testPath");
-        return "/success.jsp";
-    }
-
-    @PostMapping("/test/testMethod")
-    public String testMethod(){
-        System.out.println("testMethod处理了请求");
-        return "/success.jsp";
-    }
-
-    @GetMapping(value = "/test/testParams", params = "code")
-    public String testParams(){
-        System.out.println("testParams处理了请求");
-        return "/success.jsp";
-    }
-
     @GetMapping(value = "/test/testHeaders", headers = "deviceType!=ios")
     public String testHeaders(){
         System.out.println("testHeaders处理了请求");
@@ -658,37 +480,6 @@ public class TestController {
  */
 @Controller
 public class TestController {
-
-    @GetMapping("/hello.html")
-    public String hello(){
-        System.out.println("hello");
-        return "/success.jsp";
-    }
-
-    @GetMapping("/test/testPath")
-    public String testPath(){
-        System.out.println("testPath");
-        return "/success.jsp";
-    }
-
-    @PostMapping("/test/testMethod")
-    public String testMethod(){
-        System.out.println("testMethod处理了请求");
-        return "/success.jsp";
-    }
-
-    @GetMapping(value = "/test/testParams", params = "code")
-    public String testParams(){
-        System.out.println("testParams处理了请求");
-        return "/success.jsp";
-    }
-
-    @GetMapping(value = "/test/testHeaders", headers = "deviceType")
-    public String testHeaders(){
-        System.out.println("testHeaders处理了请求");
-        return "/success.jsp";
-    }
-
     @PostMapping(value = "/test/testConsumes", consumes = "multipart/from-data")
     public String testConsumes(){
         System.out.println("testConsumes");
@@ -706,37 +497,6 @@ public class TestController {
  */
 @Controller
 public class TestController {
-
-    @GetMapping("/hello.html")
-    public String hello(){
-        System.out.println("hello");
-        return "/success.jsp";
-    }
-
-    @GetMapping("/test/testPath")
-    public String testPath(){
-        System.out.println("testPath");
-        return "/success.jsp";
-    }
-
-    @PostMapping("/test/testMethod")
-    public String testMethod(){
-        System.out.println("testMethod处理了请求");
-        return "/success.jsp";
-    }
-
-    @GetMapping(value = "/test/testParams", params = "code")
-    public String testParams(){
-        System.out.println("testParams处理了请求");
-        return "/success.jsp";
-    }
-
-    @GetMapping(value = "/test/testHeaders", headers = "deviceType")
-    public String testHeaders(){
-        System.out.println("testHeaders处理了请求");
-        return "/success.jsp";
-    }
-
     @PostMapping(value = "/test/testConsumes", consumes = "!multipart/from-data")
     public String testConsumes(){
         System.out.println("testConsumes");
@@ -797,14 +557,6 @@ findUserById
  */
 @Controller
 public class UserController {
-
-    @GetMapping(value = "/user/{id}")
-    public String findUserById(@PathVariable("id") Integer id){
-        System.out.println("findUserById");
-        System.out.println(id);
-        return "/success.jsp";
-    }
-
     @GetMapping(value = "/user/{id}/{name}")
     public String findUserByIdAndName(@PathVariable("id") Integer id, @PathVariable("name") String name){
         System.out.println("findUserByIdAndName");
@@ -874,21 +626,6 @@ import org.springframework.web.bind.annotation.RequestBody;
  */
 @Controller
 public class UserController {
-
-    @GetMapping(value = "/user/{id}")
-    public String findUserById(@PathVariable("id") Integer id){
-        System.out.println("findUserById");
-        System.out.println("id:" + id);
-        return "/success.jsp";
-    }
-
-    @GetMapping(value = "/user/{id}/{name}")
-    public String findUserByIdAndName(@PathVariable("id") Integer id, @PathVariable("name") String name){
-        System.out.println("findUserByIdAndName");
-        System.out.println("id: " + id + ", name: " + name);
-        return "/success.jsp";
-    }
-
     @PostMapping(value = "/user")
     public String insertUser(@RequestBody User user){
         System.out.println("insertUser");
