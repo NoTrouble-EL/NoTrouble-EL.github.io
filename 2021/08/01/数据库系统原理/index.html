@@ -437,6 +437,123 @@
 <li>表级锁：MySQL中锁定粒度最大的一种锁，对当前操作的整张表加锁，实现简单，资源消耗也比较少，加锁快，不会出现死锁。其锁定粒度最大，触发锁冲突的概率最高，并发度最低。MyISAM和InnoDB都支持表级锁；</li>
 <li>行级锁：MySQL中锁定粒度最小的一种锁，只针对当前操作的行进行加锁。行级锁能大大减少数据库操作的冲突。其加锁粒度最小，并发度高，但加锁的开销也最大，加锁慢，会出现死锁。</li>
 </ul>
+<h3 id="封锁类型"><a href="#封锁类型" class="headerlink" title="封锁类型"></a>封锁类型</h3><ul>
+<li>读写锁<ul>
+<li>互斥锁(Exclusive)，简写为X锁，又称写锁；</li>
+<li>共享锁(Shared)，简写为S锁，又称读锁。</li>
+</ul>
+</li>
+</ul>
+<p>有以下两个规定：</p>
+<ul>
+<li>一个事务对数据对象A加了X锁，就可以对A进行读取和跟新。加锁期间其它事务不能对A加任何锁；</li>
+<li>一个事务对数据对象A加了S锁，可以对A进行读取操作，但是不能进行跟新操作。加锁期间其它事务能对A加S锁，但是不能加X锁。</li>
+</ul>
+<p>锁的兼容关系：</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">X</th>
+<th align="center">S</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">X</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+</tr>
+<tr>
+<td align="center">S</td>
+<td align="center">❌</td>
+<td align="center">✔</td>
+</tr>
+</tbody></table>
+<ul>
+<li>意向锁</li>
+</ul>
+<p>意向锁(Intention Locks)可以更容易地支持多粒度封锁。</p>
+<p>在存在行级锁和表级锁的情况下，事务T想要对表A加X锁，就需要检测是否有其它事务对表A或者表A中的任意一行加了锁，那么就需要对表A的每一行都检测一次，这是非常耗时的。</p>
+<p>意向锁在原来X/S锁之上引入了IX/IS，IX/IS都是表锁，用来表示一个事务想要在表中的某个数据行上加X锁或S锁。有以下两个规定：</p>
+<ul>
+<li>一个事务在获取某个数据行对象的S锁之前，必须先获取表的IS锁或者更强的锁；</li>
+<li>一个事务在获得某个数据行对象的X锁之前，必须先获得表的IX锁。</li>
+</ul>
+<p>通过加入意向锁，事务T想要对表A加X锁，只需要先检测是否有其它事务对表A加了X/IX/S/IS，如果加了就表示有其他事务正在使用这个表或者表中的某一行的锁，因此事务T加X锁失败。</p>
+<p>各种锁的兼容关系如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">X</th>
+<th align="center">IX</th>
+<th align="center">S</th>
+<th align="center">IS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">X</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+</tr>
+<tr>
+<td align="center">IX</td>
+<td align="center">❌</td>
+<td align="center">✔</td>
+<td align="center">❌</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td align="center">S</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">✔</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td align="center">IS</td>
+<td align="center">❌</td>
+<td align="center">✔</td>
+<td align="center">✔</td>
+<td align="center">✔</td>
+</tr>
+</tbody></table>
+<p>解释如下：</p>
+<ul>
+<li>任意IS/IX锁之间都是兼容的，因为它们表示想要对表加锁，而不是正真加锁；</li>
+<li>这里的兼容关系针对的是表级锁，而表锁的IX锁和行级的X锁兼容，两个事务可以对两个数据行加X锁。(事务T1想要对数据行R1加X锁，事务T2想要对同一个表的数据行R2加X锁，两个事务都需要对该表加IX锁，但是IX锁是兼容的，并且IX锁与行级的X锁是兼容的，因此两个事务都能加锁成功，对同一个表中的两个数据行做修改)</li>
+</ul>
+<h3 id="封锁协议"><a href="#封锁协议" class="headerlink" title="封锁协议"></a>封锁协议</h3><p><strong>三级封锁协议</strong></p>
+<p>目的：在不同程序上保证数据的一致性</p>
+<ul>
+<li>一级封锁协议：事务T要修改数据A时必须加X锁，直到T结束才释放锁。</li>
+</ul>
+<p>可以解决丢失修改问题，因为不能同时有两个事务对同一个数据进行修改，那么事务的修改就不会被覆盖。</p>
+<ul>
+<li>二级封锁协议：在一级的基础上，要求读取数据A时必须加上S锁，读取完马上释放S锁。</li>
+</ul>
+<p>可以解决脏读数据问题，因为如果一个事务在对数据A进行修改，根据一级封锁协议，会加X锁，那么就不能再加S锁了，也就是不会读入数据。</p>
+<ul>
+<li>三级封锁协议：在二级的基础上，要求读取数据A时必须加上S锁，直到事务结束才能释放S锁。</li>
+</ul>
+<p>可以解决不可重复读的问题，因为读A时，其它事务不能对A加X锁，从而避免了在读期间数据发生改变。</p>
+<p><strong>两段锁协议</strong></p>
+<p>目的：保证并发调度的正确性。</p>
+<p>加锁和解锁分为两个阶段进行。</p>
+<p>两段锁协议规定所有事物应遵循的规则：</p>
+<ul>
+<li>在对任何数据进行读、写操作之前，首先要申请并获取该数据的封锁；</li>
+<li>在释放一个封锁之后，事物不能再申请和获得其它任何封锁。</li>
+</ul>
+<p>即事物的执行分为两个阶段：</p>
+<ul>
+<li>第一阶段是获得封锁的阶段，称为扩展阶段</li>
+<li>第二阶段是释放封锁的阶段，称为收缩阶段</li>
+</ul>
+<p>可串行化调度是指，通过并发控制，使得并发执行的事务结果与某个串行执行的事务结果相同。串行执行的事务互不干扰，不会出现并发一致性问题。</p>
+<p>事务遵循两段锁协议是保证客可串行化调度的充分条件。</p>
 <h3 id="InnoDB存储引擎的锁的算法"><a href="#InnoDB存储引擎的锁的算法" class="headerlink" title="InnoDB存储引擎的锁的算法"></a>InnoDB存储引擎的锁的算法</h3><ul>
 <li>Record lock记录锁：单个行记录上的锁；</li>
 <li>Gap lock间隙锁：锁定一个范围，不包括记录本身；</li>
@@ -454,6 +571,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select sql_no_cache count(*) from usr;</span><br></pre></td></tr></table></figure>
 
 <h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><h3 id="何为事务"><a href="#何为事务" class="headerlink" title="何为事务"></a>何为事务</h3><p>事务是逻辑上的一组操作，要么都执行，要么都不执行。</p>
+<p>可以通过Commit提交一个事务，也可以使用Rollback进行回滚。</p>
 <h3 id="何为数据库事务"><a href="#何为数据库事务" class="headerlink" title="何为数据库事务"></a>何为数据库事务</h3><p>数据库事务是日常开发中接触最多了，如果你的项目属于单体架构，接触的往往就是数据库事务。如果没有特指分布式事务，往往指的是数据库事务。</p>
 <p><strong>数据库的事务有什么用</strong></p>
 <p>简单地说：数据库事务可以保证多个对数据库的操作构成一个逻辑整体。构成逻辑上的整体的这些数据库操作遵循：要么全部执行，要么全部不执行。</p>
@@ -526,6 +644,20 @@
 
 <p>MySQL InnoDB的REPEATABLE-READ(可重复读)并不保证避免幻读，需要应用使用枷锁来保证。而这个加锁度使用到的机制就是Next-Key Locks。</p>
 <p>InnoDB存储引擎分布式事务的情况下一般会到SERIALIZABLE(可串行化)隔离级别。</p>
+<h2 id="多版本并发控制"><a href="#多版本并发控制" class="headerlink" title="多版本并发控制"></a>多版本并发控制</h2><p>多版本并发控制(Multi-Version Concurrency Control, MVCC)是MySQL的InnoDB存储引擎实现隔离级别的一种具体方式，用于实现提交读和可重复读这两种隔离级别。而未提交读隔离级别总是读取最新的数据行，要求很低，无需使用MVCC。可串行化隔离级别需要对所有读取的行都加锁，单纯使用MVCC无法实现。</p>
+<h3 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h3><p>加锁能解决多个事务同时执行出现的并发一致性问题。在实际场景中读操作往往多于写操作，因此又引入了读写锁来避免不必要的加锁操作，例如读和读没有互斥关系。读写锁中读和写操作仍然是互斥的，而MVCC利用了多版本的思想，写操作跟新最新的版本快照，而读操作去读旧版本快照，没有互斥关系，这一点和CopyOnWrite类似。</p>
+<p>在MVCC中事务的修改操作(DELETE、INSERT、UPDATE)会为数据行新增一个版本快照。</p>
+<p>脏读和不可重复读最根本的原因是事务读取到其它事务未提交的修改。在事务进行读取操作时，为了解决脏读和不可重复读问题，MVCC规定只能读取已经提交的快照。当然一个事务可以读取自身未提交的快照，这不算是脏读。</p>
+<h3 id="版本号"><a href="#版本号" class="headerlink" title="版本号"></a>版本号</h3><ul>
+<li>系统版本号SYS_ID：是一个递增的数字，每开始一个新的事物，系统版本号会自动递增；</li>
+<li>事物版本号：TRX_ID：事物开始时的系统版本号。</li>
+</ul>
+<h3 id="Undo日志"><a href="#Undo日志" class="headerlink" title="Undo日志"></a>Undo日志</h3><p>MVCC的多版本指的是多个版本的快照，快照存储在Undo日志中，该日志通过回滚指针ROLL_PTR把一个数据行的所有快照连接起来。</p>
+<p>例如在MySQL创建一个表t，包含主键id和一个字段x。我们先插入一个数据行，然后对该数据行执行两次更新操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO t(id, x) VALUES(1, &quot;a&quot;);</span><br><span class="line">UPDATE t SET x&#x3D;&quot;b&quot; WHERE id&#x3D;1;</span><br><span class="line">UPDATE t SET x&#x3D;&quot;c&quot; WHERE id&#x3D;1;</span><br></pre></td></tr></table></figure>
+
+<p>因为没有使用START TRANSACTION将上面的操作当成一个事务来执行，根据MySQL的AUTOCOMMIT机制，每个操作都会被当成一个事务来执行，所以上面的操作总共涉及到三个事务。快照中除了记录事务版本号TRX_ID和操作之外，还记录了一个bit的DEL字段，用于标记是否被删除。</p>
+<p>INSERT、UPDATE、DELETE操作会创建一个日志，并将事务版本TRX_ID写入。DELETE可以看成是一个特殊的UPDATE，还会额外将DEL字段设置为1。</p>
 
       
     </div>
@@ -607,6 +739,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/08/03/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E5%85%A8%E8%A7%A3%E6%9E%90/" rel="prev" title="排序算法全解析">
+                排序算法全解析 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -693,7 +829,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">87</span>
+                  <span class="site-state-item-count">88</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -715,7 +851,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -770,7 +906,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">关系型数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.1.</span> <span class="nav-text">常见的关系型数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">MySQL介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">3.</span> <span class="nav-text">存储引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%9B%B8%E5%85%B3%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="nav-number">3.1.</span> <span class="nav-text">存储引擎相关的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MyISAM%E5%92%8CInnoDB%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">3.2.</span> <span class="nav-text">MyISAM和InnoDB的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8EMyISAM%E5%92%8CInnoDB%E7%9A%84%E9%80%89%E6%8B%A9%E9%97%AE%E9%A2%98"><span class="nav-number">3.3.</span> <span class="nav-text">关于MyISAM和InnoDB的选择问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%81%E6%9C%BA%E5%88%B6%E4%B8%8EInnoDB%E9%94%81%E7%AE%97%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">锁机制与InnoDB锁算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MyISAM%E5%92%8CInnoDB%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%BD%BF%E7%94%A8%E7%9A%84%E9%94%81"><span class="nav-number">4.1.</span> <span class="nav-text">MyISAM和InnoDB存储引擎使用的锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E7%BA%A7%E9%94%81%E5%92%8C%E8%A1%8C%E7%BA%A7%E9%94%81%E5%AF%B9%E6%AF%94"><span class="nav-number">4.2.</span> <span class="nav-text">表级锁和行级锁对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%9A%84%E9%94%81%E7%9A%84%E7%AE%97%E6%B3%95"><span class="nav-number">4.3.</span> <span class="nav-text">InnoDB存储引擎的锁的算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98"><span class="nav-number">5.</span> <span class="nav-text">查询缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1"><span class="nav-number">6.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E4%B8%BA%E4%BA%8B%E5%8A%A1"><span class="nav-number">6.1.</span> <span class="nav-text">何为事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E4%B8%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1"><span class="nav-number">6.2.</span> <span class="nav-text">何为数据库事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E4%B8%BAACID%E7%89%B9%E6%80%A7"><span class="nav-number">6.3.</span> <span class="nav-text">何为ACID特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E4%BA%8B%E5%8A%A1%E5%B8%A6%E6%9D%A5%E7%9A%84%E5%93%AA%E4%BA%9B%E9%97%AE%E9%A2%98"><span class="nav-number">6.4.</span> <span class="nav-text">并发事务带来的哪些问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="nav-number">6.5.</span> <span class="nav-text">事务隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E7%9A%84%E9%BB%98%E8%AE%A4%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">6.6.</span> <span class="nav-text">MySQL的默认隔离级别是什么</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">关系型数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.1.</span> <span class="nav-text">常见的关系型数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">MySQL介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">3.</span> <span class="nav-text">存储引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%9B%B8%E5%85%B3%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="nav-number">3.1.</span> <span class="nav-text">存储引擎相关的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MyISAM%E5%92%8CInnoDB%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">3.2.</span> <span class="nav-text">MyISAM和InnoDB的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8EMyISAM%E5%92%8CInnoDB%E7%9A%84%E9%80%89%E6%8B%A9%E9%97%AE%E9%A2%98"><span class="nav-number">3.3.</span> <span class="nav-text">关于MyISAM和InnoDB的选择问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%81%E6%9C%BA%E5%88%B6%E4%B8%8EInnoDB%E9%94%81%E7%AE%97%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">锁机制与InnoDB锁算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MyISAM%E5%92%8CInnoDB%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%BD%BF%E7%94%A8%E7%9A%84%E9%94%81"><span class="nav-number">4.1.</span> <span class="nav-text">MyISAM和InnoDB存储引擎使用的锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E7%BA%A7%E9%94%81%E5%92%8C%E8%A1%8C%E7%BA%A7%E9%94%81%E5%AF%B9%E6%AF%94"><span class="nav-number">4.2.</span> <span class="nav-text">表级锁和行级锁对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%81%E9%94%81%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.3.</span> <span class="nav-text">封锁类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%81%E9%94%81%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.4.</span> <span class="nav-text">封锁协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%9A%84%E9%94%81%E7%9A%84%E7%AE%97%E6%B3%95"><span class="nav-number">4.5.</span> <span class="nav-text">InnoDB存储引擎的锁的算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98"><span class="nav-number">5.</span> <span class="nav-text">查询缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1"><span class="nav-number">6.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E4%B8%BA%E4%BA%8B%E5%8A%A1"><span class="nav-number">6.1.</span> <span class="nav-text">何为事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E4%B8%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1"><span class="nav-number">6.2.</span> <span class="nav-text">何为数据库事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E4%B8%BAACID%E7%89%B9%E6%80%A7"><span class="nav-number">6.3.</span> <span class="nav-text">何为ACID特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E4%BA%8B%E5%8A%A1%E5%B8%A6%E6%9D%A5%E7%9A%84%E5%93%AA%E4%BA%9B%E9%97%AE%E9%A2%98"><span class="nav-number">6.4.</span> <span class="nav-text">并发事务带来的哪些问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="nav-number">6.5.</span> <span class="nav-text">事务隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E7%9A%84%E9%BB%98%E8%AE%A4%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">6.6.</span> <span class="nav-text">MySQL的默认隔离级别是什么</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E7%89%88%E6%9C%AC%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6"><span class="nav-number">7.</span> <span class="nav-text">多版本并发控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="nav-number">7.1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E5%8F%B7"><span class="nav-number">7.2.</span> <span class="nav-text">版本号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Undo%E6%97%A5%E5%BF%97"><span class="nav-number">7.3.</span> <span class="nav-text">Undo日志</span></a></li></ol></li></ol></div>
             
 
           </div>
