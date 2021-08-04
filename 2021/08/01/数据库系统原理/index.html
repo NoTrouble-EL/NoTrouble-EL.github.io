@@ -658,6 +658,103 @@
 
 <p>因为没有使用START TRANSACTION将上面的操作当成一个事务来执行，根据MySQL的AUTOCOMMIT机制，每个操作都会被当成一个事务来执行，所以上面的操作总共涉及到三个事务。快照中除了记录事务版本号TRX_ID和操作之外，还记录了一个bit的DEL字段，用于标记是否被删除。</p>
 <p>INSERT、UPDATE、DELETE操作会创建一个日志，并将事务版本TRX_ID写入。DELETE可以看成是一个特殊的UPDATE，还会额外将DEL字段设置为1。</p>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><h3 id="B-Tree原理"><a href="#B-Tree原理" class="headerlink" title="B+Tree原理"></a>B+Tree原理</h3><p><strong>数据结构</strong></p>
+<p>B Tree指的是Balance Tree，也就是平衡树。平衡树是一棵查找树，并且所有叶子节点位于同一层。</p>
+<p>B+ Tree是基于B Tree和叶子节点顺序访问指针进行实现，它具有B Tree的平衡性，并且通过顺序访问指针来提高区间查询的性能。</p>
+<p>在B+Tree中，一个节点中的key从左到右非递减排列，如果某个指针的左右相邻key分别是$key_i$和$key_{i+1}$，且不为null，则该指针指向节点的所有key大于等于$key_i$且小于等于$key_{i+1}$​</p>
+<p><strong>操作</strong></p>
+<p>进行查找操作时，首先在根节点进行二分查找，找到一个key所在的指针，然后递归地在所指向的节点进行查找。直到查找到叶子节点，然后再叶子节点上进行二分查找，找出key所对应的data。</p>
+<p>插入删除操作会破坏平衡树的平衡性，因此在进行插入删除操作之后，需要对树进行分裂、合并、旋转等操作来维护平衡性。</p>
+<p><strong>与红黑树的比较</strong></p>
+<p>红黑树等平衡树也可以用来实现索引，但文件系统及数据库系统普遍采用B+ Tree作为索引结构，这是因为使用B+ Tree访问磁盘数据有更高的性能。</p>
+<ul>
+<li>B+树有更低的树高</li>
+</ul>
+<p>平衡树的树高$O(h)=O(log_{d}^{N})$，其中d为每个节点的出度。红黑树的出度为2，而B+ Tree的出度一般都非常大，所以红黑树的树高h很明显比B+ Tree大非常多。</p>
+<ul>
+<li>磁盘访问原理</li>
+</ul>
+<p>操作系统一般将内存和磁盘分割成固定大小的块，每一块称为一页，内存与磁盘以页为单位交换数据。数据库系统将索引的一个节点的大小设置为页的大小，使得一次I/O就能完全载入一个节点。</p>
+<p>如果数据不在同一磁盘块上，那么通常需要移动制动手臂进行寻道，而制动手臂因为其物理结构导致了移动效率低下，从而增加磁盘数据读取时间。B+树相当于红黑树有更低的树高，进行寻道的次数与树高成正比，在同一个磁盘上进行访问只需要很短的磁盘旋转时间，所以B+树更适合磁盘数据的读写。</p>
+<ul>
+<li>磁盘预读特性</li>
+</ul>
+<p>为了减少磁盘I/O操作，磁盘往往不是严格按需读取，而是每次都会预读。预读过程中，磁盘进行顺序读取，顺序读取不需要进行寻道，并且只需要很短的磁盘旋转时间，速度会非常快。并且可以利用预读特性，相邻节点也能够被预先载入。</p>
+<h3 id="MySQL索引"><a href="#MySQL索引" class="headerlink" title="MySQL索引"></a>MySQL索引</h3><p>索引是在存储引擎层实现的，而不是在服务器层实现的，所以不同存储引擎具有不同的索引类型和实现。</p>
+<ul>
+<li>B+ Tree索引</li>
+</ul>
+<p>是大多数MySQL存储引擎的默认索引类型。</p>
+<p>因为不需要进行全表扫描，只需要对树进行搜索即可，所以查找速度快很多。</p>
+<p>因为B+Tree的有序性，所以除了用于查找，还可以用于排序和分组。</p>
+<p>可以指定多个列作为索引列，多个索引列共同组成键。</p>
+<p>适用于全键值、键值范围和键前缀查找，其中键前缀查找只适用于最左前缀查找。如果不是按照索引列的顺序进行查找，则无法使用索引。</p>
+<p>InnoDB的B+ Tree索引分为主索引和辅助索引。主索引的叶子节点data域记录着完整的数据记录，这种索引方式被称为聚簇索引。因为无法把数据行存放在两个不同的地方，所以一个表只能有一个聚簇索引。</p>
+<p>辅助索引的叶子节点的data域记录着主键的值，因此在使用辅助索引进行查找时，需要先查找到主键值，然后再到主索引中进行查找。</p>
+<ul>
+<li>哈希索引</li>
+</ul>
+<p>哈希索引能以$O(1)$时间进行查找，但是失去了有序性：</p>
+<ul>
+<li>无法用于排序与分组；</li>
+<li>只支持精确查找，无法用于部分查找和范围查找。</li>
+</ul>
+<p>InnoDB存储引擎有一个特殊的功能叫“自适应哈希索引”，当某个索引值被使用的非常频繁时，会在B+ Tree索引之上再创建一个哈希索引，这样就让B+ Tree索引具有哈希索引的一些优点，比如快速的哈希查找。</p>
+<ul>
+<li>全文索引</li>
+</ul>
+<p>MyISAM存储引擎支持全文索引，用于查找文本中的关键词，而不是直接比较是否相等。</p>
+<p>查找条件使用MATCH AGAINST，而不是普通的WHERE。</p>
+<p>全文索引使用倒排索引实现，它记录着关键词到其所在文档的映射。</p>
+<p>InnoDB存储引擎在MySQL5.6.4版本中也开始支持全文索引。</p>
+<ul>
+<li>空间数据索引</li>
+</ul>
+<p>MyISAM存储引擎支持空间数据索引(R-Tree)，可以用于地理数据存储。空间数据索引会从所有维度来索引数据，可以有效地使用任意维度来进行组合查询。</p>
+<p>必须使用GIS相关的函数来维护数据。</p>
+<h3 id="索引优化"><a href="#索引优化" class="headerlink" title="索引优化"></a>索引优化</h3><ul>
+<li>独立的列</li>
+</ul>
+<p>在进行查询时，索引列不能是表达式的一部分，也不能是函数的参数，否则无法使用索引。例如下面的查询不能使用actor_id列的索引：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT actor_id FROM sakila.actor WHERE actor_id + 1 &#x3D; 5;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>多列索引</li>
+</ul>
+<p>在需要使用多个列作为条件进行查询时，使用多列索引比使用多个单列索引性能更好。例如下面的语句中，最好把actor_id和film_id设置为多列索引。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT film_id, actor_ id FROM sakila.film_actor</span><br><span class="line">WHERE actor_id &#x3D; 1 AND film_id &#x3D; 1;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>索引列的顺序</li>
+</ul>
+<p>让选择性最强的索引列放在前面。索引的选择性是指：不重复的索引值和记录总数的比值。最大为1，此时每个记录都有唯一的索引与其对应。选择性越高，每个记录的区分度越高，查询效率也越高。</p>
+<p>例如下面显示的结果中customer_id的选择性比staff_id更高，因此最好把customer_id列放在多列索引的前面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(DISTINCT staff_id)&#x2F;COUNT(*) AS staff_id_selectivity,</span><br><span class="line">COUNT(DISTINCT customer_id)&#x2F;COUNT(*) AS customer_id_selectivity,</span><br><span class="line">COUNT(*)</span><br><span class="line">FROM payment;</span><br><span class="line">-- staff_id_selectivity: 0.0001</span><br><span class="line">-- customer_id_selectivity: 0.0373</span><br><span class="line">               -- COUNT(*): 16049</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>前缀索引</li>
+</ul>
+<p>对于BLOB、TEXT、VARCHAR类型的列，必须使用前缀索引，只索引开始的部分字符。前缀长度的选取需要根据索引选择性来确定。</p>
+<ul>
+<li>覆盖索引</li>
+</ul>
+<p>索引包含所有需要查询的字段的值。</p>
+<p>具有以下优点：</p>
+<ul>
+<li>索引通常远小于数据行的大小，只读取索引能大大减少数据访问量。</li>
+<li>一些存储引擎(例如MyISAM)在内存中只缓存索引，而数据依赖操作系统来缓存。因此，只访问索引可以不使用系统调用。</li>
+<li>对于InnoDB引擎，若辅助索引能够覆盖查询，则无需访问主索引。</li>
+</ul>
+<h3 id="索引的优点"><a href="#索引的优点" class="headerlink" title="索引的优点"></a>索引的优点</h3><ul>
+<li>大大减少了服务器需要扫描的数据行</li>
+<li>帮助服务器避免进行排序和分组，以及避免创建临时表(B+ Tree索引是有序的，可以用于ORDER BY和GROUP BY操作。临时表主要是在排序和分组过程中创建，不需要排序和分组，也就不需要创建临时表)。</li>
+<li>将随机I/O变为顺序I/O(B+ Tree索引是有序的，会将相邻的数据都存储在一起)。</li>
+</ul>
+<h3 id="索引的使用条件"><a href="#索引的使用条件" class="headerlink" title="索引的使用条件"></a>索引的使用条件</h3><ul>
+<li>对于非常小的表、大部分情况下简单的全表扫描比建立索引更高效；</li>
+<li>对于中到大型的表，索引就非常有效；</li>
+<li>但是对于特大型的表，建立和维护索引的代价将会随之增长。这种情况下，需要用到一种技术可以直接区分出需要查询的一组数据，而不是一条记录一条记录地匹配，例如可以使用分区技术。</li>
+</ul>
 
       
     </div>
@@ -906,7 +1003,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">关系型数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.1.</span> <span class="nav-text">常见的关系型数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">MySQL介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">3.</span> <span class="nav-text">存储引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%9B%B8%E5%85%B3%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="nav-number">3.1.</span> <span class="nav-text">存储引擎相关的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MyISAM%E5%92%8CInnoDB%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">3.2.</span> <span class="nav-text">MyISAM和InnoDB的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8EMyISAM%E5%92%8CInnoDB%E7%9A%84%E9%80%89%E6%8B%A9%E9%97%AE%E9%A2%98"><span class="nav-number">3.3.</span> <span class="nav-text">关于MyISAM和InnoDB的选择问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%81%E6%9C%BA%E5%88%B6%E4%B8%8EInnoDB%E9%94%81%E7%AE%97%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">锁机制与InnoDB锁算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MyISAM%E5%92%8CInnoDB%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%BD%BF%E7%94%A8%E7%9A%84%E9%94%81"><span class="nav-number">4.1.</span> <span class="nav-text">MyISAM和InnoDB存储引擎使用的锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E7%BA%A7%E9%94%81%E5%92%8C%E8%A1%8C%E7%BA%A7%E9%94%81%E5%AF%B9%E6%AF%94"><span class="nav-number">4.2.</span> <span class="nav-text">表级锁和行级锁对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%81%E9%94%81%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.3.</span> <span class="nav-text">封锁类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%81%E9%94%81%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.4.</span> <span class="nav-text">封锁协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%9A%84%E9%94%81%E7%9A%84%E7%AE%97%E6%B3%95"><span class="nav-number">4.5.</span> <span class="nav-text">InnoDB存储引擎的锁的算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98"><span class="nav-number">5.</span> <span class="nav-text">查询缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1"><span class="nav-number">6.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E4%B8%BA%E4%BA%8B%E5%8A%A1"><span class="nav-number">6.1.</span> <span class="nav-text">何为事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E4%B8%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1"><span class="nav-number">6.2.</span> <span class="nav-text">何为数据库事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E4%B8%BAACID%E7%89%B9%E6%80%A7"><span class="nav-number">6.3.</span> <span class="nav-text">何为ACID特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E4%BA%8B%E5%8A%A1%E5%B8%A6%E6%9D%A5%E7%9A%84%E5%93%AA%E4%BA%9B%E9%97%AE%E9%A2%98"><span class="nav-number">6.4.</span> <span class="nav-text">并发事务带来的哪些问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="nav-number">6.5.</span> <span class="nav-text">事务隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E7%9A%84%E9%BB%98%E8%AE%A4%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">6.6.</span> <span class="nav-text">MySQL的默认隔离级别是什么</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E7%89%88%E6%9C%AC%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6"><span class="nav-number">7.</span> <span class="nav-text">多版本并发控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="nav-number">7.1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E5%8F%B7"><span class="nav-number">7.2.</span> <span class="nav-text">版本号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Undo%E6%97%A5%E5%BF%97"><span class="nav-number">7.3.</span> <span class="nav-text">Undo日志</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">关系型数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.1.</span> <span class="nav-text">常见的关系型数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">MySQL介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">3.</span> <span class="nav-text">存储引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%9B%B8%E5%85%B3%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="nav-number">3.1.</span> <span class="nav-text">存储引擎相关的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MyISAM%E5%92%8CInnoDB%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">3.2.</span> <span class="nav-text">MyISAM和InnoDB的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8EMyISAM%E5%92%8CInnoDB%E7%9A%84%E9%80%89%E6%8B%A9%E9%97%AE%E9%A2%98"><span class="nav-number">3.3.</span> <span class="nav-text">关于MyISAM和InnoDB的选择问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%81%E6%9C%BA%E5%88%B6%E4%B8%8EInnoDB%E9%94%81%E7%AE%97%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">锁机制与InnoDB锁算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MyISAM%E5%92%8CInnoDB%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%BD%BF%E7%94%A8%E7%9A%84%E9%94%81"><span class="nav-number">4.1.</span> <span class="nav-text">MyISAM和InnoDB存储引擎使用的锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E7%BA%A7%E9%94%81%E5%92%8C%E8%A1%8C%E7%BA%A7%E9%94%81%E5%AF%B9%E6%AF%94"><span class="nav-number">4.2.</span> <span class="nav-text">表级锁和行级锁对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%81%E9%94%81%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.3.</span> <span class="nav-text">封锁类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%81%E9%94%81%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.4.</span> <span class="nav-text">封锁协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%9A%84%E9%94%81%E7%9A%84%E7%AE%97%E6%B3%95"><span class="nav-number">4.5.</span> <span class="nav-text">InnoDB存储引擎的锁的算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98"><span class="nav-number">5.</span> <span class="nav-text">查询缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1"><span class="nav-number">6.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E4%B8%BA%E4%BA%8B%E5%8A%A1"><span class="nav-number">6.1.</span> <span class="nav-text">何为事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E4%B8%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1"><span class="nav-number">6.2.</span> <span class="nav-text">何为数据库事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E4%B8%BAACID%E7%89%B9%E6%80%A7"><span class="nav-number">6.3.</span> <span class="nav-text">何为ACID特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E4%BA%8B%E5%8A%A1%E5%B8%A6%E6%9D%A5%E7%9A%84%E5%93%AA%E4%BA%9B%E9%97%AE%E9%A2%98"><span class="nav-number">6.4.</span> <span class="nav-text">并发事务带来的哪些问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="nav-number">6.5.</span> <span class="nav-text">事务隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E7%9A%84%E9%BB%98%E8%AE%A4%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">6.6.</span> <span class="nav-text">MySQL的默认隔离级别是什么</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E7%89%88%E6%9C%AC%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6"><span class="nav-number">7.</span> <span class="nav-text">多版本并发控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="nav-number">7.1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E5%8F%B7"><span class="nav-number">7.2.</span> <span class="nav-text">版本号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Undo%E6%97%A5%E5%BF%97"><span class="nav-number">7.3.</span> <span class="nav-text">Undo日志</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-number">8.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Tree%E5%8E%9F%E7%90%86"><span class="nav-number">8.1.</span> <span class="nav-text">B+Tree原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E7%B4%A2%E5%BC%95"><span class="nav-number">8.2.</span> <span class="nav-text">MySQL索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96"><span class="nav-number">8.3.</span> <span class="nav-text">索引优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-number">8.4.</span> <span class="nav-text">索引的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BD%BF%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="nav-number">8.5.</span> <span class="nav-text">索引的使用条件</span></a></li></ol></li></ol></div>
             
 
           </div>
