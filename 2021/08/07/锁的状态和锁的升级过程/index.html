@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Computer Networking," />
+  <meta name="keywords" content="多线程," />
 
 
 
@@ -86,17 +86,17 @@
 
 
 
-<meta name="description" content="​        通常把它与因特网相连的计算机和其他设备称为端系统。因为它们位于因特网的边缘，故而被称为端系统。因特网的端系统包括了桌面计算机(桌面PC、Mac、Linux设备)、服务器(Web和电子邮件服务器)和移动计算机(智能手机、平板电脑)。此外，越来越多的非传统物品正被作为端系统与英特网相连。 ​        端系统也称为主机(host)，因为它们容纳应用程序，如Web浏览器程序、Web">
+<meta name="description" content="在synchronized最初的实现方式是“阻塞或唤醒一个Java线程需要操作系统切换CPU状态来完成，这种状态切换需要耗费处理器时间，如果同步代码块中内容过于简单，这种切换的时间可能比用户代码执行的时间还长”，这种方式就是synchronized实现同步最初的方式。 在JDK1.6中为了减少获得锁和释放锁带来的性能消耗，引入了“偏向锁”和“轻量级锁”。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="网络边缘">
-<meta property="og:url" content="http://yoursite.com/2021/06/05/%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98/index.html">
+<meta property="og:title" content="锁的状态和锁的升级过程">
+<meta property="og:url" content="http://yoursite.com/2021/08/07/%E9%94%81%E7%9A%84%E7%8A%B6%E6%80%81%E5%92%8C%E9%94%81%E7%9A%84%E5%8D%87%E7%BA%A7%E8%BF%87%E7%A8%8B/index.html">
 <meta property="og:site_name" content="NoTrouble&#39;s Blog">
-<meta property="og:description" content="​        通常把它与因特网相连的计算机和其他设备称为端系统。因为它们位于因特网的边缘，故而被称为端系统。因特网的端系统包括了桌面计算机(桌面PC、Mac、Linux设备)、服务器(Web和电子邮件服务器)和移动计算机(智能手机、平板电脑)。此外，越来越多的非传统物品正被作为端系统与英特网相连。 ​        端系统也称为主机(host)，因为它们容纳应用程序，如Web浏览器程序、Web">
+<meta property="og:description" content="在synchronized最初的实现方式是“阻塞或唤醒一个Java线程需要操作系统切换CPU状态来完成，这种状态切换需要耗费处理器时间，如果同步代码块中内容过于简单，这种切换的时间可能比用户代码执行的时间还长”，这种方式就是synchronized实现同步最初的方式。 在JDK1.6中为了减少获得锁和释放锁带来的性能消耗，引入了“偏向锁”和“轻量级锁”。">
 <meta property="og:locale">
-<meta property="article:published_time" content="2021-06-05T12:54:47.000Z">
-<meta property="article:modified_time" content="2021-06-05T12:54:47.000Z">
+<meta property="article:published_time" content="2021-08-07T00:27:21.000Z">
+<meta property="article:modified_time" content="2021-08-07T00:27:21.000Z">
 <meta property="article:author" content="NoTrouble">
-<meta property="article:tag" content="Computer Networking">
+<meta property="article:tag" content="多线程">
 <meta name="twitter:card" content="summary">
 
 
@@ -127,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2021/06/05/网络边缘/"/>
+  <link rel="canonical" href="http://yoursite.com/2021/08/07/锁的状态和锁的升级过程/"/>
 
 
 
 
 
-  <title>网络边缘 | NoTrouble's Blog</title>
+  <title>锁的状态和锁的升级过程 | NoTrouble's Blog</title>
   
 
 
@@ -294,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/06/05/%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/08/07/%E9%94%81%E7%9A%84%E7%8A%B6%E6%80%81%E5%92%8C%E9%94%81%E7%9A%84%E5%8D%87%E7%BA%A7%E8%BF%87%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -311,7 +311,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">网络边缘</h1>
+          <h1 class="post-title" itemprop="name headline">锁的状态和锁的升级过程</h1>
         
 
         <div class="post-meta">
@@ -323,8 +323,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-05T20:54:47+08:00">
-                2021-06-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-07T08:27:21+08:00">
+                2021-08-07
               </time>
             
 
@@ -346,8 +346,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Networking/" itemprop="url" rel="index">
-                    <span itemprop="name">Computer Networking</span>
+                  <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">多线程</span>
                   </a>
                 </span>
 
@@ -388,21 +388,125 @@
       
 
       
-        <p>​        通常把它与因特网相连的计算机和其他设备称为端系统。因为它们位于因特网的边缘，故而被称为端系统。因特网的端系统包括了桌面计算机(桌面PC、Mac、Linux设备)、服务器(Web和电子邮件服务器)和移动计算机(智能手机、平板电脑)。此外，越来越多的非传统物品正被作为端系统与英特网相连。</p>
-<p>​        端系统也称为主机(host)，因为它们容纳应用程序，如Web浏览器程序、Web服务器程序、电子邮件客户程序或电子邮件服务器程序等。主机有时又被进一步划分为两类：客户端(client)和服务器(server)。客户端通常是桌面PC、移动PC和智能手机等，而服务器通常是更为强大的机器，用于存储和发布Web页面、流视频、中继电子邮件等。今天，大部分提供搜索结果、电子邮件、Web页面和视频的服务器都属于大型数据中心(data center)。</p>
+        <p>在synchronized最初的实现方式是“阻塞或唤醒一个Java线程需要操作系统切换CPU状态来完成，这种状态切换需要耗费处理器时间，如果同步代码块中内容过于简单，这种切换的时间可能比用户代码执行的时间还长”，这种方式就是synchronized实现同步最初的方式。</p>
+<p>在JDK1.6中为了减少获得锁和释放锁带来的性能消耗，引入了“偏向锁”和“轻量级锁”。</p>
  <span id="more"></span> 
 
-<h2 id="接入网"><a href="#接入网" class="headerlink" title="接入网"></a>接入网</h2><p>​        接下来考虑接入网，这是指将端系统物理连接到其边缘路由器(edge router)的网络。边缘路由器是端系统到任何其他远程端系统的路径上的第一台路由器。</p>
-<h3 id="家庭接入：DSL、电缆、FTTH、拨号和卫星"><a href="#家庭接入：DSL、电缆、FTTH、拨号和卫星" class="headerlink" title="家庭接入：DSL、电缆、FTTH、拨号和卫星"></a>家庭接入：DSL、电缆、FTTH、拨号和卫星</h3><p>​        今天，宽带住宅接入有两种最流行的类型：<strong>数字用户线</strong>(Digital Subscriber Line，DSL)和电缆。住户通常从提供本地电话接入的本地电话公司处获得DSL因特网接入。因此，当使用DSL时，用户的本地电话公司也是它的ISP。每个用户的DSL调制解调器使用现有的电话线(即双绞铜线)与位于电话公司的本地中心局(CO)中的数字用户接入复用器(DSLAM)交换数据。家庭的DSL调制解调器得到数字后将其转换为高音频，以通过电话线传输给本地中心局；来自许多家庭的模拟信号在DSLAM处被转换回数字形式。</p>
-<p>​        家庭电话同时承载了数据和传统的电话信号，它们用不同的频率进行编码：</p>
+<h2 id="锁的四种状态"><a href="#锁的四种状态" class="headerlink" title="锁的四种状态"></a>锁的四种状态</h2><p>目前锁状态一共有四种，从级别由低到高依次是：无锁、偏向锁、轻量级锁、重量级锁，锁状态只能升级，不能降级。</p>
+<h3 id="无锁"><a href="#无锁" class="headerlink" title="无锁"></a>无锁</h3><p>无锁是指没有对资源进行锁定，所有的线程都能访问并修改同一个资源，但同时只有一个线程修改成功。</p>
+<p>无锁的特点是修改操作会在循环内进行，线程会不断地尝试修改共享资源。如果没有冲突就修改成功并退出，否则就会继续循环尝试。如果有多个线程修改同一个值，必定会有一个线程能修改成功，而其它修改失败的线程会不断重试直到修改成功。</p>
+<h3 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h3><p>偏向锁也是JDK6中引入的一项锁优化措施，它的目的是消除数据在无竞争情况下的同步原语，进一步提高程序的运行性能。如果说轻量级锁是在无竞争的情况下使用CAS操作去消除同步使用的互斥量，那么偏向锁就是在无竞争的情况下把整个同步都消除掉，连CAS操作都不去做了。</p>
+<p>偏向锁中的“偏”，就是偏心的“偏”。它的意思是这个锁会偏向于第一个获得它的线程，如果在接下来的执行过程中，该锁一直没有被其他的线程获取，则持有偏向锁的线程将永远不需要再进行同步。</p>
+<p>设置当前虚拟机启用了偏向锁(启用参数-XX:+UseBiased Locking)，当锁对象第一次被线程所获取的时候，虚拟机将会把对象头中的标志位设置为“01”、把偏向模式设置为“1”，表示进入偏向模式。同时使用CAS操作把获取到这个锁的线程的ID记录在对象的Mark Word中。如果CAS操作成功，持有偏向锁的线程以后每次进入这个锁相关的同步块，虚拟机都可以不再进行任何同步操作(加锁、解锁以及对Mark Word的更新操作等)。</p>
+<p>一旦出现另外一个线程去尝试获取这个锁的情况，偏向模式就马上宣告结束。根据锁对象目前是否处于被锁定的状态决定是否撤销偏向(偏向模式设置为“0”)，撤销后标志位恢复到未锁定(标志位为“01”)或轻量级锁定(标志位为“00”)的状态，后续的同步操作按照轻量级锁去执行。</p>
+<p>当对象进入偏向状态的时候，Mark Word大部分的空间都用于存储持有锁的线程ID了，这部分空间占用了原有存储对象的哈希码的位置，那么原来对象的哈希码怎么办呢？</p>
+<p>在Java中一个对象如果计算过哈希码，就应该保持不变，否则很多依赖哈希码的API都可能存在出错的风险。而作为绝大多数对象哈希码来源的Object::hashCode()方法，返回的是对象的一致性哈希码，这个值是能强制保证不变的，它通过对象头中存储计算结果来保证第一次计算之后，再次调用该方法取到的哈希码值永远不会再发生改变。因此，当一个对象已经计算过一致性哈希码后，它就再也无法进入偏向锁状态了；而当一个对象当前正处于偏向锁状态，又收到需要计算其一致性哈希码请求时，它的偏向状态会被立即撤销，并且锁膨胀为重量级锁。在重量级锁的实现中，对象头指向了重量级锁的位置，代表重量级锁的ObjectMonitor类里有字段可以记录非加锁状态下的Mark Word，其中自然可以存储原来的哈希码。</p>
+<p>偏向锁可以提高带有同步但无竞争的程序性能，但它同样是一个带有效益权衡性质的优化，也就是说她并非总是对程序运行有利的。如果程序中大多数的锁都总是被多个不同线程访问，那么偏向模式是多余的。在具体问题具体分析的前提下，有时候用参数：-XX：-UseBiasedLocking来禁止偏向锁优化反而可以提提升性能。</p>
+<h3 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h3><p>轻量级锁中的“轻量级”是相对于使用操作系统互斥量来实现的传统锁而言的，因此传统的锁机制就被称为“重量级”锁。不过，需要强调一点，轻量级锁并不是用来代替重量级锁的，它的设计初衷是在没有多线程竞争的前提下，减少传统的重量级锁使用操作系统互斥量产生的性能消耗。</p>
+<p>在HotSpot虚拟机的对象头(Object Header)分为两部分，第一部分用于存储对象自身的运行时数据，如哈希码(HashCode)、GC分代年龄(Generational GC Age)等。这部分数据的长度在32位和64位的Java虚拟机栈分别占用32个或64个比特，官方称为“Mark Word”。这部分是实现轻量级锁和偏向锁的关键。另外一部分用于存储指向方法区对象类型数据的指针，如果是数组对象，还会有额外的部分用于存储数组长度。</p>
+<p>由于对象头信息是与对象自身定义的数据无关的额外存储成本，考虑到Java虚拟机的空间使用效率，Mark Word被设计成一个非固定的动态数据结构，以便在极小的空间内存存储尽量多的信息。它会根据对象的状态复用自己的存储空间。</p>
+<p>在代码即将进入同步块的时候，如果此同步对象没有被锁定(锁标志位为“01”状态)，虚拟机首先将在当前线程的栈帧中建立一个名为锁记录(Lock Record)的空间，用于存储锁对象目前的Mark Word的拷贝(Displaced Mark Word)。</p>
+<p>然后，虚拟机将使用CAS操作尝试把对象的Mark Word更新为指向Lock Record的指针。如果这个更新动作成功了，即代表该线程拥有了这个对象的锁，并且对象Mark Word的锁标志位将转变为“00”，表示此对象处于轻量级锁定状态。</p>
+<p>如果这个跟新操作失败了，那就意味着至少存在一条线程与当前线程竞争获取该对象的锁。虚拟机首先会检查对象的Mark Word是否指向当前线程的栈帧，如果是，说明当前线程已经拥有了这个对象的锁，那直接进入同步块继续执行就可以了，否则说明这个锁对象已经被其他线程抢占了。如果出现两条以上的线程争用同一个锁的情况，那轻量级锁就不再有效，必须要膨胀为重量级锁，锁标志的状态变为“10”此时Mark Word中存储就是指向重量级锁(互斥量)的指针，后面等待锁的线程也就必须进入阻塞状态。</p>
+<p>轻量级锁的解锁过程也同样是通过CAS操作来进行的，如果对象的Mark Word仍然指向线程的锁记录，那就用CAS操作把对象当前的Mark Word和线程中复制的Displaced Mark Word替换回来。假如能成功替换，那整个同步过程就顺利完成；如果替换失败，则说明有其他线程尝试过获取该锁，就要在释放锁的同时，唤醒被挂起的线程。</p>
+<p>轻量级锁能提升程序同步性能的依据是“对于绝大部分的锁，在整个同步周期内都是不存在竞争的”这一经验法则。如果没有竞争，轻量级锁便通过CAS操作成功避免了使用互斥量的开销；但如果确实存在锁竞争，除了互斥量的本身开销外，还额外发生了CAS操作的开销。因此在有竞争的情况下，轻量级锁反而会比传统的重量级锁更慢。</p>
+<p>轻量级锁是指当锁是偏向锁的时候，却被另外的线程所访问，此时偏向锁就会升级为轻量级锁，其它线程会通过自旋的形式尝试获取锁，线程不会阻塞，从而提高性能。</p>
+<p>轻量级锁的获取主要由两种情况：</p>
 <ul>
-<li>高速下行通道，位于50kHz到1MHz频段；</li>
-<li>中速上行通道，位于4kHz到50kHz频段；</li>
-<li>普通的双向电话通道，位于0到4kHz频段。</li>
+<li>当关闭偏向锁功能时；</li>
+<li>由于多个线程竞争偏向锁导致偏向锁升级为轻量级锁。</li>
 </ul>
-<p>​        这种方法使单根DSL线路看起来就像有3根单独的线路一样，因此一个电话呼叫和一个因特网连接能够同时共享DSL链路。在用户一侧，一个分配器把到达家庭的数据信号和电话信号分隔开，并将数据信号转发给DSL调制解调器。在电话公司一侧，在本地中心局，DSLAM把数据和电话信号分隔开，并将数据送往因特网。数百甚至上千个家庭与同一个DSLAM相连。</p>
-<p>​        DSL标准定义了多个传输速率，包括12Mbps下行和1.8Mbps上行传输速率，以及55Mbps下行和15Mbps上行传输速率。因为这些上行速率和下行速率是不同的，所以这种接入被称为是不对称的。实际取得下行和上行传输速率也许小于上述速率，因为当DSL提供商提供分等级的服务时，他们也许有意地限制了住宅速率，或者因为家庭与本地中心局之间的距离、双绞线规格和电气干扰的程度而使最大速率受限。工程师特别为家庭和本地中心局之间的短距离接入设计了DSL；一般而言，如果住宅不是位于本地中心局的5~10英里范围内，该住宅必须采用其他形式的因特网接入。</p>
-<h3 id="企业-和家庭-接入：以太网和WiFi"><a href="#企业-和家庭-接入：以太网和WiFi" class="headerlink" title="企业(和家庭)接入：以太网和WiFi"></a>企业(和家庭)接入：以太网和WiFi</h3><h3 id="广域无线接入：3G和LTE"><a href="#广域无线接入：3G和LTE" class="headerlink" title="广域无线接入：3G和LTE"></a>广域无线接入：3G和LTE</h3><h2 id="物理媒介"><a href="#物理媒介" class="headerlink" title="物理媒介"></a>物理媒介</h2>
+<p>一旦有第二个线程加入锁竞争，偏向锁就升级为轻量级锁(自选锁)。这里要明确一下什么是锁竞争：如果多个线程轮流获取一个锁，但是每次获取锁的时候都很顺利，没有发生阻塞，那么就不存在锁竞争。只有当前某线程尝试获取锁的时候，发现该锁已经被占用，只能等待其释放，这才发生了锁竞争。</p>
+<p>在轻量级锁状态下继续锁竞争，没有抢到锁的线程将自旋，即不断地循环判断是否能够被成功获取。获取锁的操作，其实就是通过CAS修改对象头里的锁标志位。先比较当前锁标志位是否为“释放”，如果是则将其设置为“锁定”，比较并设置是原子性发生的。这就算抢到锁了，然后线程将当前锁的持有者信息修改为自己。</p>
+<p>长时间的自旋操作是非常消耗资源的，一个线程持有锁，其他线程就只能原地空耗CPU，执行不了任何有效的任务，这种现象叫做忙等(busy-waiting)。如果多个线程用一个锁，但是没有发生锁竞争，或者发生了很轻微的锁竞争，那么synchronized就用轻量级锁，允许短时间的忙等现象。这是一种折衷的想法，短时间忙等，换取线程在用户态和内核态之间切换的开销。</p>
+<p><strong>为什么要引入轻量级锁？</strong></p>
+<h3 id="重量级锁"><a href="#重量级锁" class="headerlink" title="重量级锁"></a>重量级锁</h3><p>重量级锁显然，此忙等是有限度的(有个计数器记录自旋次数，默认允许10次，可以通过虚拟机参数更改)。如果锁竞争情况严重，某个达到最大自旋次数的线程，会将轻量级锁升级为重量级锁(依然是CAS修改锁标志位，但不修改持有锁的线程ID)。当后续线程尝试获取锁时，发现被占用的锁是重量级锁，则直接将自己挂起(而不是忙等)，等待将来被唤醒。</p>
+<p>重量级锁是指当一个线程获取锁之后，其余所有等待获取该锁的线程都会处于阻塞状态。</p>
+<p>简而言之，就是所有的控制权都交给了操作系统，由操作系统来负责线程间的调度和线程的状态变更。而这样会出现频繁地对线程运行状态的切换，线程的挂起和唤醒，从而消耗大量的系统资源。</p>
+<h2 id="Java头对象"><a href="#Java头对象" class="headerlink" title="Java头对象"></a>Java头对象</h2><p>以Hotspot虚拟机为例，Hotspot对象头主要包括两部分：Mark Word(标记字段)和Klass Pointer(类型指针)。</p>
+<p><strong>Mark Word</strong></p>
+<p>默认存储对象的HashCode，分代年龄和锁标志位信息。这些信息都是与对象自身定义无关的数据，所以Mark Word被设计成一个非固定的数据结构以便在极小的空间内存存储尽量多的数据。它会根据对象的状态复用自己的存储空间，也就是说在运行期间Mark Word里存储的数据会随着锁标志位的变化而变化。</p>
+<table>
+<thead>
+<tr>
+<th align="center">锁状态</th>
+<th align="center">25位</th>
+<th align="center">31位</th>
+<th align="center">1位</th>
+<th align="center">4bit</th>
+<th align="center">1bit偏向锁位</th>
+<th align="center">2bit锁标志位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">无锁</td>
+<td align="center">unused</td>
+<td align="center">hashCode</td>
+<td align="center">unused</td>
+<td align="center">分代年龄</td>
+<td align="center">0</td>
+<td align="center">01</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">锁状态</th>
+<th align="center">54位</th>
+<th align="center">2位</th>
+<th align="center">1位</th>
+<th align="center">4bit</th>
+<th align="center">1bit偏向锁位</th>
+<th align="center">2bit锁标志位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">偏向锁</td>
+<td align="center">当前线程指针</td>
+<td align="center">Epoch</td>
+<td align="center">unused</td>
+<td align="center">分代年龄</td>
+<td align="center">0</td>
+<td align="center">01</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">锁状态</th>
+<th align="center">62位</th>
+<th align="center">2bit锁标志位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">轻量级锁</td>
+<td align="center">指向线程栈中Lock Record</td>
+<td align="center">00</td>
+</tr>
+<tr>
+<td align="center">重量级锁</td>
+<td align="center">指向互斥量的指针</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="center">GC标记信息</td>
+<td align="center">CMS过程用到的标记信息</td>
+<td align="center">11</td>
+</tr>
+</tbody></table>
+<p><strong>Klass Point</strong></p>
+<p>对象指向它的类元数据的指针，虚拟机通过这个指针来确定这个对象是哪个类的实例。</p>
+<p>synchronized用的锁是存在Java对象头里的，具体存在锁对象的对象头的Mark Word中。</p>
+<h2 id="Monitor"><a href="#Monitor" class="headerlink" title="Monitor"></a>Monitor</h2><p>Monitor可以理解为一个同步工具或一种同步机制，通常被描述为一个对象。每一个Java对象就有一把看不见的锁，称为内部锁或者Monitor锁。</p>
+<p>在Java中，一个对象对应了一个monitor对象，而synchronized关键字也需要关联一个对象，这个对象需要天生就支持monitor，所以在Java中，可以就是Java中的java.lang.Object类，便是满足这个要求的对象，任何一个Java对象都可以作为monitor机制的monitor object。这也就是wait()、notify()、notifyAll()在Object类中的原因。</p>
+<p>Monitor是线程私有的数据结构，每一个线程都有一个可用的monitor record列表，同时还有一个全局的可用列表。每一个被锁住的对象都会和一个monitor关联，同时monitor中有一个Owner字段存放拥有该锁的线程的唯一标识，表示该锁被这个线程占用。</p>
+<p>synchronized是通过对象内部的一个叫做监视器(monitor)来实现的，监视器本质又是依赖于底层的操作系统的Mutex Lock(互斥锁)来实现的。而操作系统实现线程的切换需要从用户态转换到核心态，这个成本非常高，状态之间的转换需要相对比较长的时间，这就是为什么synchronized效率低的原因。因此，这种依赖于操作系统Mutex Lock所实现的锁我们称之为重量级锁。</p>
+<h2 id="锁粗化"><a href="#锁粗化" class="headerlink" title="锁粗化"></a>锁粗化</h2><p>原则上，我们在写代码时，总是推荐将同步块的作用范围限制得尽量小——只在共享数据的实际作用域中才进行同步，这样是为了使得需要同步的操作数量尽可能变少，即使存在锁竞争，等待锁的线程也尽可能快地拿到锁。</p>
+<p>大多数情况下，上面的原则都是正确的，但是如果一系列的连续操作都对同一个对象反复加锁和解锁，甚至加锁操作是出现在循环体之中的，那即使没有线程竞争，频繁地进行互斥同步操作也会导致不必要的性能损耗。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">concatString</span><span class="params">(String s1, String s2, String s3)</span></span>&#123;</span><br><span class="line">    StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">    sb.append(s1);</span><br><span class="line">    sb.append(s2);</span><br><span class="line">    sb.append(s3);</span><br><span class="line">    <span class="keyword">return</span> sb.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述的append()方法就属于这类情况。如果虚拟机探测到有这这样一串零碎的操作都对同一个对象加锁，将会把加锁同步的范围扩展到整个操作序列的外部，就是扩展到第一个append()操作之前直到最后一个append()操作之后，这样只需要加锁一次就可以了。</p>
+
       
     </div>
     
@@ -446,7 +550,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/2021/06/05/%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98/" title="网络边缘">http://yoursite.com/2021/06/05/%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98/</a>
+    <a href="http://yoursite.com/2021/08/07/%E9%94%81%E7%9A%84%E7%8A%B6%E6%80%81%E5%92%8C%E9%94%81%E7%9A%84%E5%8D%87%E7%BA%A7%E8%BF%87%E7%A8%8B/" title="锁的状态和锁的升级过程">http://yoursite.com/2021/08/07/%E9%94%81%E7%9A%84%E7%8A%B6%E6%80%81%E5%92%8C%E9%94%81%E7%9A%84%E5%8D%87%E7%BA%A7%E8%BF%87%E7%A8%8B/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -461,7 +565,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Computer-Networking/" rel="tag"># Computer Networking</a>
+            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag"># 多线程</a>
           
         </div>
       
@@ -474,8 +578,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/06/05/%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%A0%E7%89%B9%E7%BD%91/" rel="next" title="什么是因特网">
-                <i class="fa fa-chevron-left"></i> 什么是因特网
+              <a href="/2021/08/03/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E5%85%A8%E8%A7%A3%E6%9E%90/" rel="next" title="排序算法全解析">
+                <i class="fa fa-chevron-left"></i> 排序算法全解析
               </a>
             
           </div>
@@ -483,10 +587,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/06/05/%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83/" rel="prev" title="网络核心">
-                网络核心 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -650,7 +750,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%85%A5%E7%BD%91"><span class="nav-number">1.</span> <span class="nav-text">接入网</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B6%E5%BA%AD%E6%8E%A5%E5%85%A5%EF%BC%9ADSL%E3%80%81%E7%94%B5%E7%BC%86%E3%80%81FTTH%E3%80%81%E6%8B%A8%E5%8F%B7%E5%92%8C%E5%8D%AB%E6%98%9F"><span class="nav-number">1.1.</span> <span class="nav-text">家庭接入：DSL、电缆、FTTH、拨号和卫星</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%81%E4%B8%9A-%E5%92%8C%E5%AE%B6%E5%BA%AD-%E6%8E%A5%E5%85%A5%EF%BC%9A%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%92%8CWiFi"><span class="nav-number">1.2.</span> <span class="nav-text">企业(和家庭)接入：以太网和WiFi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%BF%E5%9F%9F%E6%97%A0%E7%BA%BF%E6%8E%A5%E5%85%A5%EF%BC%9A3G%E5%92%8CLTE"><span class="nav-number">1.3.</span> <span class="nav-text">广域无线接入：3G和LTE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%AA%92%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">物理媒介</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%81%E7%9A%84%E5%9B%9B%E7%A7%8D%E7%8A%B6%E6%80%81"><span class="nav-number">1.</span> <span class="nav-text">锁的四种状态</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E9%94%81"><span class="nav-number">1.1.</span> <span class="nav-text">无锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%8F%E5%90%91%E9%94%81"><span class="nav-number">1.2.</span> <span class="nav-text">偏向锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81"><span class="nav-number">1.3.</span> <span class="nav-text">轻量级锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E9%87%8F%E7%BA%A7%E9%94%81"><span class="nav-number">1.4.</span> <span class="nav-text">重量级锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E5%A4%B4%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.</span> <span class="nav-text">Java头对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Monitor"><span class="nav-number">3.</span> <span class="nav-text">Monitor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%81%E7%B2%97%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">锁粗化</span></a></li></ol></div>
             
 
           </div>
