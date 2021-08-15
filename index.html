@@ -290,6 +290,293 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/08/15/HTTP%E5%8D%8F%E8%AE%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoTrouble's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/08/15/HTTP%E5%8D%8F%E8%AE%AE/" itemprop="url">HTTP协议</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-15T22:41:21+08:00">
+                2021-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer-Networking/" itemprop="url" rel="index">
+                    <span itemprop="name">Computer Networking</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><h3 id="请求和响应报文"><a href="#请求和响应报文" class="headerlink" title="请求和响应报文"></a>请求和响应报文</h3><p>客户端发送一个请求报文给服务器，服务器根据请求报文中的信息进行处理，并将处理结果放入响应报文中返回给客户端。</p>
+<p>请求报文结构：</p>
+<ul>
+<li>第一行是包含了请求方法、URL、协议版本；</li>
+<li>接下来的多行都是请求首部Header，每个首部都有一个首部名称，以及对应的值；</li>
+<li>一个空行用来分隔首部和内容主体Body</li>
+<li>最后是请求的内容主体</li>
+</ul>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">GET http://www.example.com/ HTTP/1.1</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9,en;q=0.8</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Host: www.example.com</span><br><span class="line">If-Modified-Since: Thu, 17 Oct 2019 07:18:26 GMT</span><br><span class="line">If-None-Match: &quot;3147526947+gzip&quot;</span><br><span class="line">Proxy-Connection: keep-alive</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 xxx</span><br><span class="line"></span><br><span class="line">param1=1<span class="built_in">&amp;</span>param2=2</span><br></pre></td></tr></table></figure>
+
+<p>响应报文结构：</p>
+<ul>
+<li>第一行包含协议版本、状态码以及描述，最常见的是200 OK 表示请求成功</li>
+<li>接下来多行也是首部内容</li>
+<li>一个空行分隔首部和内容主体</li>
+<li>最后是响应的内容主体</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">HTTP/<span class="number">1.1</span> <span class="number">200</span> OK</span><br><span class="line">Age: <span class="number">529651</span></span><br><span class="line">Cache-Control: max-age=<span class="number">604800</span></span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Encoding: gzip</span><br><span class="line">Content-Length: <span class="number">648</span></span><br><span class="line">Content-Type: text/html; charset=UTF-<span class="number">8</span></span><br><span class="line">Date: Mon, <span class="number">02</span> Nov <span class="number">2020</span> <span class="number">17</span>:<span class="number">53</span>:<span class="number">39</span> GMT</span><br><span class="line">Etag: <span class="string">&quot;3147526947+ident+gzip&quot;</span></span><br><span class="line">Expires: Mon, 09 Nov <span class="number">2020</span> <span class="number">17</span>:<span class="number">53</span>:<span class="number">39</span> GMT</span><br><span class="line">Keep-Alive: timeout=<span class="number">4</span></span><br><span class="line">Last-Modified: Thu, <span class="number">17</span> Oct <span class="number">2019</span> <span class="number">07</span>:<span class="number">18</span>:<span class="number">26</span> GMT</span><br><span class="line">Proxy-Connection: keep-alive</span><br><span class="line">Server: ECS (sjc/16DF)</span><br><span class="line">Vary: Accept-Encoding</span><br><span class="line">X-Cache: HIT</span><br><span class="line"></span><br><span class="line">&lt;!doctype html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;Example Domain&lt;/title&gt;</span><br><span class="line">	<span class="comment">// 省略... </span></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h3><p>HTTP使用URL(统一资源定位符)来定位资源，它是URI(统一资源标识符)的子集，URL在URI的基础上增加了定位能力。URI除了包含URL，还包含URN(统一资源名称)，它只是用来定义一个资源的名称，并不具备定位该资源的能力 。</p>
+<h2 id="HTTP方法"><a href="#HTTP方法" class="headerlink" title="HTTP方法"></a>HTTP方法</h2><p>客户端发送的请求报文第一行为请求行，包含了方法字段。</p>
+<ul>
+<li>GET：获取资源，当前网络请求中，绝大部分使用的是GET方法</li>
+<li>HEAD：获取报文首部，和GET方法类似，但是不返回报文实体主体部分。主要用于确认URL的有效性以及资源更新的日期时间等。</li>
+<li>POST：传输实体主体，主要用来传输数据，而GET主要用来获取资源。</li>
+<li>PUT：上传文件，由于自身不带验证机制，任何人都可以上传文件，因此存在安全性问题，一般不使用该方法。</li>
+<li>PATCH：对资源进行部分修改：PUT也可以用于修改资源，但是只能完全代替原始资源，PATCH允许部分修改。</li>
+<li>DELETE：删除文件，与PUT功能相反，并且同样不带验证机制。</li>
+<li>OPTIONS：查询支持的方法，查询指定的URL能够支持的方法。会返回Allow：GET、POST、HEAD、OPTIONS这样的内容。</li>
+<li>CONNECT：要求在与代理服务器通信时建立隧道，使用SSL(安全套接层)和TLS(传输层安全)协议把通信内容加密后经过网络隧道传输。</li>
+<li>TRACE：追踪路径，服务器会将通信路径返回给客户端。发送请求时，在Max-Forwards首部字段中填入数值，每经过一个服务器就会减1，当数值为0时就停止传输。通常不会使用TRACE，并且它容易受到XST攻击。</li>
+</ul>
+<h2 id="HTTP状态码"><a href="#HTTP状态码" class="headerlink" title="HTTP状态码"></a>HTTP状态码</h2><p>服务器返回响应报文中第一行为状态行，包含了状态码以及原因短语，用来告知客户端请求的结果。</p>
+<table>
+<thead>
+<tr>
+<th align="center">状态码</th>
+<th align="center">类别</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1XX</td>
+<td align="center">信息性状态码</td>
+<td align="center">接受的请求正在处理</td>
+</tr>
+<tr>
+<td align="center">2XX</td>
+<td align="center">成功状态码</td>
+<td align="center">请求正常处理完毕</td>
+</tr>
+<tr>
+<td align="center">3XX</td>
+<td align="center">重定向状态码</td>
+<td align="center">需要进行附加操作以完成请求</td>
+</tr>
+<tr>
+<td align="center">4XX</td>
+<td align="center">客户端错误状态码</td>
+<td align="center">服务器无法处理请求</td>
+</tr>
+<tr>
+<td align="center">5XX</td>
+<td align="center">服务器错误状态码</td>
+<td align="center">服务器处理请求出错</td>
+</tr>
+</tbody></table>
+<h2 id="HTTP首部"><a href="#HTTP首部" class="headerlink" title="HTTP首部"></a>HTTP首部</h2><p>有四种类型的首部字段：通用首部字段、请求首部字段、响应首部字段和实体首部字段。</p>
+<h2 id="具体应用"><a href="#具体应用" class="headerlink" title="具体应用"></a>具体应用</h2><h3 id="连接管理"><a href="#连接管理" class="headerlink" title="连接管理"></a>连接管理</h3><p><strong>短连接与长连接</strong></p>
+<p>当浏览器访问一个包含多张图片的HTML页面时，除了请求访问的HTML页面资源，还会请求图片资源。如果每进行一次HTTP通信就要新建一个TCP连接，那么开销会很大。</p>
+<p>长连接只需要建立一次TCP连接就能进行多次HTTP通信。</p>
+<ul>
+<li>从HTTP/1.1开始默认是长连接，如果要断开连接，需要由客户端或者服务器提出断开，使用Connection：close;</li>
+<li>在HTTP/1.1之前默认是短连接的，如果需要使用长连接，则使用Connection：Keep-Alive。</li>
+</ul>
+<p><strong>流水线</strong></p>
+<p>默认情况下，HTTP请求是按顺序发出的，下一个请求只有在当前请求收到响应之后才会被发出。由于受到网络延迟和带宽限制，在下一个请求被发送到服务器之前，可能需要等待很长的时间。</p>
+<p>流水线是在同一条长连接上连续发出请求，而不用等待响应返回，这样可以减少延迟。</p>
+<h3 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h3><p>HTTP协议是无状态的，主要是为了让HTTP协议尽可能简单，使得它能够处理大量事务。HTTP/1.1引入Cookie来保存状态信息。</p>
+<p>Cookie是服务器发送到用户浏览器并保存在本地的一小块数据，它会在浏览器之后向同一服务器再次发起请求时被携带上，用于告知服务端两个请求是否来自同一浏览器。由于之后每次请求都会需要携带Cookie数据，因此会带来额外的性能开销。</p>
+<p>Cookie曾一度用于客户端数据的存储，因为当时并没有其他合适的存储办法而作为唯一的存储手段，但现在随着现代浏览器开始支持各种各样的存储方式，Cookie渐渐被淘汰。新的浏览器API已经允许开发者直接将数据存储到本地，如使用Web storage API或IndexedDB。</p>
+<p><strong>用途</strong></p>
+<ul>
+<li>会话状态管理(如用户登录状态、购物车、游戏分数或其他需要记录的信息)</li>
+<li>个性化设置(如用户自定义设置、主题等)</li>
+<li>浏览器行为跟踪(如跟踪分析用户行为等)</li>
+</ul>
+<p><strong>Session</strong></p>
+<p>除了可以将用户信息通过Cookie存储在用户浏览器中，也可以利用Session存储在服务器端，存储在服务器端的信息更加安全。</p>
+<p>Session可以存储在服务器上的文件、数据库或者内存中。也可以将Session存储在Redis这种内存型数据库中，效率会更高。</p>
+<p>使用Session维护用户登录状态的过程如下：</p>
+<ul>
+<li>用户进行登录时，用户提交包含用户名和密码的表单，放入HTTP请求报文中；</li>
+<li>服务器验证该用户名和密码，如果正确则把用户信息存储到Redis中，它在Redis中的key称为SessionID；</li>
+<li>服务器返回的响应报文的Set-Cookie首部字段包含了这个SessionID，客户端收到响应报文后将该Cookie值存入浏览器中；</li>
+<li>客户端之后对同一个服务器进行请求时会包含该Cookie值，服务器收到之后提取出SessionID，从Redis中取出用户信息，继续之前的业务操作。</li>
+</ul>
+<p>应该注意SessionID的安全性问题，不能让它被恶意攻击者轻易获取，那么就不能产生一个容易被猜到的SessionID值。此外，还需要经常重新生成SessionID。在对安全性要求极高的场景下，例如转账等操作，除了使用Session管理用户状态之外，还需要对用户进行重新验证，比如重新输入密码，或者使用短信验证等方式。</p>
+<p><strong>浏览器禁用Cookie</strong></p>
+<p>此时无法使用Cookie来保存用户信息，只能使用Session。除此之外，不能再将SessionID存放到Cookie中，而是使用URL重写技术，将SessionID作为URL的参数进行传递。</p>
+<p><strong>Cookie和Session选择</strong></p>
+<ul>
+<li>Cookie只能存储ASCII码字符串，而Session可以存储任何类型的数据，因此在考虑数据复杂性时首选Session；</li>
+<li>Cookie存储在浏览器中，容易被恶意查看。如果非要将一些隐私数据存在Cookie中，则可以将Cookie值进行加密，然后在服务器进行解密。</li>
+<li>对于大型网站，如果用户所有的信息都存储在Session中，那么开销是非常大的，因此不建议将所有的用户信息都存储到Session中。</li>
+</ul>
+<h2 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h2><p>HTTP有以下安全性问题：</p>
+<ul>
+<li>使用明文进行通信，内容可能会被窃听；</li>
+<li>不验证通信方的身份，通信方的身份有可能遭遇伪装；</li>
+<li>无法证明报文的完整性，报文有可能遭篡改。</li>
+</ul>
+<p>HTTPS并不是新的协议，而是让HTTP先和SSL通信，再由SSL和TCP通信，也就是说HTTPS使用了隧道进行通信。</p>
+<p>通过使用SSL，HTTPS具有了加密(防窃听)、认证(防伪装)和完整性保护(防篡改)。</p>
+<h3 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h3><p><strong>对称密钥加密</strong></p>
+<p>对称密钥加密，加密和解密使用同一密钥。</p>
+<ul>
+<li>优点：运算速度快；</li>
+<li>缺点：无法安全地将密钥传输给通信方。</li>
+</ul>
+<p><strong>非对称密钥加密</strong></p>
+<p>非对称密钥加密，又称公开密钥加密，加密和解密使用不同的密钥。</p>
+<p>公开密钥所有人都可以获得，通信发送方获得接收方的公开密钥之后，就可以使用公开使用公开密钥进行加密，接收方收到通信内容后使用私有密钥解密。</p>
+<p>非对称密钥除了用来加密，还可以用来进行签名。因为私有密钥无法被其他人获取，因此通信发送方使用其私有密钥进行签名，通信接收方使用发送发的公开密钥对签名进行解密，就能判断这个签名是否正确。</p>
+<ul>
+<li>优点：可以更安全地将公开密钥传输给通信发送方；</li>
+<li>缺点：运算速度慢。</li>
+</ul>
+<p><strong>HTTPS采用的加密方式</strong></p>
+<p>上面提到对称密钥加密方式的传输效率更高，但是无法安全地将密钥传输给通信方。而非对称加密方式可以保证传输的安全性，因此我们可以利用非对称密钥加密方式将传输给通信方。HTTPS采用混合的加密机制，正是利用了上面提到的方案：</p>
+<ul>
+<li>使用非对称密钥加密方式，传输对称密钥加密方式所需要的Secret Key，从而保证安全性；</li>
+<li>获得到Secret Key后，再使用对称密钥加密方式进行通信，从而保证效率。</li>
+</ul>
+<h3 id="认证"><a href="#认证" class="headerlink" title="认证"></a>认证</h3><p>通过使用证书来对通信方进行认证。</p>
+<p>数字证书认证机构(CA)是客户端与服务器双方都可信赖的第三方机构。</p>
+<p>服务器的运营人员向CA提出公开密钥的申请，CA在判明提出申请者的身份之后，会对已申请的公开密钥做数字签名，然后分配这个已签名的公开密钥，并将公开密钥放入公开密钥证书后绑定在一起。</p>
+<p>进行HTTPS通信时，服务器会把证书发送给客户端。客户端取得其中的公开密钥之后，先使用数字签名进行验证，如果验证通过，就可以开始通信了。</p>
+<h3 id="完整性保护"><a href="#完整性保护" class="headerlink" title="完整性保护"></a>完整性保护</h3><p>SSL提供报文摘要功能来进行完整性保护。</p>
+<p>HTTP也提供了MD5报文摘要功能，但不是安全的。例如报文内容被篡改之后，同时重新计算MD5的值，通信接收方是无法意识到发生了篡改。</p>
+<p>HTTPS的报文摘要功能之所以安全，是因为它结合了加密和认证这两个操作。是想一下，加密之后的报文，遭到篡改之后，也很难重新计算报文摘要，因为无法轻易获得明文。</p>
+<h3 id="HTTPS的缺点"><a href="#HTTPS的缺点" class="headerlink" title="HTTPS的缺点"></a>HTTPS的缺点</h3><ul>
+<li>因为需要进行加密解密等过程，因此速度会更慢；</li>
+<li>需要支付证书授权的高额费用。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+    
+
+  
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/08/12/MySQL%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1646,153 +1933,6 @@
   
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/07/24/%E5%8D%8E%E4%B8%BA%E6%9C%BA%E8%AF%95%E9%A2%98%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/wk.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NoTrouble's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/07/24/%E5%8D%8E%E4%B8%BA%E6%9C%BA%E8%AF%95%E9%A2%98%E8%A7%A3/" itemprop="url">华为机试题解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-24T22:44:24+08:00">
-                2021-07-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
-                    <span itemprop="name">LeetCode</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>华为机试练习</strong></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/07/24/%E5%8D%8E%E4%B8%BA%E6%9C%BA%E8%AF%95%E9%A2%98%E8%A7%A3/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-    
-
-  
-
-    
   </section>
 
   
@@ -1847,7 +1987,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-count">93</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
