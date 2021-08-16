@@ -86,12 +86,12 @@
 
 
 
-<meta name="description" content="基础概念请求和响应报文客户端发送一个请求报文给服务器，服务器根据请求报文中的信息进行处理，并将处理结果放入响应报文中返回给客户端。 请求报文结构：  第一行是包含了请求方法、URL、协议版本； 接下来的多行都是请求首部Header，每个首部都有一个首部名称，以及对应的值； 一个空行用来分隔首部和内容主体Body 最后是请求的内容主体  12345678910111213GET http:&#x2F;&#x2F;www">
+<meta name="description" content="基础概念请求和响应报文客户端发送一个请求报文给服务器，服务器根据请求报文中的信息进行处理，并将处理结果放入响应报文中返回给客户端。 请求报文结构：  第一行是包含了请求方法、URL、协议版本； 接下来的多行都是请求首部Header，每个首部都有一个首部名称，以及对应的值； 一个空行用来分隔首部和内容主体Body 最后是请求的内容主体">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HTTP协议">
 <meta property="og:url" content="http://yoursite.com/2021/08/15/HTTP%E5%8D%8F%E8%AE%AE/index.html">
 <meta property="og:site_name" content="NoTrouble&#39;s Blog">
-<meta property="og:description" content="基础概念请求和响应报文客户端发送一个请求报文给服务器，服务器根据请求报文中的信息进行处理，并将处理结果放入响应报文中返回给客户端。 请求报文结构：  第一行是包含了请求方法、URL、协议版本； 接下来的多行都是请求首部Header，每个首部都有一个首部名称，以及对应的值； 一个空行用来分隔首部和内容主体Body 最后是请求的内容主体  12345678910111213GET http:&#x2F;&#x2F;www">
+<meta property="og:description" content="基础概念请求和响应报文客户端发送一个请求报文给服务器，服务器根据请求报文中的信息进行处理，并将处理结果放入响应报文中返回给客户端。 请求报文结构：  第一行是包含了请求方法、URL、协议版本； 接下来的多行都是请求首部Header，每个首部都有一个首部名称，以及对应的值； 一个空行用来分隔首部和内容主体Body 最后是请求的内容主体">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-08-15T14:41:21.000Z">
 <meta property="article:modified_time" content="2021-08-15T14:41:21.000Z">
@@ -396,6 +396,8 @@
 <li>一个空行用来分隔首部和内容主体Body</li>
 <li>最后是请求的内容主体</li>
 </ul>
+ <span id="more"></span> 
+
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">GET http://www.example.com/ HTTP/1.1</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9,en;q=0.8</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Host: www.example.com</span><br><span class="line">If-Modified-Since: Thu, 17 Oct 2019 07:18:26 GMT</span><br><span class="line">If-None-Match: &quot;3147526947+gzip&quot;</span><br><span class="line">Proxy-Connection: keep-alive</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 xxx</span><br><span class="line"></span><br><span class="line">param1=1<span class="built_in">&amp;</span>param2=2</span><br></pre></td></tr></table></figure>
 
 <p>响应报文结构：</p>
@@ -615,6 +617,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2021/08/16/%E7%BB%8F%E5%85%B8%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" rel="prev" title="经典垃圾收集器">
+                经典垃圾收集器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -700,7 +706,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-count">94</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
