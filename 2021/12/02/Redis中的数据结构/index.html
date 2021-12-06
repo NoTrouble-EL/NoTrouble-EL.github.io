@@ -433,7 +433,79 @@
 <p>因为SDS不需要使用“\0”字符来标识字符串结尾了，而且SDS的API都是以处理二进制的方式来处理SDS存放在buf[]里的数据，程序不会对其中的数据做任何限制，数据写入的时候什么样的，它被读取时就是什么样的。</p>
 <p>通过使用二进制安全的SDS，而不是C字符串，使得Redis不仅可以保存文本数据，也可以保存任意格式的二进制数据。</p>
 <p><strong>不会发生缓冲区溢出</strong></p>
-<p>C语言的字符串标准库提供的字符串操作函数，大多数都是不安全的(例如strcat追加字符串函数)，因为这些函数把缓冲区大小是否满足操作的工作交由开发者来保证，程序内部并不会判断缓冲区大小是否足够用，当发生了缓冲区溢出就有可能造成程序异常结束。所以Redis的SDS结构中引入了alloc和len成员变量，这样SDS API通过alloc-len计算，可以算出剩余可用的空间大小，这样在对字符串做修改操作的时候，就可以由程序内部判断缓冲区大小是否足够用。而且，当缓冲区大小不够用时，Redis会自动将扩大SDS的空间大小，以满足修改所需要的大小。</p>
+<p>C语言的字符串标准库提供的字符串操作函数，大多数都是不安全的(例如strcat追加字符串函数)，因为这些函数把缓冲区大小是否满足操作的工作交由开发者来保证，程序内部并不会判断缓冲区大小是否足够用，当发生了缓冲区溢出就有可能造成程序异常结束。所以Redis的SDS结构中引入了alloc和len成员变量，这样SDS API通过alloc-len计算，可以算出剩余可用的空间大小，这样在对字符串做修改操作的时候，就可以由程序内部判断缓冲区大小是否足够用。而且，当缓冲区大小不够用时，Redis会自动将扩大SDS的空间大小，以满足修改所需要的大小。在扩展SDS空间之前，SDS API会优先检查未使用空间是否足够，如果不够的话，API不仅会SDS分配修改所需要的空间，还会给SDS分配额外的未使用空间。这样的好处是，下次在操作SDS时，如果是SDS空间，API就会直接使用未使用空间，而无须执行内存分配，有效的减少内存分配次数。所以，使用SDS即不需要手动修改SDS的空间大小，也不会出现缓冲区溢出的问题。</p>
+<p><strong>节省内存空间</strong></p>
+<p>​    SDS结构中有个flags成员变量，表示的是SDS类型。Redis一共设计了5种类型，分别是sdshdr5、sdshdr8、sdshdr16、sdshdr32和sdshdr64。这5种类型的主要区别就在于，它们数据结构中的len和alloc成员变量的数据类型不同，例如sdshdr16和sdshdr32这两个类型，它们的定义分别如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">attribute__</span> ((__<span class="title">packed__</span>)) <span class="title">sdshdr16</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint16_t</span> len;</span><br><span class="line">    <span class="keyword">uint16_t</span> alloc; </span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> flags; </span><br><span class="line">    <span class="keyword">char</span> buf[];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">attribute__</span> ((__<span class="title">packed__</span>)) <span class="title">sdshdr32</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint32_t</span> len;</span><br><span class="line">    <span class="keyword">uint32_t</span> alloc; </span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> flags;</span><br><span class="line">    <span class="keyword">char</span> buf[];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到sdshdr16类型的len和alloc的数据类型都是unit16_t，表示字符数组长度和分配空间大小不能超过2的16次方。sdshdr32则都是uint32_t，表示字符数组长度和分配空间大小不能超过2的32次方。</p>
+<p>之所以SDS设计不同类型的结构体，是为了能灵活保存不同大小的字符串，从而有效节省内存空间。比如，在保存小字符串时，结构头占用空间也比较少。</p>
+<p>除了设计不同类型的结构体，Redis在编程上还使用了专门的编译优化来节省内存空间，即在struct声明了_<em>attribute_</em>((<strong>packed</strong>))，它的作用是：告诉编译器取消结构在编译过程中的优化对齐，按照实际占用字节数进行对齐。例如，sdshdr16类型的SDS，默认情况下，编译器会按照16字节对齐的方生给变量分配内存，这意味着，即使一个变量的大小不到16字节，编译器也会给它分配16个字节。例如，假设下面这个结构体，它有两个成员变量，类型分别是char和int，如下所示：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"> <span class="class"><span class="keyword">struct</span> <span class="title">test1</span> &#123;</span></span><br><span class="line">    <span class="keyword">char</span> a;</span><br><span class="line">    <span class="keyword">int</span> b;</span><br><span class="line"> &#125; test1;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="built_in">printf</span>(<span class="string">&quot;%lu\n&quot;</span>, <span class="keyword">sizeof</span>(test1));</span><br><span class="line">     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个结构体大小是8字节。这是因为默认情况下，编译器是使用字节对齐的方式分配内存，虽然char类型只占1个字节，但是由于成员变量有int类型，它占用了4个字节，所以在成员变量为char类型分配内存时，会分配4个字节，其中这多余的3个字节是为了字节对齐和被分配的，相当于有3字节被浪费掉了。</p>
+<p>如果不想编译器使用字节对齐的方式进行分配内存，可以采用__attribute__ ((packed))属性定义结构体，这样一来，结构体实际占用多少内存空间，编译器就会分配多少空间。例如，使用__attribute__ ((packed))属性定义下面的结构体，同样包含char和int两个类型的成员变量，代码如下所示：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">attribute__</span>((<span class="title">packed</span>)) <span class="title">test2</span>  &#123;</span></span><br><span class="line">    <span class="keyword">char</span> a;</span><br><span class="line">    <span class="keyword">int</span> b;</span><br><span class="line"> &#125; test2;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="built_in">printf</span>(<span class="string">&quot;%lu\n&quot;</span>, <span class="keyword">sizeof</span>(test2));</span><br><span class="line">     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这时候打印的结构为5(1个字节char+4个字节int)。</p>
+<h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><p>Redis的list数据类型的底层实现之一就是链表。C语言本身也是没有链表这个数据结构的，所以Redis自己设计了一个链表数据结构。</p>
+<p><strong>链表节点结构设计</strong></p>
+<p>先来看看链表节点结构的样子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">listNode</span> &#123;</span></span><br><span class="line">    <span class="comment">//前置节点</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">listNode</span> *<span class="title">prev</span>;</span></span><br><span class="line">    <span class="comment">//后置节点</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">listNode</span> *<span class="title">next</span>;</span></span><br><span class="line">    <span class="comment">//节点的值</span></span><br><span class="line">    <span class="keyword">void</span> *value;</span><br><span class="line">&#125; listNode;</span><br></pre></td></tr></table></figure>
+
+<p>有前置节点和后置节点，可以看出，这是一个双向链表。</p>
+<p><strong>链表结构设计</strong></p>
+<p>不过，Redis在listNode结构基础上又封装了list这个数据结构，这样操作起来会更加方便，链表结构如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">list</span> &#123;</span></span><br><span class="line">    <span class="comment">//链表头节点</span></span><br><span class="line">    listNode *head;</span><br><span class="line">    <span class="comment">//链表尾节点</span></span><br><span class="line">    listNode *tail;</span><br><span class="line">    <span class="comment">//节点值复制函数</span></span><br><span class="line">    <span class="keyword">void</span> *(*dup)(<span class="keyword">void</span> *ptr);</span><br><span class="line">    <span class="comment">//节点值释放函数</span></span><br><span class="line">    <span class="keyword">void</span> (*<span class="built_in">free</span>)(<span class="keyword">void</span> *ptr);</span><br><span class="line">    <span class="comment">//节点值比较函数</span></span><br><span class="line">    <span class="keyword">int</span> (*match)(<span class="keyword">void</span> *ptr, <span class="keyword">void</span> *key);</span><br><span class="line">    <span class="comment">//链表节点数量</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> len;</span><br><span class="line">&#125; <span class="built_in">list</span>;</span><br></pre></td></tr></table></figure>
+
+<p>list结构为链表提供了头指针head、链表尾节点tail、链表节点数量len、以及可以自定义实现的dup、free、match函数。</p>
+<p>Redis的链表实现优点如下：</p>
+<ul>
+<li>listNode链表节点带有prev和next指针，获取某个节点的前置节点或后置节点的时间复杂度只需要O(1)，而且这两个指针都可以指向NULL，所以链表是无环链表；</li>
+<li>listNode结构因为提供了头指针head和表尾节点tail，所以获取链表的表头结点和表尾结点的时间复杂度为O(1)；</li>
+<li>listNode结构因为提供了链表结点数量len，所以获取链表中的结点数量的时间复杂度只需要O(1)；</li>
+<li>listNode链表使用void*指针保存节点值，并且可以通过list结构的dup、free、match函数指针为节点设置该结点类型特定的函数，因此链表节点可以保存不同类型的值。</li>
+</ul>
+<p>链表也是有缺陷的，链表每个节点之间的内存都不是连续的，意味着无法很好利用CPU缓存。能很好利用CPU缓存的数据结构就是数组，因为数组的内存是连续的，这样就可以充分利用CPU缓存来加速访问。因此，Redis的list数据类型在数据量比较少的情况下，会采用压缩列表作为底层数据结构的实现，压缩列表就是由数组实现的。</p>
+<h2 id="压缩列表"><a href="#压缩列表" class="headerlink" title="压缩列表"></a>压缩列表</h2><p>压缩列表是Redis数据类型为list和hash的底层实现之一。</p>
+<ul>
+<li>当一个列表键(list)只包含少量的列表项，并且每个列表项都是小整数值，或者长度比较短的字符串，那么Redis就会使用压缩列表作为列表键(list)的底层实现。</li>
+<li>当一个哈希值(hash)只包含少量键值对，并且每个键值对的键和值都是小整数值，或者长度比较短的字符串，那么Redis就会使用压缩列表作为哈希键(hash)的底层实现。</li>
+</ul>
+<p><strong>压缩列表结构设计</strong></p>
+<p>压缩列表是Redis为了节约内存而开发的，它是由连续内存块组成的顺序型数据结构，有点类型于数组。</p>
+<p>压缩列表在表头有三个字段：</p>
+<ul>
+<li>zlbytes，记录整个压缩列表占用对内存字节数；</li>
+<li>zltail，记录压缩列表尾部节点距离起始地址由多少字节，也就是列表尾的偏移量；</li>
+<li>zllen，记录压缩列表包含的节点数量；</li>
+<li>zlend，标记压缩列表的结束点，特殊值0xFF(十进制255)。</li>
+</ul>
+<p>在压缩列表中，如果我们要查找定位第一个元素和最后一个元素，可以通过表头三个字段的长度直接定位，复杂度为O(1)。而查找其他元素时，就没有这么高效了，只能逐个查找，此时的复杂度就是O(N)了。</p>
+<p>另外，压缩列表节点(entry)的构成如下所示：</p>
+<p>压缩列表节点包含三部分内容：</p>
+<ul>
+<li>prevlen，记录了前一个节点的长度；</li>
+<li>encoding，记录了当前节点实际数据的类型以及长度；</li>
+<li>data，记录了当前节点的实际数据。</li>
+</ul>
+<p>当我们往压缩列表中插入数据时，压缩列表就会根据数据是字符串还是整数，以及它们的大小会在prevlen和encoding这两个元素里保存不同的信息，这种根据数据大小进行对应信息保存的设计思想，正是Redis为了节省内存而采用的。</p>
+<p><strong>连锁更新</strong></p>
+<p>压缩列表除了查找复杂度高的问题，压缩列表在插入元素时，如果内存空间不够了，压缩列表还需要重新分配一块连续的内存空间，而这可能会引发连锁更新的问题。</p>
+<p>压缩列表里的每个节点中的prevlen属性都记录了前一个结点的长度，而且prevlen属性的空间大小跟前一个结点长度值有关，比如：</p>
+<ul>
+<li>如果前一个结点的长度小于254字节，那么prevlen属性需要用1字节的空间来保存这个长度值；</li>
+<li>如果前一个结点的长度大于等于254字节，那么prevlen属性需要5字节的空间来保存这个长度值。</li>
+</ul>
+<p>现在假设一个压缩列表中有多个连续的、长度在250~253之间的结点，如下图：</p>
+<p>因为这些字节长度值小于254字节，所以prevlen属性需要用1字节的空间来保存这个长度值。</p>
+<p>这时，如果将一个长度大于等于254字节的新节点加入到压缩列表头结点，即新结点将成为e1的前置结点，如下图：</p>
+<p>因为e1结点的prevlen属性只有1个字节大小，无法保存新结点的长度，此时就需要对压缩列表的空间重新分配操作，并将e1的结点prevlen属性从原来的1字节大小扩展到5字节大小。</p>
+<p>多米诺牌的效应就此开始。</p>
+<p>e1原本的长度在250~253之间，因为刚才的扩展空间，此时e1的长度就大于等于254了，因此原本e2保存e1的prevlen属性也必须从1字节扩展至5字节大小。正如扩展e1引发了对e2扩展一样，扩展e2也会引发对e3的扩展，而扩展e3又会引发对e4的扩展…一直持续到结尾。</p>
+<p>这种在特殊情况下产生的连续多次空间扩展操作就叫做连锁更新，就像多米诺骨牌的效应一样。</p>
+<p>连锁更新一旦发生，就会导致压缩列表占用的内存空间要多次重新分配，这就会直接影响到压缩列表的访问性能。所以说，虽然压缩列表紧凑型的内存布局能节省内存开销，但是如果保存的元素数量增加了，或者是元素变大了，压缩列表就会面临连锁更新的风险。</p>
+<p>因此，压缩列表只会用于保存的结点数量不多的场景，只要结点数量足够小，即便发生连锁更新，也是能接收的。</p>
 
       
     </div>
@@ -672,7 +744,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SDS"><span class="nav-number">1.</span> <span class="nav-text">SDS</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SDS"><span class="nav-number">1.</span> <span class="nav-text">SDS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%BE%E8%A1%A8"><span class="nav-number">2.</span> <span class="nav-text">链表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E5%88%97%E8%A1%A8"><span class="nav-number">3.</span> <span class="nav-text">压缩列表</span></a></li></ol></div>
             
 
           </div>
