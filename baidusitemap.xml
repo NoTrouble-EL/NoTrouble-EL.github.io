@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://yoursite.com/2022/09/04/Oracle-SQL%E5%9F%BA%E7%A1%80%E4%B8%8EPL-SQL/</loc>
+    <lastmod>2022-09-04</lastmod>
+  </url>
+  <url>
     <loc>http://yoursite.com/2021/12/02/Redis%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</loc>
     <lastmod>2021-12-02</lastmod>
   </url>
