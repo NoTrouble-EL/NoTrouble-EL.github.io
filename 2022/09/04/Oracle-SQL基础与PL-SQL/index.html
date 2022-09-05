@@ -414,7 +414,7 @@
 <p><strong>选择特定的列</strong></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> department_id, location_id</span><br><span class="line"><span class="keyword">FROM</span> departments;</span><br></pre></td></tr></table></figure>
 
-<p><strong>数字和日期使用的算术运算符</strong><br>| 操作符 | 描述 |<br>| :— | :—: |<br>| + | 加 |<br>| - | 减 |<br>| * | 乘 |<br>| / | 除 |<br><strong>操作符优先级</strong></p>
+<p><strong>数字和日期使用的算术运算符</strong><br>| 操作符 | 描述  |<br>| :—– | :—: |<br>| +      |  加   |<br>| -      |  减   |<br>| *      |  乘   |<br>| /      |  除   |<br><strong>操作符优先级</strong></p>
 <ol>
 <li>乘除优先级高于加减</li>
 <li>同一优先级别运算符从左向右执行</li>
@@ -492,36 +492,36 @@
 <h3 id="比较运算"><a href="#比较运算" class="headerlink" title="比较运算"></a>比较运算</h3><table>
 <thead>
 <tr>
-<th align="left">操作符</th>
+<th align="center">操作符</th>
 <th align="center">含义</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">=</td>
+<td align="center">=</td>
 <td align="center">等于</td>
 </tr>
 <tr>
-<td align="left">&gt;</td>
+<td align="center">&gt;</td>
 <td align="center">大于</td>
 </tr>
 <tr>
-<td align="left">&gt;=</td>
+<td align="center">&gt;=</td>
 <td align="center">大于等于</td>
 </tr>
 <tr>
-<td align="left">&lt;</td>
+<td align="center">&lt;</td>
 <td align="center">小于</td>
 </tr>
 <tr>
-<td align="left">&lt;=</td>
+<td align="center">&lt;=</td>
 <td align="center">小于等于</td>
 </tr>
 <tr>
-<td align="left">&lt;&gt;</td>
+<td align="center">&lt;&gt;</td>
 <td align="center">不等于</td>
 </tr>
 <tr>
-<td align="left">!=</td>
+<td align="center">!=</td>
 <td align="center">不等于</td>
 </tr>
 </tbody></table>
@@ -583,7 +583,7 @@
 </tbody></table>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> last_name, hire_date, salary</span><br><span class="line"><span class="keyword">FROM</span> employees</span><br><span class="line"><span class="keyword">WHERE</span> department_id <span class="operator">=</span> <span class="number">80</span> <span class="keyword">AND</span> salary <span class="operator">&lt;=</span> <span class="number">5000</span>;</span><br></pre></td></tr></table></figure>
 
-<p><strong>优先级</strong><br>| 优先级 |  |<br>| :— | :—: |<br>| 1 | 算术运算符 |<br>| 2 | 连接符 |<br>| 3 | 比较符 |<br>| 4 | IS[NOT] NULL, LIKE, [NOT]IN |<br>| 5 | NOT[BETWEEN] |<br>| 6 | NOT |<br>| 7 | AND |<br>| 8 | OR |<br>括号可以改变优先级顺序</p>
+<p><strong>优先级</strong><br>| 优先级 |                             |<br>| :—– | :————————-: |<br>| 1      |         算术运算符          |<br>| 2      |           连接符            |<br>| 3      |           比较符            |<br>| 4      | IS[NOT] NULL, LIKE, [NOT]IN |<br>| 5      |        NOT[BETWEEN]         |<br>| 6      |             NOT             |<br>| 7      |             AND             |<br>| 8      |             OR              |<br>括号可以改变优先级顺序</p>
 <h3 id="ORDER-BY子句"><a href="#ORDER-BY子句" class="headerlink" title="ORDER BY子句"></a>ORDER BY子句</h3><p>使用ORDER BY子句排序：<br>-ASC:升序<br>-DESC：降序<br>ORDER BY子句在SELECT语句的<strong>结尾</strong>。默认为升序排序</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> last_name, department_id, salary</span><br><span class="line"><span class="keyword">FROM</span> employees</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> salary <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
 
@@ -709,7 +709,7 @@
 
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> employee_id, last_name, TRUNC(SYSDATE <span class="operator">-</span> hire_date) worked_days</span><br><span class="line"><span class="keyword">FROM</span> employees;</span><br></pre></td></tr></table></figure>
 
-<p><strong>日期函数</strong><br>| 函数 | 描述 |<br>| :— | :—: |<br>| MONTHS_BETWEEN | 两个日期相差的月数 |<br>| ADD_MONTHS | 向指定日期中加上若干月数 |<br>| NEXT_DAY | 指定日期的下一个星期对应的日期 |<br>| LAST_DAY | 本月的最后一天 |<br>| ROUND | 日期四舍五入 |<br>| TRUNC | 日期截断 |</p>
+<p><strong>日期函数</strong><br>| 函数           |              描述              |<br>| :————- | :—————————-: |<br>| MONTHS_BETWEEN |       两个日期相差的月数       |<br>| ADD_MONTHS     |    向指定日期中加上若干月数    |<br>| NEXT_DAY       | 指定日期的下一个星期对应的日期 |<br>| LAST_DAY       |         本月的最后一天         |<br>| ROUND          |          日期四舍五入          |<br>| TRUNC          |            日期截断            |</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> employee_id, last_name, MONTHS_BETWEEN(SYSDATE, hire_date)</span><br><span class="line"><span class="keyword">FROM</span> employees;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ADD_MONTHS(SYSDATE, <span class="number">2</span>), ADD_MONTHS(SYSDATE, <span class="number">-3</span>), NEXT_DAY(SYSDATE, <span class="string">&#x27;星期日&#x27;</span>)</span><br><span class="line"><span class="keyword">FROM</span> dual;</span><br></pre></td></tr></table></figure>
@@ -720,7 +720,7 @@
 <li>隐性</li>
 <li>显性</li>
 </ol>
-<p>隐式数据类型转换：Oracle自动完成转换<br>| 源数据类型 | 目标数据类型 |<br>| :— | :—: |<br>| VARCHAR2 or CHAR | NUMBER |<br>| VARCHAR2 or CHAR | DATE |<br>| NUMBER | VARCHAR2 |<br>| DATE | VARCHAR2 |</p>
+<p>隐式数据类型转换：Oracle自动完成转换<br>| 源数据类型       | 目标数据类型 |<br>| :————— | :———-: |<br>| VARCHAR2 or CHAR |    NUMBER    |<br>| VARCHAR2 or CHAR |     DATE     |<br>| NUMBER           |   VARCHAR2   |<br>| DATE             |   VARCHAR2   |</p>
 <p>DATE &lt;-&gt; VARCHAR2 &lt;-&gt; NUMBER</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="string">&#x27;12&#x27;</span> <span class="operator">+</span> <span class="number">2</span> <span class="keyword">FROM</span> dual;</span><br><span class="line"><span class="comment">--14</span></span><br></pre></td></tr></table></figure>
 
@@ -738,7 +738,7 @@
 
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> employee_id, hire_date</span><br><span class="line"><span class="keyword">FROM</span> employees</span><br><span class="line"><span class="keyword">WHERE</span> hire_date <span class="operator">=</span> TO_DATE(<span class="string">&#x27;1996-02-03&#x27;</span>,<span class="string">&#x27;yyyy-mm-dd&#x27;</span>);</span><br></pre></td></tr></table></figure>
 
-<p>TO_CHAR函数对数字的转换:<br>| 标识 | 说明 |<br>| :— | :—: |<br>| 9 | 数字 |<br>| 0 | 零 |<br>| $ | 美元符 |<br>| L | 本地货币符号 |<br>| . | 小数点 |<br>| , | 千位符 |</p>
+<p>TO_CHAR函数对数字的转换:<br>| 标识 |     说明     |<br>| :— | :———-: |<br>| 9    |     数字     |<br>| 0    |      零      |<br>| $    |    美元符    |<br>| L    | 本地货币符号 |<br>| .    |    小数点    |<br>| ,    |    千位符    |</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> TO_CHAR(<span class="number">1234567.89</span>, <span class="string">&#x27;999,999,999.99&#x27;</span>) <span class="keyword">FROM</span> dual;</span><br><span class="line"><span class="comment">-- 1,234,567.89 </span></span><br></pre></td></tr></table></figure>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> TO_CHAR(<span class="number">1234567.89</span>, <span class="string">&#x27;000,000,999.99&#x27;</span>) <span class="keyword">FROM</span> dual;</span><br><span class="line"><span class="comment">-- 001,234,567.89 </span></span><br></pre></td></tr></table></figure>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> TO_CHAR(<span class="number">1234567.89</span>, <span class="string">&#x27;$000,000,999.99&#x27;</span>) <span class="keyword">FROM</span> dual;</span><br><span class="line"><span class="comment">-- $001,234,567.89 </span></span><br></pre></td></tr></table></figure>
@@ -988,7 +988,7 @@
 
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">TABLE</span> emp3</span><br><span class="line"><span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> employee_id id, last_name name, hire_date, salary</span><br><span class="line"><span class="keyword">FROM</span> employees</span><br><span class="line"><span class="keyword">WHERE</span> <span class="number">1</span> <span class="operator">=</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
 
-<p><strong>数据类型</strong><br>| 数据类型 | 描述 |<br>| :— | :—: |<br>| VARCHAR2 | 可变长字符数据 |<br>| CHAR(size) | 定长字符数据 |<br>| NUMBER(p, s) | 可变长数值数据 |<br>| DATE | 日期型数据 |<br>| LONG | 可变长字符数据，最大可达到2G |<br>| CLOB | 字符数据，最大可达4G |<br>| RAW | 原始的二进制数据 |<br>| BLOB | 二进制数据，最大可达4G|<br>| BFILE | 存储外部文件的二进制数据，最大可达4G |<br>| ROWID | 行地址 |</p>
+<p><strong>数据类型</strong><br>| 数据类型     |                 描述                 |<br>| :———– | :———————————-: |<br>| VARCHAR2     |            可变长字符数据            |<br>| CHAR(size)   |             定长字符数据             |<br>| NUMBER(p, s) |            可变长数值数据            |<br>| DATE         |              日期型数据              |<br>| LONG         |     可变长字符数据，最大可达到2G     |<br>| CLOB         |         字符数据，最大可达4G         |<br>| RAW          |           原始的二进制数据           |<br>| BLOB         |        二进制数据，最大可达4G        |<br>| BFILE        | 存储外部文件的二进制数据，最大可达4G |<br>| ROWID        |                行地址                |</p>
 <h3 id="修改表"><a href="#修改表" class="headerlink" title="修改表"></a>修改表</h3><p>使用ALTER TABLE语句可以：</p>
 <ol>
 <li>追加新的列</li>
@@ -1250,7 +1250,7 @@
 </ol>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> empview2</span><br><span class="line"><span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> employee_id id, last_name name, salary, department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e, departments d</span><br><span class="line"><span class="keyword">WHERE</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"><span class="keyword">WITH</span> READ <span class="keyword">ONLY</span>;</span><br></pre></td></tr></table></figure>
 
-<p>简单视图和复杂视图<br>| 特性 | 简单视图 | 复杂试图 |<br>| :— | :—: |  —: |<br>| 表的数量 | 一个 | 一个或多个 |<br>| 函数 | 没有 | 有 |<br>| 分组 | 没有 | 有 |<br>| DML操作 | 可以 | 有时可以 |</p>
+<p>简单视图和复杂视图<br>| 特性     | 简单视图 |   复杂试图 |<br>| :——- | :——: | ———: |<br>| 表的数量 |   一个   | 一个或多个 |<br>| 函数     |   没有   |         有 |<br>| 分组     |   没有   |         有 |<br>| DML操作  |   可以   |   有时可以 |</p>
 <p><strong>复杂试图</strong></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">OR</span> REPLACE <span class="keyword">VIEW</span> empview3</span><br><span class="line"><span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> department_name dept_name, <span class="built_in">AVG</span>(salary) avg_sal</span><br><span class="line"><span class="keyword">FROM</span> employees e, departments d</span><br><span class="line"><span class="keyword">WHERE</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> department_name</span><br></pre></td></tr></table></figure>
 
@@ -1628,7 +1628,7 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DECLARE</span></span><br><span class="line">   v_sal VARCHAR2(<span class="number">20</span>);</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">   <span class="keyword">SELECT</span></span><br><span class="line">      salary</span><br><span class="line">   <span class="keyword">INTO</span> v_sal</span><br><span class="line">   <span class="keyword">FROM</span> employees</span><br><span class="line">   <span class="keyword">WHERE</span> employee_id <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line">   DBMS_OUTPUT.PUT_LINE(v_sal);</span><br><span class="line"><span class="keyword">END</span>;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DECLARE</span></span><br><span class="line">   v_sal employees.salary<span class="operator">%</span>type;</span><br><span class="line">   v_email VARCHAR2(<span class="number">20</span>);</span><br><span class="line">   v_hire_date <span class="type">DATE</span>;</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">   <span class="keyword">SELECT</span></span><br><span class="line">      salary,</span><br><span class="line">      email,</span><br><span class="line">      hire_date</span><br><span class="line">   <span class="keyword">INTO</span></span><br><span class="line">      v_sal,</span><br><span class="line">      v_email,</span><br><span class="line">      v_hire_date</span><br><span class="line">   <span class="keyword">FROM</span> employees</span><br><span class="line">   <span class="keyword">WHERE</span> employee_id <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">   DBMS_OUTPUT.PUT_LINE(v_sal <span class="operator">||</span><span class="string">&#x27;,&#x27;</span> <span class="operator">||</span> v_email <span class="operator">||</span> <span class="string">&#x27;,&#x27;</span> <span class="operator">||</span> v_hire_date);</span><br><span class="line"><span class="keyword">END</span>;</span><br></pre></td></tr></table></figure>
-<h4 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h4><p>在Oracle8i中可以使用的变量类型有：<br>| 类型 | 子类 | 说明 | 范围 | Oracle限制 |<br>| :—: | :—: |  :—: | :—: | :—: |<br>| CHAR | Character String Rowid Nchar | Character定长字符串, Nchar为民族语言字符集| 0<del>32767 可选，缺省=1 | 2000 |<br>| VARCHAR2 | Varchar,String NVARCHAR2 | 可变字符串，民族语言字符集 | 0</del>32767 4000| 4000 |<br>| BINARY_INTEGER |  | 带符号整数，为整数计算优化性能 | | |<br>| NUMBER(p,s) | Dec ；Double ；precision;Integer;Int;Numeric;Real;Small int| 小数，NUMBER的子类型高精度实数；整数，NUMBER的子类型 ;整数，NUMBER的子类型与NUMBER等价；与NUMBER等价；整数；比Integer小| | |<br>| LONG | | 变长字符串 | 0~2147483647 | 32767字节 |<br>| DATE | | 日期型 | 公元前4712年1月1日至公元后4712年12月31日 | |<br>| BOOLEAN | 布尔型 | TRUE,FALSE,NULL| 不使用 |<br>| ROWID | | 存放数据库行号 | | |<br>| UROWID | | 通用行标识符，字符类型 | | |</p>
+<h4 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h4><p>在Oracle8i中可以使用的变量类型有：<br>|      类型      |                            子类                             |                                                          说明                                                           |                   范围                   | Oracle限制 |<br>| :————: | :———————————————————: | :———————————————————————————————————————: | :————————————–: | :——–: |<br>|      CHAR      |                Character String Rowid Nchar                 |                                       Character定长字符串, Nchar为民族语言字符集                                        |           0<del>32767 可选，缺省=1           |    2000    |<br>|    VARCHAR2    |                  Varchar,String NVARCHAR2                   |                                               可变字符串，民族语言字符集                                                |               0</del>32767 4000               |    4000    |<br>| BINARY_INTEGER |                                                             |                                             带符号整数，为整数计算优化性能                                              |                                          |            |<br>|  NUMBER(p,s)   | Dec ；Double ；precision;Integer;Int;Numeric;Real;Small int | 小数，NUMBER的子类型高精度实数；整数，NUMBER的子类型 ;整数，NUMBER的子类型与NUMBER等价；与NUMBER等价；整数；比Integer小 |                                          |            |<br>|      LONG      |                                                             |                                                       变长字符串                                                        |               0~2147483647               | 32767字节  |<br>|      DATE      |                                                             |                                                         日期型                                                          | 公元前4712年1月1日至公元后4712年12月31日 |            |<br>|    BOOLEAN     |                           布尔型                            |                                                     TRUE,FALSE,NULL                                                     |                  不使用                  |<br>|     ROWID      |                                                             |                                                     存放数据库行号                                                      |                                          |            |<br>|     UROWID     |                                                             |                                                 通用行标识符，字符类型                                                  |                                          |            |</p>
 <h3 id="复合类型"><a href="#复合类型" class="headerlink" title="复合类型"></a>复合类型</h3><p>Oracle在PL/SQL中除了提供像前面介绍的各种类型外，还提供一种称为复合类型的类型 —记录和表。</p>
 <h4 id="记录类型"><a href="#记录类型" class="headerlink" title="记录类型"></a>记录类型</h4><p>记录类型是把逻辑相关的数据作为一个单元存储起来，称作PL/SQL RECORD的域(FIELD),其作用是存放互不相同但逻辑相关的信息。</p>
 <p>定义记录类型语法如下：</p>
