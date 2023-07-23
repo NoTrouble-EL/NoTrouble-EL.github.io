@@ -382,7 +382,11 @@
 
       
         
-          <h2 id="Back-Propagation"><a href="#Back-Propagation" class="headerlink" title="Back Propagation"></a>Back Propagation</h2>
+          <h2 id="Back-Propagation"><a href="#Back-Propagation" class="headerlink" title="Back Propagation"></a>Back Propagation</h2><p>如果遇到非常复杂的网络，是无法通过直接计算。但是如果把网络看作图，通过图传播梯度，就能把梯度计算出来，即反向传播。</p>
+<p>$\widehat{y} = w_2(w_1 \cdot x + b_1) + b_2$</p>
+<p>$\widehat{y} = w_2\cdot w_1 \cdot x + (w_2 \cdot b_1 + b_2)$</p>
+<p>$\widehat{y} = w\cdot x + b$</p>
+<p>可以发现，若直接在线形层上增加模型的，其网络的复杂程度依然没有改变。为此我们需要在每一个线性层之后添加一个非线性层（激活函数）。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2023/07/23/Back-Propagation/#more" rel="contents">
