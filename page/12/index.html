@@ -290,6 +290,176 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/09/%E7%AC%AC%E5%85%AB%E7%AB%A0-%E6%B3%9B%E5%9E%8B%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoTrouble's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/11/09/%E7%AC%AC%E5%85%AB%E7%AB%A0-%E6%B3%9B%E5%9E%8B%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" itemprop="url">第八章 泛型程序设计</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-09T23:01:22+08:00">
+                2020-11-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="第八章-泛型程序设计"><a href="#第八章-泛型程序设计" class="headerlink" title="第八章 泛型程序设计"></a>第八章 泛型程序设计</h1><h2 id="8-1-为什么要使用泛型程序设计"><a href="#8-1-为什么要使用泛型程序设计" class="headerlink" title="8.1 为什么要使用泛型程序设计"></a>8.1 为什么要使用泛型程序设计</h2><p>泛型程序设计(generic programming)意味着编写的代码可以对多种不同类型的对象重用。例如，你并不希望为收集String和File对象分别编写不同的类。实际上，也不需要这样做，因为一个ArrayList类就可以收集任何类的对象。这就是泛型程序设计的一个例子。</p>
+<p>实际上 ，在Java有泛型类之前已经有一个ArrayList类。下面来研究泛型程序设计的机制是如何演变的，另外还会介绍这对用户和实现者来说意味着什么。</p>
+<h3 id="8-1-1-类型参数的好处"><a href="#8-1-1-类型参数的好处" class="headerlink" title="8.1.1 类型参数的好处"></a>8.1.1 类型参数的好处</h3><p>在Java中增加泛型类之前，泛型程序设计是用继承实现的。ArrayList类只维护一个Object引用的数组：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayList</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object[] elementData;</span><br><span class="line">    ...;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">get</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;...&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Object o)</span></span>&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这两种方法存在两个问题。当获取一个值时必须进行强制类型转换。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ArrayList files = <span class="keyword">new</span> ArrayList();</span><br><span class="line">String filename = (String)files.get(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>此外，这里没有错误检查。可以向数组列表中添加任何类的值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">files.add(<span class="keyword">new</span> File(<span class="string">&quot;...&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>对于这个调用，编译器和运行都不会错。不过在其他地方，如果将get的结果强制类型转换转换为String类型，就会产生一个错误。</p>
+<p>泛型提供了一个更好的解决方案：参数类型(type parameter)。ArrayList类有一个类型参数用来指示元素的类型：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;String&gt; files = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br></pre></td></tr></table></figure>
+
+<p>这使得代码具有更好的可读性。人们一看就知道这个数组列表中包含的是String对象。</p>
+<p>编译器也可以充分利用这个类型信息。调用get的时候，不需要进行强制类型转换。编译器知道返回值类型为String，而不是Object：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String filename = files.get(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>编译器还知道ArrayList&lt;String&gt;的add方法有一个类型为String的参数，这比有一个Object类型的参数要安全得多。现在，编译器可以检查，防止你插入错误类型得对象。例如，以下语句</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">files.add(<span class="keyword">new</span>(File(<span class="string">&quot;...&quot;</span>)));<span class="comment">//can only add String objects to an Arraylist&lt;String&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>是无法通过编译得。不过，出现编译错误要比运行时出现类得强制类型转换异常好得多。</p>
+<p>这正是类型参数得魅力所在：他们会让你的程序更易读，也更安全。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/11/09/%E7%AC%AC%E5%85%AB%E7%AB%A0-%E6%B3%9B%E5%9E%8B%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+    
+
+  
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/03/%E7%AC%AC%E4%B8%83%E7%AB%A0-%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1683,170 +1853,6 @@
   
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/05/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/wk.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NoTrouble's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/10/05/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/" itemprop="url">第三章 Java的基本程序设计结构</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-05T20:10:57+08:00">
-                2020-10-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVA%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVA基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="第三章-Java的基本程序设计结构"><a href="#第三章-Java的基本程序设计结构" class="headerlink" title="第三章 Java的基本程序设计结构"></a>第三章 Java的基本程序设计结构</h1><h2 id="3-1-一个简单的Java应用程序"><a href="#3-1-一个简单的Java应用程序" class="headerlink" title="3.1 一个简单的Java应用程序"></a>3.1 一个简单的Java应用程序</h2><h2 id="3-2-注释"><a href="#3-2-注释" class="headerlink" title="3.2 注释"></a>3.2 注释</h2><h2 id="3-3-数据类型"><a href="#3-3-数据类型" class="headerlink" title="3.3 数据类型"></a>3.3 数据类型</h2><h3 id="3-3-1-整型"><a href="#3-3-1-整型" class="headerlink" title="3.3.1 整型"></a>3.3.1 整型</h3><h3 id="3-3-2-浮点类型"><a href="#3-3-2-浮点类型" class="headerlink" title="3.3.2 浮点类型"></a>3.3.2 浮点类型</h3><p>三个特殊的浮点类型：</p>
-<ul>
-<li>正无穷大 (Double.POSITIVE_INFINITY)以及相应的Float类型</li>
-<li>负无穷大(Double.NEGATIVE_INFINITY)以及相应的Float类型</li>
-<li>NaN (Double.NaN)以及相应的Float类型</li>
-</ul>
-<p>检测一个特定值是否等于Double.NaN:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (x == Double.NaN)<span class="comment">// is never true</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(Double.isNaN(X))</span><br></pre></td></tr></table></figure>
-
-<p>浮点数不适用于无法接受舍入误差的金融计算，可以使用BigDecimal类。</p>
-<h3 id="3-3-3-char类型"><a href="#3-3-3-char类型" class="headerlink" title="3.3.3 char类型"></a>3.3.3 char类型</h3><h3 id="3-3-4-Unicode和char类型"><a href="#3-3-4-Unicode和char类型" class="headerlink" title="3.3.4 Unicode和char类型"></a>3.3.4 Unicode和char类型</h3><h3 id="3-3-5-boolean类型"><a href="#3-3-5-boolean类型" class="headerlink" title="3.3.5 boolean类型"></a>3.3.5 boolean类型</h3><h2 id="3-4-变量与常量"><a href="#3-4-变量与常量" class="headerlink" title="3.4 变量与常量"></a>3.4 变量与常量</h2><h3 id="3-4-1-声明变量"><a href="#3-4-1-声明变量" class="headerlink" title="3.4.1 声明变量"></a>3.4.1 声明变量</h3><h3 id="3-4-2-变量初始化"><a href="#3-4-2-变量初始化" class="headerlink" title="3.4.2 变量初始化"></a>3.4.2 变量初始化</h3><h3 id="3-4-3-常量"><a href="#3-4-3-常量" class="headerlink" title="3.4.3 常量"></a>3.4.3 常量</h3><p>可以利用关键字final 指示常量。关键字final表示这个变量只能被赋值一次，一旦被赋值之后就不能够再更改了；常量使用全大写。</p>
-<p>当希望某个常量可以在一个类的多个方法中使用，通常将这些常量称为类常量（class constant）；可以使用static final设置一个常量；类常量的定义位于main方法的外部，在同一个类的其他方法也可以使用这个常量。若一个常量被声明为public，那么其他类的方法也可以使用这个常量。</p>
-<h3 id="3-4-4-枚举类型"><a href="#3-4-4-枚举类型" class="headerlink" title="3.4.4 枚举类型"></a>3.4.4 枚举类型</h3><p>变量的取值只有在一个有限的集合内。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Size</span> </span>&#123;SMALL,MEDIUM,LARGE,EXTRA_LARGE&#125;;</span><br><span class="line">Size s = Size.MEDIUM;</span><br></pre></td></tr></table></figure>
-
-<p>Size类型的变量只能存储这个类型声明中给定的某个枚举值，或是特殊值null。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/10/05/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-    
-
-  
-
-    
   </section>
 
   
@@ -1901,7 +1907,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">124</span>
+                  <span class="site-state-item-count">125</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
