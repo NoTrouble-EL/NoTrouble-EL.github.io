@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-big-counter.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linear_Algebra," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.1 线性方程组&amp;emsp;&amp;emsp;包含变量$x_1,x_2,\cdots ,x_n$的线性方程是形如：$$a_1x_1+a_2x_2+\cdots +a_nx_n&#x3D;b \tag{1}$$的方程，其中$b$与系数$a_1,a_2\cdots,a_n$是实数或复数，通常是已知数.下标$n$可以是任意正整数.&amp;emsp;&amp;emsp;方程$$4x_1-5x_2+2&#x3D;x_1 和 x_2&#x3D;2(\sqr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性方程组">
+<meta property="og:url" content="http://yoursite.com/2023/09/18/%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/index.html">
+<meta property="og:site_name" content="NoTrouble&#39;s Blog">
+<meta property="og:description" content="1.1 线性方程组&amp;emsp;&amp;emsp;包含变量$x_1,x_2,\cdots ,x_n$的线性方程是形如：$$a_1x_1+a_2x_2+\cdots +a_nx_n&#x3D;b \tag{1}$$的方程，其中$b$与系数$a_1,a_2\cdots,a_n$是实数或复数，通常是已知数.下标$n$可以是任意正整数.&amp;emsp;&amp;emsp;方程$$4x_1-5x_2+2&#x3D;x_1 和 x_2&#x3D;2(\sqr">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-09-18T04:15:22.000Z">
+<meta property="article:modified_time" content="2023-09-18T04:15:22.000Z">
+<meta property="article:author" content="NoTrouble">
+<meta property="article:tag" content="Linear_Algebra">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/09/18/线性方程组/"/>
+
+
+
+
+
+  <title>线性方程组 | NoTrouble's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NoTrouble's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我们一路奋战，不是为了改变世界，而是为了不让世界改变我们</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-playlist">
+          <a href="/playlist/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-music"></i> <br />
+            
+            歌单
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/09/18/%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoTrouble's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">线性方程组</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-09-18T12:15:22+08:00">
+                2023-09-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linear-Algebra/" itemprop="url" rel="index">
+                    <span itemprop="name">Linear_Algebra</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-1-线性方程组"><a href="#1-1-线性方程组" class="headerlink" title="1.1 线性方程组"></a>1.1 线性方程组</h2><p>&emsp;&emsp;包含变量$x_1,x_2,\cdots ,x_n$的<strong>线性方程</strong>是形如：<br>$$<br>a_1x_1+a_2x_2+\cdots +a_nx_n=b \tag{1}<br>$$<br>的方程，其中$b$与系数$a_1,a_2\cdots,a_n$是实数或复数，通常是已知数.下标$n$可以是任意正整数.<br>&emsp;&emsp;方程<br>$$<br>4x_1-5x_2+2=x_1 和 x_2=2(\sqrt{6} - x_1)+x_3<br>$$<br>都是线性方程。<br>&emsp;&emsp;方程<br>$$<br>4x_1-5x_2=x_1x_2 和 x_2=2\sqrt{x_1}-6<br>$$<br>都不是线性方程。</p>
+<span id="more"></span> 
+<p>&emsp;&emsp;<strong>线程方程组</strong>是由一个或几个包含相同变量$x_1,x_2,\cdots,x_n$的线性方程组成的.例如：<br>$$<br>\left {<br>\begin{array}{c}<br>2x_1-x_2+1.5x_3=8 \ \tag{2}<br>x_1-4x_3=-7<br>\end{array}<br>\right.<br>$$<br>线性方程组的<strong>解</strong>是一组数$(s_1,s_2,\cdots,s_n)$，用这组数分别代替$x_1,x_2,\cdots,x_n$时所有方程组的两边相等。<br>&emsp;&emsp;方程组所有可能的解的集合称为线程方程组的<strong>解集</strong>.若两个线程方程组有相同的解集，则这两个线性方程组称为<strong>等价的</strong>.</p>
+<blockquote>
+<p>线性方程组的解有以下三种情况：</p>
+<ol>
+<li>无解.</li>
+<li>有唯一解.</li>
+<li>有无穷多解.</li>
+</ol>
+</blockquote>
+<p>&emsp;&emsp;若方程组有一个解或无穷多解，则称为线性方程组是<strong>相容的</strong>；若其无解，则称为是<strong>不相容的</strong>.</p>
+<h3 id="矩阵记号"><a href="#矩阵记号" class="headerlink" title="矩阵记号"></a>矩阵记号</h3><p>&emsp;&emsp;一个线性方程组包含的主要信息可以用一个称为<strong>矩阵</strong>的紧凑的矩形阵列表示.给出方程组：<br>$$<br>\left {<br>\begin{array}{c}<br>x_1-2x_2+x_3=0 \ \tag{3}<br>2x_2-8x_3=8 \<br>5x_1-5x_3=10<br>\end{array}<br>\right.<br>$$<br>把每一个变量的系数写在对齐的一列中，矩阵：<br>$$<br>\begin{bmatrix}<br>1&amp;-2&amp;1\<br>0&amp;2&amp;-8\<br>5&amp;0&amp;5<br>\end{bmatrix}<br>$$<br>称为方程组（3）的<strong>系数矩阵</strong>，而<br>$$<br>\begin{bmatrix}<br>1&amp;-2&amp;1&amp;0\<br>0&amp;2&amp;-8&amp;8\ \tag{4}<br>5&amp;0&amp;5&amp;10<br>\end{bmatrix}<br>$$<br>称为它的<strong>增广矩阵</strong>.方程组的增广矩阵是把它的系数矩阵添上一列所得，这一列是由方程组右边的常数组成的.<br>&emsp;&emsp;矩阵的<strong>维数</strong>说明它包含的行数和列数.上面的增广矩阵（4）有3行4列，称为$3\times4$（读作3行4列）矩阵.若$m,n$是正整数，$m\times n$<strong>矩阵</strong>是一个有m行n列的数的矩形阵列.</p>
+<h3 id="解线性方程组"><a href="#解线性方程组" class="headerlink" title="解线性方程组"></a>解线性方程组</h3><p>&emsp;&emsp;解方程组的一般方法：把方程组用一个更容易解的等价方程组代替。可以用方程组中第一个方程中含$x_1$的项消去其他方程中含有$x_1$的项.然后用第二个方程组中含有$x_2$的项消去其他方程中含$x_2$的项，以此类推。最后得到一个很简单的等价方程组。<br>&emsp;&emsp;用来化简线程方程组的三种基本变换是：把某个方程换成它与另一方程的倍数的和；交换两个方程的位置；把某一方程的所有项乘以一个非零常数。<br>&emsp;&emsp;例1 解方程组（3）<br>$$<br>\begin{bmatrix}<br>1&amp;-2&amp;1&amp;0\<br>0&amp;2&amp;-8&amp;8\<br>5&amp;0&amp;5&amp;10<br>\end{bmatrix}<br>$$<br>保留第一个方程中的$x_1$，把其他方程中的$x_1$消去.为此，把第一个方程乘以-5，加到第三个方程上得到：<br>$$<br>\begin{bmatrix}<br>1&amp;-2&amp;1&amp;0\<br>0&amp;2&amp;-8&amp;8\<br>0&amp;10&amp;-10&amp;10<br>\end{bmatrix}<br>$$<br>其次，把方程2乘以$\frac{1}{2}$，使得$x_2$的系数变为1<br>$$<br>\begin{bmatrix}<br>1&amp;-2&amp;1&amp;0\<br>0&amp;1&amp;-4&amp;4\<br>0&amp;10&amp;-10&amp;10<br>\end{bmatrix}<br>$$<br>利用方程2中的$x_2$项消去方程3中的$10x_2$：<br>$$<br>\begin{bmatrix}<br>1&amp;-2&amp;1&amp;0\<br>0&amp;1&amp;-4&amp;4\<br>0&amp;0&amp;30&amp;-30<br>\end{bmatrix}<br>$$<br>现在，将方程3乘以$\frac{1}{30}$以得到1作为$x_3$的系数。<br>$$<br>\begin{bmatrix}<br>1&amp;-2&amp;1&amp;0\<br>0&amp;1&amp;-4&amp;4\<br>0&amp;0&amp;1&amp;-1<br>\end{bmatrix}<br>$$<br>现在想消去第一个方程中的$-2x_2$，不过先利用方程3中的$x_3$消去第一个方程中的项$x_3$和第二个方程中的项$-4x_3$更为有效。<br>$$<br>\begin{bmatrix}<br>1&amp;-2&amp;0&amp;1\<br>0&amp;1&amp;0&amp;0\<br>0&amp;0&amp;1&amp;-1<br>\end{bmatrix}<br>$$<br>现在，在方程3中$x_3$的一列中只剩下一项，回头来用第二个方程的$x_2$项消去它上面的$-2x_2$项.得到方程组：<br>$$<br>\begin{bmatrix}<br>1&amp;0&amp;0&amp;1\<br>0&amp;1&amp;0&amp;0\<br>0&amp;0&amp;1&amp;-1<br>\end{bmatrix}<br>$$<br>即<br>$$<br>\left {<br>\begin{array}{c}<br>x_1=1 \<br>x_2=0 \<br>x_3=-1<br>\end{array}<br>\right.<br>$$<br>可以得出结果：原方程组的唯一解是$(1,0,-1)$.<br>&emsp;&emsp;例1说明了线程方程的变换对应于增广矩阵的行变换.前面所述的三种基本变换对应于增广矩阵的下列变换.</p>
+<blockquote>
+<p>初等行变换</p>
+<ol>
+<li>（倍加变换）把某一行换成它本身与另一行的倍数的和.</li>
+<li>（对称变换）把两行对换.</li>
+<li>（倍乘变换）把某一行的所有元素乘以同一个非零数.</li>
+</ol>
+</blockquote>
+<p>&emsp;&emsp;行变换可施行于任何矩阵，不仅仅是对于线性方程组的增广矩阵.若其中一个矩阵可以经一系列初等行变换成另一个矩阵，则称两个矩阵为<strong>行等价</strong>.<br>&emsp;&emsp;行变换是可逆的，若两行被对换，则再次对换它们就会还原为原来的状态；若某行乘以非零常数$c$，则将所得的行乘以$\frac{1}{c}$就得出原来的行；最后，考虑涉及两行的倍加变换，例如第一行和第二行.假设把第一行的$c$倍加到第二行得到新的第二行，那么“逆”变换就是把第一行的$-c$倍加到新的第二行上就得到原来的第二行.<br>&emsp;&emsp;此时，更加关注于对一个线程方程组的增广矩阵进行行变换.假设一个线程方程组经过行变换成另外一个新的方程组，考虑每一种行变换，容易看出，原方程组的任何一个解仍是新的方程组的一个解.反之，因原方程组也可由新方程组经行变换得出，故新方程组的每个解也是原方程组的解.这也就证实了：</p>
+<blockquote>
+<p>若两个线程方程组的增广矩阵是行等价的，则它们具有相同的解集.</p>
+</blockquote>
+<h3 id="存在与唯一性问题"><a href="#存在与唯一性问题" class="headerlink" title="存在与唯一性问题"></a>存在与唯一性问题</h3><p>&emsp;&emsp;为确定某个线性方程组的解集属于哪种情况，需要提出以下两个问题.</p>
+<blockquote>
+<p>线性方程组的两个基本问题</p>
+<ol>
+<li>方程组是否相容，即它是否至少有一个解?</li>
+<li>若它有解，它是否只有一个解，即解是否唯一?</li>
+</ol>
+</blockquote>
+<p>例2 确定下列方程组是否有解：<br>$$<br>\left {<br>\begin{array}{c}<br>x_1-2x_2+x_3=0 \<br>2x_2-8x_3=8 \<br>5x_1-5x_3=10<br>\end{array}<br>\right.<br>$$<br>将方程组通过行变换变成三角形<br>$$<br>\left {<br>\begin{array}{c}<br>x_1-2x_2+x_3=0 \<br>x_2-4x_3=4 \<br>x_3=-1<br>\end{array}<br>\right.<br>$$<br>这时已经确定了$x_3$，若把$x_3$的值带入方程2，就会确定$x_2$，因而可由方程1确定$x_1$，所以解是存在的，即方程组是相容的.（因为$x_3$只有一个可能的值，所以$x_2$由方程2唯一确定，而$x_1$由方程1唯一确定，所以解是唯一的.）</p>
+<p>例3 确定下列方程组是否有解：<br>$$<br>\left {<br>\begin{array}{c}<br>x_2-4x_3=8 \<br>2x_1-3x_2+2x_3=1 \ \tag{5}<br>4x_1-8x_2+12x_3=1<br>\end{array}<br>\right.<br>$$<br>增广矩阵为：<br>$$<br>\begin{bmatrix}<br>0&amp;1&amp;-4&amp;8\<br>2&amp;-3&amp;2&amp;1\<br>4&amp;-8&amp;12&amp;1<br>\end{bmatrix}<br>$$<br>为从第一个方程得到$x_1$，对换第一行和第二行：<br>$$<br>\begin{bmatrix}<br>2&amp;-3&amp;2&amp;1\<br>0&amp;1&amp;-4&amp;8\<br>4&amp;-8&amp;12&amp;1<br>\end{bmatrix}<br>$$<br>为消去第三个方程的$4x_1$，把第一行的-2倍加到第三行：<br>$$<br>\begin{bmatrix}<br>2&amp;-3&amp;2&amp;1\<br>0&amp;1&amp;-4&amp;8\ \tag{6}<br>0&amp;-2&amp;8&amp;-1<br>\end{bmatrix}<br>$$<br>接下来用第二个方程的$x_2$项消去第三个方程的$-2x_2$项，把第二行的2倍加到第三行上：<br>$$<br>\begin{bmatrix}<br>2&amp;-3&amp;2&amp;1\<br>0&amp;1&amp;-4&amp;8\ \tag{7}<br>0&amp;0&amp;0&amp;15<br>\end{bmatrix}<br>$$<br>现在增广矩阵已成为三角形式.为理解这个矩阵，将其转化为方程表示：<br>$$<br>\left {<br>\begin{array}{c}<br>2x_1-3x_2+2x_3=1 \<br>x_2-4x_3=8 \ \tag{8}<br>0=15<br>\end{array}<br>\right.<br>$$<br>方程$0=15$是$0x_1+0x_2+0x_3=15$的简写.这个三角形线性方程组显然是矛盾的，所以满足（8）的未知数$x_1,x_2,x_3$的值是不可能存在的，因等式$0=15$不可能成立。由于（8）和（5）有同样的解集，故原方程组是不相容的（即无解）.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    NoTrouble
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2023/09/18/%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/" title="线性方程组">http://yoursite.com/2023/09/18/%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linear-Algebra/" rel="tag"># Linear_Algebra</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/08/16/Advanced-CNN/" rel="next" title="Advanced CNN">
+                <i class="fa fa-chevron-left"></i> Advanced CNN
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+    
+
+  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MDk0MC8yNzQyMg=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/wk.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/NoTrouble-EL" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wukun0221@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5clr89hn3fz&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;s=340" async="async"></script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">1.1 线性方程组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E8%AE%B0%E5%8F%B7"><span class="nav-number">1.1.</span> <span class="nav-text">矩阵记号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84"><span class="nav-number">1.2.</span> <span class="nav-text">解线性方程组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%9C%A8%E4%B8%8E%E5%94%AF%E4%B8%80%E6%80%A7%E9%97%AE%E9%A2%98"><span class="nav-number">1.3.</span> <span class="nav-text">存在与唯一性问题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">NoTrouble</span>
+
+  
+</div>
+
+
+
+
+
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+  <script async src="/js/cursor/text.js"></script>
+
+
+</body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
