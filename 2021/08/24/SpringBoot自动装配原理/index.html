@@ -390,7 +390,6 @@
       
         <h2 id="什么是SpringBoot自动装配"><a href="#什么是SpringBoot自动装配" class="headerlink" title="什么是SpringBoot自动装配"></a>什么是SpringBoot自动装配</h2><p>没有 Spring Boot 的情况下，如果我们需要引入第三方依赖，需要手动配置，非常麻烦。但是，Spring Boot 中，我们直接引入一个 starter 即可。通过注解或者一些简单的配置就能在 Spring Boot 的帮助下实现某块功能。</p>
  <span id="more"></span> 
-
 <h2 id="SpringBoot是如何实现自动装配的"><a href="#SpringBoot是如何实现自动装配的" class="headerlink" title="SpringBoot是如何实现自动装配的"></a>SpringBoot是如何实现自动装配的</h2><p>我们先看一下 SpringBoot 的核心注解 <code>@SpringBootApplication</code></p>
 <p>大概可以把 <code>@SpringBootApplication</code>看作是 <code>@Configuration</code>、<code>@EnableAutoConfiguration</code>、<code>@ComponentScan</code> 注解的集合。</p>
 <p><code>@EnableAutoConfiguration</code>：启用 SpringBoot 的自动配置机制</p>

@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="NoSQL,Redis," />
+  <meta name="keywords" content="Redis,NoSQL," />
 
 
 
@@ -96,8 +96,8 @@
 <meta property="article:published_time" content="2021-07-26T12:38:50.000Z">
 <meta property="article:modified_time" content="2021-07-26T12:38:50.000Z">
 <meta property="article:author" content="NoTrouble">
-<meta property="article:tag" content="NoSQL">
 <meta property="article:tag" content="Redis">
+<meta property="article:tag" content="NoSQL">
 <meta name="twitter:card" content="summary">
 
 
@@ -392,7 +392,6 @@
         <h2 id="NoSQL数据库简介"><a href="#NoSQL数据库简介" class="headerlink" title="NoSQL数据库简介"></a>NoSQL数据库简介</h2><p>web1.0时代，数据访问量很有限，当一夫当关的高性能的单点服务器可以解决大部分问题。</p>
 <p>web2.0时代的到来，用户访问量大幅度提升，同时产生了大量的用户数据。加上后来的智能移动设备的普及，所有的互联网平台都面临着巨大的性能挑战。(服务器CPU和内存的压力，数据库服务的IO压力)</p>
  <span id="more"></span> 
-
 <p><strong>解决CPU和内存压力</strong></p>
 <p>采用负载均衡，集群和分布式架构。</p>
 <p>session问题？</p>
@@ -430,17 +429,13 @@
 <p><strong>准备工作：下载安装最新版的GCC编译器</strong></p>
 <p>安装C语言的编译环境</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install centos-release-scl scl-utils-build</span><br><span class="line">yum install -y devtoolset-8-toolchain</span><br><span class="line">scl enable devtoolset-8 bash</span><br></pre></td></tr></table></figure>
-
 <p>测试GCC版本</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc --version</span><br></pre></td></tr></table></figure>
-
 <p>将redis.tar.gz放入/opt目录中</p>
 <p>解压</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf redis.tar.gz</span><br></pre></td></tr></table></figure>
-
 <p>进入解压完的目录</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd redis</span><br></pre></td></tr></table></figure>
-
 <p>在redis目录下再次执行make命令</p>
 <p>执行make install</p>
 <p>安装目录为/user/local/bin</p>
@@ -448,15 +443,12 @@
 <p>redis-benchmark：性能测试工具<br>redis-check-aof：修复有问题的AOF文件<br>redis-check-dump：修复有问题的dump.rdb文件<br>redis-sentinel：Redis集群使用<br>redis-server：Redis服务器启动命令<br>redis-cli：客户端，操作入口</p>
 <p><strong>前台启动</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server</span><br></pre></td></tr></table></figure>
-
 <p><strong>后台启动</strong></p>
 <p>拷贝一份redis.conf到其它目录</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /opt/redis-3.2.5/redis.conf /myredis</span><br></pre></td></tr></table></figure>
-
 <p>后台启动设置daemonize no改成yes：修改redis.conf文件，将里面的daemonize no改成yes，让服务器在后台启动</p>
 <p>redis启动</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server/myredis/redis.conf</span><br></pre></td></tr></table></figure>
-
 <p><strong>用客户端访问：redis-cli</strong></p>
 <p><strong>Redis关闭</strong></p>
 <p>单实例关闭：redis-cli shutdown</p>
@@ -471,22 +463,16 @@
 <h3 id="Redis单线程-多路IO复用技术"><a href="#Redis单线程-多路IO复用技术" class="headerlink" title="Redis单线程+多路IO复用技术"></a>Redis单线程+多路IO复用技术</h3><p>多路复用是指使用一个线程来检查多个文件描述符Socket的就绪状态，比如调用select和poll函数，传入多个文件描述符，如果有一个文件描述符就绪，则返回，否则阻塞直到超时。得到就绪状态后进行正真的操作可以在同一个线程里执行，也可以启动线程执行</p>
 <h2 id="Redis-key键操作"><a href="#Redis-key键操作" class="headerlink" title="Redis-key键操作"></a>Redis-key键操作</h2><p>查看当前库所有的key</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keys *</span><br></pre></td></tr></table></figure>
-
 <p>判断某个key是否存在，返回1表示存在；返回0表示不存在</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exists key名称</span><br></pre></td></tr></table></figure>
-
 <p>查看你的key是什么类型</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type key名称</span><br></pre></td></tr></table></figure>
-
 <p>删除指定的key数据，unlink是选择非阻塞删除，将keys从keyspace元数据中删除，正真的删除会在后续异步操作</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">del key名称</span><br><span class="line">unlink key名称</span><br></pre></td></tr></table></figure>
-
 <p>为给定的key设置过期时间</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expire key名称 10</span><br></pre></td></tr></table></figure>
-
 <p>查看key还有多少秒过期，-1表示永不过期，-2表示已过期</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ttl key名称</span><br></pre></td></tr></table></figure>
-
 <p>使用命令select dbid来切换数据库。例如：select 8</p>
 <p>统一密码管理，所有库同样密码。</p>
 <p>dbsize 查看当前数据库的key的数量</p>
@@ -496,56 +482,40 @@
 <p>String类型是Redis最基本的数据类型，一个Redis中字符串value最多可以是512M</p>
 <h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p>添加键值对</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set &lt;key&gt; &lt;value&gt;</span><br></pre></td></tr></table></figure>
-
 <p>查询对应键值</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">get &lt;key&gt;</span><br></pre></td></tr></table></figure>
-
-<p>将给定的&lt;value&gt;追加到原值的末尾，并返回总共的长度</p>
+<p>将给定的\<value\>追加到原值的末尾，并返回总共的长度</value\></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">append &lt;key&gt; &lt;value&gt;</span><br></pre></td></tr></table></figure>
-
 <p>获取值的长度</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strlen &lt;key&gt;</span><br></pre></td></tr></table></figure>
-
 <p>只有在key不存在时，设置key的值</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setnx &lt;key&gt; &lt;value&gt;</span><br></pre></td></tr></table></figure>
-
 <p>使得储存的数字值增1，只能对数字值进行操作，如果为空，新增值为1</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">incr &lt;key&gt;</span><br></pre></td></tr></table></figure>
-
 <p>使得储存的数字值减1，只能对数字值进行操作，如果为空，新增值为-1</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">decr &lt;key&gt;</span><br></pre></td></tr></table></figure>
-
 <p>将key中存储的数字值增减。自定义步长</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">incrby&#x2F;decrby &lt;key&gt; &lt;step&gt;</span><br></pre></td></tr></table></figure>
-
 <p><strong>原子性</strong></p>
 <p>原子操作是指不会被线程调度机制打断操作；这种操作一旦开始，就一直运行到结束，中间不会有任何context switch上下文切换。在单线程中，能够在单条指令中完成的操作都可以认为是“原子操作”，因为中断只能发生于指令之间；在多线程中，不能被其它线程打断的操作就叫原子操作。Redis单命令的原子性主要得益于Redis的单线程。</p>
 <p>同时设置一个或多个key-value对</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mset &lt;key1&gt; &lt;value1&gt; &lt;key2&gt; &lt;value2&gt; ......</span><br></pre></td></tr></table></figure>
-
 <p>同时获取一个或多个value</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mget &lt;key1&gt; &lt;key2&gt; &lt;key3&gt;</span><br></pre></td></tr></table></figure>
-
 <p>同时设置一个或多个key-value对，当且仅当所有key都不存在时设置成功</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msetnx &lt;key1&gt; &lt;value1&gt; &lt;key2&gt; &lt;value2&gt; ......</span><br></pre></td></tr></table></figure>
-
 <p>获取值的范围，类似于java中的substring，前包含，后包含</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getrange &lt;key&gt; &lt;起始位置&gt; &lt;结束位置&gt;</span><br></pre></td></tr></table></figure>
-
-<p>覆写&lt;key&gt;所存储的字符串值，从&lt;起始位置&gt;开始</p>
+<p>覆写\<key\>所存储的字符串值，从\&lt;起始位置>开始</key\></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setrange &lt;key&gt; &lt;起始位置&gt; &lt;value&gt;</span><br></pre></td></tr></table></figure>
-
 <p>设置键值的同时设置过期时间，单位秒</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setex &lt;key&gt; &lt;过期时间&gt; &lt;value&gt;</span><br></pre></td></tr></table></figure>
-
 <p>设置新值获取旧值</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getset &lt;key&gt; &lt;value&gt;</span><br></pre></td></tr></table></figure>
-
 <h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p>String的数据结构为简单的动态字符串(Simple Dynamic String, SDS)。是可以修改的字符串，内部结构类似于Java的ArrayList，采用预分配冗余空间的方式来减少内存的频繁分配。</p>
-<p>加倍扩容。在需要空间达1M之前按新空间两倍分配空间，否则按新空间大小+1M分配。注意，1M=1024*1024*Char。Char可以是5bits/8bits/16bits/32bits/64bits需要注意的是字符串最大长度为512M。</p>
+<p>加倍扩容。在需要空间达1M之前按新空间两倍分配空间，否则按新空间大小+1M分配。注意，1M=1024<em>1024\</em>Char。Char可以是5bits/8bits/16bits/32bits/64bits需要注意的是字符串最大长度为512M。</p>
 <p>SDS定义</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sdshdr</span>&#123;</span></span><br><span class="line">    <span class="comment">//记录buf数组中已使用字节的数量</span></span><br><span class="line">     <span class="comment">//等于 SDS 保存字符串的长度</span></span><br><span class="line">     <span class="keyword">int</span> len;</span><br><span class="line">     <span class="comment">//记录 buf 数组中未使用字节的数量</span></span><br><span class="line">     <span class="keyword">int</span> <span class="built_in">free</span>;</span><br><span class="line">     <span class="comment">//字节数组，用于保存字符串</span></span><br><span class="line">     <span class="keyword">char</span> buf[];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>实现的好处：</p>
 <ul>
 <li>常数复杂度获取字符串长度；</li>
@@ -556,47 +526,36 @@
 </ul>
 </li>
 <li>二进制安全：C字符串以空字符作为字符串结束的标识，而SDS不是以空字符串来判断是否结束，而是以len属性表示的长度来判断字符串是否结束；</li>
-<li>兼容部分C字符串函数：虽然 SDS 是二进制安全的，但是一样遵从每个字符串都是以空字符串结尾的惯例，这样可以重用 C 语言库&lt;string.h&gt; 中的一部分函数。</li>
+<li>兼容部分C字符串函数：虽然 SDS 是二进制安全的，但是一样遵从每个字符串都是以空字符串结尾的惯例，这样可以重用 C 语言库<string.h> 中的一部分函数。</string.h></li>
 </ul>
 <h2 id="Redis列表List"><a href="#Redis列表List" class="headerlink" title="Redis列表List"></a>Redis列表List</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p><strong>单键多值</strong></p>
 <p>Redis列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部和尾部。</p>
 <p>它的底层实际上是双向链表，对两端的操作性很高，对于通过索引下标的操作中间的节点性能会较差。</p>
 <h3 id="常用命令-1"><a href="#常用命令-1" class="headerlink" title="常用命令"></a>常用命令</h3><p>从左边/右边插入一个或多个值。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lpush&#x2F;rpush &lt;key&gt; &lt;value1&gt; &lt;value2&gt; &lt;value3&gt; ......</span><br></pre></td></tr></table></figure>
-
 <p>从左边/右边吐出一个值。值在键在，值光键亡</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lpop&#x2F;rpop &lt;key&gt;</span><br></pre></td></tr></table></figure>
-
-<p>从&lt;key1&gt;列表右边吐出一个值，插到&lt;key2&gt;列表的左边</p>
+<p>从\<key1\>列表右边吐出一个值，插到\<key2\>列表的左边</key2\></key1\></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpoplpush &lt;key1&gt; &lt;key2&gt;</span><br></pre></td></tr></table></figure>
-
 <p>按照索引下标获得元素(从左到右)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lrange &lt;key&gt; &lt;start&gt; &lt;end&gt;</span><br><span class="line">lrange mylist 0 -1 全部都能取到</span><br></pre></td></tr></table></figure>
-
 <p>按照索引位置获得元素(从左到右)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lindex &lt;key&gt; &lt;index&gt;</span><br></pre></td></tr></table></figure>
-
 <p>获取列表长度</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">llen &lt;key&gt;</span><br></pre></td></tr></table></figure>
-
-<p>在&lt;value&gt;的后面插入&lt;newvalue&gt;插入值</p>
+<p>在\<value\>的后面插入\<newvalue\>插入值</newvalue\></value\></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">linsert &lt;key&gt; before &lt;value&gt; &lt;newvalue&gt;</span><br></pre></td></tr></table></figure>
-
 <p>从左边删除n个value</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lrem &lt;key&gt; &lt;n&gt; &lt;value&gt;</span><br></pre></td></tr></table></figure>
-
 <p>将列表key下标为index的值替换成value</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lset &lt;key&gt; &lt;index&gt; &lt;value&gt;</span><br></pre></td></tr></table></figure>
-
 <h3 id="数据结构-1"><a href="#数据结构-1" class="headerlink" title="数据结构"></a>数据结构</h3><p>List的数据结构为快速链表quickList。</p>
 <p>首先在列表元素较少的情况下会使用一块连续的内存存储，这个结构是ziplist，压缩列表。</p>
 <p>它将所有的元素紧挨着一起存储，分配的是一块连续的内存。</p>
 <p>当数据量比较多的时候才会改成quicklist。因为普通的链表需要的附加指针空间太大，会比较浪费空间。比如这个列表里存的是int类型的数据，结构上还需要两个额外的指针prev和next。</p>
 <p>redis将链表和ziplist结合起来组成了quicklist。也就是将多个ziplist使用双指针串起来使用。这样既能满足快速的插入删除性能，又不会出现太大的空间冗余。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span>  <span class="class"><span class="keyword">struct</span> <span class="title">listNode</span>&#123;</span></span><br><span class="line">       <span class="comment">//前置节点</span></span><br><span class="line">       <span class="class"><span class="keyword">struct</span> <span class="title">listNode</span> *<span class="title">prev</span>;</span></span><br><span class="line">       <span class="comment">//后置节点</span></span><br><span class="line">       <span class="class"><span class="keyword">struct</span> <span class="title">listNode</span> *<span class="title">next</span>;</span></span><br><span class="line">       <span class="comment">//节点的值</span></span><br><span class="line">       <span class="keyword">void</span> *value;  </span><br><span class="line">&#125;listNode</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">list</span>&#123;</span></span><br><span class="line">     <span class="comment">//表头节点</span></span><br><span class="line">     listNode *head;</span><br><span class="line">     <span class="comment">//表尾节点</span></span><br><span class="line">     listNode *tail;</span><br><span class="line">     <span class="comment">//链表所包含的节点数量</span></span><br><span class="line">     unsignedlong len;</span><br><span class="line">     <span class="comment">//节点值复制函数</span></span><br><span class="line">     <span class="keyword">void</span> (*<span class="built_in">free</span>) (<span class="keyword">void</span> *ptr);</span><br><span class="line">     <span class="comment">//节点值释放函数</span></span><br><span class="line">     <span class="keyword">void</span> (*<span class="built_in">free</span>) (<span class="keyword">void</span> *ptr);</span><br><span class="line">     <span class="comment">//节点值对比函数</span></span><br><span class="line">     <span class="keyword">int</span> (*match) (<span class="keyword">void</span> *ptr,<span class="keyword">void</span> *key);</span><br><span class="line">&#125;<span class="built_in">list</span>;</span><br></pre></td></tr></table></figure>
-
 <p>Redis链表特性：</p>
 <ul>
 <li>双端：链表具有前置节点和后置节点的引用，获取这两个节点时间复杂度为O(1)</li>
@@ -608,75 +567,53 @@
 <p>Redis的set是String类型的无序集合。它底层其实是一个value为null的hash表，所以添加，删除，查找的复杂度都是O(1)。</p>
 <h3 id="常用命令-2"><a href="#常用命令-2" class="headerlink" title="常用命令"></a>常用命令</h3><p>将一个或多个member元素加入到集合key中，已经存在的member元素将被忽略</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sadd &lt;key&gt; &lt;value1&gt; &lt;value2&gt;......</span><br></pre></td></tr></table></figure>
-
 <p>取出该集合的所有值</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">smembers &lt;key&gt;</span><br></pre></td></tr></table></figure>
-
-<p>判断集合&lt;key&gt;是否含有&lt;value&gt;值，有1，没有0</p>
+<p>判断集合\<key\>是否含有\<value\>值，有1，没有0</value\></key\></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sismember &lt;key&gt; &lt;value&gt;</span><br></pre></td></tr></table></figure>
-
 <p>返回集合中元素的个数</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scard &lt;key&gt;</span><br></pre></td></tr></table></figure>
-
 <p>删除集合中的某个元素</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">srem &lt;key&gt; &lt;value1&gt; &lt;value2&gt; ......</span><br></pre></td></tr></table></figure>
-
 <p>随机从集合中吐出一个值</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spop &lt;key&gt;</span><br></pre></td></tr></table></figure>
-
 <p>随机从集合中取出n个值，但不会从集合中删除</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">srandmember &lt;key&gt; &lt;n&gt;</span><br></pre></td></tr></table></figure>
-
 <p>把集合中的一个值从一个集合中移到另一个集合中</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">smove &lt;source&gt; &lt;destination&gt; &lt;value&gt;</span><br></pre></td></tr></table></figure>
-
 <p>返回两个集合的交集元素</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sinter&lt;key1&gt; &lt;key2&gt;</span><br></pre></td></tr></table></figure>
-
 <p>返回两个集合的并集元素</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sunion&lt;key1&gt; &lt;key2&gt;</span><br></pre></td></tr></table></figure>
-
 <p>返回两个集合的差集元素(key1中包含的，但key2中不包含的)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sdiff&lt;key1&gt; &lt;key2&gt;</span><br></pre></td></tr></table></figure>
-
 <h3 id="数据结构-2"><a href="#数据结构-2" class="headerlink" title="数据结构"></a>数据结构</h3><p>Set数据结构是dict字典，字典是用哈希表实现的。Java中HashSet的内部实现使用的是HashMap，只不过所有的value都指向同一个对象。Redis中的set结构也是一样，它的所有的value都指向同一个内部值。</p>
 <h2 id="Redis哈希-Hash"><a href="#Redis哈希-Hash" class="headerlink" title="Redis哈希(Hash)"></a>Redis哈希(Hash)</h2><h3 id="简介-3"><a href="#简介-3" class="headerlink" title="简介"></a>简介</h3><p>Redis hash 是一个键值对集合。</p>
 <p>Redis hash是一个String类型的field和value的映射表，hash特别适合用于存储对象。</p>
-<p>类似Java中的Map&lt;String, Object&gt;</p>
-<h3 id="常用命令-3"><a href="#常用命令-3" class="headerlink" title="常用命令"></a>常用命令</h3><p>给&lt;key&gt;集合中的&lt;field&gt;键赋值&lt;value&gt;</p>
+<p>类似Java中的Map\<String, object\></String,></p>
+<h3 id="常用命令-3"><a href="#常用命令-3" class="headerlink" title="常用命令"></a>常用命令</h3><p>给\<key\>集合中的\<field\>键赋值\<value\></value\></field\></key\></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hset&lt;key&gt; &lt;field&gt; &lt;value&gt;</span><br></pre></td></tr></table></figure>
-
-<p>从&lt;key&gt;集合中的&lt;field&gt;取出值&lt;value&gt;</p>
+<p>从\<key\>集合中的\<field\>取出值\<value\></value\></field\></key\></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hget &lt;key&gt; &lt;field&gt;</span><br></pre></td></tr></table></figure>
-
 <p>批量设置hash值</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hmset&lt;key&gt; &lt;field1&gt; &lt;value1&gt; &lt;field2&gt; &lt;value2&gt;......</span><br></pre></td></tr></table></figure>
-
-<p>查看哈希表key中，给定字段&lt;field&gt;是否存在，存在为1，不存在为0</p>
+<p>查看哈希表key中，给定字段\<field\>是否存在，存在为1，不存在为0</field\></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexists &lt;key1&gt; &lt;field&gt;</span><br></pre></td></tr></table></figure>
-
 <p>查看hash集合中的所有的field</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hkeys &lt;key&gt;</span><br></pre></td></tr></table></figure>
-
 <p>查看hash集合中的所有的value</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hvals &lt;key&gt;</span><br></pre></td></tr></table></figure>
-
 <p>为哈希表key中的field的值加上增量1 -1</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hincrby &lt;key&gt; &lt;field&gt; &lt;increment&gt;</span><br></pre></td></tr></table></figure>
-
 <p>将哈希表key中field的值设置为value，当且仅当field不存在</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hsetnx &lt;key&gt; &lt;field&gt; &lt;value&gt;</span><br></pre></td></tr></table></figure>
-
 <h3 id="数据结构-3"><a href="#数据结构-3" class="headerlink" title="数据结构"></a>数据结构</h3><p>Hash类型对应的数据结构有两种：ziplist压缩列表、hashtable哈希表。当字段长度较短且个数较少时，使用ziplist；否则使用hashtable。</p>
 <p>字典：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dict</span> &#123;</span></span><br><span class="line">    <span class="comment">// 类型特定函数</span></span><br><span class="line">    dictType *type;</span><br><span class="line">    <span class="comment">// 私有数据</span></span><br><span class="line">    <span class="keyword">void</span> *privdata;</span><br><span class="line">    <span class="comment">// 哈希表</span></span><br><span class="line">    dictht ht[<span class="number">2</span>];</span><br><span class="line">    <span class="comment">// rehash 索引</span></span><br><span class="line">    <span class="comment">// 当 rehash 不在进行时，值为 -1</span></span><br><span class="line">    <span class="keyword">int</span> rehashidx; <span class="comment">/* rehashing not in progress if rehashidx == -1 */</span></span><br><span class="line">&#125; dict;</span><br></pre></td></tr></table></figure>
-
 <p>哈希表结构定义：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictht</span>&#123;</span></span><br><span class="line">     <span class="comment">//哈希表数组</span></span><br><span class="line">     dictEntry **table;</span><br><span class="line">     <span class="comment">//哈希表大小</span></span><br><span class="line">     <span class="keyword">unsigned</span> <span class="keyword">long</span> size;</span><br><span class="line">     <span class="comment">//哈希表大小掩码，用于计算索引值</span></span><br><span class="line">     <span class="comment">//总是等于 size-1</span></span><br><span class="line">     <span class="keyword">unsigned</span> <span class="keyword">long</span> sizemask;</span><br><span class="line">     <span class="comment">//该哈希表已有节点的数量</span></span><br><span class="line">     <span class="keyword">unsigned</span> <span class="keyword">long</span> used;</span><br><span class="line"> </span><br><span class="line">&#125;dictht</span><br></pre></td></tr></table></figure>
-
 <p>dictEntry结构：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span>&#123;</span></span><br><span class="line">     <span class="comment">//键</span></span><br><span class="line">     <span class="keyword">void</span> *key;</span><br><span class="line">     <span class="comment">//值</span></span><br><span class="line">     <span class="class"><span class="keyword">union</span>&#123;</span></span><br><span class="line">          <span class="keyword">void</span> *val;</span><br><span class="line">          uint64_tu64;</span><br><span class="line">          int64_ts64;</span><br><span class="line">     &#125;v;</span><br><span class="line"> </span><br><span class="line">     <span class="comment">//指向下一个哈希表节点，形成链表</span></span><br><span class="line">     <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;dictEntry</span><br></pre></td></tr></table></figure>
-
 <p>key 用来保存键，val 属性用来保存值，值可以是一个指针，也可以是uint64_t整数，也可以是int64_t整数。还有一个指向下一个哈希表节点的指针，我们知道哈希表最大的问题是存在哈希冲突，如何解决哈希冲突，有开放地址法和链地址法。这里采用的便是链地址法，通过next这个指针可以将多个哈希值相同的键值对连接在一起，用来解决<strong>哈希冲突</strong>。</p>
 <ul>
 <li>哈希算法：<ul>
@@ -708,37 +645,26 @@
 <p>访问有序集合的中间元素也是非常快的，因此你能够使用有序集合作为一个没有重复成员的列表。</p>
 <h3 id="常用命令-4"><a href="#常用命令-4" class="headerlink" title="常用命令"></a>常用命令</h3><p>将一个或多个member元素及其score值加入到有序集合key当中</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zadd &lt;key&gt; &lt;score1&gt; &lt;value1&gt; &lt;socre2&gt; &lt;value2&gt;......</span><br></pre></td></tr></table></figure>
-
-<p>返回有序集合key中，下标在&lt;start&gt;&lt;stop&gt;之间的元素，带withscores，可以让分数一起和值返回到结果集中。</p>
+<p>返回有序集合key中，下标在\<start\>\<stop\>之间的元素，带withscores，可以让分数一起和值返回到结果集中。</stop\></start\></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zrange &lt;key&gt; &lt;start&gt; &lt;stop&gt; [WITHSCORES]</span><br></pre></td></tr></table></figure>
-
-<p>返回有序集合key中，所有score在&lt;min&gt;&lt;max&gt;之间的元素，有序集成员按score值递增。</p>
+<p>返回有序集合key中，所有score在\<min\>\<max\>之间的元素，有序集成员按score值递增。</max\></min\></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">zrangebyscore &lt;key&gt; &lt;min&gt; &lt;max&gt; [WITHSCORES] [limit offset count]</span><br><span class="line"></span><br><span class="line">zrangebyscore &lt;key&gt; &lt;max&gt; &lt;min&gt; [WITHSCORES] [limit offset count]</span><br><span class="line">从大到小</span><br></pre></td></tr></table></figure>
-
 <p>为元素的score加上增量</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zincrby &lt;key&gt; &lt;increment&gt; &lt;value&gt;</span><br></pre></td></tr></table></figure>
-
 <p>删除该集合下，指定值元素</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zrem &lt;key&gt; &lt;value&gt;</span><br></pre></td></tr></table></figure>
-
 <p>统计该集合，分数区间内的元素个数</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zcount&lt;key&gt; &lt;min&gt; &lt;max&gt;</span><br></pre></td></tr></table></figure>
-
 <p>返回该值在集合中的排名，从0开始</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zrank &lt;key&gt; &lt;value&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="数据结构-4"><a href="#数据结构-4" class="headerlink" title="数据结构"></a>数据结构</h3><p>Zet是Redis提供的一个非常特别的数据结构，一方面它等价于Java的数据结构Map&lt;String, Double&gt;，可以给每一个元素value赋予一个权重score，另一方面它又类似于TreeSet，内部元素会按照权重score进行排序，可以得到每个元素的名次，还可以通过score的范围来获取元素的列表。</p>
+<h3 id="数据结构-4"><a href="#数据结构-4" class="headerlink" title="数据结构"></a>数据结构</h3><p>Zet是Redis提供的一个非常特别的数据结构，一方面它等价于Java的数据结构Map\<String, double\>，可以给每一个元素value赋予一个权重score，另一方面它又类似于TreeSet，内部元素会按照权重score进行排序，可以得到每个元素的名次，还可以通过score的范围来获取元素的列表。</String,></p>
 <p>Zset底层使用了两个数据结构：</p>
 <p>hash，hash的作用是关联元素value和权重score，保障元素value的唯一性，可以通过元素value找到相应的score的值。</p>
 <p>跳跃表，跳跃表的目的在于给元素value排序，根据score的范围获取元素列表。</p>
 <h2 id="redisDb"><a href="#redisDb" class="headerlink" title="redisDb"></a>redisDb</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisDb</span> &#123;</span></span><br><span class="line">    dict *dict; <span class="comment">/* The keyspace for this DB */</span></span><br><span class="line">    dict *expires; <span class="comment">/* Timeout of keys with a timeout set */</span></span><br><span class="line">    dict *blocking_keys; <span class="comment">/* Keys with clients waiting for data (BLPOP)*/</span></span><br><span class="line">    dict *ready_keys; <span class="comment">/* Blocked keys that received a PUSH */</span></span><br><span class="line">    dict *watched_keys; <span class="comment">/* WATCHED keys for MULTI/EXEC CAS */</span></span><br><span class="line">    <span class="keyword">int</span> id; <span class="comment">/* Database ID */</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> avg_ttl; <span class="comment">/* Average TTL, just for stats */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> expires_cursor; <span class="comment">/* Cursor of the active expire cycle. */</span></span><br><span class="line">    <span class="built_in">list</span> *defrag_later; <span class="comment">/* List of key names to attempt to defrag one by one, gradually. */</span></span><br><span class="line">&#125; redisDb;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dict</span> &#123;</span></span><br><span class="line">    <span class="comment">// 类型特定函数</span></span><br><span class="line">    dictType *type;</span><br><span class="line">    <span class="comment">// 私有数据</span></span><br><span class="line">    <span class="keyword">void</span> *privdata;</span><br><span class="line">    <span class="comment">// 哈希表</span></span><br><span class="line">    dictht ht[<span class="number">2</span>];</span><br><span class="line">    <span class="comment">// rehash 索引</span></span><br><span class="line">    <span class="comment">// 当 rehash 不在进行时，值为 -1</span></span><br><span class="line">    <span class="keyword">int</span> rehashidx; <span class="comment">/* rehashing not in progress if rehashidx == -1 */</span></span><br><span class="line">&#125; dict;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictht</span>&#123;</span></span><br><span class="line">     <span class="comment">//哈希表数组</span></span><br><span class="line">     dictEntry **table;</span><br><span class="line">     <span class="comment">//哈希表大小 4</span></span><br><span class="line">     <span class="keyword">unsigned</span> <span class="keyword">long</span> size;</span><br><span class="line">     <span class="comment">//哈希表大小掩码，用于计算索引值</span></span><br><span class="line">     <span class="comment">//总是等于 size-1</span></span><br><span class="line">     <span class="keyword">unsigned</span> <span class="keyword">long</span> sizemask;</span><br><span class="line">     <span class="comment">//该哈希表已有节点的数量</span></span><br><span class="line">     <span class="keyword">unsigned</span> <span class="keyword">long</span> used;</span><br><span class="line"> </span><br><span class="line">&#125;dictht</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span>&#123;</span></span><br><span class="line">     <span class="comment">//键</span></span><br><span class="line">     <span class="keyword">void</span> *key;</span><br><span class="line">     <span class="comment">//值</span></span><br><span class="line">     <span class="class"><span class="keyword">union</span>&#123;</span></span><br><span class="line">          <span class="keyword">void</span> *val;</span><br><span class="line">          uint64_tu64;</span><br><span class="line">          int64_ts64;</span><br><span class="line">     &#125;v;</span><br><span class="line"> </span><br><span class="line">     <span class="comment">//指向下一个哈希表节点，形成链表</span></span><br><span class="line">     <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;dictEntry</span><br></pre></td></tr></table></figure>
-
 <h2 id="Redis配置文件详解"><a href="#Redis配置文件详解" class="headerlink" title="Redis配置文件详解"></a>Redis配置文件详解</h2><h3 id="Units-单位"><a href="#Units-单位" class="headerlink" title="Units 单位"></a>Units 单位</h3><p>配置大小单位，开头定义了一些基本的度量单位，只支持bytes，不支持bit，大小写不敏感</p>
 <h3 id="Include"><a href="#Include" class="headerlink" title="Include"></a>Include</h3><p>多实例的情况可以把公用的配置文件提取出来。</p>
 <h3 id="网络相关配置"><a href="#网络相关配置" class="headerlink" title="网络相关配置"></a>网络相关配置</h3><p><strong>bind</strong></p>
@@ -756,10 +682,8 @@
 <p>客户端可以订阅频道；当给这个频道发布消息后，消息就会发送给订阅的客户端。</p>
 <h3 id="发布订阅命令行实现"><a href="#发布订阅命令行实现" class="headerlink" title="发布订阅命令行实现"></a>发布订阅命令行实现</h3><p>打开一个客户端订阅channel1</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SUBSCRIBE channel1</span><br></pre></td></tr></table></figure>
-
 <p>打开另一个客户端，给channel1发布消息hello</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">publish channel1 hello</span><br></pre></td></tr></table></figure>
-
 <h2 id="Redis新型数据类型"><a href="#Redis新型数据类型" class="headerlink" title="Redis新型数据类型"></a>Redis新型数据类型</h2><h3 id="Bitmaps"><a href="#Bitmaps" class="headerlink" title="Bitmaps"></a>Bitmaps</h3><p>合理使用操作位能够有效地提高内存使用率和开发效率</p>
 <p>Redis提供了Bitmaps这个“数据类型”可以实现对位的操作：</p>
 <ul>
@@ -770,22 +694,17 @@
 <p><strong>setbit</strong></p>
 <p>设置Bitmaps中某个偏移量的值(0或1)；offset偏移量从0开始</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setbit &lt;key&gt; &lt;offset&gt; &lt;value&gt;</span><br></pre></td></tr></table></figure>
-
 <p>实例：每个独立的用户是否访问过网站存放在Bitmaps中，将访问的用户记做1，没有访问的用户记做0，用偏移量作为用户id。设置键的第offset个位的值，假设现在有20个用户，userid=1，6，11，15，19的用户对网站进行了访问。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">setbit users:20210101 1 1</span><br><span class="line">setbit users:20210101 6 1</span><br><span class="line">setbit users:20210101 11 1</span><br><span class="line">setbit users:20210101 15 1</span><br><span class="line">setbit users:20210101 19 1</span><br></pre></td></tr></table></figure>
-
 <p><strong>getbit</strong></p>
 <p>获取Bitmaps中某个偏移量的值</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getbit &lt;key&gt; &lt;offset&gt;</span><br></pre></td></tr></table></figure>
-
 <p><strong>bitcount</strong></p>
 <p>统计字符串被设置为1的bit数，一般情况下，给定的整个字符串都会被进行计数，通过指定额外的start或end参数，可以让计数只在特定的位上进行。start和end参数的设置，都可以使用负数值：比如-1表示最后一位，而-2表示倒数第二个位，start、end是指bit组的字节的下标数，二者皆可包含。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bitcount &lt;key&gt; [start end]</span><br></pre></td></tr></table></figure>
-
 <p><strong>bitop</strong></p>
 <p>bitop是一个复合操作，它可以做多个Bitmaps的and(交集)、or(并集)、not(非)、xor(异或)操作并将结果保存在destkey中。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bitop and(or&#x2F;not&#x2F;xor) &lt;destkey&gt; [key...]</span><br></pre></td></tr></table></figure>
-
 
       
     </div>
@@ -845,9 +764,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/NoSQL/" rel="tag"># NoSQL</a>
-          
             <a href="/tags/Redis/" rel="tag"># Redis</a>
+          
+            <a href="/tags/NoSQL/" rel="tag"># NoSQL</a>
           
         </div>
       

@@ -392,20 +392,16 @@
 <p>在关系型数据库中，我们的数据的都被存放在了各种表中，表中的每一行就存放着一条数据。</p>
 <p>大部分关系型数据库都使用SQL来操作数据库。并且，大部分关系型数据库都支持事务的四大特性(ACID)。</p>
  <span id="more"></span> 
-
 <h3 id="常见的关系型数据库"><a href="#常见的关系型数据库" class="headerlink" title="常见的关系型数据库"></a>常见的关系型数据库</h3><p>MySQL、PostgreSQL、Oracle、SQL Server…</p>
 <h2 id="MySQL介绍"><a href="#MySQL介绍" class="headerlink" title="MySQL介绍"></a>MySQL介绍</h2><p>MySQL是一种关系型数据库，主要用于持久化存储我们系统中的一些数据。</p>
 <p>MySQL是开源免费并且比较成熟的数据库，因此，MySQL被大量的使用。任何人都可以在GPL的许可下下载并根据个性化的需要对其进行修改。MySQL的默认端口号为3306。</p>
 <h2 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h2><h3 id="存储引擎相关的命令"><a href="#存储引擎相关的命令" class="headerlink" title="存储引擎相关的命令"></a>存储引擎相关的命令</h3><p><strong>查看MySQL提供的所有存储引擎</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW ENGINES;</span><br></pre></td></tr></table></figure>
-
 <p>在5.7的版本中MySQL默认的存储引擎是InnoDB，并且只有InnoDB是支持事务的。</p>
 <p><strong>查看MySQL当前默认的存储引擎</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW VARIABLES LIKE &#39;%storage_engine%&#39;;</span><br></pre></td></tr></table></figure>
-
 <p><strong>查看表的存储引擎</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW TABLE STATUS LIKE &#96;table_name&#96;;</span><br></pre></td></tr></table></figure>
-
 <h3 id="MyISAM和InnoDB的区别"><a href="#MyISAM和InnoDB的区别" class="headerlink" title="MyISAM和InnoDB的区别"></a>MyISAM和InnoDB的区别</h3><p>在MySQL5.5之前，MyISAM是MySQL默认的存储引擎。</p>
 <p>MyISAM的不支持事务和行级锁，最大的缺陷就是崩溃后无法安全恢复。</p>
 <p>在5.5版本之后，MySQL引入了InnoDB，MySQL5.5版本后默认的存储引擎为InnoBD。</p>
@@ -450,25 +446,29 @@
 <li>一个事务对数据对象A加了S锁，可以对A进行读取操作，但是不能进行跟新操作。加锁期间其它事务能对A加S锁，但是不能加X锁。</li>
 </ul>
 <p>锁的兼容关系：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center"></th>
-<th align="center">X</th>
-<th align="center">S</th>
+<th style="text-align:center"></th>
+<th style="text-align:center">X</th>
+<th style="text-align:center">S</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">X</td>
-<td align="center">❌</td>
-<td align="center">❌</td>
+<tbody>
+<tr>
+<td style="text-align:center">X</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
 </tr>
 <tr>
-<td align="center">S</td>
-<td align="center">❌</td>
-<td align="center">✔</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">✔</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <ul>
 <li>意向锁</li>
 </ul>
@@ -481,45 +481,49 @@
 </ul>
 <p>通过加入意向锁，事务T想要对表A加X锁，只需要先检测是否有其它事务对表A加了X/IX/S/IS，如果加了就表示有其他事务正在使用这个表或者表中的某一行的锁，因此事务T加X锁失败。</p>
 <p>各种锁的兼容关系如下：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center"></th>
-<th align="center">X</th>
-<th align="center">IX</th>
-<th align="center">S</th>
-<th align="center">IS</th>
+<th style="text-align:center"></th>
+<th style="text-align:center">X</th>
+<th style="text-align:center">IX</th>
+<th style="text-align:center">S</th>
+<th style="text-align:center">IS</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">X</td>
-<td align="center">❌</td>
-<td align="center">❌</td>
-<td align="center">❌</td>
-<td align="center">❌</td>
+<tbody>
+<tr>
+<td style="text-align:center">X</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
 </tr>
 <tr>
-<td align="center">IX</td>
-<td align="center">❌</td>
-<td align="center">✔</td>
-<td align="center">❌</td>
-<td align="center">✔</td>
+<td style="text-align:center">IX</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">✔</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">✔</td>
 </tr>
 <tr>
-<td align="center">S</td>
-<td align="center">❌</td>
-<td align="center">❌</td>
-<td align="center">✔</td>
-<td align="center">✔</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">✔</td>
+<td style="text-align:center">✔</td>
 </tr>
 <tr>
-<td align="center">IS</td>
-<td align="center">❌</td>
-<td align="center">✔</td>
-<td align="center">✔</td>
-<td align="center">✔</td>
+<td style="text-align:center">IS</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">✔</td>
+<td style="text-align:center">✔</td>
+<td style="text-align:center">✔</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>解释如下：</p>
 <ul>
 <li>任意IS/IX锁之间都是兼容的，因为它们表示想要对表加锁，而不是正真加锁；</li>
@@ -580,23 +584,17 @@
 <p><strong>悲观锁的使用</strong></p>
 <p>首先关闭mysql中的autocommit属性，然后对数据进行查询修改，最后commit提交事务。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set autocommit &#x3D; 0;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- 窗口1</span><br><span class="line">SELECT * from user;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- 窗口2</span><br><span class="line">UPDATE USER SET price &#x3D; price - 100 WHERE id &#x3D; 1;</span><br></pre></td></tr></table></figure>
-
 <p>执行上面操作的时候，会显示等待状态，一直等到窗口1执行commit提交事务才会出现下面的显示结果。</p>
 <h2 id="查询缓存"><a href="#查询缓存" class="headerlink" title="查询缓存"></a>查询缓存</h2><p>执行查询语句的时候，会先查询缓存。不过，MySQL8.0版本后移除，因为这个功能不太实用。在my.cnf加入以下配置，重启MySQL开启查询缓存：</p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">query<span class="built_in">_</span>cache<span class="built_in">_</span>type=1</span><br><span class="line">query<span class="built_in">_</span>cache<span class="built_in">_</span>size=600000</span><br></pre></td></tr></table></figure>
-
 <p>MySQL执行以下命令也可以开启查询缓存：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set global  query_cache_type&#x3D;1;</span><br><span class="line">set global  query_cache_size&#x3D;600000;</span><br></pre></td></tr></table></figure>
-
 <p>若开启查询缓存后在同样的查询条件以及数据情况下，会直接在缓存中返回结果。其中查询条件包括：查询本身、当前要查询的数据库、客户端协议版本号等一些可能影响结果的信息。因此任何两个查询在任何字符上的不同都会导致缓存不命中。此外，如果查询中包含任何用户自定义函数、存储函数、用户变量、临时表、MySQL库中的系统表，其查询结果也不会被缓存。</p>
 <p>缓存建立后，MySQL查询缓存系统会跟踪查询中涉及的每张表，如果这些表发生变化，那么和这张表相关的所有的缓存数据都将失效。</p>
 <p>缓存虽然能够提升数据库的查询性能，但是缓存同时也带来的额外的开销，每次查询后都要做一些缓存操作，失效后还要销毁。因此，开启缓存要谨慎，尤其对于写密集的应用来说更是如此。如果开启，要注意合理控制缓存空间大小。此外，还可以通过sql_cache和sql_no_cache来控制某个查询语句是否需要缓存：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select sql_no_cache count(*) from usr;</span><br></pre></td></tr></table></figure>
-
 <h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><h3 id="何为事务"><a href="#何为事务" class="headerlink" title="何为事务"></a>何为事务</h3><p>事务是逻辑上的一组操作，要么都执行，要么都不执行。</p>
 <p>可以通过Commit提交一个事务，也可以使用Rollback进行回滚。</p>
 <h3 id="何为数据库事务"><a href="#何为数据库事务" class="headerlink" title="何为数据库事务"></a>何为数据库事务</h3><p>数据库事务是日常开发中接触最多了，如果你的项目属于单体架构，接触的往往就是数据库事务。如果没有特指分布式事务，往往指的是数据库事务。</p>
@@ -628,47 +626,49 @@
 <li>REPEATABLE-REAB(可重复读)：对同一字段的多次读取结构都是一致的，除非数据是被事务自身所修改，可以阻止脏读和不可重复读，但幻读仍有可能发生。</li>
 <li>SERIALIZABLE(可串行化)：最高的隔离级别，完全服从ACID的隔离级别。所有的事物依次逐个执行，这样事物之间就完全不可能产生干扰，也就是说，该级别可以防止脏读、不可重复读以及幻读。</li>
 </ul>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center">隔离级别</th>
-<th align="center">脏读</th>
-<th align="center">不可重复读</th>
-<th align="center">幻读</th>
+<th style="text-align:center">隔离级别</th>
+<th style="text-align:center">脏读</th>
+<th style="text-align:center">不可重复读</th>
+<th style="text-align:center">幻读</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">READ-UNCOMMITTED</td>
-<td align="center">✔</td>
-<td align="center">✔</td>
-<td align="center">✔</td>
+<tbody>
+<tr>
+<td style="text-align:center">READ-UNCOMMITTED</td>
+<td style="text-align:center">✔</td>
+<td style="text-align:center">✔</td>
+<td style="text-align:center">✔</td>
 </tr>
 <tr>
-<td align="center">READ-COMMITTED</td>
-<td align="center">❌</td>
-<td align="center">✔</td>
-<td align="center">✔</td>
+<td style="text-align:center">READ-COMMITTED</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">✔</td>
+<td style="text-align:center">✔</td>
 </tr>
 <tr>
-<td align="center">REPEATABLE-REAB</td>
-<td align="center">❌</td>
-<td align="center">❌</td>
-<td align="center">✔</td>
+<td style="text-align:center">REPEATABLE-REAB</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">✔</td>
 </tr>
 <tr>
-<td align="center">SERIALIZABLE</td>
-<td align="center">❌</td>
-<td align="center">❌</td>
-<td align="center">❌</td>
+<td style="text-align:center">SERIALIZABLE</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h3 id="MySQL的默认隔离级别是什么"><a href="#MySQL的默认隔离级别是什么" class="headerlink" title="MySQL的默认隔离级别是什么"></a>MySQL的默认隔离级别是什么</h3><p>MySQL InnoDB存储引擎的默认支持的隔离级别是REPEATABLE-REAB(可重复读)。</p>
 <p>我们可以通过命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT @@tx_isolation;</span><br></pre></td></tr></table></figure>
-
 <p>来查看，MySQL8.0该命令改为</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT @@transaction_isolation;</span><br></pre></td></tr></table></figure>
-
 <p>MySQL InnoDB的REPEATABLE-READ(可重复读)并不保证避免幻读，需要应用使用枷锁来保证。而这个加锁度使用到的机制就是Next-Key Locks。</p>
 <p>InnoDB存储引擎分布式事务的情况下一般会到SERIALIZABLE(可串行化)隔离级别。</p>
 <h2 id="多版本并发控制"><a href="#多版本并发控制" class="headerlink" title="多版本并发控制"></a>多版本并发控制</h2><p>多版本并发控制(Multi-Version Concurrency Control, MVCC)是MySQL的InnoDB存储引擎实现隔离级别的一种具体方式，用于实现提交读和可重复读这两种隔离级别。而未提交读隔离级别总是读取最新的数据行，要求很低，无需使用MVCC。可串行化隔离级别需要对所有读取的行都加锁，单纯使用MVCC无法实现。</p>
@@ -682,7 +682,6 @@
 <h3 id="Undo日志"><a href="#Undo日志" class="headerlink" title="Undo日志"></a>Undo日志</h3><p>MVCC的多版本指的是多个版本的快照，快照存储在Undo日志中，该日志通过回滚指针ROLL_PTR把一个数据行的所有快照连接起来。</p>
 <p>例如在MySQL创建一个表t，包含主键id和一个字段x。我们先插入一个数据行，然后对该数据行执行两次更新操作。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO t(id, x) VALUES(1, &quot;a&quot;);</span><br><span class="line">UPDATE t SET x&#x3D;&quot;b&quot; WHERE id&#x3D;1;</span><br><span class="line">UPDATE t SET x&#x3D;&quot;c&quot; WHERE id&#x3D;1;</span><br></pre></td></tr></table></figure>
-
 <p>因为没有使用START TRANSACTION将上面的操作当成一个事务来执行，根据MySQL的AUTOCOMMIT机制，每个操作都会被当成一个事务来执行，所以上面的操作总共涉及到三个事务。快照中除了记录事务版本号TRX_ID和操作之外，还记录了一个bit的DEL字段，用于标记是否被删除。</p>
 <p>INSERT、UPDATE、DELETE操作会创建一个日志，并将事务版本TRX_ID写入。DELETE可以看成是一个特殊的UPDATE，还会额外将DEL字段设置为1。</p>
 <h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>使用索引的优点：提高数据检索的效率；通过索引列对数据进行排序，降低CPU的消耗。</p>
@@ -757,20 +756,17 @@
 </ul>
 <p>在进行查询时，索引列不能是表达式的一部分，也不能是函数的参数，否则无法使用索引。例如下面的查询不能使用actor_id列的索引：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT actor_id FROM sakila.actor WHERE actor_id + 1 &#x3D; 5;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>多列索引</li>
 </ul>
 <p>在需要使用多个列作为条件进行查询时，使用多列索引比使用多个单列索引性能更好。例如下面的语句中，最好把actor_id和film_id设置为多列索引。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT film_id, actor_ id FROM sakila.film_actor</span><br><span class="line">WHERE actor_id &#x3D; 1 AND film_id &#x3D; 1;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>索引列的顺序</li>
 </ul>
 <p>让选择性最强的索引列放在前面。索引的选择性是指：不重复的索引值和记录总数的比值。最大为1，此时每个记录都有唯一的索引与其对应。选择性越高，每个记录的区分度越高，查询效率也越高。</p>
 <p>例如下面显示的结果中customer_id的选择性比staff_id更高，因此最好把customer_id列放在多列索引的前面。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(DISTINCT staff_id)&#x2F;COUNT(*) AS staff_id_selectivity,</span><br><span class="line">COUNT(DISTINCT customer_id)&#x2F;COUNT(*) AS customer_id_selectivity,</span><br><span class="line">COUNT(*)</span><br><span class="line">FROM payment;</span><br><span class="line">-- staff_id_selectivity: 0.0001</span><br><span class="line">-- customer_id_selectivity: 0.0373</span><br><span class="line">               -- COUNT(*): 16049</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>前缀索引</li>
 </ul>
@@ -814,7 +810,6 @@
 <h3 id="重构查询方式"><a href="#重构查询方式" class="headerlink" title="重构查询方式"></a>重构查询方式</h3><p><strong>切分大查询：</strong></p>
 <p>一个大查询如果一次性执行的话，可能一次锁住很多数据、占满整个事务日志、耗尽系统资源、阻塞很多小的但重要的查询。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">DELETE FROM messages WHERE create &lt; DATE_SUB(NOW(), INTERVAL 3 MONTH);</span><br><span class="line">-------------</span><br><span class="line">rows_affected &#x3D; 0</span><br><span class="line">do &#123;</span><br><span class="line">    rows_affected &#x3D; do_query(</span><br><span class="line">    &quot;DELETE FROM messages WHERE create  &lt; DATE_SUB(NOW(), INTERVAL 3 MONTH) LIMIT 10000&quot;)</span><br><span class="line">&#125; while rows_affected &gt; 0</span><br></pre></td></tr></table></figure>
-
 <p><strong>分解大连接查询：</strong></p>
 <p>将一个大连接查询分解成对每一个表进行一次单表查询，然后在应用程序中进行关联，这样做的好处有：</p>
 <ul>
@@ -825,7 +820,6 @@
 <li>查询本身效率也可能会有所提升。</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM tag</span><br><span class="line">JOIN tag_post ON tag_post.tag_id&#x3D;tag.id</span><br><span class="line">JOIN post ON tag_post.post_id&#x3D;post.id</span><br><span class="line">WHERE tag.tag&#x3D;&#39;mysql&#39;;</span><br><span class="line">--</span><br><span class="line">SELECT * FROM tag WHERE tag&#x3D;&#39;mysql&#39;;</span><br><span class="line">SELECT * FROM tag_post WHERE tag_id&#x3D;1234;</span><br><span class="line">SELECT * FROM post WHERE post.id IN (123,456,567,9098,8904);</span><br></pre></td></tr></table></figure>
-
 <h2 id="存储引擎-1"><a href="#存储引擎-1" class="headerlink" title="存储引擎"></a>存储引擎</h2><h3 id="InnoDB"><a href="#InnoDB" class="headerlink" title="InnoDB"></a>InnoDB</h3><p>是MySQL默认的事务型存储引擎，只有在需要它不支持的特性时，才考虑使用其他存储引擎。</p>
 <p>实现了四个标准的隔离级别，默认级别是可重复读(REPEATABLE READ)。在可重复读隔离级别下，通过多版本并发控制(MVCC)+Next-Key Locking防止幻读。</p>
 <p>主索引是聚簇索引，在索引中保存了数据，从而避免直接读取磁盘，因此对查询性能有很大提升。</p>
@@ -859,7 +853,7 @@
 <p><strong>DATETIME</strong></p>
 <p>能够保存从1000年到9999年的日期和时间，精度为秒，使用8字节的存储空间。</p>
 <p>它与时区无关。</p>
-<p>默认情况下，MySQL以一种可排序的、无歧义的格式显示DATETIME值，例如：”2008-01-16 22&lt;span&gt;:&lt;span&gt;37&lt;span&gt;:&lt;span&gt;08”，这是ANSI标准定义的日期和时间表示方法。</p>
+<p>默认情况下，MySQL以一种可排序的、无歧义的格式显示DATETIME值，例如：”2008-01-16 22\<span\>:\<span\>37\<span\>:\<span\>08”，这是ANSI标准定义的日期和时间表示方法。</span\></span\></span\></span\></p>
 <p><strong>TIMESTAMP</strong></p>
 <p>和UNIX时间戳相同，保存从1970年1月1日(格林威治时间)以来的秒数，使用4个字节，只能表示从1970年到2038年。</p>
 <p>它和时区有关，也就是说一个时间戳在不同的时区所代表的具体时间是不同的。</p>
@@ -964,7 +958,6 @@
 <h2 id="表的空间大小及查询"><a href="#表的空间大小及查询" class="headerlink" title="表的空间大小及查询"></a>表的空间大小及查询</h2><p>表的空间大小与存入其中的数据及索引有关，想要查询的话，在mysql中有一个默认的数据表information_schema，这张数据表保存了MySQL服务器所有的数据库的信息。如数据库名，数据库的表，表栏的数据类型与访问权限等，可使用命令查看表的大小。</p>
 <p><strong>命令查看表大小的具体使用</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-- 切换数据库</span><br><span class="line">USE &#96;information_schema&#96;;</span><br><span class="line"></span><br><span class="line">-- 查看数据库使用大小</span><br><span class="line">SELECT CONCAT(ROUND(SUM(data_length&#x2F;1024&#x2F;1024),2),&#39;MB&#39;) </span><br><span class="line">AS data </span><br><span class="line">FROM tables</span><br><span class="line">WHERE table_schema&#x3D;&#39;DB_Name&#39;;</span><br><span class="line"></span><br><span class="line">-- 查看表使用大小</span><br><span class="line">SELECT CONCAT(ROUND(SUM(data_length&#x2F;1024&#x2F;1024),2),&#39;MB&#39;)</span><br><span class="line">AS data</span><br><span class="line">FROM tables</span><br><span class="line">WHERE table_schema&#x3D;&#39;DB_Name&#39;</span><br><span class="line">AND table_schema&#x3D;&#39;Table_Name&#39;;</span><br></pre></td></tr></table></figure>
-
 <h2 id="表碎片整理"><a href="#表碎片整理" class="headerlink" title="表碎片整理"></a>表碎片整理</h2><p><strong>清理表碎片的命令</strong></p>
 <ul>
 <li>InnoDB表：alter table 表名 engine = InnoDB</li>
@@ -993,7 +986,7 @@
 <p>​    判断该带参数的 Url 是否存在 Sql 注入？</p>
 <p>​    如果存在 Sql 注入，那么属于哪种 Sql 注入？</p>
 <p>最为经典的单引号判断法： 在参数后面加上单引号,比如:</p>
-<p>​    <a target="_blank" rel="noopener" href="http://xxx/abc.php?id=1&#39;">http://xxx/abc.php?id=1&#39;</a></p>
+<p>​    <a target="_blank" rel="noopener" href="http://xxx/abc.php?id=1">http://xxx/abc.php?id=1</a>‘</p>
 <p>如果页面返回错误，则存在 Sql 注入。</p>
 <p>原因是无论字符型还是整数型都会因为单引号个数不匹配而报错。</p>
 <h3 id="判断SQL注入漏洞的类型"><a href="#判断SQL注入漏洞的类型" class="headerlink" title="判断SQL注入漏洞的类型"></a>判断SQL注入漏洞的类型</h3><p>通常 Sql 注入漏洞分为 2 种类型：数字型、字符型。</p>
@@ -1001,12 +994,12 @@
 <p>当输入的参 x 为整型时，通常 abc.php 中 Sql 语句类型大致如下： select * from &lt;表名&gt; where id = x 这种类型可以使用经典的 and 1=1 和 and 1=2 来判断：</p>
 <p> Url 地址中输入 <a target="_blank" rel="noopener" href="http://xxx/abc.php?id=">http://xxx/abc.php?id=</a> x and 1=1 页面依旧运行正常，继续进行下一步。</p>
 <p> Url 地址中继续输入 <a target="_blank" rel="noopener" href="http://xxx/abc.php?id=">http://xxx/abc.php?id=</a> x and 1=2 页面运行错误，则说明此 Sql 注入为数字型注入。</p>
-<p>原因如下： 当输入 and 1=1时，后台执行 Sql 语句：select * from &lt;表名&gt; where id = x and 1=1没有语法错误且逻辑判断为正确，所以返回正常。当输入 and 1=2时，后台执行 Sql 语句：select * from &lt;表名&gt; where id = x and 1=2没有语法错误但是逻辑判断为假，所以返回错误。</p>
-<p>我们再使用假设法：如果这是字符型注入的话，我们输入以上语句之后应该出现如下情况：select * from &lt;表名&gt; where id = ‘x and 1=1’ select * from &lt;表名&gt; where id = ‘x and 1=2’ 查询语句将 and 语句全部转换为了字符串，并没有进行 and 的逻辑判断，所以不会出现以上结果，故假设是不成立的。</p>
+<p>原因如下： 当输入 and 1=1时，后台执行 Sql 语句：select <em> from &lt;表名&gt; where id = x and 1=1没有语法错误且逻辑判断为正确，所以返回正常。当输入 and 1=2时，后台执行 Sql 语句：select </em> from &lt;表名&gt; where id = x and 1=2没有语法错误但是逻辑判断为假，所以返回错误。</p>
+<p>我们再使用假设法：如果这是字符型注入的话，我们输入以上语句之后应该出现如下情况：select <em> from &lt;表名&gt; where id = ‘x and 1=1’ select </em> from &lt;表名&gt; where id = ‘x and 1=2’ 查询语句将 and 语句全部转换为了字符串，并没有进行 and 的逻辑判断，所以不会出现以上结果，故假设是不成立的。</p>
 <p><strong>字符型判断</strong></p>
 <p>当输入的参 x 为字符型时，通常 abc.php 中 SQL 语句类型大致如下： select * from &lt;表名&gt; where id = ‘x’ 这种类型我们同样可以使用 and ‘1’=’1 和 and ‘1’=’2来判断：</p>
 <p>Url 地址中输入 <a target="_blank" rel="noopener" href="http://xxx/abc.php?id=">http://xxx/abc.php?id=</a> x’ and ‘1’=’1 页面运行正常，继续进行下一步。</p>
-<p>Url 地址中继续输入 <a target="_blank" rel="noopener" href="http://xxx/abc.php?id=">http://xxx/abc.php?id=</a> x’ and ‘1’=’2 页面运行错误，则说明此 Sql 注入为字符型注入。原因如下： 当输入 and ‘1’=’1时，后台执行 Sql 语句： select * from &lt;表名&gt; where id = ‘x’ and ‘1’=’1’语法正确，逻辑判断正确，所以返回正确。当输入 and ‘1’=’2时，后台执行 Sql 语句：select * from &lt;表名&gt; where id = ‘x’ and ‘1’=’2’ 语法正确，但逻辑判断错误，所以返回错误。</p>
+<p>Url 地址中继续输入 <a target="_blank" rel="noopener" href="http://xxx/abc.php?id=">http://xxx/abc.php?id=</a> x’ and ‘1’=’2 页面运行错误，则说明此 Sql 注入为字符型注入。原因如下： 当输入 and ‘1’=’1时，后台执行 Sql 语句： select <em> from &lt;表名&gt; where id = ‘x’ and ‘1’=’1’语法正确，逻辑判断正确，所以返回正确。当输入 and ‘1’=’2时，后台执行 Sql 语句：select </em> from &lt;表名&gt; where id = ‘x’ and ‘1’=’2’ 语法正确，但逻辑判断错误，所以返回错误。</p>
 <h3 id="预防SQL注入"><a href="#预防SQL注入" class="headerlink" title="预防SQL注入"></a>预防SQL注入</h3><p>用JDBC（或者其他数据持久层）提供的如：PreparedStatement就可以 ，不要用拼接字符串的方法。</p>
 
       

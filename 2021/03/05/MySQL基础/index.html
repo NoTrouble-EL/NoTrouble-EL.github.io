@@ -395,10 +395,10 @@
 <li>方便检索</li>
 <li>保持数据的一致性、完整性</li>
 <li>安全，可共享</li>
-<li>通过组合分析，可产生新数据</li>
+<li><p>通过组合分析，可产生新数据</p>
+<span id="more"></span> 
+</li>
 </ul>
- <span id="more"></span> 
-
 <p><strong>数据库的发展历程：</strong></p>
 <ul>
 <li>没有数据库，使用磁盘文件存储数据</li>
@@ -431,7 +431,6 @@
 <hr>
 <h2 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h2><p>安装文件存放路径不能有中文</p>
 <h2 id="删除MySQL"><a href="#删除MySQL" class="headerlink" title="删除MySQL"></a>删除MySQL</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net stop mysql</span><br><span class="line">net start mysql</span><br></pre></td></tr></table></figure>
-
 <p>删除前先停止mysql；添加删除程序；到安装目录删除MySQL；删除：c:\Documents and settings\All Users\Application Data\MySQL c:\ProgramData\MySQL；查看注册表 regedit：HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\MySQL、HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\MySQL、搜索mysql，最后重启电脑。</p>
 <h2 id="MySQL安装路径以及配置信息"><a href="#MySQL安装路径以及配置信息" class="headerlink" title="MySQL安装路径以及配置信息"></a>MySQL安装路径以及配置信息</h2><p><strong>MySQL安装成功后会在两个目录中存储文件：</strong></p>
 <ul>
@@ -468,19 +467,14 @@
 <hr>
 <h2 id="DDL-操作数据库"><a href="#DDL-操作数据库" class="headerlink" title="DDL 操作数据库"></a>DDL 操作数据库</h2><p><strong>1.查询所有数据库</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW DATABASES;</span><br></pre></td></tr></table></figure>
-
 <p>2.切换数据库</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USE 数据库名;</span><br></pre></td></tr></table></figure>
-
 <p><strong>3.创建数据库</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE [IF NOT EXISTS] 数据库名[CHARSET&#x3D;UTF8];</span><br></pre></td></tr></table></figure>
-
 <p>4.删除数据库</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP DATABASE [IF EXISTS] 数据库名;</span><br></pre></td></tr></table></figure>
-
 <p><strong>5.修改数据库编码</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER DATABASE 数据库名 CHARACTER SET UTF8;</span><br></pre></td></tr></table></figure>
-
 <hr>
 <h2 id="数据类型介绍"><a href="#数据类型介绍" class="headerlink" title="数据类型介绍"></a>数据类型介绍</h2><p>int：整型<br>double：浮点型，例如double(5,2)表示最多5位，其中必须有2位小数，即最大值为999.99；<br>decimal：浮点型，在表价钱方面使用该类型，不会出现精度损失问题；<br>char：固定长度字符串类型，char(255)，数据的长度不是指定长度，补足到指定长度！例如：身份证，时间<br>varchar：可变长度字符串类型：varchar(65535)。例如：用户名<br>text(clob)：字符串类型</p>
 <ul>
@@ -500,143 +494,103 @@
 <hr>
 <h2 id="DDL操作表"><a href="#DDL操作表" class="headerlink" title="DDL操作表"></a>DDL操作表</h2><p><strong>1.创建表</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE [IF NOT EXISTS] 表名(</span><br><span class="line">	列名 列类型,</span><br><span class="line">	列名 列类型,</span><br><span class="line">	...</span><br><span class="line">	列名 列类型</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE tb_stu(</span><br><span class="line">	number char(11),</span><br><span class="line">	name varchar(50),</span><br><span class="line">	age int,</span><br><span class="line">	gender varchar(10)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
 <p><strong>2.查看当前数据库中所有表名称</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW TABLES;</span><br></pre></td></tr></table></figure>
-
 <p><strong>3.查看指定表的创建语句</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW CREATE TABLE 表名;</span><br></pre></td></tr></table></figure>
-
 <p>4.查看表结构</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DESC 表名;</span><br></pre></td></tr></table></figure>
-
 <p><strong>5.删除表</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP TABLE 表名;</span><br></pre></td></tr></table></figure>
-
 <p>6.修改表</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE 表名 ADD(</span><br><span class="line">	列名 列类型,</span><br><span class="line">	列名 列类型,</span><br><span class="line">	...</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE 表名 MODIFY 列名 新列类型;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE 表名 DROP 列名;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE 原表名 RENAME TO 新表名</span><br></pre></td></tr></table></figure>
-
 <hr>
 <h2 id="DML"><a href="#DML" class="headerlink" title="DML"></a>DML</h2><p><strong>1.插入数据</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO 表名(</span><br><span class="line">	列名1,列名2,列名3,...</span><br><span class="line">)VALUES(</span><br><span class="line">	列值1,列值2,列值3,...</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;插入所有列</span><br><span class="line">INSERT INTO stu(</span><br><span class="line">	number,name,age,gender</span><br><span class="line">)VALUES(</span><br><span class="line">	&#39;ITCAST_0001&#39;, &#39;zhangsan&#39;, 28, &#39;male&#39;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;插入部分列，没有插入的列，为默认值NULL</span><br><span class="line">INSERT INTO stu(</span><br><span class="line">	number,name</span><br><span class="line">)VALUES(</span><br><span class="line">	&#39;ITCAST_0002&#39;, &#39;lisi&#39;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;不给出插入列，那么默认值为插入所有列，值的顺序与创建列的顺序相同</span><br><span class="line">INSERT INTO stu VALUES(</span><br><span class="line">	&#39;ITCAST_0003&#39;, &#39;wangwu&#39;, 54, &#39;male&#39;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
 <p><strong>2.修改数据</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE 表名 SET 列名1&#x3D;列值, 列名2&#x3D;列值, ...[WHERE 条件];</span><br></pre></td></tr></table></figure>
-
 <p>条件必须是一个boolean类型的值或表达式：UPDATE t_person SET gender=‘男’, age = age + 1 WHERE sid=‘1’;<br>运算符：=、!=、&lt;&gt;、&gt;、&lt;、&gt;=、&lt;=、BETWEEN…AND、IN、IS NULL、NOT、OR、AND</p>
 <p><strong>3.删除表记录</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE FROM 表名[WHERE 条件];</span><br></pre></td></tr></table></figure>
-
 <hr>
 <h2 id="DCL数据控制语言"><a href="#DCL数据控制语言" class="headerlink" title="DCL数据控制语言"></a>DCL数据控制语言</h2><p><strong>1.创建用户</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER 用户名@IP地址 IDENTIFIED BY &#39;密码&#39;;&#x2F;&#x2F;用户只能在指定的IP地址上登录</span><br><span class="line">CREATE USER 用户名@&#39;%&#39; IDENTIFIED BY &#39;密码&#39;;&#x2F;&#x2F;用户可以在任意IP地址上登录</span><br></pre></td></tr></table></figure>
-
 <p>2.给用户授权</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT 权限1, ... , 权限n ON 数据库.* TO 用户名@IP地址;</span><br></pre></td></tr></table></figure>
-
 <p>权限、用户、数据库<br>给用户分派在指定的数据库上的指定的权限</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT ALL ON 数据库.* TO 用户名@IP地址;</span><br></pre></td></tr></table></figure>
-
 <p><strong>3.撤销权限</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REVOKE 权限1, ... , 权限n ON 数据库.* FROM 用户名@IP地址;</span><br></pre></td></tr></table></figure>
-
 <p>撤销指定用户在指定数据库上的指定权限</p>
 <p><strong>4.查看权限</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW GRANT FOR 用户名@IP地址;</span><br></pre></td></tr></table></figure>
-
 <p><strong>5.删除用户</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP USER 用户名@IP地址;</span><br></pre></td></tr></table></figure>
-
 <hr>
 <h2 id="DQL基础查询"><a href="#DQL基础查询" class="headerlink" title="DQL基础查询"></a>DQL基础查询</h2><p>1.查询所有列</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM 表名;</span><br></pre></td></tr></table></figure>
-
 <p>2.查询指定列</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 列1 [, 列2, ... , 列N] FROM 表名;</span><br></pre></td></tr></table></figure>
-
 <p>3.完全重复的记录只一次</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT * 列1 [, 列2, ... , 列N] FROM 表名;</span><br></pre></td></tr></table></figure>
-
 <p>4.列运算</p>
 <ul>
 <li>数量类型的列可以做加、减、乘、除</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT 列名*1.5 FROM 表名;</span><br><span class="line">SELECT 列名1+列名2 FROM 表名;&#x2F;&#x2F;若与NULL相加为NULL</span><br><span class="line">SELECT 列名1+IF NULL(列名2,0) FROM 表名;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>字符串类型可以做连续运算</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT CONCAT(列名1,列名2) FROM 表名;</span><br><span class="line">SELECT CONCAT(&#39;我叫&#39;,列名1,&#39;,是个&#39;,列名2) FROM 表名;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>转换NULL值，有时候需要把NULL值转换成其他值</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 列名1+IFNULL(列名2,0) FROM 表名;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>给列起别名</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 列名1 [AS] 别名1,列名2 [AS] 别名2 FROM 表名;</span><br></pre></td></tr></table></figure>
-
 <h2 id="DQL条件查询"><a href="#DQL条件查询" class="headerlink" title="DQL条件查询"></a>DQL条件查询</h2><p>1.条件查询</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM 表名 WHERE 条件;</span><br></pre></td></tr></table></figure>
-
 <p>2.模糊查询</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM 表名 WHERE 列名 LIKE 条件;</span><br><span class="line"></span><br><span class="line">SELECT * FROM emp WHERE ename LIKE &#39;张_&#39;;</span><br><span class="line">SELECT * FROM emp WHERE ename LIKE &#39;张__&#39;;</span><br><span class="line">SELECT * FROM emp WHERE ename LIKE &#39;__&#39;;</span><br><span class="line">SELECT * FROM stu WHERE sname LIKE &#39;%刚&#39;;</span><br><span class="line">SELECT * FROM stu WHERE sname LIKE &#39;赵%&#39;;</span><br><span class="line">SELECT * FROM stu WHERE sname LIKE &#39;%小%&#39;;</span><br></pre></td></tr></table></figure>
-
 <p>3.排序</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM 表名 ORDER BY 排序列;</span><br><span class="line">SELECT * FROM 表名 ORDER BY 排序列 ASC;&#x2F;&#x2F;升序</span><br><span class="line">SELECT * FROM 表名 ORDER BY 排序列 DESC;&#x2F;&#x2F;降序</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM 表名 ORDER BY 排序列1 ASC, 排序列2 DESC;</span><br><span class="line">SELECT * FROM 表名 ORDER BY 排序列1 ASC, 排序列2 DESC, 排序列3 ASC;</span><br></pre></td></tr></table></figure>
-
 <p>4.聚合函数</p>
 <ul>
 <li>COUNT</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(*) FROM 表名;</span><br><span class="line">SELECT COUNT(列名) FROM 表名;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>MAX</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT MAX(列名) FROM 表名;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>MIN</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT MIN(列名) FROM 表名;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>SUM</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT SUM(列名) FROM 表名;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>AVG</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT AVG(列名) FROM 表名;</span><br></pre></td></tr></table></figure>
-
 <p>5.分组查询</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT job, COUNT(*) FROM emp GROUP BY job;</span><br><span class="line">SELECT gander, COUNT(*) FROM stu GROUP BY gander;</span><br><span class="line">SELECT province, COUNT(*) FROM stu GROUP BY province;</span><br><span class="line">SELECT deptno, COUNT(*) FROM emp WHERE sal &gt; 15000 GROUP BY deptno;</span><br><span class="line">SELECT deptno, COUNT(*) FROM emp WHERE sal &gt; 15000 GROUP BY deptno HAVING COUNT(*) &gt;&#x3D; 2;</span><br></pre></td></tr></table></figure>
-
 <p>顺序：SELECT、FROM、WHERE、GROUP BY、HAVING、ORDER BY</p>
 <p>6.limit子句</p>
 <p>LIMIT用来限定查询结果的起始行，以及总行数；<br>例如：查询起始行为第5行，<br>一共查询3行记录，SELECT * FROM emp LIMIT 4,3;</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM emp LIMIT 0,5;</span><br><span class="line">SELECT * FROM emp LIMIT 8,5;</span><br></pre></td></tr></table></figure>
-
 <p>一页的记录数：10行；查询第3页。<br>（当前页-1）*每页记录数。</p>
 
       

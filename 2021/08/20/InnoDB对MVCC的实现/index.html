@@ -392,7 +392,6 @@
 <p>在 <code>InnoDB</code> 存储引擎中，<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.7/en/innodb-multi-versioning.html">多版本控制 (multi versioning)</a> 就是对非锁定读的实现。如果读取的行正在执行 <code>DELETE</code> 或 <code>UPDATE</code> 操作，这时读取操作不会去等待行上锁的释放。相反地，<code>InnoDB</code> 存储引擎会去读取行的一个快照数据，对于这种读取历史数据的方式，我们叫它快照读 (snapshot read)。</p>
 <p>在 <code>Repeatable Read</code> 和 <code>Read Committed</code> 两个隔离级别下，如果是执行普通的 <code>select</code> 语句（不包括 <code>select ... lock in share mode</code> ,<code>select ... for update</code>）则会使用 <code>一致性非锁定读（MVCC）</code>。并且在 <code>Repeatable Read</code> 下 <code>MVCC</code> 实现了可重复读和防止部分幻读。</p>
  <span id="more"></span> 
-
 <h2 id="锁定读"><a href="#锁定读" class="headerlink" title="锁定读"></a>锁定读</h2><p>如果执行的是下列语句，就是 <a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.7/en/innodb-locking-reads.html"><strong>锁定读（Locking Reads）</strong></a></p>
 <ul>
 <li><code>select ... lock in share mode</code></li>

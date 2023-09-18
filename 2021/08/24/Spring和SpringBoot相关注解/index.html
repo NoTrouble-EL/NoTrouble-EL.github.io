@@ -392,10 +392,10 @@
 <ul>
 <li><code>@EnableAutoConfiguration</code>：启用 SpringBoot 的自动配置机制</li>
 <li><code>@ComponentScan</code>： 扫描被<code>@Component</code> (<code>@Service</code>,<code>@Controller</code>)注解的 bean，注解默认会扫描该类所在的包下所有的类。</li>
-<li><code>@Configuration</code>：允许在 Spring 上下文中注册额外的 bean 或导入其他配置类</li>
+<li><p><code>@Configuration</code>：允许在 Spring 上下文中注册额外的 bean 或导入其他配置类</p>
+<span id="more"></span> 
+</li>
 </ul>
- <span id="more"></span> 
-
 <h2 id="Autowired"><a href="#Autowired" class="headerlink" title="@Autowired"></a>@Autowired</h2><p>自动导入对象到类中，被注入进的类同样要被 Spring 容器管理比如：Service 类注入到 Controller 类中。</p>
 <h2 id="Component-Repository-Service-Controller"><a href="#Component-Repository-Service-Controller" class="headerlink" title="@Component,@Repository,@Service, @Controller"></a>@Component,@Repository,@Service, @Controller</h2><p>我们一般使用 <code>@Autowired</code> 注解让 Spring 容器帮我们自动装配 bean。要想把类标识成可用于 <code>@Autowired</code> 注解自动装配的 bean 的类,可以采用以下注解实现：</p>
 <ul>
@@ -429,7 +429,7 @@
 <p>@PatchMapping</p>
 <h2 id="PathVariable-和-RequestParam"><a href="#PathVariable-和-RequestParam" class="headerlink" title="@PathVariable 和 @RequestParam"></a>@PathVariable 和 @RequestParam</h2><p><code>@PathVariable</code>用于获取路径参数，<code>@RequestParam</code>用于获取查询参数。</p>
 <h2 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h2><p>用于读取 Request 请求（可能是 POST,PUT,DELETE,GET 请求）的 body 部分并且<strong>Content-Type 为 application/json</strong> 格式的数据，接收到数据之后会自动将数据绑定到 Java 对象上去。系统会使用<code>HttpMessageConverter</code>或者自定义的<code>HttpMessageConverter</code>将请求的 body 中的 json 字符串转换为 java 对象。</p>
-<p>需要注意的是：**一个请求方法只可以有一个<code>@RequestBody</code>，但是可以有多个<code>@RequestParam</code>和<code>@PathVariable</code>**。 如果你的方法必须要用两个 <code>@RequestBody</code>来接受数据的话，大概率是你的数据库设计或者系统设计出问题了！</p>
+<p>需要注意的是：<strong>一个请求方法只可以有一个<code>@RequestBody</code>，但是可以有多个<code>@RequestParam</code>和<code>@PathVariable</code></strong>。 如果你的方法必须要用两个 <code>@RequestBody</code>来接受数据的话，大概率是你的数据库设计或者系统设计出问题了！</p>
 <h2 id="读取配置信息"><a href="#读取配置信息" class="headerlink" title="读取配置信息"></a>读取配置信息</h2><p>很多时候我们需要将一些常用的配置信息比如阿里云 oss、发送短信、微信认证的相关配置信息等等放到配置文件中。</p>
 <p>我们的数据源application.yml</p>
 <h2 id="value"><a href="#value" class="headerlink" title="@value"></a>@value</h2><p>使用 <code>@Value(&quot;$&#123;property&#125;&quot;)</code> 读取比较简单的配置信息：</p>

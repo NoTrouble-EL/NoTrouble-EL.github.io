@@ -399,7 +399,6 @@
 <p>在 Spring 中， IOC容器是 Spring 用来实现 IOC的载体， IOC 容器实际上就是个 Map（key，value），Map 中存放的是各种对象。</p>
 <p>IOC 最常见以及最合理的实现方式叫做依赖注入（Dependency Injection，简称 DI）</p>
  <span id="more"></span> 
-
 <p><strong>AOP</strong></p>
 <p>AOP(Aspect-Oriented Programming:面向切面编程)能够将那些与业务无关，却为业务模块所共同调用的逻辑或责任（例如事务处理、日志管理、权限控制等）封装起来，便于减少系统的重复代码<strong>，</strong>降低模块间的耦合度，并有利于未来的可拓展性和可维护性。</p>
 <p>Spring AOP 就是基于动态代理的，如果要代理的对象，实现了某个接口，那么 Spring AOP 会使用 <strong>JDK Proxy</strong>，去创建代理对象，而对于没有实现接口的对象，就无法使用 JDK Proxy 去进行代理了，这时候 Spring AOP 会使用 <strong>Cglib</strong> ，这时候 Spring AOP 会使用 <strong>Cglib</strong> 生成一个被代理对象的子类来作为代理。</p>
@@ -525,6 +524,7 @@
 <p>MySQL 默认对每一个新建立的连接都启用了<code>autocommit</code>模式。在该模式下，每一个发送到 MySQL 服务器的<code>sql</code>语句都会在一个单独的事务中进行处理，执行结束后会自动提交事务，并开启一个新的事务。</p>
 <p>但是，如果你给方法加上了<code>Transactional</code>注解的话，这个方法执行的所有<code>sql</code>会被放在一个事务中。如果声明了只读事务的话，数据库就会去优化它的执行，并不会带来其他的什么收益。如果不加<code>Transactional</code>，每条<code>sql</code>会开启一个单独的事务，中间被其它事务改了数据，都会实时读取到最新值。</p>
 <p><strong><code>@Transactional</code> 的常用配置参数总结</strong></p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -532,7 +532,8 @@
 <th>说明</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>propagation</td>
 <td>事务的传播行为，默认值为 REQUIRED，可选的值在上面介绍过</td>
 </tr>
@@ -552,7 +553,9 @@
 <td>rollbackFor</td>
 <td>用于指定能够触发事务回滚的异常类型，并且可以指定多个异常类型。</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 
       
     </div>

@@ -391,7 +391,6 @@
         <p>在synchronized最初的实现方式是“阻塞或唤醒一个Java线程需要操作系统切换CPU状态来完成，这种状态切换需要耗费处理器时间，如果同步代码块中内容过于简单，这种切换的时间可能比用户代码执行的时间还长”，这种方式就是synchronized实现同步最初的方式。</p>
 <p>在JDK1.6中为了减少获得锁和释放锁带来的性能消耗，引入了“偏向锁”和“轻量级锁”。</p>
  <span id="more"></span> 
-
 <h2 id="锁的四种状态"><a href="#锁的四种状态" class="headerlink" title="锁的四种状态"></a>锁的四种状态</h2><p>目前锁状态一共有四种，从级别由低到高依次是：无锁、偏向锁、轻量级锁、重量级锁，锁状态只能升级，不能降级。</p>
 <h3 id="无锁"><a href="#无锁" class="headerlink" title="无锁"></a>无锁</h3><p>无锁是指没有对资源进行锁定，所有的线程都能访问并修改同一个资源，但同时只有一个线程修改成功。</p>
 <p>无锁的特点是修改操作会在循环内进行，线程会不断地尝试修改共享资源。如果没有冲突就修改成功并退出，否则就会继续循环尝试。如果有多个线程修改同一个值，必定会有一个线程能修改成功，而其它修改失败的线程会不断重试直到修改成功。</p>
@@ -426,74 +425,86 @@
 <h2 id="Java头对象"><a href="#Java头对象" class="headerlink" title="Java头对象"></a>Java头对象</h2><p>以Hotspot虚拟机为例，Hotspot对象头主要包括两部分：Mark Word(标记字段)和Klass Pointer(类型指针)。</p>
 <p><strong>Mark Word</strong></p>
 <p>默认存储对象的HashCode，分代年龄和锁标志位信息。这些信息都是与对象自身定义无关的数据，所以Mark Word被设计成一个非固定的数据结构以便在极小的空间内存存储尽量多的数据。它会根据对象的状态复用自己的存储空间，也就是说在运行期间Mark Word里存储的数据会随着锁标志位的变化而变化。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center">锁状态</th>
-<th align="center">25位</th>
-<th align="center">31位</th>
-<th align="center">1位</th>
-<th align="center">4bit</th>
-<th align="center">1bit偏向锁位</th>
-<th align="center">2bit锁标志位</th>
+<th style="text-align:center">锁状态</th>
+<th style="text-align:center">25位</th>
+<th style="text-align:center">31位</th>
+<th style="text-align:center">1位</th>
+<th style="text-align:center">4bit</th>
+<th style="text-align:center">1bit偏向锁位</th>
+<th style="text-align:center">2bit锁标志位</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">无锁</td>
-<td align="center">unused</td>
-<td align="center">hashCode</td>
-<td align="center">unused</td>
-<td align="center">分代年龄</td>
-<td align="center">0</td>
-<td align="center">01</td>
+<tbody>
+<tr>
+<td style="text-align:center">无锁</td>
+<td style="text-align:center">unused</td>
+<td style="text-align:center">hashCode</td>
+<td style="text-align:center">unused</td>
+<td style="text-align:center">分代年龄</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">01</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center">锁状态</th>
-<th align="center">54位</th>
-<th align="center">2位</th>
-<th align="center">1位</th>
-<th align="center">4bit</th>
-<th align="center">1bit偏向锁位</th>
-<th align="center">2bit锁标志位</th>
+<th style="text-align:center">锁状态</th>
+<th style="text-align:center">54位</th>
+<th style="text-align:center">2位</th>
+<th style="text-align:center">1位</th>
+<th style="text-align:center">4bit</th>
+<th style="text-align:center">1bit偏向锁位</th>
+<th style="text-align:center">2bit锁标志位</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">偏向锁</td>
-<td align="center">当前线程指针</td>
-<td align="center">Epoch</td>
-<td align="center">unused</td>
-<td align="center">分代年龄</td>
-<td align="center">0</td>
-<td align="center">01</td>
+<tbody>
+<tr>
+<td style="text-align:center">偏向锁</td>
+<td style="text-align:center">当前线程指针</td>
+<td style="text-align:center">Epoch</td>
+<td style="text-align:center">unused</td>
+<td style="text-align:center">分代年龄</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">01</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center">锁状态</th>
-<th align="center">62位</th>
-<th align="center">2bit锁标志位</th>
+<th style="text-align:center">锁状态</th>
+<th style="text-align:center">62位</th>
+<th style="text-align:center">2bit锁标志位</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">轻量级锁</td>
-<td align="center">指向线程栈中Lock Record</td>
-<td align="center">00</td>
+<tbody>
+<tr>
+<td style="text-align:center">轻量级锁</td>
+<td style="text-align:center">指向线程栈中Lock Record</td>
+<td style="text-align:center">00</td>
 </tr>
 <tr>
-<td align="center">重量级锁</td>
-<td align="center">指向互斥量的指针</td>
-<td align="center">10</td>
+<td style="text-align:center">重量级锁</td>
+<td style="text-align:center">指向互斥量的指针</td>
+<td style="text-align:center">10</td>
 </tr>
 <tr>
-<td align="center">GC标记信息</td>
-<td align="center">CMS过程用到的标记信息</td>
-<td align="center">11</td>
+<td style="text-align:center">GC标记信息</td>
+<td style="text-align:center">CMS过程用到的标记信息</td>
+<td style="text-align:center">11</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><strong>Klass Point</strong></p>
 <p>对象指向它的类元数据的指针，虚拟机通过这个指针来确定这个对象是哪个类的实例。</p>
 <p>synchronized用的锁是存在Java对象头里的，具体存在锁对象的对象头的Mark Word中。</p>
@@ -504,7 +515,6 @@
 <h2 id="锁粗化"><a href="#锁粗化" class="headerlink" title="锁粗化"></a>锁粗化</h2><p>原则上，我们在写代码时，总是推荐将同步块的作用范围限制得尽量小——只在共享数据的实际作用域中才进行同步，这样是为了使得需要同步的操作数量尽可能变少，即使存在锁竞争，等待锁的线程也尽可能快地拿到锁。</p>
 <p>大多数情况下，上面的原则都是正确的，但是如果一系列的连续操作都对同一个对象反复加锁和解锁，甚至加锁操作是出现在循环体之中的，那即使没有线程竞争，频繁地进行互斥同步操作也会导致不必要的性能损耗。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">concatString</span><span class="params">(String s1, String s2, String s3)</span></span>&#123;</span><br><span class="line">    StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">    sb.append(s1);</span><br><span class="line">    sb.append(s2);</span><br><span class="line">    sb.append(s3);</span><br><span class="line">    <span class="keyword">return</span> sb.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>上述的append()方法就属于这类情况。如果虚拟机探测到有这这样一串零碎的操作都对同一个对象加锁，将会把加锁同步的范围扩展到整个操作序列的外部，就是扩展到第一个append()操作之前直到最后一个append()操作之后，这样只需要加锁一次就可以了。</p>
 
       

@@ -391,73 +391,39 @@
       
         <p>Git 是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。Git 与常用的版本控制工具 CVS, Subversion 等不同，它采用了分布式版本库的方式，不必服务器端软件支持。</p>
  <span id="more"></span> 
-
 <h2 id="初始化git本地仓库"><a href="#初始化git本地仓库" class="headerlink" title="初始化git本地仓库"></a>初始化git本地仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
-
 <h2 id="查看工作目录和暂存区文件状态"><a href="#查看工作目录和暂存区文件状态" class="headerlink" title="查看工作目录和暂存区文件状态"></a>查看工作目录和暂存区文件状态</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
-
 <h2 id="添加工作目录文件到暂存区"><a href="#添加工作目录文件到暂存区" class="headerlink" title="添加工作目录文件到暂存区"></a>添加工作目录文件到暂存区</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add &lt;file&gt; #添加指定文件到暂存区</span><br><span class="line">git add . #添加当前目录中的所有文件到暂存区</span><br></pre></td></tr></table></figure>
-
 <h2 id="移除暂存区中的文件"><a href="#移除暂存区中的文件" class="headerlink" title="移除暂存区中的文件"></a>移除暂存区中的文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git rm &lt;file_path&gt; #删除暂存区或分支上的文件，同时工作区也不需要这个文件</span><br><span class="line">git rm --cache &lt;file_path&gt; # 删除暂存区或分支上的文件，但本地又需要使用，只是不希望这个文件被版本控制。</span><br></pre></td></tr></table></figure>
-
-
-
 <h2 id="提交暂存区文件到本地仓库"><a href="#提交暂存区文件到本地仓库" class="headerlink" title="提交暂存区文件到本地仓库"></a>提交暂存区文件到本地仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git commit</span><br><span class="line">git commit -m&#x27;提交的日志信息&#x27; #提交并记录对本地仓库的更改</span><br></pre></td></tr></table></figure>
-
 <h2 id="查看提交的日志信息"><a href="#查看提交的日志信息" class="headerlink" title="查看提交的日志信息"></a>查看提交的日志信息</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br><span class="line">git log --pretty=oneline #在一行中显式日志</span><br><span class="line">git log --graph --pretty=online #图形化日志</span><br><span class="line">git log -3 --pretty=oneline #在一行中显式最近三次提交的日志</span><br><span class="line">git reflog #查看所有日志</span><br></pre></td></tr></table></figure>
-
 <h2 id="查看本地仓库和工作区之间的更改"><a href="#查看本地仓库和工作区之间的更改" class="headerlink" title="查看本地仓库和工作区之间的更改"></a>查看本地仓库和工作区之间的更改</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff HEAD -- &lt;file&gt;</span><br></pre></td></tr></table></figure>
-
 <p>--- 表变动之前的文件；+++表变动后的文件。变动的位置用两个@作为起始和结束</p>
 <h2 id="从暂存区中撤销到工作区"><a href="#从暂存区中撤销到工作区" class="headerlink" title="从暂存区中撤销到工作区"></a>从暂存区中撤销到工作区</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git restore --staged &lt;file&gt;</span><br></pre></td></tr></table></figure>
-
 <h2 id="撤销上一次操作"><a href="#撤销上一次操作" class="headerlink" title="撤销上一次操作"></a>撤销上一次操作</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD &lt;file&gt; #撤销上一次的操作</span><br></pre></td></tr></table></figure>
-
 <h2 id="本地仓库版本回退"><a href="#本地仓库版本回退" class="headerlink" title="本地仓库版本回退"></a>本地仓库版本回退</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HEAD^ #回退到上一个版本</span><br><span class="line">git reset --hard HEAD^^ #回退两个版本</span><br><span class="line">git reset --hard HEAD~2 #回退两个版本</span><br><span class="line">git reset --hard &lt;版本的唯一标识id&gt; #回退或前进到指定id的版本</span><br></pre></td></tr></table></figure>
-
 <h2 id="查看git本地仓库中的文件目录"><a href="#查看git本地仓库中的文件目录" class="headerlink" title="查看git本地仓库中的文件目录"></a>查看git本地仓库中的文件目录</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git ls-files</span><br></pre></td></tr></table></figure>
-
 <h2 id="从本地仓库中拉取文件到工作目录"><a href="#从本地仓库中拉取文件到工作目录" class="headerlink" title="从本地仓库中拉取文件到工作目录"></a>从本地仓库中拉取文件到工作目录</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout</span><br></pre></td></tr></table></figure>
-
 <h2 id="从本地仓库中删除指定文件"><a href="#从本地仓库中删除指定文件" class="headerlink" title="从本地仓库中删除指定文件"></a>从本地仓库中删除指定文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm &lt;file&gt;</span><br></pre></td></tr></table></figure>
-
 <h2 id="git查看远程仓库地址："><a href="#git查看远程仓库地址：" class="headerlink" title="git查看远程仓库地址："></a>git查看远程仓库地址：</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
-
 <h2 id="使用本地Git客户端生成SSH公钥与私钥"><a href="#使用本地Git客户端生成SSH公钥与私钥" class="headerlink" title="使用本地Git客户端生成SSH公钥与私钥"></a>使用本地Git客户端生成SSH公钥与私钥</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
-
 <h2 id="检查测试链接"><a href="#检查测试链接" class="headerlink" title="检查测试链接"></a>检查测试链接</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-
 <h2 id="绑定远程仓库"><a href="#绑定远程仓库" class="headerlink" title="绑定远程仓库"></a>绑定远程仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin &lt;ssh&gt;</span><br></pre></td></tr></table></figure>
-
 <h2 id="将本地仓库推送到远程仓库"><a href="#将本地仓库推送到远程仓库" class="headerlink" title="将本地仓库推送到远程仓库"></a>将本地仓库推送到远程仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master #首次推送</span><br><span class="line">git push #推送</span><br><span class="line">git push origin &lt;branch_name&gt; #推送本地分支到指定远程分支</span><br></pre></td></tr></table></figure>
-
 <h2 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout &lt;branch&gt; #切换分支</span><br><span class="line">git checkout -b &lt;new_branch&gt; #新建分支并切换到新建分支</span><br></pre></td></tr></table></figure>
-
 <h2 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -d &lt;branch&gt; #删除本地分支</span><br><span class="line">git push origin :&lt;remote_branch&gt; #删除远程分支(本地分支还在)</span><br></pre></td></tr></table></figure>
-
 <h2 id="查看所有分支"><a href="#查看所有分支" class="headerlink" title="查看所有分支"></a>查看所有分支</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch #查看本地分支</span><br><span class="line">git branch -a #查看本地和远程分支</span><br></pre></td></tr></table></figure>
-
 <h2 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge &lt;branch&gt;</span><br></pre></td></tr></table></figure>
-
 <h2 id="重命名分支"><a href="#重命名分支" class="headerlink" title="重命名分支"></a>重命名分支</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -m|-M &lt;oldbranch&gt; &lt;newbranch&gt;</span><br></pre></td></tr></table></figure>
-
 <p>若newbranch名字分支已经存在，则需要使用-M为强制重命名，否则，使用-m进行重命名。</p>
 <h2 id="拉取远程仓库指定分支并在本地创建分支"><a href="#拉取远程仓库指定分支并在本地创建分支" class="headerlink" title="拉取远程仓库指定分支并在本地创建分支"></a>拉取远程仓库指定分支并在本地创建分支</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b &lt;local_branch&gt; origin/&lt;remote_branch&gt;</span><br></pre></td></tr></table></figure>
-
 <h2 id="获取远程仓库中最新的状态"><a href="#获取远程仓库中最新的状态" class="headerlink" title="获取远程仓库中最新的状态"></a>获取远程仓库中最新的状态</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch</span><br></pre></td></tr></table></figure>
-
 <h2 id="新建标签"><a href="#新建标签" class="headerlink" title="新建标签"></a>新建标签</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git tag &lt;tag_name&gt;</span><br><span class="line">git tag &lt;tag_name&gt; &lt;指定id版本&gt;</span><br></pre></td></tr></table></figure>
-
 <h2 id="添加标签并指定标签描述信息"><a href="#添加标签并指定标签描述信息" class="headerlink" title="添加标签并指定标签描述信息"></a>添加标签并指定标签描述信息</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git tag -a &lt;tag_name&gt; -m&#x27;XXX&#x27;</span><br><span class="line">git tag -a &lt;tag_name&gt; -m&#x27;XXX&#x27; &lt;指定id版本&gt;</span><br></pre></td></tr></table></figure>
-
 <h2 id="查看所有的标签"><a href="#查看所有的标签" class="headerlink" title="查看所有的标签"></a>查看所有的标签</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag</span><br></pre></td></tr></table></figure>
-
 <h2 id="删除一个本地标签"><a href="#删除一个本地标签" class="headerlink" title="删除一个本地标签"></a>删除一个本地标签</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -d &lt;tag_name&gt;</span><br></pre></td></tr></table></figure>
-
 <h2 id="推送本地标签到远程"><a href="#推送本地标签到远程" class="headerlink" title="推送本地标签到远程"></a>推送本地标签到远程</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push origin &lt;tag_name&gt; #推送本地标签到远程</span><br><span class="line">git push origin --tags #推送全部未推送过的本地标签到远程</span><br></pre></td></tr></table></figure>
-
 <h2 id="删除一个远程标签"><a href="#删除一个远程标签" class="headerlink" title="删除一个远程标签"></a>删除一个远程标签</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin :refs/tags/&lt;tag_name&gt; #远程删除，但本地的还在</span><br></pre></td></tr></table></figure>
-
 
       
     </div>

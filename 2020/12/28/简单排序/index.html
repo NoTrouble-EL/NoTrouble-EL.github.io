@@ -393,14 +393,12 @@
 <p><strong>例：</strong></p>
 <ul>
 <li>定义一个学生类Student，具体年龄age和姓名username两个属性，并通过Comparable接口提供比较规则；</li>
-<li>定义测试类Test，在测试类Test中定义测试方法Comparable getMax(Comparable c1, Comparable c2)完成测试。</li>
+<li><p>定义测试类Test，在测试类Test中定义测试方法Comparable getMax(Comparable c1, Comparable c2)完成测试。</p>
+<span id="more"></span> 
+</li>
 </ul>
- <span id="more"></span> 
-
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Student</span>&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(<span class="keyword">int</span> age, String name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">        <span class="keyword">this</span>.username = name;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.age;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> String getUsername&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.username;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUsername</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.username = name;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Student&#123;&quot;</span> + <span class="string">&quot;username=&quot;</span> + <span class="keyword">this</span>.username + <span class="string">&quot;, age=&quot;</span> + <span class="keyword">this</span>.age + <span class="string">&quot;&#125;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Student o)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.getAge() - o.getAge();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Student s1 = <span class="keyword">new</span> Student(<span class="string">&quot;zhangsan&quot;</span>,<span class="number">18</span>);</span><br><span class="line">        Student s2 = <span class="keyword">new</span> Student(<span class="string">&quot;lisi&quot;</span>,<span class="number">20</span>);</span><br><span class="line">        Comparable max = getMax(s1,s2);</span><br><span class="line">        System.out.println(max);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Comparable <span class="title">getMax</span><span class="params">(Comparable c1, Comparable c2)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> result = c1.compareTo(c2);</span><br><span class="line">        <span class="keyword">if</span>(result &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> c1;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> c2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <hr>
 <h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p><strong>需求：</strong></p>
 <ul>
@@ -412,6 +410,7 @@
 <li>比较相邻的元素，如果前一个元素比后一个元素大，就交换这两个元素的位置；</li>
 <li>对每一对相邻元素做同样的工作，从开始第一对元素到结尾的最后一对元素。最终最后位置的元素就是最大值。</li>
 </ul>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -419,7 +418,8 @@
 <th>冒泡后的结果</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>初始状态</td>
 <td>4，5，6，3，2，1</td>
 </tr>
@@ -447,8 +447,11 @@
 <td>第六次冒泡</td>
 <td>1，2，3，4，5，6</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><strong>冒泡排序API设计：</strong></p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -456,7 +459,8 @@
 <th>Bubble</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>构造方法</td>
 <td>Bubble()</td>
 </tr>
@@ -472,12 +476,12 @@
 <td></td>
 <td>private static void exch(Comparable[] a, int i, int j)：交换a数组中，索引i和索引j处的值</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><strong>冒泡排序的代码实现：</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bubble</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(Comparable[] a)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = a.length - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(greater(a[j],a[j+<span class="number">1</span>]))&#123;</span><br><span class="line">                    exch(a,j,j+<span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">greater</span><span class="params">(Comparable v, Comparable w)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> v.compareTo(w) &gt; <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">exch</span><span class="params">(Comparable[] a, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">        Comparable temp = a[i];</span><br><span class="line">        a[i] = a[j];</span><br><span class="line">        a[j] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BubbleTest</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Integer[] arr = &#123;<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>&#125;;</span><br><span class="line">        Bubble.sort(arr);</span><br><span class="line">        </span><br><span class="line">        System.out.println(Arrays.toString(arr));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>冒泡排序的时间复杂度分析</strong></p>
 <p>在最坏情况下，也就是假如要排序的元素为{6，5，4，3，2，1}，那么元素的比较次数为：$(N-1)+(N-2)…+2+1=(1+N-1)*(N-1)/2=\frac{N^2-N}{2}$元素交换次数为：$\frac{N^2-N}{2}$，总执行次数为$N^2-N$，按照大O推导法则，冒泡排序的时间复杂度为$O(N^2)$。</p>
 <hr>
@@ -491,6 +495,7 @@
 <li>每一次遍历的过程中，都假定第一个索引处的元素是最小值，和其他索引处的值依次进行比较，如果当前索引处的值大于其他某个索引处的值，则假定其他某个索引处的值为最小值，最后可以找到最小值所在的索引</li>
 <li>交换第一个索引处和最小值所在的索引处的值</li>
 </ul>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -498,7 +503,8 @@
 <th>原始数据</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>{1，6，8，7，9，2，10，4}</td>
 <td>第一趟排序Min=1</td>
 </tr>
@@ -526,8 +532,11 @@
 <td>{1，2，4，6，7，8，9，10}</td>
 <td>第七趟排序Min=9</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><strong>选择排序API设计：</strong></p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -535,7 +544,8 @@
 <th>Selection</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>构造方法</td>
 <td>Selection()</td>
 </tr>
@@ -551,12 +561,12 @@
 <td></td>
 <td>private static void exch(Comparable[] a, int i, int j)</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><strong>选择排序的代码实现：</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Selection</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(Comparable[] a)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; a.length - <span class="number">1</span>; i++)&#123;</span><br><span class="line">            <span class="comment">//定义一个变量，记录最小元素所在的索引，默认为参与选择排序的第一个元素</span></span><br><span class="line">            <span class="keyword">int</span> minIndex = i;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; a.length; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(greater(a[minIndex],a[j]))&#123;</span><br><span class="line">                    minIndex = j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            exch(a,i,minIndex);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">greater</span><span class="params">(Comparable v, Comparable m)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> v.compareTo(w) &gt; <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">exch</span><span class="params">(Comparable[] a, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">        Comparable temp;</span><br><span class="line">        temp = a[i];</span><br><span class="line">        a[i] = a[j];</span><br><span class="line">        a[j] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SelectionTest</span></span>&#123;</span><br><span class="line">    Integer[] arr = &#123;<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="number">2</span>,<span class="number">10</span>,<span class="number">1</span>&#125;;</span><br><span class="line">    Selection.sort(arr);</span><br><span class="line">    </span><br><span class="line">    System.out.println(Arrays.toString(arr));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>选择排序的时间复杂度分析：</strong></p>
 <p>数据比较的次数：$(N-1)+(N-2)..+2+1=\frac{N^2-N}{2}$，数据交换次数：N-1，时间复杂度为$O(N^2)$。</p>
 <hr>
@@ -571,6 +581,7 @@
 <li>找到未排序的组中第一个元素，向已排序的组中进行插入；</li>
 <li>倒叙遍历已经排序的元素，依次和待插入的元素进行比较，直到找到一个元素小于等于待插入元素，那么就把待插入元素放到这个位置，其他的元素向后移动一位。</li>
 </ul>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -578,7 +589,8 @@
 <th>原始数据</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>{4，3，2，10，12，1，5，6}</td>
 <td>第一趟排序(待插入数字为3)</td>
 </tr>
@@ -610,8 +622,11 @@
 <td>{1，2，3，4，5，6，10，12}</td>
 <td>最终结果</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><strong>插入排序API设计：</strong></p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -619,7 +634,8 @@
 <th>Insertion</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>构造方法</td>
 <td>Insertion()</td>
 </tr>
@@ -635,12 +651,12 @@
 <td></td>
 <td>private static void exch(Comparable[] a, int i, int j)</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><strong>插入排序代码实现：</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Insertion</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(Comparable[] a)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; a.length; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &gt; <span class="number">0</span>; j--)&#123;</span><br><span class="line">                <span class="keyword">if</span>(greater(a[j-<span class="number">1</span>],a[j]))&#123;</span><br><span class="line">                    exch(a,j-<span class="number">1</span>,j);</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">greater</span><span class="params">(Comparable v, Comparable w)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> v.compareTo(w) &gt; <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">exch</span><span class="params">(Comparable[] a, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">        Comparable temp;</span><br><span class="line">        temp = a[i];</span><br><span class="line">        a[i] = a[j];</span><br><span class="line">        a[j] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InsertionTest</span></span>&#123;</span><br><span class="line">    Integer[] arr = &#123;<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="number">2</span>,<span class="number">10</span>,<span class="number">1</span>&#125;;</span><br><span class="line">    Inserction.sort(arr);</span><br><span class="line">    </span><br><span class="line">    System.out.println(Arrays.toString(arr));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>插入排序的时间复杂度分析：</strong></p>
 <p>在最坏情况下，比较次数为：$(N-1)+(N-2)…+2+1=\frac{N^2-N}{2}$，交换次数为：$\frac{N^2-N}{2}$，执行总次数为：$N^2-N$，因此插入排序的时间复杂度为：$O(N^2)$。</p>
 

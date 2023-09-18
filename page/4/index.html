@@ -689,8 +689,7 @@
         
           <h2 id="和-的区别是什么"><a href="#和-的区别是什么" class="headerlink" title="#{}和${}的区别是什么"></a>#{}和${}的区别是什么</h2><ul>
 <li>${}是Properties文件中的变量占位符，它可以用于标签属性值和sql内部，属于静态文本替换，比如${driver}会被静态替换为com.mysql.jdbc.Driver。${}是字符串替换，Mybatis在处理${}时，就是把${}替换成变量的值</li>
-<li>#{}是预编译处理，Mybatis在处理时，会将sql中的#{}替换为?，调用PreparedStatement的set方法来赋值，#{}可以有效的防止SQL注入，提高系统安全性</li>
-</ul>
+<li><p>#{}是预编译处理，Mybatis在处理时，会将sql中的#{}替换为?，调用PreparedStatement的set方法来赋值，#{}可以有效的防止SQL注入，提高系统安全性</p></li></ul>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2021/08/19/MyBatis%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/#more" rel="contents">
@@ -990,8 +989,7 @@
 <li>第一行是包含了请求方法、URL、协议版本；</li>
 <li>接下来的多行都是请求首部Header，每个首部都有一个首部名称，以及对应的值；</li>
 <li>一个空行用来分隔首部和内容主体Body</li>
-<li>最后是请求的内容主体</li>
-</ul>
+<li><p>最后是请求的内容主体</p></li></ul>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2021/08/15/HTTP%E5%8D%8F%E8%AE%AE/#more" rel="contents">
@@ -1153,8 +1151,7 @@
 </ul>
 <p>DBMS数据库管理系统</p>
 <ul>
-<li>数据库的管理软件，科学有效的管理我们的数据</li>
-</ul>
+<li><p>数据库的管理软件，科学有效的管理我们的数据</p></li></ul>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2021/08/12/MySQL%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/#more" rel="contents">
@@ -1449,22 +1446,16 @@
       
         
           <h2 id="几个核心的成员变量"><a href="#几个核心的成员变量" class="headerlink" title="几个核心的成员变量"></a>几个核心的成员变量</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_INITIAL_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">4</span>; <span class="comment">// aka 16</span></span><br></pre></td></tr></table></figure>
-
 <p>初始化桶的大小，因为底层为数组，所以这是数组的默认大小为16</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAXIMUM_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">30</span>;</span><br></pre></td></tr></table></figure>
-
 <p>桶的最大值为$2^{30}$</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> DEFAULT_LOAD_FACTOR = <span class="number">0.75f</span>;</span><br></pre></td></tr></table></figure>
-
 <p>默认的负载因子为0.75</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">transient</span> <span class="keyword">int</span> size;</span><br></pre></td></tr></table></figure>
-
 <p>Map中key-value的个数</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> threshold;</span><br></pre></td></tr></table></figure>
-
 <p>扩容的临界值，当实际K-V个数超过threshold时，HashMap会将数组长度扩容，threshold=capacity*loadFactor</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">float</span> loadFactor;</span><br></pre></td></tr></table></figure>
-
 <p>负载因子</p>
           <!--noindex-->
           <div class="post-button text-center">
@@ -1764,8 +1755,7 @@
 <ul>
 <li>一边比较一边向后两两交换，将最大值/最小值冒泡到最后一位；</li>
 <li>经过优化写法：使用一个变量记录当前轮次的比较是否发生过交换，如果没有发生过交换表示已经有序，不需要再继续排序；</li>
-<li>进一步优化的写法：除了使用一个变量记录当前轮次是否发生过交换，再使用一个变量记录上次发生交换的位置，下一轮排序时到达上次交换的位置就停止比较。</li>
-</ul>
+<li><p>进一步优化的写法：除了使用一个变量记录当前轮次是否发生过交换，再使用一个变量记录上次发生交换的位置，下一轮排序时到达上次交换的位置就停止比较。</p></li></ul>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2021/08/03/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E5%85%A8%E8%A7%A3%E6%9E%90/#more" rel="contents">

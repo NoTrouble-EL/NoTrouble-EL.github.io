@@ -93,15 +93,15 @@
 <meta property="og:site_name" content="NoTrouble&#39;s Blog">
 <meta property="og:description" content="首先，我们需要指出的是String(字符串)、List(列表)、Hash(哈希)、Set(集合)和Zset(有序集合)并不是数据结构，这些都是Redis中常用的数据类型。所说的数据结构是指这些数据类型的底层实现方式。">
 <meta property="og:locale">
-<meta property="og:image" content="http://yoursite.com/2021/12/02/Redis%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB.png">
-<meta property="og:image" content="http://yoursite.com/2021/12/02/Redis%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png">
-<meta property="og:image" content="http://yoursite.com/2021/12/02/Redis%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/SDS%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/02/Redis%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/数据类型和数据结构对应关系.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/02/Redis%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/字符串的数据结构.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/02/Redis%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/SDS的数据结构.png">
 <meta property="article:published_time" content="2021-12-02T07:48:11.000Z">
 <meta property="article:modified_time" content="2021-12-02T07:48:11.000Z">
 <meta property="article:author" content="NoTrouble">
 <meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2021/12/02/Redis%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB.png">
+<meta name="twitter:image" content="http://yoursite.com/2021/12/02/Redis%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/数据类型和数据结构对应关系.png">
 
 
 
@@ -394,14 +394,13 @@
       
         <p>首先，我们需要指出的是String(字符串)、List(列表)、Hash(哈希)、Set(集合)和Zset(有序集合)并不是数据结构，这些都是Redis中常用的数据类型。所说的数据结构是指这些数据类型的底层实现方式。</p>
  <span id="more"></span> 
-
 <p>Redis底层的数据结构一共有6种，其和数据类型的对应关系如下：</p>
-<p><img src="/2021/12/02/Redis%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB.png"></p>
+<p><img src="/2021/12/02/Redis%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/数据类型和数据结构对应关系.png" alt></p>
 <h2 id="SDS"><a href="#SDS" class="headerlink" title="SDS"></a>SDS</h2><p>字符串在Redis中是很常用的，键值对中的键是字符串，值有时也是字符串。</p>
 <p>Redis是使用C语言来实现的，但是它没有直接使用C语言中的char*字符串数组来实现字符串，而是自己封装了一个名为简单动态字符串(simple dynamic string，SDS)的数据结构来表示字符串，也就是说Redis的String数据类型的底层结构为SDS。</p>
 <p><strong>C语言字符串的缺陷</strong></p>
 <p>C语言的字符串其实就是一个字符数组，即数组中的每个元素都是字符串的一个字符。例如，下图就是字符串“xiaohupao”的char*字符数组的结构：</p>
-<p><img src="/2021/12/02/Redis%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png"></p>
+<p><img src="/2021/12/02/Redis%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/字符串的数据结构.png" alt></p>
 <p>可以看到最后一个字符是“\0”。在C语言中，对字符串操作时，char*指针只是指向字符数组的起始位置，而字符数组的结尾位置就是使用“\0”表示，意思是指字符串的结束。</p>
 <p>因此，在C语言标准库中字符串的操作函数，就是通过判断字符是不是“\0”，如果不是的话，说明字符串还没有结束，可以继续操作，如果是则说明字符串结束了，停止操作。</p>
 <p>举个例子，C语言获取字符串长度的函数strlen，就是通过字符数组中的每一个字符，并进行计数，等遇到字符为“\0”后，就会停止遍历，然后返回已经统计到的字符个数，即为字符串长度。可以看出，C语言获取字符串长度的时间复杂度为O(N)。</p>
@@ -418,7 +417,7 @@
 </ul>
 <p><strong>SDS的设计</strong></p>
 <p>如图为Redis5.0中SDS的数据结构：</p>
-<p><img src="/2021/12/02/Redis%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/SDS%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png"></p>
+<p><img src="/2021/12/02/Redis%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/SDS的数据结构.png" alt></p>
 <p>结构中的每个成员变量分别介绍下：</p>
 <ul>
 <li>len：SDS所保存的字符串长度。这样获取字符串长度的时候，只需要返回这个变量的值就行，时间复杂度只需要O(1)。</li>
@@ -437,27 +436,22 @@
 <p><strong>节省内存空间</strong></p>
 <p>​    SDS结构中有个flags成员变量，表示的是SDS类型。Redis一共设计了5种类型，分别是sdshdr5、sdshdr8、sdshdr16、sdshdr32和sdshdr64。这5种类型的主要区别就在于，它们数据结构中的len和alloc成员变量的数据类型不同，例如sdshdr16和sdshdr32这两个类型，它们的定义分别如下：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">attribute__</span> ((__<span class="title">packed__</span>)) <span class="title">sdshdr16</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint16_t</span> len;</span><br><span class="line">    <span class="keyword">uint16_t</span> alloc; </span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> flags; </span><br><span class="line">    <span class="keyword">char</span> buf[];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">attribute__</span> ((__<span class="title">packed__</span>)) <span class="title">sdshdr32</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint32_t</span> len;</span><br><span class="line">    <span class="keyword">uint32_t</span> alloc; </span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> flags;</span><br><span class="line">    <span class="keyword">char</span> buf[];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 <p>可以看到sdshdr16类型的len和alloc的数据类型都是unit16_t，表示字符数组长度和分配空间大小不能超过2的16次方。sdshdr32则都是uint32_t，表示字符数组长度和分配空间大小不能超过2的32次方。</p>
 <p>之所以SDS设计不同类型的结构体，是为了能灵活保存不同大小的字符串，从而有效节省内存空间。比如，在保存小字符串时，结构头占用空间也比较少。</p>
-<p>除了设计不同类型的结构体，Redis在编程上还使用了专门的编译优化来节省内存空间，即在struct声明了_<em>attribute_</em>((<strong>packed</strong>))，它的作用是：告诉编译器取消结构在编译过程中的优化对齐，按照实际占用字节数进行对齐。例如，sdshdr16类型的SDS，默认情况下，编译器会按照16字节对齐的方生给变量分配内存，这意味着，即使一个变量的大小不到16字节，编译器也会给它分配16个字节。例如，假设下面这个结构体，它有两个成员变量，类型分别是char和int，如下所示：</p>
+<p>除了设计不同类型的结构体，Redis在编程上还使用了专门的编译优化来节省内存空间，即在struct声明了__attribute__((<strong>packed</strong>))，它的作用是：告诉编译器取消结构在编译过程中的优化对齐，按照实际占用字节数进行对齐。例如，sdshdr16类型的SDS，默认情况下，编译器会按照16字节对齐的方生给变量分配内存，这意味着，即使一个变量的大小不到16字节，编译器也会给它分配16个字节。例如，假设下面这个结构体，它有两个成员变量，类型分别是char和int，如下所示：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"> <span class="class"><span class="keyword">struct</span> <span class="title">test1</span> &#123;</span></span><br><span class="line">    <span class="keyword">char</span> a;</span><br><span class="line">    <span class="keyword">int</span> b;</span><br><span class="line"> &#125; test1;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="built_in">printf</span>(<span class="string">&quot;%lu\n&quot;</span>, <span class="keyword">sizeof</span>(test1));</span><br><span class="line">     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>这个结构体大小是8字节。这是因为默认情况下，编译器是使用字节对齐的方式分配内存，虽然char类型只占1个字节，但是由于成员变量有int类型，它占用了4个字节，所以在成员变量为char类型分配内存时，会分配4个字节，其中这多余的3个字节是为了字节对齐和被分配的，相当于有3字节被浪费掉了。</p>
 <p>如果不想编译器使用字节对齐的方式进行分配内存，可以采用__attribute__ ((packed))属性定义结构体，这样一来，结构体实际占用多少内存空间，编译器就会分配多少空间。例如，使用__attribute__ ((packed))属性定义下面的结构体，同样包含char和int两个类型的成员变量，代码如下所示：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">attribute__</span>((<span class="title">packed</span>)) <span class="title">test2</span>  &#123;</span></span><br><span class="line">    <span class="keyword">char</span> a;</span><br><span class="line">    <span class="keyword">int</span> b;</span><br><span class="line"> &#125; test2;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="built_in">printf</span>(<span class="string">&quot;%lu\n&quot;</span>, <span class="keyword">sizeof</span>(test2));</span><br><span class="line">     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>这时候打印的结构为5(1个字节char+4个字节int)。</p>
 <h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><p>Redis的list数据类型的底层实现之一就是链表。C语言本身也是没有链表这个数据结构的，所以Redis自己设计了一个链表数据结构。</p>
 <p><strong>链表节点结构设计</strong></p>
 <p>先来看看链表节点结构的样子：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">listNode</span> &#123;</span></span><br><span class="line">    <span class="comment">//前置节点</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">listNode</span> *<span class="title">prev</span>;</span></span><br><span class="line">    <span class="comment">//后置节点</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">listNode</span> *<span class="title">next</span>;</span></span><br><span class="line">    <span class="comment">//节点的值</span></span><br><span class="line">    <span class="keyword">void</span> *value;</span><br><span class="line">&#125; listNode;</span><br></pre></td></tr></table></figure>
-
 <p>有前置节点和后置节点，可以看出，这是一个双向链表。</p>
 <p><strong>链表结构设计</strong></p>
 <p>不过，Redis在listNode结构基础上又封装了list这个数据结构，这样操作起来会更加方便，链表结构如下：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">list</span> &#123;</span></span><br><span class="line">    <span class="comment">//链表头节点</span></span><br><span class="line">    listNode *head;</span><br><span class="line">    <span class="comment">//链表尾节点</span></span><br><span class="line">    listNode *tail;</span><br><span class="line">    <span class="comment">//节点值复制函数</span></span><br><span class="line">    <span class="keyword">void</span> *(*dup)(<span class="keyword">void</span> *ptr);</span><br><span class="line">    <span class="comment">//节点值释放函数</span></span><br><span class="line">    <span class="keyword">void</span> (*<span class="built_in">free</span>)(<span class="keyword">void</span> *ptr);</span><br><span class="line">    <span class="comment">//节点值比较函数</span></span><br><span class="line">    <span class="keyword">int</span> (*match)(<span class="keyword">void</span> *ptr, <span class="keyword">void</span> *key);</span><br><span class="line">    <span class="comment">//链表节点数量</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> len;</span><br><span class="line">&#125; <span class="built_in">list</span>;</span><br></pre></td></tr></table></figure>
-
 <p>list结构为链表提供了头指针head、链表尾节点tail、链表节点数量len、以及可以自定义实现的dup、free、match函数。</p>
 <p>Redis的链表实现优点如下：</p>
 <ul>

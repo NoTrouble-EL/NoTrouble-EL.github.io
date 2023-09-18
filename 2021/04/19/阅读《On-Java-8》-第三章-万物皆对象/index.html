@@ -86,12 +86,12 @@
 
 
 
-<meta name="description" content="对象操作​        Java利用万物皆对象的思维和单一一致的语法方式来简化问题。虽然万物皆对象，但我们所操纵的标识符实际上只是对象的引用。 ​        下面来创建一个String引用，用于保存单词或语句： 1String s;  ​        这里只是创建一个String对象的引用，而非对象。直接拿出来会出现错误：因为此时你并没有给变量s赋值——指向任何对象。通常更安全的做法是：创">
+<meta name="description" content="对象操作​        Java利用万物皆对象的思维和单一一致的语法方式来简化问题。虽然万物皆对象，但我们所操纵的标识符实际上只是对象的引用。 ​        下面来创建一个String引用，用于保存单词或语句： 1String s; ​        这里只是创建一个String对象的引用，而非对象。直接拿出来会出现错误：因为此时你并没有给变量s赋值——指向任何对象。通常更安全的做法是：创建">
 <meta property="og:type" content="article">
 <meta property="og:title" content="阅读《On Java 8》--第三章 万物皆对象">
 <meta property="og:url" content="http://yoursite.com/2021/04/19/%E9%98%85%E8%AF%BB%E3%80%8AOn-Java-8%E3%80%8B-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E4%B8%87%E7%89%A9%E7%9A%86%E5%AF%B9%E8%B1%A1/index.html">
 <meta property="og:site_name" content="NoTrouble&#39;s Blog">
-<meta property="og:description" content="对象操作​        Java利用万物皆对象的思维和单一一致的语法方式来简化问题。虽然万物皆对象，但我们所操纵的标识符实际上只是对象的引用。 ​        下面来创建一个String引用，用于保存单词或语句： 1String s;  ​        这里只是创建一个String对象的引用，而非对象。直接拿出来会出现错误：因为此时你并没有给变量s赋值——指向任何对象。通常更安全的做法是：创">
+<meta property="og:description" content="对象操作​        Java利用万物皆对象的思维和单一一致的语法方式来简化问题。虽然万物皆对象，但我们所操纵的标识符实际上只是对象的引用。 ​        下面来创建一个String引用，用于保存单词或语句： 1String s; ​        这里只是创建一个String对象的引用，而非对象。直接拿出来会出现错误：因为此时你并没有给变量s赋值——指向任何对象。通常更安全的做法是：创建">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-04-19T05:33:51.000Z">
 <meta property="article:modified_time" content="2021-04-19T05:33:51.000Z">
@@ -392,16 +392,12 @@
         <h2 id="对象操作"><a href="#对象操作" class="headerlink" title="对象操作"></a>对象操作</h2><p>​        Java利用万物皆对象的思维和单一一致的语法方式来简化问题。虽然万物皆对象，但我们所操纵的标识符实际上只是对象的引用。</p>
 <p>​        下面来创建一个String引用，用于保存单词或语句：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s;</span><br></pre></td></tr></table></figure>
-
 <p>​        这里只是创建一个String对象的引用，而非对象。直接拿出来会出现错误：因为此时你并没有给变量s赋值——指向任何对象。通常更安全的做法是：创建一个引用的同时进行初始化：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="string">&quot;asdf&quot;</span>;</span><br></pre></td></tr></table></figure>
-
 <p>​        Java语法允许我们使用带双引号的文本内容来初始化字符串，同样，其他类型的对象也有相应的初始化方式。</p>
  <span id="more"></span> 
-
 <h2 id="对象创建"><a href="#对象创建" class="headerlink" title="对象创建"></a>对象创建</h2><p>​        “引用”用来关联“对象”。在Java中，通常我们使用new操作符来创建一个对象。new关键字代表：创建一个新的对象实例。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="keyword">new</span> String(<span class="string">&quot;asdf&quot;</span>);</span><br></pre></td></tr></table></figure>
-
 <p>​        以上展示了字符串对象的创建过程，以及如何初始化生成字符串。除了String类型以外，Java本身带了许多现成的数据类型。除此之外，我们还可以创建自己的数据类型。</p>
 <h3 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h3><p>​        那么，程序在运行时是如何存储的呢？尤其是内存是怎么分配的。有5个不同的地方可以存储数据：</p>
 <ul>
@@ -413,92 +409,92 @@
 </ul>
 <h3 id="基本类型的存储"><a href="#基本类型的存储" class="headerlink" title="基本类型的存储"></a>基本类型的存储</h3><p>​        有一组类型在Java中使用频率很高，它们需要特殊对待，这就是Java的基本类型。之所以这么说，是因为它们的创建不是通过new关键字来产生的。通常new出来的对象都是自动保存在堆内存中的，以此方式创建小而简单的变量往往是不划算。所以对于这些基本类型的创建方法，Java使用了和C/C++一样的策略。也就是说，不是使用new创建变量，而是使用一个“自动”变量。这个变量直接存储“值”，并置于栈内存中，因此更加高效。</p>
 <p>​        Java确定了每种基本类型的内存占用大小。这些大小不会像其他一些语言那样随着机器环境的变化而变化。这种不变性也是Java更具可移植性的一个原因。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center">基本类型</th>
-<th align="center">大小</th>
-<th align="center">最小值</th>
-<th align="center">最大值</th>
-<th align="center">包装类型</th>
+<th style="text-align:center">基本类型</th>
+<th style="text-align:center">大小</th>
+<th style="text-align:center">最小值</th>
+<th style="text-align:center">最大值</th>
+<th style="text-align:center">包装类型</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">boolean</td>
-<td align="center">——</td>
-<td align="center">——</td>
-<td align="center">——</td>
-<td align="center">Boolean</td>
+<tbody>
+<tr>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center">——</td>
+<td style="text-align:center">——</td>
+<td style="text-align:center">——</td>
+<td style="text-align:center">Boolean</td>
 </tr>
 <tr>
-<td align="center">char</td>
-<td align="center">16bits</td>
-<td align="center">Unicode0</td>
-<td align="center">Unicode$2^{16}-1$</td>
-<td align="center">Character</td>
+<td style="text-align:center">char</td>
+<td style="text-align:center">16bits</td>
+<td style="text-align:center">Unicode0</td>
+<td style="text-align:center">Unicode$2^{16}-1$</td>
+<td style="text-align:center">Character</td>
 </tr>
 <tr>
-<td align="center">byte</td>
-<td align="center">8bits</td>
-<td align="center">-128</td>
-<td align="center">+127</td>
-<td align="center">Byte</td>
+<td style="text-align:center">byte</td>
+<td style="text-align:center">8bits</td>
+<td style="text-align:center">-128</td>
+<td style="text-align:center">+127</td>
+<td style="text-align:center">Byte</td>
 </tr>
 <tr>
-<td align="center">short</td>
-<td align="center">16bits</td>
-<td align="center">$-2^{15}$</td>
-<td align="center">$+2^{15}-1$</td>
-<td align="center">Short</td>
+<td style="text-align:center">short</td>
+<td style="text-align:center">16bits</td>
+<td style="text-align:center">$-2^{15}$</td>
+<td style="text-align:center">$+2^{15}-1$</td>
+<td style="text-align:center">Short</td>
 </tr>
 <tr>
-<td align="center">int</td>
-<td align="center">32bits</td>
-<td align="center">$-2^{31}$</td>
-<td align="center">$+2^{31}-1$</td>
-<td align="center">Integer</td>
+<td style="text-align:center">int</td>
+<td style="text-align:center">32bits</td>
+<td style="text-align:center">$-2^{31}$</td>
+<td style="text-align:center">$+2^{31}-1$</td>
+<td style="text-align:center">Integer</td>
 </tr>
 <tr>
-<td align="center">long</td>
-<td align="center">64bits</td>
-<td align="center">$-2^{63}$</td>
-<td align="center">$+2^{63}-1$</td>
-<td align="center">Long</td>
+<td style="text-align:center">long</td>
+<td style="text-align:center">64bits</td>
+<td style="text-align:center">$-2^{63}$</td>
+<td style="text-align:center">$+2^{63}-1$</td>
+<td style="text-align:center">Long</td>
 </tr>
 <tr>
-<td align="center">float</td>
-<td align="center">32bits</td>
-<td align="center">IEEE754</td>
-<td align="center">IEEE754</td>
-<td align="center">Float</td>
+<td style="text-align:center">float</td>
+<td style="text-align:center">32bits</td>
+<td style="text-align:center">IEEE754</td>
+<td style="text-align:center">IEEE754</td>
+<td style="text-align:center">Float</td>
 </tr>
 <tr>
-<td align="center">double</td>
-<td align="center">64bits</td>
-<td align="center">IEEE754</td>
-<td align="center">IEEE754</td>
-<td align="center">Double</td>
+<td style="text-align:center">double</td>
+<td style="text-align:center">64bits</td>
+<td style="text-align:center">IEEE754</td>
+<td style="text-align:center">IEEE754</td>
+<td style="text-align:center">Double</td>
 </tr>
 <tr>
-<td align="center">void</td>
-<td align="center">——</td>
-<td align="center">——</td>
-<td align="center">——</td>
-<td align="center">Void</td>
+<td style="text-align:center">void</td>
+<td style="text-align:center">——</td>
+<td style="text-align:center">——</td>
+<td style="text-align:center">——</td>
+<td style="text-align:center">Void</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>​        所有的数值类型都是有正/负符号的。布尔(boolean)类型的大小没有明确规定，通常定义为字面值“true”或“false”。基本类型有有自己对应的包装类型，如果你希望在堆内存里表示基本类型的数据，就需要用到它们的包装类型。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> c = <span class="string">&#x27;x&#x27;</span>;</span><br><span class="line">Character ch = <span class="keyword">new</span> Character(c);</span><br></pre></td></tr></table></figure>
-
 <p>​        或者你也可以使用下面的形式：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Character ch = <span class="keyword">new</span> Character(<span class="string">&#x27;x&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
 <p>​        基本类型自动转换成包装类型(自动装箱)：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Character ch = <span class="string">&#x27;x&#x27;</span>;	</span><br></pre></td></tr></table></figure>
-
 <p>​        相对应的，包装类型转换为基本类型(自动拆箱)：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> c = ch;</span><br></pre></td></tr></table></figure>
-
 <h3 id="高精度数值"><a href="#高精度数值" class="headerlink" title="高精度数值"></a>高精度数值</h3><p>​        在Java中有两种类型的数据可用于高精度的计算。它们是BigInteger和BigDecimal。尽管它们大致可以划归为“包装类型”，但是它们并没有对应的基本类型。</p>
 <p>​        这两个类包含的方法提供的操作，与对基本类型执行的操作相似。也就是说，能对int或float做的运算，在BigDecimal和BigInteger这里也同样可以，只不过必须通过调用它们的方法来实现而非运算符。此外，由于涉及到的计算量更多，所以运行速度会慢一些。诚然，我们牺牲了速度，换取了精度。</p>
 <p>​        BigInteger支持任意精度的整数。可用于精确表示任意大小的整数值，同时在运算过程中不会丢失精度。BigDecimal支持任意精度的定点数字。例如，可用于精确的货币计算。</p>
@@ -508,111 +504,97 @@
 <p>​        我们还可以创建基本类型的数组。编译器通过将该数组的内存全部置为零来保证初始化。</p>
 <h2 id="代码注释"><a href="#代码注释" class="headerlink" title="代码注释"></a>代码注释</h2><p>​        Java中有两种类型的注释。第一种是传统的C风格的注释，以/*开头，可以跨越多行，到*/结束。注意，许多程序员在多行注释的每一行开头添加*，所以你会看到：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">*这是跨越</span></span><br><span class="line"><span class="comment">*多行的注释</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-
 <p>​        第二种注释形式来自C++。它是单行注释，以//开头并一直持续到行结束。这种注释方便且常用，因为直观简单。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这是单行注释</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="对象请理"><a href="#对象请理" class="headerlink" title="对象请理"></a>对象请理</h2><p>​        在一些编程语言中，管理变量的生命周期需要大量的工作。一个变量需要存活多久？如果我们想要销毁它，应该什么时候去做呢？变量生命周期的混乱会导致许多bug。</p>
 <h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><p>​        作用域决定了在该范围内定义的变量名的可见性和生命周期。在C、C++、Java中，作用域由大括号{}的位置决定的。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> x = <span class="number">12</span>;</span><br><span class="line">    <span class="comment">//仅x变量可以使用</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> q = <span class="number">96</span>;</span><br><span class="line">        <span class="comment">//x和q变量皆可使用</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//仅x变量可用</span></span><br><span class="line">    <span class="comment">//变量q不在作用域中</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>​        Java的变量只有在其作用域才可用。缩进使得Java代码更易于阅读。由于Java是一种自由格式的语言，额外的空格、制表符和回车并不会影响程序的执行结构。在Java中，你不能执行以下操作，即使这这C和C++中是合法的：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> x = <span class="number">12</span>;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">96</span>;<span class="comment">//Illegal</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>​        在上例中，Java编译器在提示变量x已经被定义过了。</p>
 <h3 id="对象作用域"><a href="#对象作用域" class="headerlink" title="对象作用域"></a>对象作用域</h3><p>​        Java对象与基本类型具有不同的生命周期。当我们使用new关键字来创建Java对象时，它的生命周期将会超出作用域。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    String s = <span class="keyword">new</span> String(<span class="string">&quot;a string&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//作用域终点</span></span><br></pre></td></tr></table></figure>
-
 <p>​        上例中，引用s在作用域终点就结束了。但是，引用s指向的字符串对象依然还占用内存。这段代码中，我们无法在这个作用域之后访问这个对象，因为唯一对它的引用s已超出了作用域的范围。</p>
 <p>​        只要你需要，new出来的对象就会一直存活下去。相比C++编码中操作内存可能会出现的诸多问题，这些困扰在Java中都不复存在了。在C++中你不仅要确保对象的内存在你的操作的范围内存在，还必须在使用完它们之后，将其销毁。</p>
 <p>​        那么问题来了：我们在Java中没有主动清理这些对象，那么它是如何避免C++中出现的内存被填满从而阻塞程序的问题的呢？答案是：Java的垃圾收集器会检查所有new出来的对象并判断哪些不再可达，继而释放那些被占用的内存，供其他新对象使用。也就是说，我们不必再担心内存回收的问题了。你只需要简单创建对象即可。当其不再被需要时，能自行被垃圾收集器释放。垃圾回收机制有效防止了因程序员忘记释放内存而造成的“内存泄露”问题。</p>
 <h2 id="类的创建"><a href="#类的创建" class="headerlink" title="类的创建"></a>类的创建</h2><h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><p>​        通常在class关键字的后面的紧跟类的名称。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ATypeName</span></span>&#123;</span><br><span class="line">    <span class="comment">//这里是类的内部</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>​        尽管这个类只有一行注释，我们还是一样可以通过new关键字来创建这一种类型的对象：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ATypeName a = <span class="keyword">new</span> ATypeName();</span><br></pre></td></tr></table></figure>
-
 <p>​        我们还不能用这个对象来做什么事(即不能向它发送任何有意义的消息)，除非我们在这个类里定义一些方法。</p>
 <h3 id="字段"><a href="#字段" class="headerlink" title="字段"></a>字段</h3><p>​        当我们创建好了一个类之后，我们可以往类里存放两种类型的元素：方法(method)和字段(field)。类的字段可以是基本类型，也可以是引用类型。如果类的字段是对某个对象的引用，那么必须要初始化该引用将其关联到一个实际的对象上。每个对象都有其存储其字段的空间。通常，字段不在对象间共享。下面是一个具有某些字段的类的代码实例：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DataOnly</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i; </span><br><span class="line">    <span class="keyword">double</span> d;</span><br><span class="line">    <span class="keyword">boolean</span> b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>​        这个类除了存储数据之外什么也不能做。但是，我们仍然可以通过下面的代码来创建它的一个对象：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DataOnly data = <span class="keyword">new</span> DataOnly();</span><br></pre></td></tr></table></figure>
-
 <p>​        我们必须通过这个对象的引用来指定字段值。格式：对象名称.方法名或字段名称。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data.i = <span class="number">47</span>;</span><br><span class="line">data.d = <span class="number">1.1</span>;</span><br><span class="line">data.b = <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
-
 <p>​        如果你想修改对象内包含的另外一个对象的数据，可以通过这样的格式修改：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myPlane.leftTank.capacity = <span class="number">100</span>;</span><br></pre></td></tr></table></figure>
-
 <p>​        你可以用这种方式嵌套许多对象(尽管这样的设计会带来混乱)。</p>
 <h3 id="基本类型默认值"><a href="#基本类型默认值" class="headerlink" title="基本类型默认值"></a>基本类型默认值</h3><p>​        如果类的成员变量(字段)是基本类型，那么在类初始化时，这些类将会被赋予一个初始值。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center">基本类型</th>
-<th align="center">初始值</th>
+<th style="text-align:center">基本类型</th>
+<th style="text-align:center">初始值</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">boolean</td>
-<td align="center">false</td>
+<tbody>
+<tr>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center">false</td>
 </tr>
 <tr>
-<td align="center">char</td>
-<td align="center">\u0000</td>
+<td style="text-align:center">char</td>
+<td style="text-align:center">\u0000</td>
 </tr>
 <tr>
-<td align="center">byte</td>
-<td align="center">(byte)0</td>
+<td style="text-align:center">byte</td>
+<td style="text-align:center">(byte)0</td>
 </tr>
 <tr>
-<td align="center">short</td>
-<td align="center">(short)0</td>
+<td style="text-align:center">short</td>
+<td style="text-align:center">(short)0</td>
 </tr>
 <tr>
-<td align="center">int</td>
-<td align="center">0</td>
+<td style="text-align:center">int</td>
+<td style="text-align:center">0</td>
 </tr>
 <tr>
-<td align="center">long</td>
-<td align="center">0L</td>
+<td style="text-align:center">long</td>
+<td style="text-align:center">0L</td>
 </tr>
 <tr>
-<td align="center">float</td>
-<td align="center">0.0f</td>
+<td style="text-align:center">float</td>
+<td style="text-align:center">0.0f</td>
 </tr>
 <tr>
-<td align="center">double</td>
-<td align="center">0.0</td>
+<td style="text-align:center">double</td>
+<td style="text-align:center">0.0</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>​        这些默认值仅在Java值初始化类的时候才会被赋予。这种方式确保了基本类型的字段始终能被初始化，从而减少bug的来源。但是，这些初始值对于程序来说并不一定是合法或者正确的。所以，为了安全，我们最好始终显示地初始化变量。</p>
 <p>​        这种默认值的赋予并不适合用于局部变量——那些不属于类的字段的变量。因此，若在方法中定义的基本类型数据，如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x;</span><br></pre></td></tr></table></figure>
-
 <p>​        这里的变量x不会自动初始化为0，因而在使用变量x之前，程序员有责任主动地为其赋值。如果我们忘记了这一步，Java将会提示我们“编译时错误，该变量可能尚未被初始化”。这一点做的比C++更好，在后者中，编译器只是提示警告，而在Java中则直接报错。</p>
 <h3 id="方法使用"><a href="#方法使用" class="headerlink" title="方法使用"></a>方法使用</h3><p>​        在Java中，我们使用方法(method)来表示“做某事的方式”。在Java中，方法决定对象能接受哪些消息。方法的基本组成部分包括名称、参数、返回类型、方法体。格式如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[返回类型][方法名](<span class="comment">/*参数列表*/</span>)&#123;</span><br><span class="line">    <span class="comment">//方法体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h4 id="返回类型"><a href="#返回类型" class="headerlink" title="返回类型"></a>返回类型</h4><p>​        方法的返回类型表名了当你调用它时会返回的结果类型。参数列表则显示了可被传递到方法内部的参数类型及名称。方法名称和参数列表统称为<strong>方法签名</strong>(signature of the method)。签名作为方法的唯一标识。</p>
 <p>​        Java中的方法只能作为类的一部分创建。它只能被对象所调用，并且该对象必须有权限来执行调用。若对象调用错误的方法，则程序将在编译器报错。</p>
 <p>​        我们可以像下面这样调用一个对象的方法：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[对象引用].[方法名](参数<span class="number">1</span>, 参数<span class="number">2</span>, 参数<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
-
 <p>​        若方法不带参数，例如一个对象引用a的方法f不带参数并返回int型结果，我们可以如下表示：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = a.f();</span><br></pre></td></tr></table></figure>
-
 <p>​        上面的方法f的返回值类型必须和变量x的类型兼容。调用方法的行为有时被称为向对象发送消息。面向对象编程可以总结为：向对象发送消息。</p>
 <h4 id="参数列表"><a href="#参数列表" class="headerlink" title="参数列表"></a>参数列表</h4><p>​        方法参数列表指定了传递给方法的信息。参数列表必须指定每个对象的类型和名称。同样，我们并没有直接处理对象，而是在传递对象引用。但是引用的类型必须是正确的。如果方法需要String参数，则必须传入String，否则编译器将会报错。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">storage</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> s.length() * <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>​        此方法计算并返回某个字符串所占的字节数。参数s的类型为String。将s传递给storage()后，我们可以把它看作和任何其他对象一样，可以向它发送消息。在这里，我们调用length()方法，它是一个String方法，返回字符串中的字符数。字符串中每个字符的大小为16位或2个字节。你还看到了<strong>return</strong>关键字，它执行两项操作。首先，它意味着“方法执行结束”。其次，如果方法有返回值，那么该值就紧跟return语句之后。这里，返回值是通过计算：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s.length() * <span class="number">2</span></span><br></pre></td></tr></table></figure>
-
 <p>产生的。在方法中，我们可以返回任何类型的数据。如果我们不想方法返回数据，则可以通过给方法标识void来表明这是一个无需返回值的方法。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">flag</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">naturalLogBase</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2.718</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">nothing</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">nothing2</span><span class="params">()</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>​        当返回类型为void时，return关键字仅用于退出方法，因此在方法结束处的return可以被省略。我们可以随时从方法中返回，但方法返沪类型为非void，则编译器会强制我们返回相应类型的值。</p>
 <h2 id="程序编写"><a href="#程序编写" class="headerlink" title="程序编写"></a>程序编写</h2><h3 id="命名可见性"><a href="#命名可见性" class="headerlink" title="命名可见性"></a>命名可见性</h3><p>​        命名控制在任何一门编程语言中都是一个问题。如果你在两个模块中使用相同的命名，那么如何区分这两个名称，并防止两个名称发生“冲突”呢？</p>
 <p>​        Java采取了一种新的方法避免了以上的这些问题：为一个类库生成一个明确的名称，Java创建者希望我们反向使用自己的网络域名，因为域名通常是唯一的。例如：将foibles类库命名为com.mindviewinc.utility.foibles。反转域名后，.用来代表子目录的划分。</p>
@@ -620,10 +602,8 @@
 <h3 id="使用其他组件"><a href="#使用其他组件" class="headerlink" title="使用其他组件"></a>使用其他组件</h3><p>​        无论如何在程序中使用预先定义好的类，编译器都必须找到该类。最简单的情况下，该类位于被调用的源代码文件中。此时我们使用该类——即使该类在文件的后面才会被定义(Java消除了所谓的“向前引用”问题)。而如果一个类位于其他文件中，又会怎么样？你可能认为编译器足够只能去找到它，但这样是有问题的。想象一下，假如你要使用某个类，但目录中存在多个同名的类。或者更糟糕的是，假设你正在编写的程序，在构建过程中，你想要将某个新类添加到类库中，但却与已有的类名称冲突。</p>
 <p>​        要解决此问题，你必须通过使用<strong>import</strong>关键字来告诉Java编译器具体要使用的类。import指示编译器导入一个包，也就是一个类库。大多时候，我们都在使用Java标准库中的组件。有了这些构件，你就不必写一长串的反转域名。例如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br></pre></td></tr></table></figure>
-
 <p>​        上例可以告诉编译器使用位于标准库util下的ArrayList类。但是，util中包含许多类，我们可以使用通配符*来导入其中部分类，而无需显示得逐一声明这些类。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br></pre></td></tr></table></figure>
-
 <h3 id="static关键字"><a href="#static关键字" class="headerlink" title="static关键字"></a>static关键字</h3><p>​        类是对象的外观及行为方式的描述。通常只有在使用new创建那个类的对象后，数据空间才会被分配，对象的方法才能供外界调用。这种方式在两种情况下是不足的：</p>
 <ul>
 <li>有时你只想为特定字段分配一个共享存储空间，而不去考虑究竟要创建多少对象，甚至根本就不创建对象。</li>
@@ -632,52 +612,38 @@
 <p>​        <strong>static</strong>关键字就符合上述两点要求。当我们说某个事物是静态时，就意味着该字段或方法不依赖于任何特定的对象实例。即使我们从未创建过该类的对象，也可以调用其静态方法或访问其静态字段。相反，对于普通的非静态字段和方法，我们必须先要创建一个对象并使用该对象来访问字段或方法，因为非静态字段和方法必须与特定对象关联。</p>
 <p>​        我们可以在类的字段或方法前添加static关键字来表示这是一个静态字段或静态方法。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StaticTest</span></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> i = <span class="number">47</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>​        现在，即使你创建了两个StaticTest对象，但静态变量i仍只占一份存储空间。两个对象会共享相同的变量i。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StatucTest st1 = <span class="keyword">new</span> StatucTest();</span><br><span class="line">StatucTest st2 = <span class="keyword">new</span> StatucTest();</span><br></pre></td></tr></table></figure>
-
 <p>​        st1.i和st2.i指向同一块存储空间，因此它们的值都是47。引用静态变量有两种方法。我们可以通过一个对象来定位它。我们也可以通过类名直接引用她，这种方式对于非静态成员不可行：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">StatucTest.i++;</span><br></pre></td></tr></table></figure>
-
 <p>​        ++运算符将变量结果+1.此时，st1.i和st2.i的值都变成了48。</p>
 <p>​        使用类名直接引用静态变量是首选方法，因为它强调了变量的静态属性。类似的逻辑也适用于静态方法。我们可以通过对象引用静态方法，就像使用任何方法一样，也可以通过特殊的语法方式Classname.method()来直接调用静态字段或方法。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Incrementable</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">increment</span><span class="params">()</span></span>&#123;</span><br><span class="line">        StaticTest.i++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>​        上例中，Incrementable的increment()通过++运算符将静态数据i加1。我们依然可以先实例化对象再调用该方法。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Incrementable sf = <span class="keyword">new</span> Incrementable();</span><br><span class="line">sf.increment();</span><br></pre></td></tr></table></figure>
-
 <p>​        当然了，首选的方法是直接通过类来调用它：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Incrementable.increment();</span><br></pre></td></tr></table></figure>
-
 <p>​        相比非静态的对象，static属性改变了数据创建的方式。同样，当static关键字修饰方法时，它允许我们无需创建对象就可以直接通过类的引用来调用该方法。正如我们所知的，static关键字的这些特性对于应用程序入口点的main()方法尤为重要。</p>
 <h2 id="小试牛刀"><a href="#小试牛刀" class="headerlink" title="小试牛刀"></a>小试牛刀</h2><p>​        我们来编写一个完整的程序。我们使用Java标准库中Date类来展示一个字符串和日期。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloDate</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello, it&#x27;s: &quot;</span>);</span><br><span class="line">        System.out.println(<span class="keyword">new</span> Date());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>​        如果你想在代码中使用一些额外的类库，那么就必须在程序文件的开始处使用import关键字来导入它们。之所以说是额外的，因为有一些类库已经默认自动导入到了每个文件里了。例如：java.lang包。</p>
 <p>​        在Java.lang中在System类中有几个字段，如果选择了out，你会发现它是一个静态的PrintStream对象。所以，即使我们不使用new创建，out对象就已经存在并可以使用了out对象可以执行操作取决于它的类型：PrintStream。现在我们重点说的是println()这个方法，它的作用是“将信息输出到控制台，并以换行符结束”。既然如此，我们可以这样编码来输出信息到控制台。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="string">&quot;A String of things&quot;</span>);</span><br></pre></td></tr></table></figure>
-
 <p>​        每个Java源文件中允许有多个类。同时，源文件的名称必须要和其中一个类名相同，否则编译器会报错。每个独立的程序应该包含一个main()方法作为程序运行的入口。其方法签名和返回类型如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>​        关键字public表示方法可以被外界访问到。main()方法的参数是一个字符串(String)数组。参数args并没有在当前的程序中使用到，但是Java编译器强制要求必须要有，这是因为它们被用于接收从命令行输入的参数。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="keyword">new</span> Date());</span><br></pre></td></tr></table></figure>
-
 <p>​        上面的示例中，我们创建了一个日期(Date)类型的对象并将其转化为字符串类型，输出到控制台中。一旦这一行语句执行完毕，我们就不需要该如期对象了。这是，Java垃圾回收器就可以将其占用的内存空间回收，我们无需去主动清除它们。</p>
 <h3 id="编译和运行"><a href="#编译和运行" class="headerlink" title="编译和运行"></a>编译和运行</h3><p>​        要编译和运行代码，首先必须具有Java编程环境。</p>
 <p>​        移动到子目录objects下并键入：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javac HelloDate.java</span><br></pre></td></tr></table></figure>
-
 <p>​        此命令不应产生任何响应。如果我们收到任何类型的错误消息，则表示未正确安装JDK，那就得检查这些问题。若此行不报错的话，此时可以键入：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java HelloDate</span><br></pre></td></tr></table></figure>
-
 <p>​        我们将会得到正确的日期输出。</p>
 <h2 id="编码风格"><a href="#编码风格" class="headerlink" title="编码风格"></a>编码风格</h2><p>​        Java编程语言编码规范(Code Conventions for the Java Programing Language)要求类名的首字母大写。如果类名是由多个单词构成的，则每个单词的首字母都应该大写(不采用下划线来分隔)例如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AllTheColorsOfTheRainbow</span></span>&#123;</span><br><span class="line">    <span class="comment">//..</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>​        这种命名风格叫“驼峰命名法”。对于几乎所有其他方法，字段和对象引用名都采用驼峰命名的方式，但是它们的首字母不需要大写：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AllTheColorsOfTheRainbow</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> anIntegerRepresentingColors;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">changeTheHueOfTheColor</span><span class="params">(<span class="keyword">int</span> newHue)</span></span>&#123;</span><br><span class="line">        <span class="comment">//..</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//..</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 
       
     </div>

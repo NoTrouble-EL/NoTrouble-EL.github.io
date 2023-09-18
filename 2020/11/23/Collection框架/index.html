@@ -392,34 +392,20 @@
       
         <h1 id="Collection框架"><a href="#Collection框架" class="headerlink" title="Collection框架"></a>Collection框架</h1><p><img src="/2020/11/23/Collection%E6%A1%86%E6%9E%B6/Collection.png" alt="Collection"></p>
  <span id="more"></span> 
-
 <h2 id="增"><a href="#增" class="headerlink" title="增"></a>增</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span></span>;</span><br><span class="line"><span class="comment">//add()方法传入的数据类型必须是Object，所以写入基本数据类型时，会自动装箱和自动拆箱</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">addAll</span><span class="params">(Colleciton&lt;? extends E&gt; c)</span></span>;</span><br><span class="line"><span class="comment">//把另一个集合里的元素添加到此集合中</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="删"><a href="#删" class="headerlink" title="删"></a>删</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(Object o)</span></span>;</span><br><span class="line"><span class="comment">//删除指定元素</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">removeAll</span><span class="params">(Collection&lt;?&gt; c)</span></span>;</span><br><span class="line"><span class="comment">//把集合中B的所有元素都删除</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="改"><a href="#改" class="headerlink" title="改"></a>改</h2><h2 id="查"><a href="#查" class="headerlink" title="查"></a>查</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Object o)</span></span>;</span><br><span class="line"><span class="comment">//查看集合中有没有某个特定的元素</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">containsAll</span><span class="params">(Collection&lt;?&gt; c)</span></span>;</span><br><span class="line"><span class="comment">//查看集合A是否包含了集合B</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">//判断集合是否为空</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">//集合的大小</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object[] toArray();</span><br><span class="line"><span class="comment">//把集合转换成数组</span></span><br></pre></td></tr></table></figure>
-
 <h1 id="List"><a href="#List" class="headerlink" title="List"></a>List</h1><p>特点：有序、可重复</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">add(E e);</span><br><span class="line"><span class="comment">//在尾巴上加元素，ArrayList可能有扩容的情况出现。ArrayList和LinkedList的时间复杂度均为O(1)。</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">add(<span class="keyword">int</span> index, E e);</span><br><span class="line"><span class="comment">//在特定的位置上加元素，LinkedList需要先找到这个位置，再加上这个元素，虽然加这个动作的复杂度为O(1),但是要找到这个位置还是O(n)。ArrayList和LinkedList的时间复杂度均为O(n)。</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">remove(<span class="keyword">int</span> index);</span><br><span class="line"><span class="comment">//remove这个index上的元素</span></span><br><span class="line"><span class="comment">//ArrayList找到这个元素的过程是O(1)，但是remove之后，后续元素要往前移动一位，所以均摊复杂度是O(n);</span></span><br><span class="line"><span class="comment">//LinkedList也是要先找到这个index，这个过程是O(n)，所以整体也是O(n)。</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">remove(E e);</span><br><span class="line"><span class="comment">//remove见到的第一个这个元素</span></span><br><span class="line"><span class="comment">//ArrayList找到这个元素的过程是O(n)，然后移除后还要往前移一位，这个更是O(n),总体还是O(n)。</span></span><br><span class="line"><span class="comment">//LinkedList也要先找，这个过程是O(n),然后移走，这个过程为O(1),总的是O(n)。</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="那造成时间复杂度的区别的原因是什么？"><a href="#那造成时间复杂度的区别的原因是什么？" class="headerlink" title="那造成时间复杂度的区别的原因是什么？"></a>那造成时间复杂度的区别的原因是什么？</h2><ul>
 <li>因为ArrayList是用数组来实现的。</li>
 <li>而数组和链表的最大区别就是数组可以随机访问(random access)。</li>
@@ -445,7 +431,6 @@
 <li>另一组会返回一个特殊值</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//增		抛异常		返回值</span></span><br><span class="line">		add(e)		offter(e)</span><br><span class="line"><span class="comment">//删</span></span><br><span class="line">         remove()	 poll()</span><br><span class="line"><span class="comment">//瞧		</span></span><br><span class="line">         element()	 peek()</span><br></pre></td></tr></table></figure>
-
 <h2 id="为什么会抛异常呢？"><a href="#为什么会抛异常呢？" class="headerlink" title="为什么会抛异常呢？"></a>为什么会抛异常呢？</h2><p>比如队列空了，那就remove()就会抛异常，但是poll()就返回null；element()就会抛异常，而peek()就返回null</p>
 <h2 id="add-e-怎么会抛异常呢？"><a href="#add-e-怎么会抛异常呢？" class="headerlink" title="add(e)怎么会抛异常呢？"></a>add(e)怎么会抛异常呢？</h2><p>有些Queue它会有容量的限制，比如BlockingQueue，那如果已经达到了它最大的容量且不会扩容，就会抛异常；但如果offer(e)，就会return false。</p>
 <h2 id="怎么选择呢？"><a href="#怎么选择呢？" class="headerlink" title="怎么选择呢？"></a>怎么选择呢？</h2><ul>
@@ -454,21 +439,16 @@
 </ul>
 <h1 id="Deque"><a href="#Deque" class="headerlink" title="Deque"></a>Deque</h1><p>Deque是两端都可以进出的，那自然是针对First端的操作和对Last端的操作，那每端都有两组，一组抛异常，一组返回特殊值：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//增		抛异常						返回值</span></span><br><span class="line">		addFirst(e)/addLast(e)		offterFirst(e)/offerLast(e)</span><br><span class="line"><span class="comment">//删</span></span><br><span class="line">         removeFirst()/removeLast()	 pollFirst()/pollLast()</span><br><span class="line"><span class="comment">//瞧		</span></span><br><span class="line">         getFirst()/getLast()	 	 peekFirst()/peekLast()</span><br></pre></td></tr></table></figure>
-
 <p>使用时同理，要用就用一组。Queue和Deque的这些API都是O(1)的时间复杂度，准确来说是均摊时间复杂度。</p>
 <h2 id="实现类"><a href="#实现类" class="headerlink" title="实现类"></a>实现类</h2><ul>
-<li><p>LinkedList</p>
-</li>
-<li><p>ArrayDeque</p>
-</li>
+<li>LinkedList</li>
+<li>ArrayDeque</li>
 <li><p>PriorityQueue</p>
 </li>
 <li><p>若想实现普通队列-先进先出的语义，就使用LinkedList或ArrayDeque；</p>
 </li>
-<li><p>若想实现优先队列，就使用PriorityQueue；</p>
-</li>
-<li><p>如果想实现栈的语义，就使用ArrayDeque</p>
-</li>
+<li>若想实现优先队列，就使用PriorityQueue；</li>
+<li>如果想实现栈的语义，就使用ArrayDeque</li>
 </ul>
 <h2 id="在实现一个普通的队列时，如何选择LinkedList还是ArrayDeque"><a href="#在实现一个普通的队列时，如何选择LinkedList还是ArrayDeque" class="headerlink" title="在实现一个普通的队列时，如何选择LinkedList还是ArrayDeque"></a>在实现一个普通的队列时，如何选择LinkedList还是ArrayDeque</h2><p>推荐使用ArrayDeque，因为效率高，LinkedList还会有其他的额外开销(overhead)。</p>
 <h2 id="ArrayDeque和LinkedList的区别有哪些？"><a href="#ArrayDeque和LinkedList的区别有哪些？" class="headerlink" title="ArrayDeque和LinkedList的区别有哪些？"></a>ArrayDeque和LinkedList的区别有哪些？</h2><ul>
@@ -482,9 +462,6 @@
 <h1 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h1><p>Stack在语义上是后进先出(LIFO)的线性数据结构。</p>
 <p>由于Vector已经被弃用了，而Stack是继承Vector的。那么想要实现Stack的语义，就用ArrayDeque吧！</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Deque&lt;Integer&gt; stack = <span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br></pre></td></tr></table></figure>
-
-
-
 <h1 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h1><p>Set的特点是：无序，不重复的</p>
 <h2 id="实现类-1"><a href="#实现类-1" class="headerlink" title="实现类"></a>实现类</h2><ul>
 <li>HashSet：采用Hashmap的key来存储元素，主要特点是无序的，基本操作都是O(1)的时间复杂度</li>

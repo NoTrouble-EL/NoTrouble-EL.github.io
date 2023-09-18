@@ -388,7 +388,6 @@
 <h2 id="5-1-类、超类和子类"><a href="#5-1-类、超类和子类" class="headerlink" title="5.1 类、超类和子类"></a>5.1 类、超类和子类</h2><p>回忆一下在前一章中讨论过的Employee类。假设你在某个公司工作，这个公司里的经理的待遇与普通员工的待遇存在着一些差异。不过，他们之间也存在着很多相同的地方，例如，他们都领取薪水。只是普通员工在完成本职任务之后仅领取薪水，而经理在完成了预期的业绩之后还能得到奖金。这种情形下就需要使用继承。为什么呢？因为需要为经理定义一个新类Manager，并增加一些新功能。但可以重用Employee类中已经编写的部分代码，并保留原来Employee类中的所有字段。从理论上讲，在Manager与Employee之间存在着明显的“is-a”关系，每个经理都是一个员工：“is-a”关系是继承的一个明显特征。</p>
 <h3 id="5-1-1-定义子类"><a href="#5-1-1-定义子类" class="headerlink" title="5.1.1 定义子类"></a>5.1.1 定义子类</h3><p>可以如下继承Employee类来定义Manager类，这里使用关键字extends表示继承。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Manager</span> <span class="keyword">extends</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    added methods and fields</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>关键字extends表明正在构建的新类派生于一个已经存在的类。这个已存在的类称为超类(superclass)、基类(base class)</p>
 <p>或父类(parent class)；新类称为子类(subclass)、派生类(derived class)或孩子类(child class)。</p>
 <p>尽管Employee类是一个超类，但并不是因为它优于子类或者拥有比子类更多的功能。实际上恰恰相反，子类比超类拥有更多的功能。</p>
@@ -403,8 +402,7 @@
 <ul>
 <li>局部变量： 直接写</li>
 <li>本类的成员变量：this.成员变量名</li>
-<li>父类的成员变量：super.成员变量名</li>
-</ul>
+<li><p>父类的成员变量：super.成员变量名</p></li></ul>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2020/10/19/%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF/#more" rel="contents">
@@ -567,8 +565,7 @@
 <ul>
 <li>依赖(dependence)(“uses-a”)</li>
 <li>聚合(aggregation)(“has-a”)</li>
-<li>继承(inheritance)(“is-a”)</li>
-</ul>
+<li><p>继承(inheritance)(“is-a”)</p></li></ul>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2020/10/12/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/#more" rel="contents">
@@ -723,15 +720,12 @@
 </ul>
 <p>检测一个特定值是否等于Double.NaN:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (x == Double.NaN)<span class="comment">// is never true</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(Double.isNaN(X))</span><br></pre></td></tr></table></figure>
-
 <p>浮点数不适用于无法接受舍入误差的金融计算，可以使用BigDecimal类。</p>
 <h3 id="3-3-3-char类型"><a href="#3-3-3-char类型" class="headerlink" title="3.3.3 char类型"></a>3.3.3 char类型</h3><h3 id="3-3-4-Unicode和char类型"><a href="#3-3-4-Unicode和char类型" class="headerlink" title="3.3.4 Unicode和char类型"></a>3.3.4 Unicode和char类型</h3><h3 id="3-3-5-boolean类型"><a href="#3-3-5-boolean类型" class="headerlink" title="3.3.5 boolean类型"></a>3.3.5 boolean类型</h3><h2 id="3-4-变量与常量"><a href="#3-4-变量与常量" class="headerlink" title="3.4 变量与常量"></a>3.4 变量与常量</h2><h3 id="3-4-1-声明变量"><a href="#3-4-1-声明变量" class="headerlink" title="3.4.1 声明变量"></a>3.4.1 声明变量</h3><h3 id="3-4-2-变量初始化"><a href="#3-4-2-变量初始化" class="headerlink" title="3.4.2 变量初始化"></a>3.4.2 变量初始化</h3><h3 id="3-4-3-常量"><a href="#3-4-3-常量" class="headerlink" title="3.4.3 常量"></a>3.4.3 常量</h3><p>可以利用关键字final 指示常量。关键字final表示这个变量只能被赋值一次，一旦被赋值之后就不能够再更改了；常量使用全大写。</p>
 <p>当希望某个常量可以在一个类的多个方法中使用，通常将这些常量称为类常量（class constant）；可以使用static final设置一个常量；类常量的定义位于main方法的外部，在同一个类的其他方法也可以使用这个常量。若一个常量被声明为public，那么其他类的方法也可以使用这个常量。</p>
 <h3 id="3-4-4-枚举类型"><a href="#3-4-4-枚举类型" class="headerlink" title="3.4.4 枚举类型"></a>3.4.4 枚举类型</h3><p>变量的取值只有在一个有限的集合内。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Size</span> </span>&#123;SMALL,MEDIUM,LARGE,EXTRA_LARGE&#125;;</span><br><span class="line">Size s = Size.MEDIUM;</span><br></pre></td></tr></table></figure>
-
 <p>Size类型的变量只能存储这个类型声明中给定的某个枚举值，或是特殊值null。</p>
           <!--noindex-->
           <div class="post-button text-center">
@@ -887,8 +881,7 @@
 </ul>
 <p>二维数组转稀疏数组思路：</p>
 <ol>
-<li><p>遍历原始的二维数组，得到有效数据的个数sum；</p>
-</li>
+<li>遍历原始的二维数组，得到有效数据的个数sum；</li>
 <li><p>根据sum创建稀疏数组sparseArr int[sum + 1][3]；</p>
 </li>
 <li><p>将二维数组的有效数据存入到稀疏数组。</p>
@@ -897,8 +890,7 @@
 <p>稀疏数组转二维数组：</p>
 <ol>
 <li>点读取稀疏数组的第一行，创建原始的二维数组，比如上面的chessArr2 = int[11][11]；</li>
-<li> 读取稀疏数组后面的几行数据，并赋给原始的二维数组。</li>
-</ol>
+<li><p>读取稀疏数组后面的几行数据，并赋给原始的二维数组。</p></li></ol>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2020/10/01/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/#more" rel="contents">
@@ -1200,9 +1192,7 @@
 <ul>
 <li><p>$ 2.4GHz $，指的是:$2.4GHz \sim 2.4835GHz$</p>
 </li>
-<li><p>$ 5GHz $，指的是:$5.15GHz \sim 5.85GHz$</p>
-</li>
-</ul>
+<li><p>$ 5GHz $，指的是:$5.15GHz \sim 5.85GHz$</p></li></ul>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2020/07/08/%E4%BD%A0%E4%B8%8D%E4%BA%86%E8%A7%A3%E7%9A%84WiFi/#more" rel="contents">

@@ -93,13 +93,13 @@
 <meta property="og:site_name" content="NoTrouble&#39;s Blog">
 <meta property="og:description" content="什么是RPCRPC(Remote Procedure Call)远程过程调用，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。比如两个不同的服务A、B部署在两台不同的机器上，那么服务A如果想要调用服务B中的某个方法该怎么办呢？使用HTTP请求当然可以，但可能会比较慢而且一些优化做的并不好。RPC的出现就是为了解决这个问题。">
 <meta property="og:locale">
-<meta property="og:image" content="http://yoursite.com/2021/11/16/RPC%E6%A1%86%E6%9E%B6/RPC%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B.png">
+<meta property="og:image" content="http://yoursite.com/2021/11/16/RPC%E6%A1%86%E6%9E%B6/RPC通信过程.png">
 <meta property="article:published_time" content="2021-11-16T09:25:22.000Z">
 <meta property="article:modified_time" content="2021-11-16T09:25:22.000Z">
 <meta property="article:author" content="NoTrouble">
 <meta property="article:tag" content="RPC">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2021/11/16/RPC%E6%A1%86%E6%9E%B6/RPC%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B.png">
+<meta name="twitter:image" content="http://yoursite.com/2021/11/16/RPC%E6%A1%86%E6%9E%B6/RPC通信过程.png">
 
 
 
@@ -392,8 +392,7 @@
       
         <h2 id="什么是RPC"><a href="#什么是RPC" class="headerlink" title="什么是RPC"></a>什么是RPC</h2><p>RPC(Remote Procedure Call)远程过程调用，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。比如两个不同的服务A、B部署在两台不同的机器上，那么服务A如果想要调用服务B中的某个方法该怎么办呢？使用HTTP请求当然可以，但可能会比较慢而且一些优化做的并不好。RPC的出现就是为了解决这个问题。</p>
  <span id="more"></span> 
-
-<h2 id="RPC原理是什么"><a href="#RPC原理是什么" class="headerlink" title="RPC原理是什么"></a>RPC原理是什么</h2><p><img src="/2021/11/16/RPC%E6%A1%86%E6%9E%B6/RPC%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B.png"></p>
+<h2 id="RPC原理是什么"><a href="#RPC原理是什么" class="headerlink" title="RPC原理是什么"></a>RPC原理是什么</h2><p><img src="/2021/11/16/RPC%E6%A1%86%E6%9E%B6/RPC通信过程.png" alt></p>
 <ul>
 <li>服务消费端(client)以本地调用的方式调用远程服务；</li>
 <li>客户端Stub(client stub)接收到调用后负责将方法、参数等组装成能够进行网络传输的消息体(序列化)：RpcRequest；</li>

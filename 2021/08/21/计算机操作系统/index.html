@@ -394,7 +394,6 @@
 <p><strong>线程</strong></p>
 <p>线程是独立调度的基本单位。一个进程中可以有多个线程，它们共享进程资源。</p>
  <span id="more"></span> 
-
 <p><strong>区别</strong></p>
 <p><strong>拥有资源</strong></p>
 <p>进程是资源分配的基本单元，但线程不拥有资源，线程可以访问隶属于进程的资源。</p>
@@ -497,9 +496,22 @@
 <p>若满足了环路等待条件，因此会发生死锁。</p>
 <p>每种类型一个资源的死锁检测算法是通过检测有向图是否存在环来实现，从一个节点出发进行深度优先搜索，对访问过的节点进行标记，如果访问了已经标记的节点，就表示有向图存在环，也就是检测到死锁的发生。</p>
 <p><strong>每种类型多个资源的死锁检测</strong></p>
-<p>$E=(4,2,3,1),A=(2,1,0,0),$<br>$$<br>C = \left[<br>\matrix{<br>  0 &amp; 0 &amp; 1 &amp; 0\<br>  2 &amp; 0 &amp; 0 &amp; 1\<br>  0 &amp; 1 &amp; 2 &amp; 0<br>}<br>\right]<br>$$</p>
-<p>$$<br>R = \left[<br>\matrix{<br>  2 &amp; 0 &amp; 0 &amp; 1\<br>  1 &amp; 0 &amp; 1 &amp; 0\<br>  2 &amp; 1 &amp; 0 &amp; 0<br>}<br>\right]<br>$$</p>
-<ul>
+<p>$E=(4,2,3,1),A=(2,1,0,0),$</p>
+<script type="math/tex; mode=display">
+C = \left[
+\matrix{
+  0 & 0 & 1 & 0\\
+  2 & 0 & 0 & 1\\
+  0 & 1 & 2 & 0
+}
+\right]</script><script type="math/tex; mode=display">
+R = \left[
+\matrix{
+  2 & 0 & 0 & 1\\
+  1 & 0 & 1 & 0\\
+  2 & 1 & 0 & 0
+}
+\right]</script><ul>
 <li>E向量：资源总量</li>
 <li>A向量：资源剩余量</li>
 <li>C矩阵：每个进程所拥有的资源数量，每一行都代表一个进程拥有资源的数量</li>
