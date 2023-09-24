@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="SpringBoot," />
+  <meta name="keywords" content="Linear_Algebra," />
 
 
 
@@ -86,17 +86,17 @@
 
 
 
-<meta name="description" content="@SpringBootApplication我们可以把 @SpringBootApplication看作是 @Configuration @EnableAutoConfiguration、@ComponentScan 注解的集合。  @EnableAutoConfiguration：启用 SpringBoot 的自动配置机制 @ComponentScan： 扫描被@Component (@Serv">
+<meta name="description" content="1.3 向量方程&amp;emsp;&amp;emsp;线性方程组的重要性质都可用向量概念与符号来描述。 $\mathbb{R}^2$中的向量&amp;emsp;&amp;emsp;仅含一列的矩阵称为列向量，或简称向量.包含两个元素的向量如下所示.&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;$u&#x3D;\begin{bmatrix}3 \\-1 \\\end{bmatrix}$，$v">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring和SpringBoot相关注解">
-<meta property="og:url" content="http://yoursite.com/2021/08/24/Spring%E5%92%8CSpringBoot%E7%9B%B8%E5%85%B3%E6%B3%A8%E8%A7%A3/index.html">
+<meta property="og:title" content="向量方程">
+<meta property="og:url" content="http://yoursite.com/2023/09/24/%E5%90%91%E9%87%8F%E6%96%B9%E7%A8%8B/index.html">
 <meta property="og:site_name" content="NoTrouble&#39;s Blog">
-<meta property="og:description" content="@SpringBootApplication我们可以把 @SpringBootApplication看作是 @Configuration @EnableAutoConfiguration、@ComponentScan 注解的集合。  @EnableAutoConfiguration：启用 SpringBoot 的自动配置机制 @ComponentScan： 扫描被@Component (@Serv">
+<meta property="og:description" content="1.3 向量方程&amp;emsp;&amp;emsp;线性方程组的重要性质都可用向量概念与符号来描述。 $\mathbb{R}^2$中的向量&amp;emsp;&amp;emsp;仅含一列的矩阵称为列向量，或简称向量.包含两个元素的向量如下所示.&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;$u&#x3D;\begin{bmatrix}3 \\-1 \\\end{bmatrix}$，$v">
 <meta property="og:locale">
-<meta property="article:published_time" content="2021-08-24T13:58:19.000Z">
-<meta property="article:modified_time" content="2021-08-24T13:58:19.000Z">
+<meta property="article:published_time" content="2023-09-24T13:54:17.000Z">
+<meta property="article:modified_time" content="2023-09-24T13:54:17.000Z">
 <meta property="article:author" content="NoTrouble">
-<meta property="article:tag" content="SpringBoot">
+<meta property="article:tag" content="Linear_Algebra">
 <meta name="twitter:card" content="summary">
 
 
@@ -127,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2021/08/24/Spring和SpringBoot相关注解/"/>
+  <link rel="canonical" href="http://yoursite.com/2023/09/24/向量方程/"/>
 
 
 
 
 
-  <title>Spring和SpringBoot相关注解 | NoTrouble's Blog</title>
+  <title>向量方程 | NoTrouble's Blog</title>
   
 
 
@@ -294,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/08/24/Spring%E5%92%8CSpringBoot%E7%9B%B8%E5%85%B3%E6%B3%A8%E8%A7%A3/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/09/24/%E5%90%91%E9%87%8F%E6%96%B9%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -311,7 +311,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Spring和SpringBoot相关注解</h1>
+          <h1 class="post-title" itemprop="name headline">向量方程</h1>
         
 
         <div class="post-meta">
@@ -323,8 +323,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-24T21:58:19+08:00">
-                2021-08-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-09-24T21:54:17+08:00">
+                2023-09-24
               </time>
             
 
@@ -346,8 +346,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
-                    <span itemprop="name">SpringBoot</span>
+                  <a href="/categories/Linear-Algebra/" itemprop="url" rel="index">
+                    <span itemprop="name">Linear_Algebra</span>
                   </a>
                 </span>
 
@@ -388,57 +388,70 @@
       
 
       
-        <h2 id="SpringBootApplication"><a href="#SpringBootApplication" class="headerlink" title="@SpringBootApplication"></a>@SpringBootApplication</h2><p>我们可以把 <code>@SpringBootApplication</code>看作是 <code>@Configuration</code> <code>@EnableAutoConfiguration</code>、<code>@ComponentScan</code> 注解的集合。</p>
-<ul>
-<li><code>@EnableAutoConfiguration</code>：启用 SpringBoot 的自动配置机制</li>
-<li><code>@ComponentScan</code>： 扫描被<code>@Component</code> (<code>@Service</code>,<code>@Controller</code>)注解的 bean，注解默认会扫描该类所在的包下所有的类。</li>
-<li><p><code>@Configuration</code>：允许在 Spring 上下文中注册额外的 bean 或导入其他配置类</p>
-<span id="more"></span> 
-</li>
-</ul>
-<h2 id="Autowired"><a href="#Autowired" class="headerlink" title="@Autowired"></a>@Autowired</h2><p>自动导入对象到类中，被注入进的类同样要被 Spring 容器管理比如：Service 类注入到 Controller 类中。</p>
-<h2 id="Component-Repository-Service-Controller"><a href="#Component-Repository-Service-Controller" class="headerlink" title="@Component,@Repository,@Service, @Controller"></a>@Component,@Repository,@Service, @Controller</h2><p>我们一般使用 <code>@Autowired</code> 注解让 Spring 容器帮我们自动装配 bean。要想把类标识成可用于 <code>@Autowired</code> 注解自动装配的 bean 的类,可以采用以下注解实现：</p>
-<ul>
-<li><code>@Component</code> ：通用的注解，可标注任意类为 <code>Spring</code> 组件。如果一个 Bean 不知道属于哪个层，可以使用<code>@Component</code> 注解标注。</li>
-<li><code>@Repository</code> : 对应持久层即 Dao 层，主要用于数据库相关操作。</li>
-<li><code>@Service</code> : 对应服务层，主要涉及一些复杂的逻辑，需要用到 Dao 层。</li>
-<li><code>@Controller</code> : 对应 Spring MVC 控制层，主要用于接受用户请求并调用 Service 层返回数据给前端页面。</li>
-</ul>
-<h2 id="RestController"><a href="#RestController" class="headerlink" title="@RestController"></a>@RestController</h2><p><code>@RestController</code>注解是<code>@Controller和</code>@<code>ResponseBody</code>的合集,表示这是个控制器 bean,并且是将函数的返回值直 接填入 HTTP 响应体中,是 REST 风格的控制器。</p>
-<p>单独使用 <code>@Controller</code> 不加 <code>@ResponseBody</code>的话一般使用在要返回一个视图的情况，这种情况属于比较传统的 Spring MVC 的应用，对应于前后端不分离的情况。<code>@Controller</code> +<code>@ResponseBody</code> 返回 JSON 或 XML 形式数据。</p>
-<h2 id="Scope"><a href="#Scope" class="headerlink" title="@Scope"></a>@Scope</h2><p>声明 Spring Bean 的作用域</p>
-<p><strong>四种常见的 Spring Bean 的作用域：</strong></p>
-<ul>
-<li>singleton : 唯一 bean 实例，Spring 中的 bean 默认都是单例的。</li>
-<li>prototype : 每次请求都会创建一个新的 bean 实例。</li>
-<li>request : 每一次 HTTP 请求都会产生一个新的 bean，该 bean 仅在当前 HTTP request 内有效。</li>
-<li>session : 每一次 HTTP 请求都会产生一个新的 bean，该 bean 仅在当前 HTTP session 内有效。</li>
-</ul>
-<h2 id="Configuration"><a href="#Configuration" class="headerlink" title="@Configuration"></a>@Configuration</h2><p>一般用来声明配置类，可以使用 <code>@Component</code>注解替代，不过使用<code>@Configuration</code>注解声明配置类更加语义化。</p>
-<h2 id="5-种常见的请求类型"><a href="#5-种常见的请求类型" class="headerlink" title="5 种常见的请求类型:"></a>5 种常见的请求类型:</h2><ul>
-<li><strong>GET</strong> ：请求从服务器获取特定资源。举个例子：<code>GET /users</code>（获取所有学生）</li>
-<li><strong>POST</strong> ：在服务器上创建一个新的资源。举个例子：<code>POST /users</code>（创建学生）</li>
-<li><strong>PUT</strong> ：更新服务器上的资源（客户端提供更新后的整个资源）。举个例子：<code>PUT /users/12</code>（更新编号为 12 的学生）</li>
-<li><strong>DELETE</strong> ：从服务器删除特定的资源。举个例子：<code>DELETE /users/12</code>（删除编号为 12 的学生）</li>
-<li><strong>PATCH</strong> ：更新服务器上的资源（客户端提供更改的属性，可以看做作是部分更新），使用的比较少，这里就不举例子了。</li>
-</ul>
-<p>@GetMapping</p>
-<p>@PostMapping</p>
-<p>@PutMapping</p>
-<p>@DeleteMapping</p>
-<p>@PatchMapping</p>
-<h2 id="PathVariable-和-RequestParam"><a href="#PathVariable-和-RequestParam" class="headerlink" title="@PathVariable 和 @RequestParam"></a>@PathVariable 和 @RequestParam</h2><p><code>@PathVariable</code>用于获取路径参数，<code>@RequestParam</code>用于获取查询参数。</p>
-<h2 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h2><p>用于读取 Request 请求（可能是 POST,PUT,DELETE,GET 请求）的 body 部分并且<strong>Content-Type 为 application/json</strong> 格式的数据，接收到数据之后会自动将数据绑定到 Java 对象上去。系统会使用<code>HttpMessageConverter</code>或者自定义的<code>HttpMessageConverter</code>将请求的 body 中的 json 字符串转换为 java 对象。</p>
-<p>需要注意的是：<strong>一个请求方法只可以有一个<code>@RequestBody</code>，但是可以有多个<code>@RequestParam</code>和<code>@PathVariable</code></strong>。 如果你的方法必须要用两个 <code>@RequestBody</code>来接受数据的话，大概率是你的数据库设计或者系统设计出问题了！</p>
-<h2 id="读取配置信息"><a href="#读取配置信息" class="headerlink" title="读取配置信息"></a>读取配置信息</h2><p>很多时候我们需要将一些常用的配置信息比如阿里云 oss、发送短信、微信认证的相关配置信息等等放到配置文件中。</p>
-<p>我们的数据源application.yml</p>
-<h2 id="value"><a href="#value" class="headerlink" title="@value"></a>@value</h2><p>使用 <code>@Value(&quot;$&#123;property&#125;&quot;)</code> 读取比较简单的配置信息：</p>
-<h2 id="ConfigurationProperties"><a href="#ConfigurationProperties" class="headerlink" title="@ConfigurationProperties"></a>@ConfigurationProperties</h2><p>通过<code>@ConfigurationProperties</code>读取配置信息并与 bean 绑定。</p>
-<h2 id="PropertySource"><a href="#PropertySource" class="headerlink" title="@PropertySource"></a>@PropertySource</h2><p><code>@PropertySource</code>读取指定 properties 文件</p>
-<h2 id="全局处理-Controller-层异常"><a href="#全局处理-Controller-层异常" class="headerlink" title="全局处理 Controller 层异常"></a>全局处理 Controller 层异常</h2><ol>
-<li><code>@ControllerAdvice</code> :注解定义全局异常处理类</li>
-<li><code>@ExceptionHandler</code> :注解声明异常处理方法</li>
-</ol>
+        <h2 id="1-3-向量方程"><a href="#1-3-向量方程" class="headerlink" title="1.3 向量方程"></a>1.3 向量方程</h2><p>&emsp;&emsp;线性方程组的重要性质都可用向量概念与符号来描述。</p>
+<h3 id="mathbb-R-2-中的向量"><a href="#mathbb-R-2-中的向量" class="headerlink" title="$\mathbb{R}^2$中的向量"></a>$\mathbb{R}^2$中的向量</h3><p>&emsp;&emsp;仅含一列的矩阵称为<strong>列向量</strong>，或简称<strong>向量</strong>.包含两个元素的向量如下所示.<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$u=\begin{bmatrix}<br>3 \\<br>-1 \\<br>\end{bmatrix}$，$v=\begin{bmatrix}<br>0.2 \\<br>0.3 \\<br>\end{bmatrix}$，$w=\begin{bmatrix}<br>w_1 \\<br>w_2 \\<br>\end{bmatrix}$<br>其中$w_1$和$w_2$是任意实数.所有两个元素的向量的集记为$\mathbb{R}^2$，$\mathbb{R}$表示向量中的元素是实数，而指数2表示每个向量包含两个元素.<br>&emsp;&emsp;$\mathbb{R}^2$中两个向量<strong>相等</strong>当且仅当其对应元素相等.因此，$\begin{bmatrix} 4\\ 7 \\ \end{bmatrix}$和$\begin{bmatrix} 7\\ 4 \\ \end{bmatrix}$是不相等的，因为$\mathbb{R}^2$中的向量是实数的有序对.<br><span id="more"></span><br>&emsp;&emsp;给定$\mathbb{R}^2$中两个向量$u$和$v$，它们的<strong>和</strong>$u+v$是把$u$和$v$对应元素相加所得的向量.例如，<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$\begin{bmatrix} 1\\ -2 \\ \end{bmatrix} + \begin{bmatrix} 2\\ 5 \\ \end{bmatrix} = \begin{bmatrix} 1+2\\ -2+5 \\ \end{bmatrix} = \begin{bmatrix} 3\\ 3 \\ \end{bmatrix}$<br>给定向量$u$和实数$c$，$u$与$c$的<strong>标量乘法</strong>（或<strong>数乘</strong>）是把$u$的每个元素乘以$c$，所得向量记为$cu$.例如：<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;若$u=\begin{bmatrix} 3\\ -1 \\ \end{bmatrix},c=5,$则$cu=5\begin{bmatrix} 3\\ -1 \\ \end{bmatrix}=\begin{bmatrix} 15\\ -5 \\ \end{bmatrix}$$cu$中的数$c$称为<strong>标量</strong>（或<strong>数</strong>）.<br>&emsp;&emsp;向量加法与标量乘法也可以组合起来，如下例所示.</p>
+<p><strong>例1</strong> 给定$u=\begin{bmatrix} 1\\ -2 \\ \end{bmatrix}$和$v=\begin{bmatrix} 2\\ -5 \\ \end{bmatrix}$，求$4u$，$(-3)v$以及$4u+(-3)v$<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$4u=\begin{bmatrix} 4\\ -8 \\ \end{bmatrix}$，$(-3)v=\begin{bmatrix} -6\\ 15 \\ \end{bmatrix}$ $4u+(-3)v=\begin{bmatrix} 4\\ -8 \\ \end{bmatrix} + \begin{bmatrix} -6\\ 15 \\ \end{bmatrix} = \begin{bmatrix} -2\\ 7 \\ \end{bmatrix} $<br>&emsp;&emsp;有时为了方便，将向量$\begin{bmatrix} 3\\ -1 \\ \end{bmatrix}$写成$(3,-1)$的形式.这时，用圆括弧表示向量，并在两个元素之间加上逗号，以便区别向量$(3,-1)$与$1\times 2$行矩阵$[3\quad -1]$，后者使用方括号且两个元素之间无逗号.于是$\begin{bmatrix} 3\\ -1 \\ \end{bmatrix} \neq [3\quad -1]$因为这两个矩阵的维数不同，尽管它们有相同的元素.</p>
+<h3 id="mathbb-R-2-的几何表示"><a href="#mathbb-R-2-的几何表示" class="headerlink" title="$\mathbb{R}^2$的几何表示"></a>$\mathbb{R}^2$的几何表示</h3><p>&emsp;&emsp;考虑平面上的直角坐标系.因为平面上每个点由实数的有序对确定，所以可把几何点$(a,b)$与列向量$\begin{bmatrix} a\\ b \\ \end{bmatrix}$等同.因此可以把$\mathbb{R}^2$看作平面上所有点的集合.<br>&emsp;&emsp;向量$\begin{bmatrix} 3\\ -1 \\ \end{bmatrix}$的几何表示是一条由原点$(0,0)$指向点$(3,-1)$的有向线段.</p>
+<blockquote>
+<p><strong>向量加法的平行四边形法则</strong><br>若$\mathbb{R}^2$中向量$u$和$v$用平面上的点表示，则$u+v$对应于以$u,0$和$v$为三个顶点的平行四边形的第4个顶点.</p>
+</blockquote>
+<h3 id="mathbb-R-3-中的向量"><a href="#mathbb-R-3-中的向量" class="headerlink" title="$\mathbb{R}^3$中的向量"></a>$\mathbb{R}^3$中的向量</h3><p>&emsp;&emsp;$\mathbb{R}^3$中的向量是$3\times 1$列矩阵，有3个元素.它们表示三维坐标空间中的点，或起点为原点的箭头.</p>
+<h3 id="mathbb-R-n-中的向量"><a href="#mathbb-R-n-中的向量" class="headerlink" title="$\mathbb{R}^n$中的向量"></a>$\mathbb{R}^n$中的向量</h3><p>&emsp;&emsp;若$n$是正整数，则$\mathbb{R}^n$表示所有$n$个实数数列（或有序$n$元组）的集合，通常写成$n\times 1$列矩阵的形式，如：</p>
+<script type="math/tex; mode=display">
+u=\begin{bmatrix} u_1\\ u_2 \\ \vdots\\ u_n \end{bmatrix}</script><p>&emsp;&emsp;所有元素都是零的向量称为<strong>零向量</strong>，用<strong>0</strong>表示（<strong>0</strong>中元素的个数可由上下文确定）.<br>&emsp;&emsp;$\mathbb{R}^n$中向量相等以及向量加法与标量乘法运算类似于$\mathbb{R}^2$中的定义.向量运算有下列性质，它们可直接由实数的相应性质证明.</p>
+<blockquote>
+<p>$\mathbb{R}^n$<strong>中向量的代数性质</strong><br>对$\mathbb{R}^n$中一切向量$u,v,w$以及标量$c$和$d$：<br>(Ⅰ)&emsp;$u+v=v+u$<br>(Ⅱ)&emsp;$(u+v)+w=u+(v+w)$<br>(Ⅲ)&emsp;$u+0=0+u=u$<br>(Ⅳ)&emsp;$u+(-u)=-u+u=0$<br>(Ⅴ)&emsp;$c(u+v)=cu+cv$<br>(Ⅵ)&emsp;$(c+d)u=cu+du$<br>(Ⅶ)&emsp;$c(du)=(cd)u$<br>(Ⅷ)&emsp;$1u=u$</p>
+</blockquote>
+<h3 id="线性组合"><a href="#线性组合" class="headerlink" title="线性组合"></a>线性组合</h3><p>&emsp;&emsp;给定$\mathbb{R}^n$中的向量$v_1,v_2,\cdots,v_p$和标量$c_1,c_2,\cdots,c_p$，向量：</p>
+<script type="math/tex; mode=display">
+y=c_1v_1+\cdots +c_pv_p</script><p>称为向量$v_1,v_2,\cdots,v_p$以$c_1,c_2,\cdots,c_p$为<strong>权</strong>的<strong>线性组合</strong>.线性组合中的权可为任意实数，包括零.</p>
+<p><strong>例2</strong> 设$a_1=\begin{bmatrix} 1\\ -2 \\ -5 \\ \end{bmatrix},a_2=\begin{bmatrix} 2\\ 5 \\ 6 \\ \end{bmatrix},b=\begin{bmatrix} 7\\ 4 \\ -3 \\ \end{bmatrix}$，确定$b$能否写成$a_1$和$a_2$的线性组合，也就是说，确定是否存在权$x_1$和$x_2$使</p>
+<script type="math/tex; mode=display">
+x_1a_1+x_2a_2=b \tag{1}</script><p>若向量方程（1）有解，求它的解.<br>根据向量加法和标量乘法的定义有以下向量方程：</p>
+<script type="math/tex; mode=display">
+x_1\begin{bmatrix} 1 \\ -2 \\ -5 \end{bmatrix} + 
+x_2\begin{bmatrix} 2 \\ 5 \\ 6 \end{bmatrix} =
+\begin{bmatrix} 7 \\ 4 \\ -3 \end{bmatrix}</script><p>写成</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix} x_1+2x_2 \\ -2x_1+5x_2 \\ -5x_1+6x_2 \end{bmatrix} = 
+\begin{bmatrix} 7 \\ 4 \\ -3 \end{bmatrix} \tag{2}</script><p>（2）式左右两边的向量相等当且仅当它们的对应元素相等.即$x_1$和$x_2$满足向量方程（1）当且仅当$x_1$和$x_2$满足方程组</p>
+<script type="math/tex; mode=display">
+\left \{
+\begin{array}{c}
+x_1+2x_2=7 \\ \tag{3}
+-2x_1+5x_2=4 \\
+-5x_1+6x_2=-3
+\end{array}
+\right.</script><p>可以用行化简算法将上述线性方程组的增广矩阵化简：<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$\begin{bmatrix}<br>1&amp;2&amp;7 \\<br>-2&amp;5&amp;4\\<br>-5&amp;6&amp;-3<br>\end{bmatrix} \backsim<br>\begin{bmatrix}<br>1&amp;2&amp;7 \\<br>0&amp;9&amp;18\\<br>0&amp;16&amp;32<br>\end{bmatrix} \backsim<br>\begin{bmatrix}<br>1&amp;0&amp;3 \\<br>0&amp;1&amp;2\\<br>0&amp;0&amp;0<br>\end{bmatrix}<br>$<br>（3）的解是$x_1=3,x_2=2$，因此$b$是$a_1$与$a_2$的线性组合，权为$x_1=3$和$x_2=2$，即</p>
+<script type="math/tex; mode=display">
+3\begin{bmatrix} 1 \\ -2 \\ -5 \end{bmatrix} + 
+2\begin{bmatrix} 2 \\ 5 \\ 6 \end{bmatrix} =
+\begin{bmatrix} 7 \\ 4 \\ -3 \end{bmatrix}</script><p>可以将向量$a_1$，$a_2$和$b$进行行化简的增广矩阵列：</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+1&2&7 \\
+-2&5&4\\
+-5&6&-3
+\end{bmatrix}</script><p>为简洁起见，可以将此矩阵写成另外一种形式即：</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+a_1&a_2&b
+\end{bmatrix} \tag{4}</script><p>这样，由向量方程（1）可以直接写出增广矩阵而不必经过中间步骤.按照在（1）中出现的次序排列，就得到矩阵（4）.<br>&emsp;&emsp;由上述讨论可以得到以下结论.</p>
+<blockquote>
+<p>向量方程</p>
+<script type="math/tex; mode=display">x_1a_1+x_2a_2+\cdots +x_na_n=b</script><p>和增广矩阵为</p>
+<script type="math/tex; mode=display">\begin{bmatrix} a_1&a_2&\cdots &a_n&b \end{bmatrix} \tag{5}</script><p>的线性方程组有相同的解集.特别地，$b$可表示为$a_1,a_2,\cdots a_n$的线性组合当且仅当对应于（5）式的线性方程组有解.</p>
+</blockquote>
+<p>&emsp;&emsp;线性代数的一个主要思想是研究可以表示为某一固定向量集合$\lbrace v_1,v_2,\cdots,v_p \rbrace$的线性组合的所有向量.</p>
+<blockquote>
+<p><strong>定义</strong> 若$v_1,v_2,\cdots,v_p$是$\mathbb{R}^n$中的向量，则$v_1,v_2,\cdots,v_p$的所有线性组合所成的集合用记号$Span\lbrace v_1,v_2,\cdots,v_p \rbrace$表示，称为由$v_1,v_2,\cdots,v_p$所生成（或张成）的$\mathbb{R}^n$的子集.<br>$Span\lbrace v_1,v_2,\cdots,v_p \rbrace$是有所形如</p>
+<script type="math/tex; mode=display">c_1v_1+c_2v_2+\cdots +c_pv_p</script><p>的向量的集合，其中$c_1,c_2,\cdots,c_p$为标量.</p>
+</blockquote>
+<p>&emsp;&emsp;要判断向量$b$是否属于$Span\lbrace v_1,v_2,\cdots,v_p \rbrace$,就是判断向量方程</p>
+<script type="math/tex; mode=display">
+x_1v_1+x_2v_2+\cdots +x_pv_p=b</script><p>是否有解，或等价地，判断增广矩阵为$\begin{bmatrix} v_1&amp;v_2&amp;\cdots &amp;v_p&amp;b \end{bmatrix}$的线性方程组是否有解.<br>&emsp;&emsp;注意$Span\lbrace v_1,v_2,\cdots,v_p \rbrace$包含$v_1$的所有倍数，这是因为$cv_1=cv_1+0v_2+\cdots 0v_p$.特别地，它一定包含零向量.</p>
+<h3 id="Span-lbrace-v-rbrace-与-Span-lbrace-u，v-rbrace-的几何解释"><a href="#Span-lbrace-v-rbrace-与-Span-lbrace-u，v-rbrace-的几何解释" class="headerlink" title="$Span\lbrace v\rbrace$与$Span\lbrace u，v\rbrace$的几何解释"></a>$Span\lbrace v\rbrace$与$Span\lbrace u，v\rbrace$的几何解释</h3><p>&emsp;&emsp;设$v$是$\mathbb{R}^3$中的向量，那么$Span\lbrace v\rbrace$就是$v$的所有标量倍数的集合，也就是$\mathbb{R}^3$中通过$v$和$0$的直线上所有点的集合.<br>&emsp;&emsp;若$u$和$v$是$\mathbb{R}^3$中的非零向量，$v$不是$u$的倍数，则$Span\lbrace u,v\rbrace$是$\mathbb{R}^3$中包含$u,v$和$0$的平面.特别地，$Span\lbrace u,v\rbrace$包含$\mathbb{R}^3$中通过$u$和$0$的直线，也包含通过$v$与$0$的直线.</p>
+<p><strong>例3</strong> 设$a_1=\begin{bmatrix} 1\\ -2 \\ 3 \\ \end{bmatrix},a_2=\begin{bmatrix} 5 \\ -13 \\ -3 \\ \end{bmatrix},b=\begin{bmatrix} -3 \\ 8 \\ 1 \\ \end{bmatrix}$，则$Span\lbrace a_1,a_2\rbrace$是$\mathbb{R}^3$中通过原点的一个平面，问$b$是否在该平面内？<br>方程$x_1a_1+x_2a_2=b$是否有解，把增广矩阵$\begin{bmatrix} a_1&amp;a_2&amp;b \end{bmatrix}$进行化简：<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$\begin{bmatrix}<br>1&amp;5&amp;-3 \\<br>-2&amp;-13&amp;8 \\<br>3&amp;-3&amp;1<br>\end{bmatrix} \backsim<br>\begin{bmatrix}<br>1&amp;5&amp;-3 \\<br>0&amp;-3&amp;2 \\<br>0&amp;-18&amp;10<br>\end{bmatrix} \backsim<br>\begin{bmatrix}<br>1&amp;5&amp;-3 \\<br>0&amp;-3&amp;2 \\<br>0&amp;0&amp;-2<br>\end{bmatrix}<br>$<br>第3个方程为$0=-2$，说明方程组无解.向量方程$x_1a_1+x_2a_2=b$无解，故$b$不属于$Span\lbrace a_1,a_2\rbrace$.</p>
 
       
     </div>
@@ -483,7 +496,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/2021/08/24/Spring%E5%92%8CSpringBoot%E7%9B%B8%E5%85%B3%E6%B3%A8%E8%A7%A3/" title="Spring和SpringBoot相关注解">http://yoursite.com/2021/08/24/Spring%E5%92%8CSpringBoot%E7%9B%B8%E5%85%B3%E6%B3%A8%E8%A7%A3/</a>
+    <a href="http://yoursite.com/2023/09/24/%E5%90%91%E9%87%8F%E6%96%B9%E7%A8%8B/" title="向量方程">http://yoursite.com/2023/09/24/%E5%90%91%E9%87%8F%E6%96%B9%E7%A8%8B/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -498,7 +511,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/SpringBoot/" rel="tag"># SpringBoot</a>
+            <a href="/tags/Linear-Algebra/" rel="tag"># Linear_Algebra</a>
           
         </div>
       
@@ -511,8 +524,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/08/24/%E9%9B%86%E5%90%88%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" rel="next" title="集合常见问题">
-                <i class="fa fa-chevron-left"></i> 集合常见问题
+              <a href="/2023/09/21/%E8%A1%8C%E5%8C%96%E7%AE%80%E4%B8%8E%E9%98%B6%E6%A2%AF%E5%BD%A2%E7%9F%A9%E9%98%B5/" rel="next" title="行化简与阶梯形矩阵">
+                <i class="fa fa-chevron-left"></i> 行化简与阶梯形矩阵
               </a>
             
           </div>
@@ -520,10 +533,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/08/24/SpringBoot%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D%E5%8E%9F%E7%90%86/" rel="prev" title="SpringBoot自动装配原理">
-                SpringBoot自动装配原理 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -681,7 +690,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBootApplication"><span class="nav-number">1.</span> <span class="nav-text">@SpringBootApplication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Autowired"><span class="nav-number">2.</span> <span class="nav-text">@Autowired</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Component-Repository-Service-Controller"><span class="nav-number">3.</span> <span class="nav-text">@Component,@Repository,@Service, @Controller</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RestController"><span class="nav-number">4.</span> <span class="nav-text">@RestController</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Scope"><span class="nav-number">5.</span> <span class="nav-text">@Scope</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Configuration"><span class="nav-number">6.</span> <span class="nav-text">@Configuration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E8%AF%B7%E6%B1%82%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.</span> <span class="nav-text">5 种常见的请求类型:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PathVariable-%E5%92%8C-RequestParam"><span class="nav-number">8.</span> <span class="nav-text">@PathVariable 和 @RequestParam</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RequestBody"><span class="nav-number">9.</span> <span class="nav-text">@RequestBody</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"><span class="nav-number">10.</span> <span class="nav-text">读取配置信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#value"><span class="nav-number">11.</span> <span class="nav-text">@value</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConfigurationProperties"><span class="nav-number">12.</span> <span class="nav-text">@ConfigurationProperties</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PropertySource"><span class="nav-number">13.</span> <span class="nav-text">@PropertySource</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E5%A4%84%E7%90%86-Controller-%E5%B1%82%E5%BC%82%E5%B8%B8"><span class="nav-number">14.</span> <span class="nav-text">全局处理 Controller 层异常</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E5%90%91%E9%87%8F%E6%96%B9%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">1.3 向量方程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mathbb-R-2-%E4%B8%AD%E7%9A%84%E5%90%91%E9%87%8F"><span class="nav-number">1.1.</span> <span class="nav-text">$\mathbb{R}^2$中的向量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mathbb-R-2-%E7%9A%84%E5%87%A0%E4%BD%95%E8%A1%A8%E7%A4%BA"><span class="nav-number">1.2.</span> <span class="nav-text">$\mathbb{R}^2$的几何表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mathbb-R-3-%E4%B8%AD%E7%9A%84%E5%90%91%E9%87%8F"><span class="nav-number">1.3.</span> <span class="nav-text">$\mathbb{R}^3$中的向量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mathbb-R-n-%E4%B8%AD%E7%9A%84%E5%90%91%E9%87%8F"><span class="nav-number">1.4.</span> <span class="nav-text">$\mathbb{R}^n$中的向量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E7%BB%84%E5%90%88"><span class="nav-number">1.5.</span> <span class="nav-text">线性组合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Span-lbrace-v-rbrace-%E4%B8%8E-Span-lbrace-u%EF%BC%8Cv-rbrace-%E7%9A%84%E5%87%A0%E4%BD%95%E8%A7%A3%E9%87%8A"><span class="nav-number">1.6.</span> <span class="nav-text">$Span\lbrace v\rbrace$与$Span\lbrace u，v\rbrace$的几何解释</span></a></li></ol></li></ol></div>
             
 
           </div>
