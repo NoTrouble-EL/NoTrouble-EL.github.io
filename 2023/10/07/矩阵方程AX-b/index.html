@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-big-counter.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linear_Algebra," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.4 矩阵方程$Ax&#x3D;b$&amp;emsp;&amp;emsp;线性代数中一个基本的思想是把向量的线性组合看作矩阵与向量的积.  定义 若$A$是$m\times n$矩阵，它的各列为$a_1,\cdots,a_n$.若$x$是$\mathbb{R}^n$中的向量，则$A$与$x$的积（记为$Ax$）就是$A$的各列以$x$中对应元素为权的线性组合，即 Ax&#x3D;\begin{bmatrix} a_1&amp;a_2&amp;\">
+<meta property="og:type" content="article">
+<meta property="og:title" content="矩阵方程AX&#x3D;b">
+<meta property="og:url" content="http://yoursite.com/2023/10/07/%E7%9F%A9%E9%98%B5%E6%96%B9%E7%A8%8BAX-b/index.html">
+<meta property="og:site_name" content="NoTrouble&#39;s Blog">
+<meta property="og:description" content="1.4 矩阵方程$Ax&#x3D;b$&amp;emsp;&amp;emsp;线性代数中一个基本的思想是把向量的线性组合看作矩阵与向量的积.  定义 若$A$是$m\times n$矩阵，它的各列为$a_1,\cdots,a_n$.若$x$是$\mathbb{R}^n$中的向量，则$A$与$x$的积（记为$Ax$）就是$A$的各列以$x$中对应元素为权的线性组合，即 Ax&#x3D;\begin{bmatrix} a_1&amp;a_2&amp;\">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-10-07T14:06:44.000Z">
+<meta property="article:modified_time" content="2023-10-07T14:06:44.000Z">
+<meta property="article:author" content="NoTrouble">
+<meta property="article:tag" content="Linear_Algebra">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/10/07/矩阵方程AX-b/"/>
+
+
+
+
+
+  <title>矩阵方程AX=b | NoTrouble's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NoTrouble's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我们一路奋战，不是为了改变世界，而是为了不让世界改变我们</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-playlist">
+          <a href="/playlist/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-music"></i> <br />
+            
+            歌单
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/10/07/%E7%9F%A9%E9%98%B5%E6%96%B9%E7%A8%8BAX-b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoTrouble's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">矩阵方程AX=b</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-10-07T22:06:44+08:00">
+                2023-10-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linear-Algebra/" itemprop="url" rel="index">
+                    <span itemprop="name">Linear_Algebra</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-4-矩阵方程-Ax-b"><a href="#1-4-矩阵方程-Ax-b" class="headerlink" title="1.4 矩阵方程$Ax=b$"></a>1.4 矩阵方程$Ax=b$</h2><p>&emsp;&emsp;线性代数中一个基本的思想是把向量的线性组合看作矩阵与向量的积.</p>
+<blockquote>
+<p><strong>定义</strong> 若$A$是$m\times n$矩阵，它的各列为$a_1,\cdots,a_n$.若$x$是$\mathbb{R}^n$中的向量，则$A$与$x$的积（记为$Ax$）就是$A$<strong>的各列以</strong>$x$<strong>中对应元素为权的线性组合</strong>，即</p>
+<script type="math/tex; mode=display">Ax=\begin{bmatrix} a_1&a_2&\cdots &a_n \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\x_n \end{bmatrix} = x_1a_1+x_2a_2+\cdots+x_na_n</script></blockquote>
+<p>&emsp;&emsp;注意$Ax$仅当$A$的列数等于$x$中的元素个数时才有定义.</p>
+<span id="more"></span>
+<p><strong>例1</strong> 对$\mathbb{R}^n$中的$v_1,v_2,v_3$，把线性组合$3v_1-5v_2+7v_3$表示为矩阵向量相乘的形式.<br>把$v_1,v_2,v_3$排成矩阵$A$，把数$3,-5,7$排成向量$x$，即</p>
+<script type="math/tex; mode=display">3v_1-5v_2+7v_3=\begin{bmatrix} v_1&v_2&v_3 \end{bmatrix} \begin{bmatrix} 3 \\ -5 \\ 7 \end{bmatrix}=Ax</script><p>&emsp;&emsp;可以将线性方程组写成包含向量的线性组合的向量方程.例如：</p>
+<script type="math/tex; mode=display">\left \{
+\begin{array}{c}
+x_1+2x_2-x_3=4 \\ \tag{1}
+-5x_2+3x_3=1
+\end{array}
+\right.</script><p>等价于</p>
+<script type="math/tex; mode=display">
+x_1\begin{bmatrix} 1 \\ 0 \end{bmatrix} +
+x_2\begin{bmatrix} 2 \\ -5 \end{bmatrix} +
+x_3\begin{bmatrix} -1 \\ 3 \end{bmatrix} = 
+\begin{bmatrix} 4 \\ 1 \end{bmatrix} \tag{2}</script><p>也可以将方程左边的线性组合写成矩阵乘向量的形式，（2）成为</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix} 1&2&-1 \\ 
+0&-5&3 \end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = 
+\begin{bmatrix} 4 \\ 1 \end{bmatrix} \tag{3}</script><p>&emsp;&emsp;方程（3）有形式$Ax=b$，称这样的方程为<strong>矩阵方程</strong>，以区别于（2）式那样的向量方程.<br>&emsp;&emsp;注意（3）中的矩阵仅是方程（1）中的系数矩阵.任何线性方程组或类似（2）式的向量方程都可以写成等价的形式$Ax=b$的矩阵方程.</p>
+<blockquote>
+<p><strong>定理3</strong> 若$A$是$m\times n$矩阵，它的各列为$a_1,\cdots ,a_n$，而$b$属于$\mathbb{R}^m$，则矩阵方程</p>
+<script type="math/tex; mode=display">Ax=b \tag{4}</script><p>与向量方程</p>
+<script type="math/tex; mode=display">x_1a_1+x_2a_2+\cdots +x_na_n=b \tag{5}</script><p>有相同的解集.它又与增广矩阵为</p>
+<script type="math/tex; mode=display">\begin{bmatrix} a_1&a_2&\cdots&a_n&b \end{bmatrix} \tag{6}</script><p>的线性方程组有相同的解集.</p>
+</blockquote>
+<h3 id="解的存在性"><a href="#解的存在性" class="headerlink" title="解的存在性"></a>解的存在性</h3><p>&emsp;&emsp;$Ax$的定义直接导致下列有用的事实.</p>
+<blockquote>
+<p>方程$Ax=b$有解当且仅当$b$是$A$的各列的线性组合.</p>
+</blockquote>
+<p>&emsp;&emsp;在1.3节中，考虑了存在性问题，即“$b$是否属于$Span\lbrace a_1,\cdots ,a_n\rbrace?$”，等价地，“$Ax=b$是否相容？”.一个更困难的问题是要确定方程$Ax=b$对任意的$b$是否有解.</p>
+<p><strong>例2</strong> 设$A=\begin{bmatrix} 1&amp;3&amp;4 \\ -4&amp;2&amp;-6 \\ -3&amp;-2&amp;-7 \end{bmatrix},b=\begin{bmatrix} b_1 \\ b_2 \\ b_3 \end{bmatrix}$.方程$Ax=b$是否对一切可能$b_1,b_2,b_3$有解？</p>
+<p>将$Ax=b$的增广矩阵进行行化简：</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix} 1&3&4&b_1 \\ -4&2&-6&b_2 \\ -3&-2&-7&b_3 \end{bmatrix} \backsim
+\begin{bmatrix} 1&3&4&b_1 \\ 0&14&10&4b_1+b_2 \\ 0&7&5&3b_1+b_3 \end{bmatrix} \backsim
+\begin{bmatrix} 1&3&4&b_1 \\ 0&14&10&4b_1+b_2 \\ 0&0&0&b_1+b_3-\frac{1}{2}b_2 \end{bmatrix}</script><p>第4列的第3个元素为$b_1+b_3-\frac{1}{2}b_2$.方程$Ax=b$并不是对一切的$b$都相容，因为$b_1+b_3-\frac{1}{2}b_2$可能不为零.</p>
+<p>&emsp;&emsp;例2中的简化矩阵描述了使方程$Ax=b$相容的所有$b$的集合：$b$必须满足</p>
+<script type="math/tex; mode=display">b_1-\frac{1}{2}b_2+b_3=0</script><p>这是$\mathbb{R}^3$中一个通过原点的平面，这个平面就是$A$的3列所有线性组合的集合.</p>
+<p>&emsp;&emsp;例2中的方程$Ax=b$并非对所有的$b$都相容，这是因为$A$的阶梯形含有零行.假如A在所有三行都有主元素，就不必注意增广列的计算，因为这时增广矩阵的阶梯形不可能产生如$\begin{bmatrix} 0&amp;0&amp;0&amp;1 \end{bmatrix}$的行.<br>&emsp;&emsp;称“A的列生成$\mathbb{R}^m$”时，意思是说$\mathbb{R}^m$中的每个向量$b$都是$A$的列的线性组合.一般地，$\mathbb{R}^m$中向量集$Span\lbrace v_1,\cdots ,v_p\rbrace$<strong>生成</strong>$\mathbb{R}^m$的意思是，$\mathbb{R}^m$中的每个向量都是$v_1,\cdots ,v_p$的线性组合，即$Span \lbrace v_1,\cdots ,v_p\rbrace = \mathbb{R}^m$.</p>
+<blockquote>
+<p><strong>定理4</strong> 设$A$是$m\times n$矩阵，则下列命题是逻辑上等价的.也就是说，对某个$A$，它们都成立或者都不成立.<br>a.对$\mathbb{R}^m$中每个$b$，方程$Ax=b$有解.<br>b.$\mathbb{R}^m$中的每个$b$都是$A$的列的一个线性组合.<br>c.$A$的各列生成$\mathbb{R}^m$.<br>d.$A$在每一行都有一个主元位置.</p>
+</blockquote>
+<p>&emsp;&emsp;命题（a）、（b）和（c）等价是根据$Ax$的定义和一组向量生成$\mathbb{R}^m$空间的含义而得到的.再根据例2的讨论得到命题（a）和（d）等价.</p>
+<h3 id="Ax-的计算"><a href="#Ax-的计算" class="headerlink" title="$Ax$的计算"></a>$Ax$的计算</h3><p><strong>例3</strong> 计算$Ax$，其中$A=\begin{bmatrix} 2&amp;3&amp;4 \\ -1&amp;5&amp;-3 \\ 6&amp;-2&amp;8 \end{bmatrix},x=\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}$</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix} 2&3&4 \\ -1&5&-3 \\ 6&-2&8 \end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = 
+x_1 \begin{bmatrix} 2 \\ -1 \\ 6 \end{bmatrix} +
+x_2 \begin{bmatrix} 3 \\ 5 \\ -2 \end{bmatrix} +
+x_3 \begin{bmatrix} 4 \\ -3 \\ 8 \end{bmatrix}</script><script type="math/tex; mode=display">
+=\begin{bmatrix} 2x_1+3x_2+4x_3 \\ -x_1+5x_2-3x_3 \\ 6x_1-2x_2+8x_3 \end{bmatrix} \tag{7}</script><p>矩阵$Ax$的第一个元素是$A$的第一行与$x$中相应元素乘机之和（有时称为点积），即</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix} 2&3&4 \\  \\  \end{bmatrix} 
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = 
+\begin{bmatrix} 2x_1+3x_2+4x_3 \\  \\  \end{bmatrix}</script><p>此矩阵说明如何计算$Ax$中的第一个元素，而不必像（7）那样写出所有运算步骤.</p>
+<blockquote>
+<p><strong>计算$Ax$的行-向量规则</strong><br>若乘积$Ax$有定义，则$Ax$中的第$i$个元素是$A$的第$i$行元素与$x$的相应元素乘积之和.</p>
+</blockquote>
+<p><strong>例4</strong></p>
+<script type="math/tex; mode=display">
+a.
+\begin{bmatrix} 1&2&-1 \\ 0&-5&3 \end{bmatrix}
+\begin{bmatrix} 4 \\ 3 \\ 7 \\ \end{bmatrix} = 
+\begin{bmatrix} 1\cdot 4+2\cdot 3+(-1)\cdot 7 \\ 0\cdot 4+(-5)\cdot 3+3\cdot 7 \end{bmatrix} = 
+\begin{bmatrix} 3 \\ 6 \end{bmatrix}</script><script type="math/tex; mode=display">
+b.
+\begin{bmatrix} 2&-3 \\ 8&0 \\ -5&2 \end{bmatrix}
+\begin{bmatrix} 4 \\ 7 \\ \end{bmatrix} = 
+\begin{bmatrix} 2\cdot 4+(-3)\cdot 7 \\ 8\cdot 4+0\cdot 7 \\ (-5)\cdot 4+2\cdot 7 \end{bmatrix} = 
+\begin{bmatrix} -13 \\ 32 \\ -6 \end{bmatrix}</script><script type="math/tex; mode=display">
+c.
+\begin{bmatrix} 1&0&0 \\ 0&1&0 \\ 0&0&1 \end{bmatrix}
+\begin{bmatrix} r \\ s \\ t \\ \end{bmatrix} = 
+\begin{bmatrix} 1\cdot r+0\cdot s+0\cdot t \\ 0\cdot r+1\cdot s+0\cdot t \\ 0\cdot r+0\cdot s+1\cdot t \end{bmatrix} = 
+\begin{bmatrix} r \\ s \\ t \\ \end{bmatrix}</script><p>&emsp;&emsp;由定义，例4（c）中的矩阵的主对角线上元素为1，其它位置上元素为0，这个矩阵称为<strong>单位矩阵</strong>，并记为$I$.（c）中的计算说明，对任意$\mathbb{R}^3$中的$x$，$Ix=x$.类似地，有$n\times n$单位矩阵，有时记为$I_n$，如（c）中所示，对任意$\mathbb{R}^n$中的$x$，$I_nx=x$.</p>
+<h3 id="矩阵-向量积-Ax-的性质"><a href="#矩阵-向量积-Ax-的性质" class="headerlink" title="矩阵-向量积$Ax$的性质"></a>矩阵-向量积$Ax$的性质</h3><blockquote>
+<p><strong>定理5</strong> 若$A$是$m\times n$矩阵，$u$和$v$是$\mathbb{R}^n$中的向量，$c$是标量，则<br>a.$A(u+v)=Au+Av$.<br>b.$A(cu)=c(Au)$.</p>
+</blockquote>
+<p>&emsp;&emsp;为简单起见，取$n=3$，$A=\begin{bmatrix} a_1&amp;a_2&amp;a_3 \end{bmatrix}$，$u,v$为$\mathbb{R}^3$中的向量.对$i=1,2,3$，设$u_i$和$v_i$分别为$u$和$v$的第$i$个元素.为证明（a），把$A(u+v)$作为$A$的各列以$u+v$的各元素为权的线性组合来计算.</p>
+<script type="math/tex; mode=display">
+A(u+v)=
+\begin{bmatrix} a_1&a_2&a_3 \end{bmatrix}
+\begin{bmatrix} u_1+v_1 \\ u_2+v_2 \\ u_3+v_3 \end{bmatrix}=
+(u_1+v_1)a_1 + (u_2+v_2)a_2 + (u_3+v_3)a_3</script><script type="math/tex; mode=display">
+= (u_1a_1+u_2a_2+u_3a_3) + (v_1a_1+v_2a_2+v_3a_3)
+= Au+Av</script><p>为证明（b），把$A(cu)$作为A的各列以$cu$的各元素为权的线性组合来计算.</p>
+<script type="math/tex; mode=display">
+A(cu) = \begin{bmatrix} a_1&a_2&a_3 \end{bmatrix}
+\begin{bmatrix} cu_1 \\ cu_2 \\ cu_3 \end{bmatrix} = 
+(cu_1)a_1 + (cu_2)a_2 + (cu_3)a_3</script><script type="math/tex; mode=display">
+= c(u_1a_1) + c(u_2a_2) + c(u_3a_3)
+= c(u_1a_1 + u_2a_2 + u_3a_3)
+= c(Au)</script><p><strong>定理4的证明</strong> &emsp;&emsp;如定理4后面所指出的，命题（a）、（b）和（c）逻辑上等价.因此，只需证明命题（a）和（d）同时为真，或同时为假，就可以建立四个命题的等价性.<br>&emsp;&emsp;设$U$为$A$的阶梯形.给定$\mathbb{R}^m$中的$b$，可以把增广矩阵$\begin{bmatrix} A&amp;b \end{bmatrix}$行化简为增广矩阵$\begin{bmatrix} U&amp;d \end{bmatrix}$，$d$为$\mathbb{R}^m$中的某个向量.</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix} A&b \end{bmatrix} \backsim \cdots \backsim \begin{bmatrix} U&d \end{bmatrix}</script><p>&emsp;&emsp;若（d）成立，则$U$的每一行包含一个主元位置而在增广列中不可能有主元.故对任意$b$，$Ax=b$有解，（a）成立.若（d）不成立，则$U$的最后一行都是0.设$d$是最后一个元素为1的向量，于是$\begin{bmatrix} U&amp;d \end{bmatrix}$代表一个不相容的方程组.因行变换是可逆的，故$\begin{bmatrix} U&amp;d \end{bmatrix}$可变换为形如$\begin{bmatrix} A&amp;b \end{bmatrix}$的矩阵，所得方程组$Ax=b$也是不相容的，（a）也不成立.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    NoTrouble
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2023/10/07/%E7%9F%A9%E9%98%B5%E6%96%B9%E7%A8%8BAX-b/" title="矩阵方程AX=b">http://yoursite.com/2023/10/07/%E7%9F%A9%E9%98%B5%E6%96%B9%E7%A8%8BAX-b/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linear-Algebra/" rel="tag"># Linear_Algebra</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/09/24/%E5%90%91%E9%87%8F%E6%96%B9%E7%A8%8B/" rel="next" title="向量方程">
+                <i class="fa fa-chevron-left"></i> 向量方程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+    
+
+  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MDk0MC8yNzQyMg=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/wk.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">130</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/NoTrouble-EL" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wukun0221@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5clr89hn3fz&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;s=340" async="async"></script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-%E7%9F%A9%E9%98%B5%E6%96%B9%E7%A8%8B-Ax-b"><span class="nav-number">1.</span> <span class="nav-text">1.4 矩阵方程$Ax&#x3D;b$</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E7%9A%84%E5%AD%98%E5%9C%A8%E6%80%A7"><span class="nav-number">1.1.</span> <span class="nav-text">解的存在性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ax-%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="nav-number">1.2.</span> <span class="nav-text">$Ax$的计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5-%E5%90%91%E9%87%8F%E7%A7%AF-Ax-%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="nav-number">1.3.</span> <span class="nav-text">矩阵-向量积$Ax$的性质</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">NoTrouble</span>
+
+  
+</div>
+
+
+
+
+
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+  <script async src="/js/cursor/text.js"></script>
+
+
+</body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
